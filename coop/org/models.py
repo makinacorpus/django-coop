@@ -465,7 +465,7 @@ class BaseOrganization(URIModel):
 
     # ORDER : coop_geo must be loaded BEFORE coop_local
     if "coop_geo" in settings.INSTALLED_APPS:
-        located = generic.GenericRelation('coop_geo.Located')  # , related_name='located_org')
+        located = generic.GenericRelation('coop_local.Located')  # , related_name='located_org')
         framed = generic.GenericRelation('coop_geo.AreaLink')  # , related_name='framed_org')
 
     birth = models.DateField(_(u'creation date'), null=True, blank=True)
