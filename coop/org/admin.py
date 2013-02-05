@@ -16,7 +16,6 @@ from django.utils.safestring import mark_safe
 from django.contrib.contenttypes.generic import GenericTabularInline
 from sorl.thumbnail.admin import AdminImageMixin
 from tinymce.widgets import AdminTinyMCE
-from coop.agenda.admin import DatedInline
 
 from chosen import widgets as chosenwidgets
 
