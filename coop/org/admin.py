@@ -5,7 +5,7 @@ from django.conf import settings
 
 from django.db.models.loading import get_model
 from django.utils.translation import ugettext_lazy as _
-from coop.utils.autocomplete_admin import FkAutocompleteAdmin, InlineAutocompleteAdmin
+from coop.utils.autocomplete_admin import FkAutocompleteAdmin, InlineAutocompleteAdmin, GenericInlineAutocompleteAdmin
 from coop_local.models import Contact, Person, Location
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
@@ -13,7 +13,6 @@ from django.db.models import Q
 from django.contrib.admin.widgets import AdminURLFieldWidget
 from django.db.models import URLField
 from django.utils.safestring import mark_safe
-from django.contrib.contenttypes.generic import GenericTabularInline
 from sorl.thumbnail.admin import AdminImageMixin
 from tinymce.widgets import AdminTinyMCE
 
@@ -36,7 +35,7 @@ class URLFieldWidget(AdminURLFieldWidget):
                          u'.value);return false;" class="btn btn-mini"/>Afficher dans une nouvelle fenêtre</a>' % (widget, attrs['id']))
 
 
-class ContactInline(GenericTabularInline):
+class ContactInline(GenericInlineAutocompleteAdmin):
     model = get_model('coop_local', 'Contact')
     verbose_name = _(u'Contact information')
     verbose_name_plural = _(u'Contact informations')
@@ -50,8 +49,11 @@ class EngagementInline(InlineAutocompleteAdmin):
     verbose_name_plural = _(u'Members')
     fields = ('person', 'role', 'role_detail', 'org_admin', 'engagement_display')
 
-    related_search_fields = {'person': ('last_name', 'first_name',
-                                        'email', 'structure', 'username'), }
+    related_search_fields = {
+        'person': ('last_name', 'first_name', 'email', 'structure', 'username'),
+        'role': ('label', )
+    }
+    related_combobox = ('role', )
     extra = 2
 
 
@@ -70,7 +72,11 @@ class OrgInline(InlineAutocompleteAdmin):
     verbose_name_plural = _(u'Engagements')
     fields = ('organization', 'role', 'role_detail', 'engagement_display')
 
-    related_search_fields = {'organization': ('title', 'subtitle', 'acronym',), }
+    related_search_fields = {
+        'organization': ('title', 'subtitle', 'acronym',),
+        'role': ('label', ),
+    }
+    related_combobox = ('role', )
     extra = 1
 
 

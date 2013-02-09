@@ -165,6 +165,7 @@ INSTALLED_APPS = [
     'apptemplates',
     'scanredirect',
     'multisite',
+    'selectable',
 
 
     # WebID
@@ -382,6 +383,9 @@ LOGGING = {
     },
 
 }
+
+# Autocompletion
+SELECTABLE_MAX_LIMIT = 100
 
 # import default app settings from django-coop app
 

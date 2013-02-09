@@ -342,7 +342,7 @@ button#add-object{
 
 
 
-input#id_tags.ac_input{
+input#id_tags.ui-autocomplete-input {
     width: 600px;
     font-size: 12px;
 }
@@ -552,7 +552,7 @@ select[id$=-publication]{
 	width: 600px;
 }
 
-td.person .ac_input{
+td.person .ui-autocomplete-input{
 	width: 130px;
 }
 
@@ -626,7 +626,7 @@ input#id_label{
 	width: 600px;
 }
 
-.origin .ac_input{
+.origin .ui-autocomplete-input{
 	width: 500px;
 }
 .origin p.help{
@@ -634,11 +634,11 @@ input#id_label{
 }
 
 
-td.location .ac_input{
+td.location .ui-autocomplete-input{
 	width: 350px;
 }
 
-td.target .ac_input{
+td.target .ui-autocomplete-input{
 	width: 200px;
 }
 td.content .vTextField{
@@ -797,4 +797,12 @@ ul.as-list li{
 	font-size: 16px;
 	padding: 2px;
 
+}
+
+/* Makina */
+ .ui-autocomplete {
+    max-height: 200px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
 }

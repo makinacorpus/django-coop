@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 
 from django.contrib import admin
+from coop.utils.autocomplete_admin import register
 from coop_local.models import *
 from coop.person.admin import PersonAdmin
 from coop.org.admin import OrganizationAdmin
@@ -10,17 +11,17 @@ from django.conf import settings
 
 # -- Loading base models
 
-admin.site.register(LinkProperty)
-admin.site.register(Link)
-admin.site.register(Role)
-admin.site.register(PersonCategory)
-admin.site.register(Person, PersonAdmin)
-admin.site.register(Organization, OrganizationAdmin)
-admin.site.register(OrganizationCategory)
-admin.site.register(OrgRelationType)
-admin.site.register(SitePrefs, SitePrefsAdmin)
-admin.site.register(Location, LocationAdmin)
-admin.site.register(Area, AreaAdmin)
+register(LinkProperty)
+register(Link)
+register(Role)
+register(PersonCategory)
+register(Person, PersonAdmin)
+register(Organization, OrganizationAdmin)
+register(OrganizationCategory)
+register(OrgRelationType)
+register(SitePrefs, SitePrefsAdmin)
+register(Location, LocationAdmin)
+register(Area, AreaAdmin)
 
 if "coop.project" in settings.INSTALLED_APPS:
     from coop.project.admin import ProjectAdmin
