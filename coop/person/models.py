@@ -12,6 +12,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from coop.models import URIModel
 import rdflib
+from extended_choices import Choices
 
 # if "coop_geo" in settings.INSTALLED_APPS:
 #     from coop_local.models import Location
@@ -32,11 +33,16 @@ class BasePersonCategory(models.Model):
 
 from coop.org.models import DISPLAY
 
+GENDER = Choices(
+    ('M', 'M',  _(u'Mr')),
+    ('W', 'W',  _(u'Mrs')),
+)
 
 class BasePerson(URIModel):
     user = models.OneToOneField(User, blank=True, null=True, unique=True, verbose_name=_(u'django user'), editable=False)
     username = models.CharField(blank=True, max_length=100, unique=True)
     category = models.ManyToManyField('coop_local.PersonCategory', blank=True, null=True, verbose_name=_(u'category'))
+    gender = models.CharField(blank=True, max_length=1, choices=GENDER.CHOICES, verbose_name=_(u'gender'))
     last_name = models.CharField(_(u'last name'), max_length=100)
     first_name = models.CharField(_(u'first name'), max_length=100, null=True, blank=True)
     contacts = generic.GenericRelation('coop_local.Contact')

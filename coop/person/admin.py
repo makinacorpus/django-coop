@@ -57,7 +57,7 @@ class PersonAdmin(FkAutocompleteAdmin):
 
     fieldsets = (
         ('Identification', {
-            'fields': ['first_name', 'last_name', 'pref_email',
+            'fields': ['gender', 'first_name', 'last_name', 'pref_email',
                         ('location', 'location_display'),  # Using coop-geo
                         'category'
                         ],

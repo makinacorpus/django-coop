@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coop.Contact\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-03 10:10+0200\n"
+"POT-Creation-Date: 2013-02-12 16:16+0100\n"
 "PO-Revision-Date: 2012-07-03 10:11+0100\n"
 "Last-Translator: Dominique Guardiola <dguardiola@quinode.fr>\n"
 "Language-Team: Quinode <contact@quinode.fr>\n"
@@ -39,69 +39,84 @@ msgstr "Adresse e-mail"
 msgid "your personal email"
 msgstr "email personnel"
 
-#: models.py:25
+#: models.py:27
 msgid "Person category"
 msgstr "Catégorie de personnes"
 
-#: models.py:26
+#: models.py:28
 msgid "Person categories"
 msgstr "Catégories de personnes"
 
-#: models.py:35
+#: models.py:37
+msgid "Mr"
+msgstr "M."
+
+#: models.py:38
+msgid "Mrs"
+msgstr "Mme"
+
+#: models.py:42
 msgid "django user"
 msgstr "compte actif"
 
-#: models.py:39
+#: models.py:44
 msgid "category"
 msgstr "catégorie"
 
-#: models.py:40
+#: models.py:45
+msgid "gender"
+msgstr "genre"
+
+#: models.py:46
 msgid "last name"
 msgstr "nom"
 
-#: models.py:41
+#: models.py:47
 msgid "first name"
 msgstr "prénom"
 
-#: models.py:43
+#: models.py:49
 msgid "personal email"
 msgstr "email personnel"
 
-#: models.py:43
-msgid "will not be displayed on the website"
-msgstr "ne sera pas affiché sur le site web"
-
-#: models.py:44
-msgid "email checksum"
-msgstr "somme de controle "
-
-#: models.py:45
+#: models.py:50
 msgid "notes"
 msgstr "notes"
 
-#: models.py:51
+#: models.py:53
+msgid "preferred email"
+msgstr "email préféré"
+
+#: models.py:56
+msgid "will not be displayed on the website"
+msgstr "ne sera pas affiché sur le site web"
+
+#: models.py:65
 msgid "location"
 msgstr "lieu"
 
-#: models.py:52
+#: models.py:66
 msgid "Display"
 msgstr "Affichage"
 
-#: models.py:56
+#: models.py:70
 msgid "Person"
 msgstr "Personne"
 
-#: models.py:57
+#: models.py:71
 msgid "Persons"
 msgstr "Personnes"
 
-#: models.py:70
+#: models.py:84
 msgid "django account"
 msgstr "compte django"
 
-#: models.py:75
+#: models.py:89
 msgid "has organization"
 msgstr "membre collectif"
+
+#~ msgid "email checksum"
+#~ msgstr "somme de controle "
 
 #~ msgid "created"
 #~ msgstr "création"
@@ -147,6 +162,3 @@ msgstr "membre collectif"
 
 #~ msgid "Member"
 #~ msgstr "membre"
-
-#~ msgid "Members"
-#~ msgstr "membres"
