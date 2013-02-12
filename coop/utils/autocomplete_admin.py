@@ -21,15 +21,17 @@ class EditMixin(object):
     def __init__(self, rel, admin_site, *args, **kwargs):
         self.rel = rel
         self.admin_site = admin_site
+        self.can_change_related = kwargs.pop('can_change_related', False)
         return super(EditMixin, self).__init__(*args, **kwargs)
 
     def render(self, name, value, attrs=None):
-        rel_to = self.rel.to
-        info = (rel_to._meta.app_label, rel_to._meta.object_name.lower())
-        related_url = reverse('admin:%s_%s_change' % info, args=[0], current_app=self.admin_site.name)
         markup = super(EditMixin, self).render(name, value, attrs)
-        markup += u'&nbsp;<a href="%s" class="changelink" id="change_id_%s" onclick="return showChangePopup(this);">' % (related_url, name)
-        markup += u'<img src="%s"></a>' % static('admin/img/icon_changelink.gif')
+        if self.can_change_related:
+            rel_to = self.rel.to
+            info = (rel_to._meta.app_label, rel_to._meta.object_name.lower())
+            related_url = reverse('admin:%s_%s_change' % info, args=[0], current_app=self.admin_site.name)
+            markup += u'&nbsp;<a href="%s" class="changelink" id="change_id_%s" onclick="return showChangePopup(this);">' % (related_url, name)
+            markup += u'<img src="%s"></a>' % static('admin/img/icon_changelink.gif')
         return mark_safe(markup)
 
 
@@ -51,6 +53,11 @@ class SelectableAdminMixin(object):
     related_combobox = ()
 
     def formfield_for_dbfield(self, db_field, **kwargs):
+        if isinstance(db_field, models.ForeignKey):
+            request = kwargs.get("request")
+            related_modeladmin = self.admin_site._registry.get(db_field.rel.to)
+            can_change_related = bool(related_modeladmin and
+                        related_modeladmin.has_add_permission(request))
         if (isinstance(db_field, models.ForeignKey) and
             db_field.name in self.related_search_fields):
             class_name = self.__class__.__name__.lower()
@@ -75,11 +82,14 @@ class SelectableAdminMixin(object):
             except LookupAlreadyRegistered:
                 pass
             if db_field.name in self.related_combobox:
-                kwargs['widget'] = AutoComboboxSelectEditWidget(db_field.rel, self.admin_site, Lookup)
+                kwargs['widget'] = AutoComboboxSelectEditWidget(db_field.rel,
+                    self.admin_site, Lookup, can_change_related=can_change_related)
             else:
-                kwargs['widget'] = AutoCompleteSelectEditWidget(db_field.rel, self.admin_site, Lookup)
+                kwargs['widget'] = AutoCompleteSelectEditWidget(db_field.rel,
+                    self.admin_site, Lookup, can_change_related=can_change_related)
         elif isinstance(db_field, models.ForeignKey):
-            kwargs['widget'] = SelectEditWidget(db_field.rel, self.admin_site)
+            kwargs['widget'] = SelectEditWidget(db_field.rel, self.admin_site,
+                can_change_related=can_change_related)
         return super(SelectableAdminMixin, self).formfield_for_dbfield(db_field, **kwargs)
 
     def response_change(self, request, obj):
