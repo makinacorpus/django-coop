@@ -87,9 +87,9 @@ class SelectableAdminMixin(object):
             else:
                 kwargs['widget'] = AutoCompleteSelectEditWidget(db_field.rel,
                     self.admin_site, Lookup, can_change_related=can_change_related)
-        elif isinstance(db_field, models.ForeignKey):
-            kwargs['widget'] = SelectEditWidget(db_field.rel, self.admin_site,
-                can_change_related=can_change_related)
+        #elif isinstance(db_field, models.ForeignKey):
+            #kwargs['widget'] = SelectEditWidget(db_field.rel, self.admin_site,
+                #can_change_related=can_change_related)
         return super(SelectableAdminMixin, self).formfield_for_dbfield(db_field, **kwargs)
 
     def response_change(self, request, obj):
