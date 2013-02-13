@@ -221,10 +221,13 @@ i[class^="icon-"]{
 	margin-left: -2px;
 }
 
-div.controls input:not([name=logo]){
+div.controls input:not([name=logo]):not([type='checkbox']){
 	float: left;
 }
 
+label.control-label {
+        display: inline;
+}
 
 div.controls{
 	position: relative;
