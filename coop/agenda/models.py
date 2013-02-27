@@ -141,7 +141,7 @@ class BaseEvent(URIModel):
 
     if "coop_geo" in settings.INSTALLED_APPS:
         from django.contrib.gis.db import models as geomodels
-        located = generic.GenericRelation('coop_geo.Located')  # , related_name='located_org')
+        located = generic.GenericRelation('coop_local.Located')  # , related_name='located_org')
         framed = generic.GenericRelation('coop_geo.AreaLink')  # , related_name='framed_org')
         geom_manager = geomodels.GeoManager()
         pref_address = models.ForeignKey('coop_local.Location',
