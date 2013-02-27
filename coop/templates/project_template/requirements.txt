@@ -12,7 +12,7 @@ git+git://github.com/credis/coop-colorbox.git
 git+git://github.com/credis/djaloha.git
 git+git://github.com/credis/coop-bar.git
 git+git://github.com/credis/coop-tag.git
-git+git://github.com/credis/coop-geo.git
+git+git://github.com/makinacorpus/coop-geo@master#egg=coop-geo
 git+git://github.com/credis/coop_cms.git
 
 # django-scanredirect
@@ -106,3 +106,5 @@ git+git://github.com/rhec/pyelasticsearch.git
 git+git://github.com/quinode/django-haystack.git
 git+git://github.com/quinode/haystackES-fr.git
 {% endif %}
+
+git+git://github.com/makinacorpus/django-selectable.git@master#egg=django-selectable
