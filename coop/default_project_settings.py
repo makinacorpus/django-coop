@@ -199,9 +199,6 @@ INSTALLED_APPS = [
     'colorbox',
     'coop_bar',
     'pagination',
-    
-    #ionyweb
-    'ionyweb',
 
     #ionyweb
     'ionyweb',
