@@ -200,6 +200,9 @@ INSTALLED_APPS = [
     'coop_bar',
     'pagination',
 
+    #ionyweb
+    'ionyweb',
+
 ]
 
 COOP_BAR_MODULES = [
