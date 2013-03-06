@@ -6,7 +6,6 @@ from django.conf import settings
 from coop.feeds import UpdateFeed
 from django.contrib.sites.models import Site
 
-
 class TextPlainView(TemplateView):
     def render_to_response(self, context, **kwargs):
         return super(TextPlainView, self).render_to_response(
@@ -42,6 +41,8 @@ urlpatterns = patterns('',
     url(r'^geojson/(?P<model>[\w-]+)', 'coop.views.geojson'),
     url(r'^geojson/', 'coop.views.geojson_amap'),
 
+    # Ionyweb
+    #url(r'^ionyweb/', include('ionyweb.urls')),
 )
 
 if 'coop.exchange' in settings.INSTALLED_APPS:
@@ -82,4 +83,9 @@ if 'haystack' in settings.INSTALLED_APPS:
 
 urlpatterns += patterns('',
     (r'^', include('coop_cms.urls')),
+)
+
+# Ionyweb
+urlpatterns += patterns('',
+    (r'^ionyweb/', include('ionyweb.urls')),
 )

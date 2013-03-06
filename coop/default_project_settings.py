@@ -45,6 +45,8 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'ionyweb.loaders.layouts_finders.StaticFinder',
+    'ionyweb.loaders.themes_finders.StaticFinder',
 ]
 
 
@@ -58,7 +60,8 @@ TEMPLATE_LOADERS = [
     'django.template.loaders.app_directories.Loader',
 #     'django.template.loaders.eggs.Loader',
     'apptemplates.Loader',
-
+    'ionyweb.loaders.layouts_templates.Loader',
+    'ionyweb.loaders.themes_templates.Loader',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -74,7 +77,9 @@ MIDDLEWARE_CLASSES = [
     #'django_webid.auth.middleware.WEBIDAuthMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'coop.utils.middleware.CORSMiddleware',
-    'pagination.middleware.PaginationMiddleware',
+#    'pagination.middleware.PaginationMiddleware',
+    'ionyweb.website.middleware.ProvideWebSiteMiddleware',
+    'ionyweb.website.middleware.PreamptiveWebSiteMiddleware',      
 ]
 
 TEMPLATE_CONTEXT_PROCESSORS = [
@@ -198,11 +203,52 @@ INSTALLED_APPS = [
     'coop_cms.apps.rss_sync',
     'colorbox',
     'coop_bar',
-    'pagination',
+#    'pagination',
 
     #ionyweb
     'ionyweb',
 
+    
+    'django.contrib.sitemaps',
+    'grappelli',
+    'django.contrib.admindocs',
+    'tinymce',
+    'mptt',
+    'floppyforms',
+    'south',
+    'sekizai',
+    'djangorestframework',
+    'less',
+    
+    'ionyweb.administration',
+    'ionyweb.authentication',
+    'ionyweb.design',
+    'ionyweb.file_manager',
+    'ionyweb.website',
+    'ionyweb.page',
+    'ionyweb.plugin',
+
+    # Apps
+    'ionyweb.page_app.page_text',
+    'ionyweb.page_app.page_blog',
+    'ionyweb.page_app.page_redirect',
+    'ionyweb.page_app.page_agenda',
+    'ionyweb.page_app.page_book',
+    'ionyweb.page_app.page_gallery_images',
+    'ionyweb.page_app.page_sitemap',
+    
+    # Plugins
+    'ionyweb.plugin_app.plugin_text',
+    'ionyweb.plugin_app.plugin_image',
+    'ionyweb.plugin_app.plugin_website_title',
+    'ionyweb.plugin_app.plugin_video',
+    'ionyweb.plugin_app.plugin_map',
+    'ionyweb.plugin_app.plugin_links_list',
+    'ionyweb.plugin_app.plugin_blog_entries_list',
+    'ionyweb.plugin_app.plugin_contact',
+    'ionyweb.plugin_app.plugin_fb_likebox',
+    'ionyweb.plugin_app.plugin_breadcrumb',
+    'ionyweb.plugin_app.plugin_slideshow',    
 ]
 
 COOP_BAR_MODULES = [
@@ -390,9 +436,146 @@ LOGGING = {
 # Autocompletion
 SELECTABLE_MAX_LIMIT = 100
 
+
 # import default app settings from django-coop app
 
 try:
     from coop.settings import *
 except ImportError, exp:
     raise ImproperlyConfigured("Unable to find settings.py file from django-coop")
+
+    
+# import ionyweb settings
+
+#try:
+#    from ionyweb.settings import *
+#except ImportError, exp:
+#    raise ImproperlyConfigured("Unable to find settings.py file from ionyweb")
+
+from ionyweb import get_ionyweb_path
+
+
+SITE_NAME = "promess84"
+
+TINYMCE_JS_URL = os.path.join(STATIC_URL, "tiny_mce/tiny_mce_src.js")
+TINYMCE_JS_ROOT = os.path.join(get_ionyweb_path(), 'static', "tiny_mce")
+
+TINYMCE_COMPRESSOR = True
+TINYMCE_SPELLCHECKER = True
+TINYMCE_FILEBROWSER = False
+TINYMCE_DEFAULT_CONFIG = {
+    'plugins': "table,spellchecker,filemanager,paste,searchreplace,inlinepopups",
+    'theme': "advanced",
+    'theme_advanced_buttons1' : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,formatselect,fontsizeselect,|,forecolor,backcolor,|,bullist,numlist,|,outdent,indent,|,sub,sup,|,charmap,emotions,separator,forecolor,backcolor",
+    'theme_advanced_buttons2' : "pastetext,pasteword,selectall,|,undo,redo,|,link,unlink,anchor,image,filemanager,code,|,tablecontrols,|,fullscreen",
+    'theme_advanced_buttons3' : "",
+    'relative_urls': False
+}
+
+
+#----------------------
+# RENDERING PAGE ENGINE
+#----------------------
+RESTRICTED_THEMES = []
+
+SLUG_PLACEHOLDER = 'placeholder'
+SLUG_PLUGIN = 'plugin-relation'
+SLUG_APP = 'app'
+SLUG_CONTENT = 'content'
+SLUG_DEFAULT = 'default'
+SLUG_CLIPBOARD = 'clipboard'
+SLUG_LAYOUT = 'layout'
+SLUG_SEP = '-'
+
+HTML_ID_PLACEHOLDER = '%s%s%s' % (SLUG_SEP, SLUG_PLACEHOLDER, SLUG_SEP)
+HTML_ID_PLACEHOLDER_CONTENT = '%s%s' % (SLUG_CONTENT, HTML_ID_PLACEHOLDER)
+HTML_ID_PLACEHOLDER_DEFAULT = '%s%s%s' % (SLUG_DEFAULT, SLUG_SEP, SLUG_PLACEHOLDER)
+HTML_ID_PLACEHOLDER_CLIPBOARD = '%s%s%s' % (SLUG_CLIPBOARD, SLUG_SEP, SLUG_PLACEHOLDER)
+HTML_ID_APP = '%s%s' % (SLUG_APP, SLUG_SEP)
+HTML_ID_PLUGIN = '%s%s' % (SLUG_PLUGIN, SLUG_SEP)
+HTML_ID_LAYOUT = '%s%s' % (SLUG_LAYOUT, SLUG_SEP)
+HTML_ID_NAV = 'nav'
+
+TEMPLATE_PLACEHOLDER_DEFAULT = 'layout/placeholder-default.html'
+TEMPLATE_PLACEHOLDER_CLIPBOARD = 'layout/clipboard.html'
+TEMPLATE_PLACEHOLDER = 'layout/placeholder.html'
+TEMPLATE_APP = 'layout/placeholder-app.html'
+TEMPLATE_PLUGIN = 'layout/plugin.html'
+TEMPLATE_NAV_DEFAULT = 'navigation.html'
+TEMPLATE_MAINTENANCE_DEFAULT = 'maintenance.html'
+TEMPLATE_THEME_FILE_DEFAULT = 'index.html'
+LAYOUT_DEFAULT = '100'
+
+#------------------
+# PAGE APP URL CONF
+#------------------
+SLUG_MIN_SIZE = 4
+URL_PAGE_APP_SEP = u'p'
+URL_ADMIN_SEP = u'wa'
+
+ACTION_ADMIN_LIST_SUFFIX = '_list'
+ACTION_ADMIN_ORDER_SLUG = '_order'
+ADMIN_THEME = 'snow' # 'snow' || 'dark' || ... Will import ionyweb_admin_***.less
+
+SITEMAP_INDEX = False
+
+# ----------------
+# PLUGINS SETTINGS
+# ----------------
+BREADCRUMB_PLUGIN = 'ionyweb.plugin_app.plugin_breadcrumb'
+BREADCRUMB_OBJECT_TITLE = 'breadcrumb_object_title'
+
+INPUT_FORMATS = ['%d/%m/%Y %H:%M', '%d-%m-%Y %H:%M']
+
+# ---------------
+# WEBSITE DOMAINS
+# ---------------
+RESTRICTED_DOMAINS = []
+
+# ------------
+# FILE MANAGER
+# ------------
+EXTENSIONS = {
+    'Folder': [''],
+    'Image': ['jpg','jpeg','gif','png'],
+    'Audio': ['mpeg'],
+    'Document': ['pdf','doc','xls','odt', 'ods', 'rtf','txt','csv'],
+    'Archive': ['zip', 'rar', 'tar', 'tar.gz', '7z'],
+    'Others': [],
+    #'Video': ['.mov','.wmv','.mpeg','.mpg','.avi','.rm'],
+    #'Audio': ['.mp3','.mp4','.wav','.aiff','.midi','.m4p']
+}
+DISPLAY_MODE = (
+    (u"I", u"Icons"),
+    (u"D", u"Details"),
+    (u"L", u"Lists"),
+)
+
+VERSIONS = {
+    'admin_thumbnail': {'verbose_name': 'Admin Thumbnail', 'width': 60, 'height': 60, 'opts': 'crop'},
+    'thumbnail': {'verbose_name': 'Thumbnail (1 col)', 'width': 60, 'height': 60, 'opts': 'crop'},
+    'small': {'verbose_name': 'Small (2 col)', 'width': 140, 'height': '', 'opts': ''},
+    'medium': {'verbose_name': 'Medium (4col )', 'width': 300, 'height': '', 'opts': ''},
+    'big': {'verbose_name': 'Big (6 col)', 'width': 460, 'height': '', 'opts': ''},
+    'large': {'verbose_name': 'Large (8 col)', 'width': 680, 'height': '', 'opts': ''},
+    'croppedthumbnail': {'verbose_name': 'Cropped Thumbnail (300x200px)', 'width': 300, 'height': 200, 'opts': 'crop upscale'},
+    'croppedthumb': {'verbose_name': 'Cropped Thumbnail (140x100px)', 'width': 140, 'height': 100, 'opts': 'crop upscale'},
+    'croppedbig': {'verbose_name': 'Cropped big (450x323)', 'width': '', 'height': 323, 'opts': 'crop upscale'},
+}
+
+ADMIN_THUMBNAIL = 'admin_thumbnail'
+VERSION_QUALITY = 90
+IMAGE_MAXBLOCK = 1024*1024
+FILE_MANAGER_QUOTA = "1073741824" #1024^3b = 1Gb
+
+
+
+
+
+
+
+
+
+
+
+

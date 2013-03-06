@@ -2,7 +2,7 @@
 
 class GEOFLARouter(object):
 
-    def db_for_read(self, model, **hints):
+    def db_for_read(self, model, **hints): 
         if model._meta.app_label == 'geodjangofla':
             return 'geofla_db'
         else:
@@ -30,3 +30,4 @@ class GEOFLARouter(object):
 
 
 DATABASE_ROUTERS = ['coop.db_settings.GEOFLARouter']
+
