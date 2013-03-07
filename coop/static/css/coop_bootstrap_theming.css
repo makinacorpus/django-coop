@@ -803,9 +803,30 @@ ul.as-list li{
 }
 
 /* Makina */
- .ui-autocomplete {
+
+.ui-autocomplete {
     max-height: 200px;
     overflow-y: auto;
     /* prevent horizontal scrollbar */
     overflow-x: hidden;
+}
+
+.selectable-deck {
+    clear: both;
+}
+
+.selectable-deck-item {
+    line-height: 25px;
+}
+
+.selectable-deck-remove a {
+    padding: 0px;
+}
+
+.selectable-deck-remove .ui-icon {
+    margin: 0px;
+}
+
+.selectable-deck-remove .ui-button-icon-only {
+    width: auto;
 }
