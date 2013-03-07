@@ -1,18 +1,5 @@
 =====================================
 
-Intégration de ionyweb dans django-coop:
-----------------------------------------
-
-git clone https://github.com/makinacorpus/django-coop
-
-cd ~/projects/django-coop
-export DJANGO_COOP_IONYWEB_PROJECT=`pwd`
-
-vi $DJANGO_COOP_IONYWEB_PROJECT/coop/templates/project_template/requirements.txt
-
-et pour rajouter l'app à INSTALLED_APPS c'est ici : 
-vi $DJANGO_COOP_IONYWEB_PROJECT/coop/default_project_settings.py
-
 
 ============
 Installation
