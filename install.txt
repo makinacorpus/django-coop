@@ -1,0 +1,177 @@
+=====================================
+
+Intégration de ionyweb dans django-coop:
+----------------------------------------
+
+git clone https://github.com/makinacorpus/django-coop
+
+cd /home/sbe/projects/django-coop
+export DJANGO_COOP_IONYWEB_PROJECT=`pwd`
+
+vi $DJANGO_COOP_IONYWEB_PROJECT/coop/templates/project_template/requirements.txt
+
+et pour rajouter l'app à INSTALLED_APPS c'est ici : 
+vi $DJANGO_COOP_IONYWEB_PROJECT/coop/default_project_settings.py
+
+
+============
+Installation
+============
+# https://github.com/credis/django-coop/wiki/Installation
+
+cd /home/sbe/projects/promess84
+virtualenv --no-site-packages .
+export DJANGO_COOP_IONYWEB_PROJECT=`pwd`
+source $DJANGO_COOP_IONYWEB_PROJECT/bin/activate
+
+pip install django==1.4
+pip install -e git+git://github.com/makinacorpus/django-coop@django-coop-ionyweb#egg=django-coop
+
+
+coop-admin.py startproject promess84 --domain www.exemple.com --redis_port 6379
+# (Le fait de créer le projet avec coop-admin, fait que si je modifie les sources dans src/django-coop, il faudra que je recrée derrière le projet, ou alors je bidouille)
+
+
+easy_install -U distribute
+pip install -r promess84/requirements.txt
+
+
+pip install django-selectable # temporaire, car il manquait dans le requirements.txt
+pip install simplejson
+
+pip uninstall coop-geo
+rm -rf ls ../lib/python2.7/site-packages/coop_geo/
+rm -rf ls ../lib/python2.7/site-packages/coop_geo-0.2.0-py2.7.egg-info/
+rm -rf ls ../lib/python2.7/site-packages/coop-geo.egg-link
+pip install -e git+git://github.com/makinacorpus/coop-geo@master#egg=coop-geo
+
+
+
+cd promess84
+
+# Créer la base de données
+# Editer le fichier coop_local/local_settings.py
+# Editer le fichier coop_local/db_settings.py
+
+sudo chmod -R g+rw media
+chmod +x manage.py 
+./manage.py collectstatic
+
+python manage.py syncdb --all
+python manage.py migrate --fake
+python manage.py convert_to_south coop_local
+./manage.py loaddata coop_local/fixtures/*
+
+
+ionyweb:
+--------
+cd /home/sbe/projects/promess84/promess84/
+git clone ssh://sbe@cgit.makina-corpus.net/var/git/promess84.git promess84_ionyweb
+
+# For ionyweb 
+pip uninstall django-tinymce
+pip install django-tinymce==1.5.1b2
+
+
+# Dans /home/sbe/projects/promess84/src/django-coop/coop/urls.py
+# Rajouter le lien vers les urls de ionyweb
+    url(r'^ionyweb/', include('ionyweb.urls')),
+
+
+Dans default_project_settings.py, rajouter :
+    try:
+        from ionyweb.settings import *
+    except ImportError, exp:
+        raise ImproperlyConfigured("Unable to find settings.py file from ionyweb")
+
+
+Relancer la synchro (pour ionyweb)
+
+python manage.py syncdb
+python manage.py migrate
+
+
+
+=====================================
+Lancement :
+cd /home/sbe/projects/promess84
+export DJANGO_COOP_IONYWEB_PROJECT=`pwd`
+source $DJANGO_COOP_IONYWEB_PROJECT/bin/activate
+cd promess84
+./manage.py runserver
+
+
+
+
+
+ok, en gros il devrait suffire de :
+- rajouter les dépendances qui manquent dans le fichier templates/project_template/requirements.txt de l'app django-coop
+- d'intégrer les settings spécifiques dans le fichier coop/default_project_settings.py de l'app django-coop
+- probablement de configurer quelque chose au niveau des url
+- copier layouts et themes quelque part dans le projet django-coop également
+et pour le reste la procédure d'install de django-coop devrait convenir
+il faut aussi 
+Tabledjango_site? :
+
+Export des données ionyweb:
+
+cd ~/projects/ionyweb/promess84$
+python manage.py dumpdata file_manager             > /home/sbe/tmp/file_manager.json
+python manage.py dumpdata page                     > /home/sbe/tmp/page.json
+python manage.py dumpdata page_agenda              > /home/sbe/tmp/page_agenda.json
+python manage.py dumpdata page_blog                > /home/sbe/tmp/page_blog.json
+python manage.py dumpdata page_book                > /home/sbe/tmp/page_book.json
+python manage.py dumpdata page_gallery_images      > /home/sbe/tmp/page_gallery_images.json
+python manage.py dumpdata page_redirect            > /home/sbe/tmp/page_redirect.json
+python manage.py dumpdata page_sitemap             > /home/sbe/tmp/page_sitemap.json
+python manage.py dumpdata page_text                > /home/sbe/tmp/page_text.json
+python manage.py dumpdata plugin                   > /home/sbe/tmp/plugin.json
+python manage.py dumpdata plugin_blog_entries_list > /home/sbe/tmp/plugin_blog_entries_list.json
+python manage.py dumpdata plugin_breadcrumb        > /home/sbe/tmp/plugin_breadcrumb.json
+python manage.py dumpdata plugin_contact           > /home/sbe/tmp/plugin_contact.json
+python manage.py dumpdata plugin_fb_likebox        > /home/sbe/tmp/plugin_fb_likebox.json
+python manage.py dumpdata plugin_image             > /home/sbe/tmp/plugin_image.json
+python manage.py dumpdata plugin_links_list        > /home/sbe/tmp/plugin_links_list.json
+python manage.py dumpdata plugin_map               > /home/sbe/tmp/plugin_map.json
+python manage.py dumpdata plugin_slideshow         > /home/sbe/tmp/plugin_slideshow.json
+python manage.py dumpdata plugin_text              > /home/sbe/tmp/plugin_text.json
+python manage.py dumpdata plugin_video             > /home/sbe/tmp/plugin_video.json
+python manage.py dumpdata plugin_website_title     > /home/sbe/tmp/plugin_website_title.json
+python manage.py dumpdata south                    > /home/sbe/tmp/south.json
+python manage.py dumpdata website                  > /home/sbe/tmp/website.json
+
+
+Import des données ionyweb :
+cd ~/projects/promess84/promess84$
+./manage.py loaddata /home/sbe/tmp/file_manager.json
+./manage.py loaddata /home/sbe/tmp/page.json      
+./manage.py loaddata /home/sbe/tmp/plugin.json            
+./manage.py loaddata /home/sbe/tmp/plugin_links_list.json     
+./manage.py loaddata /home/sbe/tmp/plugin_video.json
+./manage.py loaddata /home/sbe/tmp/page_agenda.json
+./manage.py loaddata /home/sbe/tmp/page_redirect.json      
+./manage.py loaddata /home/sbe/tmp/plugin_contact.json  
+./manage.py loaddata /home/sbe/tmp/plugin_map.json          
+./manage.py loaddata /home/sbe/tmp/plugin_website_title.json
+./manage.py loaddata /home/sbe/tmp/page_sitemap.json 
+./manage.py loaddata /home/sbe/tmp/plugin_fb_likebox.json
+./manage.py loaddata /home/sbe/tmp/plugin_fb_likebox.json
+./manage.py loaddata /home/sbe/tmp/page_book.json         
+./manage.py loaddata /home/sbe/tmp/page_gallery_images.json 
+./manage.py loaddata /home/sbe/tmp/plugin_blog_entries_list.json 
+./manage.py loaddata /home/sbe/tmp/website.json
+./manage.py loaddata /home/sbe/tmp/plugin_breadcrumb.json 
+./manage.py loaddata /home/sbe/tmp/page_blog.json         
+./manage.py loaddata /home/sbe/tmp/page_text.json      
+./manage.py loaddata /home/sbe/tmp/plugin_image.json  
+./manage.py loaddata /home/sbe/tmp/plugin_text.json         
+./manage.py loaddata /home/sbe/tmp/south.json   
+
+Problems (known):
+
+./manage.py loaddata /home/sbe/tmp/plugin_slideshow.json    
+
+
+Dans la table jango_site, mettre à jour le nom de domaine
+
+
