@@ -64,6 +64,12 @@ cd ~/projects/promess84/promess84
 # copier le répertoire media de ionyweb dans celui de django_coop
 
 
+
+# Dans ~/projects/promess84/local/lib/python2.7/site-packages/ionyweb/plugin_app/plugin_slideshow/views.py
+# Modifier ionyweb.slideshow.js en ionyweb_slideshow.js (bug ionyweb plugin sideshow)
+
+
+
 =====================================
 
 Lancement :

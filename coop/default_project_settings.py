@@ -93,6 +93,9 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     'django.contrib.messages.context_processors.messages',
     'coop.context_processors.current_site',
     'preferences.context_processors.preferences_cp',
+    'ionyweb.context_processors.user_rights',
+    'ionyweb.context_processors.admin_page_data',
+    'ionyweb.context_processors.site_settings',    
 
 ]
 
@@ -455,13 +458,17 @@ from ionyweb import get_ionyweb_path
 #LAYOUTS_DIRS = (
 #    os.path.join(get_ionyweb_path(), 'contrib', LAYOUTS_DEFAULT_PATH),
 #)
+
+ROOT_URLCONF = 'ionyweb.urls'
+URLCONF_WEBSITE_ADMIN = u'ionyweb.administration.urls'
+
 LAYOUTS_DEFAULT_PATH = 'layouts'
 LAYOUTS_DIRS = (
-    '/home/sbe/projects/promess84/promess84/promess84_ionyweb/layouts',
+    PROJECT_PATH + '/promess84_ionyweb/layouts',
 )
 THEMES_DEFAULT_PATH = 'themes'
 THEMES_DIRS = (
-   '/home/sbe/projects/promess84/promess84/promess84_ionyweb/themes',
+   PROJECT_PATH + '/promess84_ionyweb/themes',
 )   
 
 SITE_NAME = "promess84"
@@ -524,7 +531,7 @@ URL_ADMIN_SEP = u'wa'
 
 ACTION_ADMIN_LIST_SUFFIX = '_list'
 ACTION_ADMIN_ORDER_SLUG = '_order'
-ADMIN_THEME = 'snow' # 'snow' || 'dark' || ... Will import ionyweb_admin_***.less
+ADMIN_THEME = 'dark' # 'snow' || 'dark' || ... Will import ionyweb_admin_***.less
 
 SITEMAP_INDEX = False
 
@@ -577,7 +584,7 @@ VERSION_QUALITY = 90
 IMAGE_MAXBLOCK = 1024*1024
 FILE_MANAGER_QUOTA = "1073741824" #1024^3b = 1Gb
 
-
+DOMAIN_NAME = "localhost:8000"
 
 
 
