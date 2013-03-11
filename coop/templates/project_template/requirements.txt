@@ -5,15 +5,12 @@
 # coop-geo
 # coop-tag
 # coop-bar
-# djaloha
 # coop-colorbox
 
 git+git://github.com/credis/coop-colorbox.git
-git+git://github.com/credis/djaloha.git
 git+git://github.com/credis/coop-bar.git
 git+git://github.com/credis/coop-tag.git
 git+git://github.com/makinacorpus/coop-geo@master#egg=coop-geo
-git+git://github.com/credis/coop_cms.git
 
 # django-scanredirect
 git+git://github.com/quinode/django-scanredirect.git
@@ -51,6 +48,7 @@ SOAPpy
 psycopg2
 Pillow
 south
+simplejson
 
 django-forms-builder
 
@@ -81,12 +79,6 @@ django-appconf
 # git+git://github.com/bennomadic/django-webid-auth.git
 # git+git://github.com/bennomadic/django-webid-provider.git
 # git+git://github.com/bennomadic/django-conneg.git
-
-# coop_cms deps
-django-floppyforms==0.4.7
-django-pagination
-feedparser
-git+git://github.com/gabrielgrant/django-html-field.git
 
 # central logging
 raven

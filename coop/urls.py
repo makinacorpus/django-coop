@@ -13,7 +13,8 @@ class TextPlainView(TemplateView):
 
 urlpatterns = patterns('',
 
-    url(r'^$', 'coop.views.home', name="home"),
+    #url(r'^$', 'coop.views.home', name="home"),
+    url(r'', include('ionyweb.urls')),
 
     url(r'^rdf/', include('coop.rdf.urls')),
 
@@ -40,9 +41,6 @@ urlpatterns = patterns('',
     url(r'^communes/$', 'coop.views.communes'),
     url(r'^geojson/(?P<model>[\w-]+)', 'coop.views.geojson'),
     url(r'^geojson/', 'coop.views.geojson_amap'),
-
-    # Ionyweb
-    #url(r'^ionyweb/', include('ionyweb.urls')),
 )
 
 if 'coop.exchange' in settings.INSTALLED_APPS:
@@ -83,9 +81,4 @@ if 'haystack' in settings.INSTALLED_APPS:
 
 urlpatterns += patterns('',
     (r'^', include('coop_cms.urls')),
-)
-
-# Ionyweb
-urlpatterns += patterns('',
-    (r'^ionyweb/', include('ionyweb.urls')),
 )

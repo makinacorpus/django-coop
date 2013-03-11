@@ -195,7 +195,7 @@ INSTALLED_APPS = [
     'django_rq',
     'subhub',
     'django_push.subscriber',
-#    'uriredirect',
+    #'uriredirect',
 
     # coop_cms
     'djaloha',
