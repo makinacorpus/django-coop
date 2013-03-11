@@ -18,7 +18,6 @@ import coop
 from django.contrib.sites.models import Site
 import logging
 from urlparse import urlsplit
-import simplejson
 from django.contrib.gis.db import models as geomodels
 
 #from mptt.models import MPTTModel, TreeForeignKey
