@@ -195,7 +195,7 @@ INSTALLED_APPS = [
     'django_rq',
     'subhub',
     'django_push.subscriber',
-    'uriredirect',
+#    'uriredirect',
 
     # coop_cms
     'djaloha',
@@ -212,10 +212,7 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'grappelli',
     'django.contrib.admindocs',
-    'tinymce',
     'mptt',
-    'floppyforms',
-    'south',
     'sekizai',
     'djangorestframework',
     'less',
@@ -454,6 +451,18 @@ except ImportError, exp:
 
 from ionyweb import get_ionyweb_path
 
+#LAYOUTS_DEFAULT_PATH = 'layouts'
+#LAYOUTS_DIRS = (
+#    os.path.join(get_ionyweb_path(), 'contrib', LAYOUTS_DEFAULT_PATH),
+#)
+LAYOUTS_DEFAULT_PATH = 'layouts'
+LAYOUTS_DIRS = (
+    '/home/sbe/projects/promess84/promess84/promess84_ionyweb/layouts',
+)
+THEMES_DEFAULT_PATH = 'themes'
+THEMES_DIRS = (
+   '/home/sbe/projects/promess84/promess84/promess84_ionyweb/themes',
+)   
 
 SITE_NAME = "promess84"
 

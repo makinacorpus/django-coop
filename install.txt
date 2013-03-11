@@ -37,7 +37,7 @@ cd promess84
 sudo chmod -R g+rw media
 chmod +x manage.py 
 ./manage.py collectstatic
-
+https://github.com/makinacorpus/django-coop/commit/cd4919b869aa71c2e78cc8f62fee77d1269c110f
 python manage.py syncdb --all
 python manage.py migrate --fake
 python manage.py convert_to_south coop_local
@@ -59,31 +59,33 @@ python manage.py migrate
 
 # Dans la table django_site, mettre à jour le nom de domaine
 
-Import de données (promess84) :
-cd ~/projects/promess84/promess84$
-./manage.py loaddata ~/tmp/file_manager.json
-./manage.py loaddata ~/tmp/page.json      
-./manage.py loaddata ~/tmp/plugin.json            
-./manage.py loaddata ~/tmp/plugin_links_list.json     
-./manage.py loaddata ~/tmp/plugin_video.json
-./manage.py loaddata ~/tmp/page_agenda.json
-./manage.py loaddata ~/tmp/page_redirect.json      
-./manage.py loaddata ~/tmp/plugin_contact.json  
-./manage.py loaddata ~/tmp/plugin_map.json          
-./manage.py loaddata ~/tmp/plugin_website_title.json
-./manage.py loaddata ~/tmp/page_sitemap.json 
-./manage.py loaddata ~/tmp/plugin_fb_likebox.json
-./manage.py loaddata ~/tmp/plugin_fb_likebox.json
-./manage.py loaddata ~/tmp/page_book.json         
-./manage.py loaddata ~/tmp/page_gallery_images.json 
-./manage.py loaddata ~/tmp/plugin_blog_entries_list.json 
-./manage.py loaddata ~/tmp/website.json
-./manage.py loaddata ~/tmp/plugin_breadcrumb.json 
-./manage.py loaddata ~/tmp/page_blog.json         
-./manage.py loaddata ~/tmp/page_text.json      
-./manage.py loaddata ~/tmp/plugin_image.json  
-./manage.py loaddata ~/tmp/plugin_text.json         
-./manage.py loaddata ~/tmp/south.json 
+Import des données ionyweb :
+cd ~/projects/promess84/promess84
+./manage.py loaddata /home/sbe/tmp/file_manager.json
+./manage.py loaddata /home/sbe/tmp/website.json
+./manage.py loaddata /home/sbe/tmp/page.json      
+./manage.py loaddata /home/sbe/tmp/plugin.json            
+./manage.py loaddata /home/sbe/tmp/plugin_links_list.json     
+./manage.py loaddata /home/sbe/tmp/plugin_video.json
+./manage.py loaddata /home/sbe/tmp/page_agenda.json
+./manage.py loaddata /home/sbe/tmp/page_redirect.json      
+./manage.py loaddata /home/sbe/tmp/plugin_contact.json  
+./manage.py loaddata /home/sbe/tmp/plugin_map.json          
+./manage.py loaddata /home/sbe/tmp/plugin_website_title.json
+./manage.py loaddata /home/sbe/tmp/page_sitemap.json 
+./manage.py loaddata /home/sbe/tmp/plugin_fb_likebox.json
+./manage.py loaddata /home/sbe/tmp/plugin_fb_likebox.json
+./manage.py loaddata /home/sbe/tmp/page_book.json         
+./manage.py loaddata /home/sbe/tmp/page_gallery_images.json 
+./manage.py loaddata /home/sbe/tmp/plugin_blog_entries_list.json 
+./manage.py loaddata /home/sbe/tmp/plugin_breadcrumb.json 
+./manage.py loaddata /home/sbe/tmp/page_blog.json         
+./manage.py loaddata /home/sbe/tmp/page_text.json      
+./manage.py loaddata /home/sbe/tmp/plugin_image.json  
+./manage.py loaddata /home/sbe/tmp/plugin_text.json         
+./manage.py loaddata /home/sbe/tmp/south.json   
+./manage.py loaddata /home/sbe/tmp/plugin_slideshow.json
+
 
 
 =====================================
