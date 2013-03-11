@@ -460,7 +460,6 @@ from ionyweb import get_ionyweb_path
 #    os.path.join(get_ionyweb_path(), 'contrib', LAYOUTS_DEFAULT_PATH),
 #)
 
-ROOT_URLCONF = 'ionyweb.urls'
 URLCONF_WEBSITE_ADMIN = u'ionyweb.administration.urls'
 
 LAYOUTS_DEFAULT_PATH = 'layouts'
