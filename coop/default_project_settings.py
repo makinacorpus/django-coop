@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 import os
 from coop_local.settings import PROJECT_PATH, PROJECT_NAME
+from ionyweb import get_ionyweb_path
 
 TIME_ZONE = 'Europe/Paris'
 LANGUAGE_CODE = 'fr-FR'
@@ -39,6 +40,7 @@ ADMIN_TOOLS_PATH = os.path.dirname(os.path.abspath(admin_tools.__file__))
 
 STATICFILES_DIRS = [
     os.path.abspath(ADMIN_TOOLS_PATH + '/media/'),
+    os.path.join(get_ionyweb_path(), 'static'),
 ]
 
 STATICFILES_FINDERS = [
