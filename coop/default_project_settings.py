@@ -96,7 +96,8 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     'ionyweb.context_processors.user_rights',
     'ionyweb.context_processors.admin_page_data',
     'ionyweb.context_processors.site_settings',    
-
+    'django.core.context_processors.csrf',
+    'sekizai.context_processors.sekizai',
 ]
 
 ROOT_URLCONF = 'coop_local.urls'
