@@ -207,8 +207,8 @@ INSTALLED_APPS = [
     #'djaloha',
     #'coop_cms',
     #'coop_cms.apps.rss_sync',
-    'colorbox',
-    'coop_bar',
+    #'colorbox',
+    #'coop_bar',
 #    'pagination',
 
     #ionyweb
