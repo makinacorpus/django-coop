@@ -97,6 +97,7 @@ if 'coop_cms' in settings.INSTALLED_APPS:
     )
 
 urlpatterns += patterns('',
+    (r'^django-rq/', include('django_rq.urls')),
     (r'^forms/', include('forms_builder.forms.urls')),
     (r'^id/', include('uriredirect.urls')),
     (r'^data/', include('coop.data_urls')),
