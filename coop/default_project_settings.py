@@ -276,34 +276,34 @@ TINYMCE_DEFAULT_CONFIG = {
     'theme_advanced_buttons2': '', 'theme_advanced_buttons3': ''
     }
 
-COOP_NEWLETTER_ITEM_CLASSES = ['article']
+#COOP_NEWLETTER_ITEM_CLASSES = ['article']
 
-COOP_CMS_ARTICLE_CLASS = 'coop_local.models.Article'
-COOP_CMS_ARTICLE_FORM = 'coop.forms.ArticleForm'
-COOP_CMS_ARTICLE_LOGO_SIZE = '600'
+#COOP_CMS_ARTICLE_CLASS = 'coop_local.models.Article'
+#COOP_CMS_ARTICLE_FORM = 'coop.forms.ArticleForm'
+#COOP_CMS_ARTICLE_LOGO_SIZE = '600'
 
 
-COOP_CMS_NAVTREE_CLASS = 'coop_local.NavTree'
+#COOP_CMS_NAVTREE_CLASS = 'coop_local.NavTree'
 
 # You need to declare the app here to be able to select models from navigable types in coop-cms
-COOP_CMS_CONTENT_APPS = ('coop_local', 'coop_tag', 'coop_geo', 'coop_cms', 'forms')
+#COOP_CMS_CONTENT_APPS = ('coop_local', 'coop_tag', 'coop_geo', 'coop_cms', 'forms')
 
-DJALOHA_LINK_MODELS = (
-        'coop_local.Article',
-        'coop_cms.ArticleCategory',
-        'coop_local.Organization',
-        'coop_local.OrganizationCategory',
-        'coop_local.Event',
-        )
+#DJALOHA_LINK_MODELS = (
+#        'coop_local.Article',
+#        'coop_cms.ArticleCategory',
+#        'coop_local.Organization',
+#        'coop_local.OrganizationCategory',
+#        'coop_local.Event',
+#        )
 
 
 
 # COOP_CMS_ARTICLE_TEMPLATES = 'coop_local.get_article_templates' # marche plus ?
 
-COOP_CMS_ARTICLE_TEMPLATES = [
-    ('coop_cms/article.html', 'Standard'),
-    ('coop_cms/article_nologo.html', 'Sans logo'),
-]
+#COOP_CMS_ARTICLE_TEMPLATES = [
+#    ('coop_cms/article.html', 'Standard'),
+#    ('coop_cms/article_nologo.html', 'Sans logo'),
+#]
 
 
 SKIP_DJALOHA_JQUERY = True
