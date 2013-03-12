@@ -204,7 +204,7 @@ INSTALLED_APPS = [
     #'uriredirect',
 
     # coop_cms
-    'djaloha',
+    #'djaloha',
     'coop_cms',
     'coop_cms.apps.rss_sync',
     'colorbox',
