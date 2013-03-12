@@ -319,7 +319,7 @@ ADMIN_TOOLS_THEMING_CSS = 'css/coop_bootstrap_theming.css'
 
 AUTHENTICATION_BACKENDS = [
     #'django_webid.auth.backends.WEBIDAuthBackend',
-    'coop_cms.perms_backends.ArticlePermissionBackend',
+    #'coop_cms.perms_backends.ArticlePermissionBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
 
