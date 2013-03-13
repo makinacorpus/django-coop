@@ -239,6 +239,7 @@ INSTALLED_APPS = [
     'ionyweb.page_app.page_book',
     'ionyweb.page_app.page_gallery_images',
     'ionyweb.page_app.page_sitemap',
+    'promess84_ionyweb.page_members',
     
     # Plugins
     'ionyweb.plugin_app.plugin_text',
@@ -251,7 +252,6 @@ INSTALLED_APPS = [
     'ionyweb.plugin_app.plugin_contact',
     'ionyweb.plugin_app.plugin_fb_likebox',
     'ionyweb.plugin_app.plugin_breadcrumb',
-    'promess84_ionyweb.plugin_members',
     'ionyweb.plugin_app.plugin_slideshow',    
 ]
 
