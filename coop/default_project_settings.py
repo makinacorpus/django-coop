@@ -240,6 +240,7 @@ INSTALLED_APPS = [
     'ionyweb.page_app.page_gallery_images',
     'ionyweb.page_app.page_sitemap',
     'promess84_ionyweb.page_members',
+    'promess84_ionyweb.page_coop_agenda',
     
     # Plugins
     'ionyweb.plugin_app.plugin_text',
