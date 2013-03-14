@@ -451,7 +451,10 @@ try:
 except ImportError, exp:
     raise ImproperlyConfigured("Unable to find settings.py file from django-coop")
 
+
     
+COOP_PARTENAIRE_LABEL = "Partenaires"
+
 # import ionyweb settings
 
 #try:
