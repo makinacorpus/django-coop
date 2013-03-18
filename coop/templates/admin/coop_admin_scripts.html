@@ -202,8 +202,8 @@ jQuery(document).ready(function($) {
         fkey_row = $(this).parent().parent().prev()
         fkey = fkey_row.children('.controls').children('input[id^=id_]')
 
-        // on veut pas pouvoir ajouter d'instance depuis cet endroit
-        fkey_row.children('.controls').children('a.add-another').hide()
+//         // on veut pas pouvoir ajouter d'instance depuis cet endroit
+//         fkey_row.children('.controls').children('a.add-another').hide()
 
         // bouger le menu de selection devant les champs
         fkey_row.children('.controls').prepend( fkey_row.children('.controls').children('.help-inline').children('select') );
