@@ -239,8 +239,7 @@ INSTALLED_APPS = [
     'ionyweb.page_app.page_book',
     'ionyweb.page_app.page_gallery_images',
     'ionyweb.page_app.page_sitemap',
-    'promess84_ionyweb.page_members',
-    'promess84_ionyweb.page_coop_agenda',
+
     
     # Plugins
     'ionyweb.plugin_app.plugin_text',
@@ -253,9 +252,6 @@ INSTALLED_APPS = [
     'ionyweb.plugin_app.plugin_contact',
     'ionyweb.plugin_app.plugin_fb_likebox',
     'ionyweb.plugin_app.plugin_breadcrumb',
-    'promess84_ionyweb.plugin_members',
-    'promess84_ionyweb.plugin_coop_agenda',
-    'promess84_ionyweb.plugin_coop_members_icons',
     'ionyweb.plugin_app.plugin_slideshow',    
 ]
 
@@ -471,17 +467,6 @@ from ionyweb import get_ionyweb_path
 #)
 
 URLCONF_WEBSITE_ADMIN = u'ionyweb.administration.urls'
-
-LAYOUTS_DEFAULT_PATH = 'layouts'
-LAYOUTS_DIRS = (
-    PROJECT_PATH + '/promess84_ionyweb/layouts',
-)
-THEMES_DEFAULT_PATH = 'themes'
-THEMES_DIRS = (
-   PROJECT_PATH + '/promess84_ionyweb/themes',
-)   
-
-SITE_NAME = "promess84"
 
 TINYMCE_JS_URL = os.path.join(STATIC_URL, "tiny_mce/tiny_mce_src.js")
 TINYMCE_JS_ROOT = os.path.join(get_ionyweb_path(), 'static', "tiny_mce")
