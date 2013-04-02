@@ -51,6 +51,7 @@ SOAPpy
 psycopg2
 Pillow
 south
+simplejson
 
 django-forms-builder
 
