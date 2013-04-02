@@ -57,7 +57,7 @@ django-forms-builder
 
 # Queues
 rq
-git+git://github.com/ui/django-rq.git
+git+git://github.com/ui/django-rq.git@8d8f9d7fd9a8857394862ff8125dd98c0028abed
 
 django-apptemplates
 python-dateutil
