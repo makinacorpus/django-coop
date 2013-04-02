@@ -115,6 +115,14 @@ jQuery(document).ready(function($) {
         tabCookie($(this).attr('href'))
     });
 
+    if($(".qq-upload-button").length > 0){
+
+      $(".qq-upload-button").addClass("btn-primary").addClass("btn");
+      $(".qq-upload-drop-area").hide();
+
+    }
+
+
 
     // resize TinyMCE Editor
     $("table#id_description_tbl.mceLayout").width('617px');
@@ -253,6 +261,8 @@ jQuery(document).ready(function($) {
     $("div.controls ul").next('a.add-another').hide();
     $("select").next('a.add-another').hide();
 
+
+
     // PAS EXECUTES ???
 
   // decorate inline add buttons
@@ -270,7 +280,6 @@ jQuery(document).ready(function($) {
   // doit être dans le namespace django.jQuery car il est loadé avant le custom jquery
 
 (function($){
-
 
 
   if($('ul.groupbox-list').length > 0 && typeof django.jQuery.fn.columnize === 'function'){

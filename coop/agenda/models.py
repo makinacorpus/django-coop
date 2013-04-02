@@ -121,6 +121,12 @@ class BaseEvent(URIModel):
                                                 max_length=250, blank=True, null=True,
                                                 help_text=_(u'fill this only if the organization record is not available locally'))
 
+    if "coop.doc" in settings.INSTALLED_APPS:
+        attachments = generic.GenericRelation('coop_local.Attachment')
+
+    external_links = generic.GenericRelation('coop_local.Link')
+
+
     class Meta:
         verbose_name = _('event')
         verbose_name_plural = _('events')

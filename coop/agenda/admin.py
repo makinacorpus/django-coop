@@ -11,6 +11,8 @@ from django.utils.translation import ugettext_lazy as _
 from coop.agenda.forms import SingleOccurrenceForm
 from django.db.models.loading import get_model
 from chosen import widgets as chosenwidgets
+from coop.doc.admin import AttachmentsInline
+from coop.link.admin import LinksInline
 
 #from genericadmin.admin import GenericAdminModelAdmin
 # GenericStackedInline or GenericTabularInline
@@ -25,7 +27,7 @@ class OccurrenceInline(admin.StackedInline):
     #form = SingleOccurrenceForm
     verbose_name = _(u'Date')
     verbose_name_plural = _(u'Dates')
-    model = Occurrence
+    model = get_model('coop_local', 'Occurrence')
     extra = 1
 
 
@@ -79,16 +81,12 @@ class EventAdmin(NoLookupsFkAutocompleteAdmin):
     if settings.COOP_USE_SITES:
         fieldsets[0][1]['fields'].insert(0, 'sites')
 
-    inlines = [OccurrenceInline]
-
-admin.site.register(Event, EventAdmin)
-admin.site.register(EventCategory, EventCategoryAdmin)
-admin.site.register(Calendar)
+    inlines = [OccurrenceInline, AttachmentsInline, LinksInline]
 
 
 class DatedInline(GenericTabularInline, InlineAutocompleteAdmin):
     verbose_name = _(u'Date')
     verbose_name_plural = _(u'Dates')
-    model = Dated
+    model = get_model('coop_local', 'Dated')
     related_search_fields = {'event': ('title', 'description', 'slug'), }
     extra = 1

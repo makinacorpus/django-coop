@@ -64,7 +64,20 @@ if 'coop_tag' in settings.INSTALLED_APPS:
     class TaggedItem(CoopTaggedItem):
         pass
 
+# ------ documents
 
+if 'coop.doc' in settings.INSTALLED_APPS:
+    from coop.doc.models import BaseAttachment, BaseResourceCategory, BaseDocResource
+
+    class Attachment(BaseAttachment):
+        pass
+
+    class ResourceCategory(BaseResourceCategory):
+        pass
+
+    class DocResource(BaseDocResource):
+        pass
+        
 # ---- person
 
 
@@ -152,7 +165,7 @@ class Product(BaseProduct):
 
 if 'coop.mailing' in settings.INSTALLED_APPS:
     from coop.mailing.models import BaseSubscription, BaseMailingList, \
-           BaseNewsletter, BaseNewsletterSending
+        BaseNewsletter, BaseNewsletterSending
 
     class MailingList(BaseMailingList):
         pass
@@ -174,7 +187,7 @@ if 'coop.mailing' in settings.INSTALLED_APPS:
 
 if 'coop.agenda' in settings.INSTALLED_APPS:
     from coop.agenda.models import BaseCalendar, BaseEvent, BaseEventCategory, \
-            BaseOccurrence, BaseDated
+        BaseOccurrence, BaseDated
 
     class Calendar(BaseCalendar):
         pass
@@ -190,6 +203,7 @@ if 'coop.agenda' in settings.INSTALLED_APPS:
 
     class Dated(BaseDated):
         pass
+
 
 
 # ------ global site preferences

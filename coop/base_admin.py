@@ -23,10 +23,15 @@ register(SitePrefs, SitePrefsAdmin)
 register(Location, LocationAdmin)
 register(Area, AreaAdmin)
 
+
+if "coop.doc" in settings.INSTALLED_APPS:
+    from coop.doc.admin import ResourceAdmin
+    admin.site.register(ResourceCategory)
+    admin.site.register(DocResource, ResourceAdmin)
+
 if "coop.project" in settings.INSTALLED_APPS:
     from coop.project.admin import ProjectAdmin
     admin.site.register(Project, ProjectAdmin)
-    admin.site.register(ProjectCategory)
 
 if "coop.mailing" in settings.INSTALLED_APPS:
     from coop.mailing.admin import MailingListAdmin, NewsletterAdmin
@@ -55,3 +60,10 @@ if 'forms_builder.forms' in settings.INSTALLED_APPS:
     from forms_builder.forms.models import Form
     admin.site.unregister(Form)
     admin.site.register(Form, CoopFormAdmin)
+
+if "coop.agenda" in settings.INSTALLED_APPS:
+    from coop.agenda.admin import EventAdmin, EventCategoryAdmin
+    admin.site.register(Event, EventAdmin)
+    admin.site.register(EventCategory, EventCategoryAdmin)
+    admin.site.register(Calendar)
+
