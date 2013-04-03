@@ -103,7 +103,9 @@ if 'coop.exchange' in settings.INSTALLED_APPS:
                                          'organization',
                                         'description',]# 'tags')
                             }),)
-        inlines = [AttachmentsInline,]
+
+        if 'coop.doc' in settings.INSTALLED_APPS:
+            inlines = [AttachmentsInline,]
 
         if settings.COOP_USE_SITES:
             fieldsets[0][1]['fields'].insert(0, 'sites')

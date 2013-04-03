@@ -81,7 +81,10 @@ class EventAdmin(NoLookupsFkAutocompleteAdmin):
     if settings.COOP_USE_SITES:
         fieldsets[0][1]['fields'].insert(0, 'sites')
 
-    inlines = [OccurrenceInline, AttachmentsInline, LinksInline]
+    inlines = [OccurrenceInline]
+    if "coop.doc" in settings.INSTALLED_APPS:
+        inlines.append(AttachmentsInline)
+    inlines.append(LinksInline)
 
 
 class DatedInline(GenericTabularInline, InlineAutocompleteAdmin):

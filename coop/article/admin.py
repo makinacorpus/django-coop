@@ -76,10 +76,12 @@ if "coop_cms" in settings.INSTALLED_APPS:
         related_search_fields = {'organization': ('title', 'subtitle', 'description'), 
                                  'person': ('first_name', 'last_name',), }
 
+        inlines = []
         if "coop.agenda" in settings.INSTALLED_APPS:
-            inlines = [DatedInline, AttachmentsInline, LinksInline]
-        else:
-            inlines = [AttachmentsInline, LinksInline]
+            inlines.append(DatedInline)
+        if "coop.doc" in settings.INSTALLED_APPS:
+            inlines.append(AttachmentsInline)
+        inlines.append(LinksInline)
 
         if settings.COOP_USE_SITES:
             fieldsets[0][1]['fields'].insert(0, 'sites')
