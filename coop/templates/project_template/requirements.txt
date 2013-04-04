@@ -52,6 +52,7 @@ psycopg2
 Pillow
 south
 simplejson
+django-mptt
 
 django-forms-builder
 
