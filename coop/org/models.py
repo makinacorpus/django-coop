@@ -19,36 +19,47 @@ from django.contrib.sites.models import Site
 import logging
 from urlparse import urlsplit
 from django.contrib.gis.db import models as geomodels
+from mptt.models import MPTTModel, TreeForeignKey
 
-#from mptt.models import MPTTModel, TreeForeignKey
-# class BaseClassification(MPTTModel, URIModel):
-#     label = models.CharField(_(u'label'), max_length=60)
-#     slug = AutoSlugField(populate_from='label', always_update=True, unique=True)
-#     parent = TreeForeignKey('self', null=True, blank=True, related_name='children')
-#     domain_name = 'thess.economie-solidaire.fr'
 
-#     class MPTTMeta:
-#         order_insertion_by = ['label']
+class BaseActivityNomenclatureAvise(models.Model):
 
-#     class Meta:
-#         abstract = True
-#         verbose_name = _('Classification')
-#         verbose_name_plural = _('Classifications')
-#         ordering = ['tree_id', 'lft']  # for FeinCMS TreeEditor
-#         app_label = fget'coop_local'
+    label = models.CharField(_(u'label'), max_length=100, unique=True)
 
-#     def __unicode__(self):
-#         return unicode(self.label)
+    def __unicode__(self):
+        return self.label
 
-#     def get_absolute_url(self):
-#         return reverse('%s-detail' % self._meta.object_name.lower(), args=[self.slug])
+    class Meta:
+        abstract = True
+        verbose_name = _(u'AVISE activity nomenclature item')
+        verbose_name_plural = _(u'AVISE activity nomenclature')
+        ordering = ['label']
+        app_label = 'coop_local'
 
-#     @property
-#     def uri_id(self):
-#         return self.slug
 
-#     def uri_registry(self):
-#         return u'label'
+class BaseActivityNomenclature(MPTTModel):
+
+    label = models.CharField(_(u'label'), max_length=100)
+    path = models.CharField(_(u'label'), max_length=306, editable=False) # denormalized field
+    parent = TreeForeignKey('self', verbose_name=_(u'parent'), null=True, blank=True, related_name='children')
+    avise = models.ForeignKey('ActivityNomenclatureAvise', verbose_name=_(u'AVISE equivalent'), blank=True, null=True)
+
+    def __unicode__(self):
+        return self.path
+
+    def save(self, *args, **kwargs):
+        labels = [item.label for item in self.parent.get_ancestors(include_self=True)] if self.parent else []
+        labels.append(self.label)
+        self.path = u' / '.join(labels)
+        super(BaseActivityNomenclature, self).save(*args, **kwargs)
+
+    class Meta:
+        abstract = True
+        unique_together = ('label', 'parent')
+        verbose_name = _(u'activity nomenclature item')
+        verbose_name_plural = _(u'activity nomenclature')
+        ordering = ['tree_id', 'lft'] # needed for TreeEditor
+        app_label = 'coop_local'
 
 
 class BaseRoleCategory(models.Model):
@@ -499,6 +510,8 @@ class BaseOrganization(URIModel):
 
     external_links = generic.GenericRelation('coop_local.Link')
 
+    activity = models.ForeignKey('ActivityNomenclature', verbose_name=_(u'activity sector'),
+                                 blank=True, null=True)
 
     class Meta:
         abstract = True

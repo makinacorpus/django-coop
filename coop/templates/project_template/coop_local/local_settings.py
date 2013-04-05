@@ -53,7 +53,6 @@ INSTALLED_APPS = settings.INSTALLED_APPS + [
 
     # Activate this to get Media_Tree and Ressources app
     # 'coop.doc',
-    # 'mptt',
     # 'media_tree',
     # 'teambox_icons',
     # 'easy_thumbnails',

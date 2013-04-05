@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coop.ui\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-21 11:23+0100\n"
+"POT-Creation-Date: 2013-04-05 17:12+0200\n"
 "PO-Revision-Date: 2013-03-21 11:23+0100\n"
 "Last-Translator: Quinode <contact@quinode.fr>\n"
 "Language-Team: Quinode <contact@quinode.fr>\n"
@@ -114,136 +114,98 @@ msgstr "Catégories de personnes"
 msgid "Roles"
 msgstr "Rôles"
 
-#: menu.py:85 menu.py:86
+#: menu.py:83
+msgid "Activity nomenclature"
+msgstr "Nomenclature d'activité"
+
+#: menu.py:84
+msgid "Activity nomenclature AVISE"
+msgstr "Nomenclature d'activité AVISE"
+
+#: menu.py:87 menu.py:88
 msgid "Exchanges"
 msgstr "Échanges"
 
-#: menu.py:87
+#: menu.py:89
 msgid "Exchange methods"
 msgstr "Modalités d'échange"
 
-#: menu.py:90
+#: menu.py:92
 msgid "Cartography"
 msgstr "Cartographie"
 
-#: menu.py:91
+#: menu.py:93
 msgid "Locations"
 msgstr "Lieux"
 
-#: menu.py:92
+#: menu.py:94
 msgid "Areas"
 msgstr "Zones"
 
-#: menu.py:93
+#: menu.py:95
 msgid "Location categories"
 msgstr "Catégories de lieux"
 
-#: menu.py:97
+#: menu.py:99
 msgid "RDF settings"
 msgstr "Réglages RDF"
 
-#: menu.py:98
+#: menu.py:100
 msgid "URI redirection"
 msgstr "Redirection d'URI"
 
-#: menu.py:115
+#: menu.py:117
 msgid "RSS"
 msgstr "RSS"
 
-#: menu.py:116
+#: menu.py:118
 msgid "RSS items"
 msgstr "Articles à importer"
 
-#: menu.py:117
+#: menu.py:119
 msgid "RSS sources"
 msgstr "Sources d'articles"
 
-#: menu.py:130 menu.py:132
+#: menu.py:132 menu.py:134
 msgid "Resources"
 msgstr "Ressources"
 
-#: menu.py:131
+#: menu.py:133
 msgid "Resource categories"
 msgstr "Catégories de ressources"
 
-#: menu.py:139 menu.py:140
+#: menu.py:141 menu.py:142
 msgid "Projects"
 msgstr "Projets"
 
-#: menu.py:141
+#: menu.py:143
 msgid "Projects categories"
 msgstr "Catégories de projets"
 
-#: menu.py:161
+#: menu.py:163
 msgid "Agenda"
 msgstr "Agenda"
 
-#: menu.py:163
+#: menu.py:165
 msgid "Events"
 msgstr "Événements"
 
-#: menu.py:164
+#: menu.py:166
 msgid "Calendar"
 msgstr "Calendrier"
 
-#: menu.py:165
+#: menu.py:167
 msgid "Event categories"
 msgstr "Catégories d'événements"
 
-#: menu.py:172
+#: menu.py:174
 msgid "Mailing"
 msgstr "Mailing"
 
-#: menu.py:174
+#: menu.py:176
 msgid "Newsletters"
 msgstr "Lettres d'information"
 
-#: menu.py:175
+#: menu.py:177
 msgid "MailingLists"
 msgstr "Listes de diffusion"
-
-#, fuzzy
-#~ msgid "Ressources"
-#~ msgstr "Ressources"
-
-#~ msgid "Comments"
-#~ msgstr "Commentaires"
-
-#~ msgid "External resources"
-#~ msgstr "Ressources documentaires"
-
-#~ msgid "Support"
-#~ msgstr "Support"
-
-#~ msgid "Blog PES"
-#~ msgstr "Blog PES"
-
-#~ msgid "Django \"django-users\" mailing list"
-#~ msgstr "Liste de diffusion django"
-
-#~ msgid "My network"
-#~ msgstr "Mon réseau"
-
-#~ msgid "Administration"
-#~ msgstr "Administration"
-
-#~ msgid "Tag categories"
-#~ msgstr "Catégories de tags"
-
-#~ msgid "Quick links"
-#~ msgstr "Liens rapides"
-
-#~ msgid "Return to site"
-#~ msgstr "Retour au site"
-
-#~ msgid "Change password"
-#~ msgstr "Changez votre mot de passe"
-
-#~ msgid "Log out"
-#~ msgstr "Déconnexion"
-
-#~ msgid "Database"
-#~ msgstr "Base de données"
-
-#~ msgid "RDF"
-#~ msgstr "RDF"
