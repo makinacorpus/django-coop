@@ -4,17 +4,17 @@ import sys
 from coop_local.local_settings import DEBUG
 from coop_local.settings import DEBUG_SETTINGS
 
-# if DEBUG or ('runserver' in sys.argv):
+if DEBUG or ('runserver' in sys.argv):
 #     import firepython
 #     firepython.__api_version__ = '1.2'  # avoid known issue
-#     MIDDLEWARE_CLASSES = DEBUG_SETTINGS['middleware'] + [
-#         'debug_toolbar.middleware.DebugToolbarMiddleware',
+    MIDDLEWARE_CLASSES = DEBUG_SETTINGS['middleware'] + [
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
 #         #'firepython.middleware.FirePythonDjango',
-#         ]
-#     INSTALLED_APPS = DEBUG_SETTINGS['apps'] + [
-#         'debug_toolbar',
+        ]
+    INSTALLED_APPS = DEBUG_SETTINGS['apps'] + [
+        'debug_toolbar',
 #         #'debug_toolbar_htmltidy',
-#         ]
+        ]
 #     DEBUG_TOOLBAR_PANELS = [
 #         'debug_toolbar.panels.version.VersionDebugPanel',
 #         'debug_toolbar.panels.timer.TimerDebugPanel',
@@ -27,7 +27,7 @@ from coop_local.settings import DEBUG_SETTINGS
 #         'debug_toolbar.panels.logger.LoggingPanel',
 #         #'debug_toolbar_htmltidy.panels.HTMLTidyDebugPanel',
 #     ]
-#     DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False}
+    DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False}
 
 # else:
 #     try:
