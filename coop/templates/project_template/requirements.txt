@@ -33,13 +33,12 @@ hg+https://bitbucket.org/psyton/django-admin-tools
 git+git://github.com/quinode/django-templatetag-sugar.git
 
 # our forks
-# hg+https://bitbucket.org/quinode/django-admintools-bootstrap/@0.0.2-alpha
-git+git://github.com/quinode/django-admintools-bootstrap.git
+git+git://github.com/makinacorpus/django-admintools-bootstrap.git
 git+git://github.com/quinode/uriredirect.git
 
 
 git+git://github.com/django-extensions/django-extensions.git
-git+git://github.com/quinode/django-chosen.git
+git+git://github.com/makinacorpus/django-chosen.git
 
 # setup.py was broken
 git+git://github.com/quinode/djangoembed.git
@@ -62,7 +61,7 @@ git+git://github.com/ui/django-rq.git@8d8f9d7fd9a8857394862ff8125dd98c0028abed
 
 django-apptemplates
 python-dateutil
-sorl-thumbnail==11.09
+git+git://github.com/makinacorpus/sorl-thumbnail
 shortuuid
 django-tinymce
 git+git://github.com/twidi/django-extended-choices.git
