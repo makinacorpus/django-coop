@@ -566,7 +566,7 @@ class BaseOrganization(URIModel):
             return res
 
     def has_description(self):
-        return self.description and len(self.description) > 20
+        return bool(self.description) and len(self.description) > 20
     has_description.boolean = True
     has_description.short_description = _(u'desc.')
 
