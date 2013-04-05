@@ -123,6 +123,14 @@ msgid "Roles"
 msgstr "Rôles"
 
 #: menu.py:87 menu.py:88
+msgid "Activity nomenclature"
+msgstr "Nomenclature d'activité"
+
+#: menu.py:84
+msgid "Activity nomenclature AVISE"
+msgstr "Nomenclature d'activité AVISE"
+
+#: menu.py:87 menu.py:88
 msgid "Exchanges"
 msgstr "Échanges"
 
@@ -154,19 +162,19 @@ msgstr "Réglages RDF"
 msgid "URI redirection"
 msgstr "Redirection d'URI"
 
-#: menu.py:115
+#: menu.py:117
 msgid "RSS"
 msgstr "RSS"
 
-#: menu.py:116
+#: menu.py:118
 msgid "RSS items"
 msgstr "Articles à importer"
 
-#: menu.py:117
+#: menu.py:119
 msgid "RSS sources"
 msgstr "Sources d'articles"
 
-#: menu.py:123
+#: menu.py:132 menu.py:134
 msgid "Agenda"
 msgstr "Agenda"
 
@@ -182,38 +190,3 @@ msgstr "Calendrier"
 msgid "Event categories"
 msgstr "Catégories d'événements"
 
-#~ msgid "Support"
-#~ msgstr "Support"
-
-#~ msgid "Blog PES"
-#~ msgstr "Blog PES"
-
-#~ msgid "Django \"django-users\" mailing list"
-#~ msgstr "Liste de diffusion django"
-
-#~ msgid "My network"
-#~ msgstr "Mon réseau"
-
-#~ msgid "Administration"
-#~ msgstr "Administration"
-
-#~ msgid "Tag categories"
-#~ msgstr "Catégories de tags"
-
-#~ msgid "Quick links"
-#~ msgstr "Liens rapides"
-
-#~ msgid "Return to site"
-#~ msgstr "Retour au site"
-
-#~ msgid "Change password"
-#~ msgstr "Changez votre mot de passe"
-
-#~ msgid "Log out"
-#~ msgstr "Déconnexion"
-
-#~ msgid "Database"
-#~ msgstr "Base de données"
-
-#~ msgid "RDF"
-#~ msgstr "RDF"

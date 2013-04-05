@@ -710,6 +710,9 @@ div.chzn-container ul.chzn-choices div.chzn-drop ul.chzn-results li{
 	width: 616px;
 }
 
+input.ui-autocomplete-input {
+        width: 608px;
+}
 
 
 /* Make chosen look like Autosuggest */

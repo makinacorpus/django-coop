@@ -4,7 +4,7 @@ from django.contrib import admin
 from coop.utils.autocomplete_admin import register
 from coop_local.models import *
 from coop.person.admin import PersonAdmin
-from coop.org.admin import OrganizationAdmin
+from coop.org.admin import OrganizationAdmin, ActivityNomenclatureAdmin
 from coop.prefs.admin import SitePrefsAdmin
 from coop_geo.admin import LocationAdmin, AreaAdmin
 from django.conf import settings
@@ -22,6 +22,8 @@ register(OrgRelationType)
 register(SitePrefs, SitePrefsAdmin)
 register(Location, LocationAdmin)
 register(Area, AreaAdmin)
+register(ActivityNomenclature, ActivityNomenclatureAdmin)
+register(ActivityNomenclatureAvise)
 
 if "coop.project" in settings.INSTALLED_APPS:
     from coop.project.admin import ProjectAdmin

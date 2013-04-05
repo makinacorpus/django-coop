@@ -197,6 +197,9 @@ INSTALLED_APPS = [
 
     'coop_geo',
 
+    # Keep after coop
+    'mptt',
+
     # PuSH
     'django_rq',
     'subhub',

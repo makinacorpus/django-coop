@@ -6,7 +6,8 @@ from coop.person.models import BasePerson, BasePersonCategory
 from coop.exchange.models import BaseExchange, BaseProduct, BaseExchangeMethod
 from coop.org.models import (BaseOrganizationCategory, BaseOrganization,
                              BaseRelation, BaseEngagement, BaseRole, BaseOrgRelationType,
-                             BaseContact, BaseRoleCategory, BaseContactMedium)
+                             BaseContact, BaseRoleCategory, BaseContactMedium,
+                             BaseActivityNomenclature, BaseActivityNomenclatureAvise)
 from coop.prefs.models import BaseSitePrefs
 from coop_geo.models import Location as BaseLocation
 from coop_geo.models import Located as BaseLocated
@@ -113,6 +114,14 @@ class OrganizationCategory(BaseOrganizationCategory):
 
 
 class Organization(BaseOrganization):
+    pass
+
+
+class ActivityNomenclature(BaseActivityNomenclature):
+    pass
+
+
+class ActivityNomenclatureAvise(BaseActivityNomenclatureAvise):
     pass
 
 
