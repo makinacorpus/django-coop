@@ -1,0 +1,193 @@
+#search_form,
+#result_exchanges {
+    background: #fff;
+    border: 1px solid #fad722;
+    border-top: 5px solid #fad722;
+    margin-bottom: 10px;
+    box-shadow: 2px 2px 2px #aaa;
+    padding: 7px;
+    float: left;
+}
+
+#search_form {
+    margin-top: 5px;
+    padding: 0;
+}
+
+.coop_exchange,
+.coop_exchange_detail {
+    border-bottom: 1px solid #ccc;
+    float: left;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
+.coop_exchange_detail {
+    border: none;
+}
+
+.coop_exchange .block_img {
+    width: 220px;
+    height: 140px;
+    background: #ccc;
+    float: left;
+}
+
+.coop_exchange .block_desc {
+    width: 420px;
+    float: left;
+    margin-left: 20px;
+    padding: 5px;
+}
+
+.coop_exchange .exchange_type {
+    font-size: 10px;
+    font-style: italic;
+}
+
+.coop_exchange .exchange_title {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.coop_exchange .exchange_desc {
+    
+}
+
+.coop_exchange .exchange_button_detail,
+#search_submit input[type='submit'] {
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 2px solid #f8b133;
+    padding: 5px;
+    max-width: 120px;
+    text-align: center;
+    text-shadow: 2px 2px 2px #aaa;
+    color: #fff;
+    
+    /* Old browser */
+    background: #f9b43b url("gradient-bg.png") repeat-x top;
+    -o-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+    /* Internet Explorer */
+    *background: #f9b43b;
+    background: #f9b43b\0/;
+    filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr=#FFfac972, endColorstr=#FFf9b43b);
+    /* Navigateurs récents */
+    background-image: -webkit-gradient(
+        linear,
+        left top, left bottom,
+        from(#fac972),
+        to(#f9b43b)
+    );
+    background-image: -webkit-linear-gradient(
+        top,
+        #fac972,
+        #f9b43b
+    );
+    background-image: -moz-linear-gradient(
+        top,
+        #fac972,
+        #f9b43b
+    );
+    background-image: -o-linear-gradient(
+        top,
+        #fac972,
+        #f9b43b
+    );
+    background-image: linear-gradient(
+        top,
+        #fac972,
+        #f9b43b
+    );
+}
+
+#search_form .search_block{
+    float: left;
+    padding: 3px;
+    width: 220px;
+}
+
+
+#search_form .search_title {
+    font-weight: bold;
+    display: block;
+}
+
+#search_form .label {
+    width: 85px;
+    float: left;
+    line-height: 25px;
+}
+
+
+#search_form .search_column {
+    width: 230px;
+    height: 170px;
+    float: left;
+}
+
+#search_form #search_column1 {
+    width: 270px;
+}
+
+#search_form #search_column1 .search_block,
+#search_form #search_column1 .search_block_bottom {
+    width: 260px;
+}
+
+#search_form #search_column1 #looking_for {
+    width: 115px;
+}
+#search_form #search_column1 #type {
+    width: 140px;
+}
+
+
+#search_form #search_column2,
+#search_form #search_column3 {
+    width: 210px;
+}
+#search_form #search_column2 .search_block,
+#search_form #search_column2 .search_block_bottom,
+#search_form #search_column3 .search_block,
+#search_form #search_column3 .search_block_bottom {
+    width: 200px;
+}
+
+
+#search_form #search_submit .nb_results {
+    font-weight: bold;
+    font-size: 30px;
+}
+
+#search_form #search_submit #results_block {
+    float: left;
+    line-height: 30px;
+    padding-left: 10px;    
+}
+
+#search_form ul {
+    list-style: none;
+    margin: 0;
+}
+
+#search_form #mode ul li,
+#search_form #skills ul li {
+    float: left;
+    width: 100px;
+}
+
+
+#search_submit input[type='submit'] {
+    float: left;
+}
+
+
+#search_form #leaflet_map {
+    margin: 5px;
+    width: 250px;
+    height: 270px;
+}

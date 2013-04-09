@@ -1,12 +1,18 @@
 # -*- coding:utf-8 -*-
 from django import forms
+from django.conf import settings
 import floppyforms
 import re
 from coop_local.models import Organization, OrganizationCategory
-from djaloha.widgets import AlohaInput
 from django.utils.translation import ugettext as _
 from django.core.exceptions import ValidationError
 
+if 'coop_cms' in settings.INSTALLED_APPS:
+    from djaloha.widgets import AlohaInput
+    djaloha_widget_options = {'text_color_plugin': False}
+else:
+    from django.forms import TextInput as AlohaInput
+    djaloha_widget_options = {}
 
 class OrganizationForm(floppyforms.ModelForm):
 
@@ -19,8 +25,8 @@ class OrganizationForm(floppyforms.ModelForm):
         model = Organization
         fields = ('title', 'description', 'logo')
         widgets = {
-            'title': AlohaInput(text_color_plugin=False),
-            'description': AlohaInput(text_color_plugin=False),
+            'title': AlohaInput(**djaloha_widget_options),
+            'description': AlohaInput(**djaloha_widget_options),
         }
 
     # def set_logo_size(self, logo_size=None):
@@ -53,8 +59,8 @@ class OrganizationCategoryForm(floppyforms.ModelForm):
         model = OrganizationCategory
         fields = ('label', 'description')
         widgets = {
-            'label': AlohaInput(text_color_plugin=False),
-            'description': AlohaInput(text_color_plugin=False),
+            'label': AlohaInput(**djaloha_widget_options),
+            'description': AlohaInput(**djaloha_widget_options),
         }
 
     def clean_label(self):

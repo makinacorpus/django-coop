@@ -95,17 +95,17 @@ class BaseEvent(URIModel):
     slug = exfields.AutoSlugField(populate_from='title')
     category = models.ManyToManyField('coop_local.EventCategory', verbose_name=_('event type'))  
     # to be deleted one day...use category instead
-    event_type = models.ForeignKey('coop_local.EventCategory', verbose_name=_('event type'), related_name='event_type', editable=False, null=True)  
-    calendar = models.ForeignKey('coop_local.Calendar', verbose_name=_('calendar'))
+    event_type = models.ForeignKey('coop_local.EventCategory', verbose_name=_('event type'), related_name='event_type', editable=False, null=True, on_delete=models.PROTECT)  
+    calendar = models.ForeignKey('coop_local.Calendar', verbose_name=_('calendar'), on_delete=models.PROTECT)
 
     # Linking to local objects
-    organization = models.ForeignKey('coop_local.Organization', null=True, blank=True, verbose_name=_('organization'), related_name=_('publisher organization'))
+    organization = models.ForeignKey('coop_local.Organization', null=True, blank=True, verbose_name=_('organization'), related_name=_('publisher organization'), on_delete=models.PROTECT)
     organizations = models.ManyToManyField('coop_local.Organization', null=True, blank=True, verbose_name=_('organizations'), related_name=_('other organizations'))
 
-    person = models.ForeignKey('coop_local.Person', null=True, blank=True, verbose_name=_('author'))
+    person = models.ForeignKey('coop_local.Person', null=True, blank=True, verbose_name=_('author'), on_delete=models.PROTECT)
     if "coop_geo" in settings.INSTALLED_APPS:
         # it a rather redundant with feild pref_address ... 
-        location = models.ForeignKey('coop_local.Location', null=True, blank=True, verbose_name=_('location'))
+        location = models.ForeignKey('coop_local.Location', null=True, blank=True, verbose_name=_('location'), on_delete=models.PROTECT)
         remote_location_uri = models.URLField(_('remote location URI'), blank=True, max_length=255)
         remote_location_label = models.CharField(_(u'remote location label'),
                                                 max_length=250, blank=True, null=True,

@@ -1,0 +1,14 @@
+{% load i18n %}
+
+<div id="exchanges_top"></div>
+<div id="result_exchanges">
+    <div class="coop_exchange coop_exchange_detail">
+        <div class="block_img">
+        </div>
+        <div class="block_desc">
+            <div class="exchange_type">{% trans "Type" %} : {{ e.eway }}</div>
+            <div class="exchange_title">{{ e.title }}</div>
+            <div class="exchange_desc">{{ e.description|safe }}</div>
+        </div>
+    </div>
+</div>

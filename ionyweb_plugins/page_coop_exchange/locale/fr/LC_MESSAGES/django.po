@@ -1,0 +1,136 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-03-27 11:35+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+
+#: forms.py:10 templates/page_coop_exchange/index.html:8
+msgid "Offer"
+msgstr "Offre"
+
+#: forms.py:11 templates/page_coop_exchange/index.html:9
+msgid "Request"
+msgstr "Demande"
+
+#: forms.py:13 templates/page_coop_exchange/index.html:13
+msgid "Product"
+msgstr "Produit"
+
+#: forms.py:14 templates/page_coop_exchange/index.html:14
+msgid "Service"
+msgstr "Service"
+
+#: forms.py:15 templates/page_coop_exchange/index.html:15
+msgid "Skills"
+msgstr "Compétences"
+
+#: forms.py:16 templates/page_coop_exchange/index.html:16
+msgid "Project"
+msgstr "Projet"
+
+#: forms.py:17 templates/page_coop_exchange/index.html:17
+#: templates/page_coop_exchange/index.html:23
+msgid "Experience"
+msgstr "Expérience"
+
+#: forms.py:19 templates/page_coop_exchange/index.html:22
+msgid "Activity"
+msgstr "Activité"
+
+#: forms.py:20 templates/page_coop_exchange/index.html:32
+msgid "Location"
+msgstr "Localisation"
+
+#: forms.py:21 templates/page_coop_exchange/index.html:36
+msgid "Thematic"
+msgstr "Thématique"
+
+#: forms.py:23 templates/page_coop_exchange/index.html:43
+msgid "Gift"
+msgstr "Don"
+
+#: forms.py:24 templates/page_coop_exchange/index.html:44
+msgid "Swap"
+msgstr "Troc"
+
+#: forms.py:25 templates/page_coop_exchange/index.html:45
+msgid "Euros"
+msgstr "Euros"
+
+#: forms.py:26 templates/page_coop_exchange/index.html:46
+msgid "Mutualization"
+msgstr "Mutualisation"
+
+#: forms.py:28 templates/page_coop_exchange/index.html:50
+msgid "Voluntary"
+msgstr "Bénévolat"
+
+#: forms.py:29 templates/page_coop_exchange/index.html:51
+msgid "Training work"
+msgstr "Stage"
+
+#: forms.py:30
+msgid "Job offer"
+msgstr "Offre d'emploi"
+
+#: forms.py:31 templates/page_coop_exchange/index.html:53
+msgid "Training"
+msgstr "Formation"
+
+#: forms.py:33 templates/page_coop_exchange/index.html:26
+msgid "Free search"
+msgstr "Recherche libre"
+
+#: models.py:15
+msgid "CoopExchange"
+msgstr ""
+
+#: templates/page_coop_exchange/index.html:7
+msgid "I'm looking for"
+msgstr "Je recherche"
+
+#: templates/page_coop_exchange/index.html:12
+#: templates/page_coop_exchange/index.html:71
+msgid "Type"
+msgstr ""
+
+#: templates/page_coop_exchange/index.html:42
+msgid "Exchange mode"
+msgstr "Mode d'échanges"
+
+#: templates/page_coop_exchange/index.html:49
+msgid "If skills"
+msgstr "Si compétences"
+
+#: templates/page_coop_exchange/index.html:52
+msgid "Job"
+msgstr "Offre d'emploi"
+
+#: templates/page_coop_exchange/index.html:56
+msgid "Results"
+msgstr "Résultats"
+
+#: templates/page_coop_exchange/index.html:57
+msgid "Search"
+msgstr "Rechercher"
+
+#: templates/page_coop_exchange/index.html:74
+msgid "Show details"
+msgstr "Annonce détaillée"
+
+#~ msgid "Submit"
+#~ msgstr "Chercher"

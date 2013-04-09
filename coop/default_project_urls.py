@@ -91,15 +91,24 @@ if 'coop.mailing' in settings.INSTALLED_APPS:
         (r'^', include('coop.mailing.urls')),
     )
 
+if 'coop_cms' in settings.INSTALLED_APPS:
+    urlpatterns += patterns('',
+        (r'^djaloha/', include('djaloha.urls')),
+    )
+
 urlpatterns += patterns('',
+    (r'^django-rq/', include('django_rq.urls')),
     (r'^forms/', include('forms_builder.forms.urls')),
     (r'^id/', include('uriredirect.urls')),
     (r'^data/', include('coop.data_urls')),
     (r'^', include('coop_geo.urls', app_name='coop_geo')),
-    (r'^djaloha/', include('djaloha.urls')),
     (r'^', include('coop.urls')),
-    # (r'^', include('coop_cms.urls')),
 )
+
+if 'coop_cms' in settings.INSTALLED_APPS:
+    urlpatterns += patterns('',
+        (r'^', include('coop_cms.urls')),
+    )
 
 if settings.DEBUG:
     urlpatterns += patterns('',

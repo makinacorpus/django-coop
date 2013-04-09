@@ -36,23 +36,25 @@ class CustomMenu(Menu):
             #items.MenuItem(_(u'Dashboard'), reverse('admin:index')),
             #items.Bookmarks(u'Favoris'),
 
-            items.MenuItem(_(u'Navigation tree'), '/admin/coop_local/navtree/1/', icon='icon-list-alt icon-white'),
+            #items.MenuItem(_(u'Navigation tree'), '/admin/coop_local/navtree/1/', icon='icon-list-alt icon-white'),
 
-            items.MenuItem(_(u'Articles'), '/admin/coop_local/article/', icon='icon-pencil icon-white'),
+            #items.MenuItem(_(u'Articles'), '/admin/coop_local/article/', icon='icon-pencil icon-white'),
 
             items.MenuItem(_(u'Media Tree'), '/admin/media_tree/filenode/', icon='icon-file icon-white'),
 
             items.MenuItem(_(u'CMS'), '#', icon='icon-cog icon-white',
                 children=[
 
-                    items.MenuItem(_(u'Content'), '#', icon='icon-file', children=[
-                        items.MenuItem(_(u'Article categories'), '/admin/coop_cms/articlecategory/'),
-                        items.MenuItem(_(u'Documents'), '/admin/coop_cms/document/'),
-                        items.MenuItem(_(u'Images'), '/admin/coop_cms/image/'),
-                        # items.MenuItem(_(u'Comments'), '/admin/comments/comment/'),
-                        items.MenuItem(_(u'Forms'), '/admin/forms/form/'),
-                        items.MenuItem(_(u'Preferences'), '/admin/coop_local/siteprefs/'),
-                        ]),
+                    #items.MenuItem(_(u'Content'), '#', icon='icon-file', children=[
+                        #items.MenuItem(_(u'Article categories'), '/admin/coop_cms/articlecategory/'),
+                        #items.MenuItem(_(u'Documents'), '/admin/coop_cms/document/'),
+                        #items.MenuItem(_(u'Images'), '/admin/coop_cms/image/'),
+                        ## items.MenuItem(_(u'Newsletters'), '/admin/coop_local/newsletter/'),
+                        ## items.MenuItem(_(u'MailingLists'), '/admin/coop_local/mailinglist/'),
+                        #items.MenuItem(_(u'Comments'), '/admin/comments/comment/'),
+                        #items.MenuItem(_(u'Forms'), '/admin/forms/form/'),
+                        #items.MenuItem(_(u'Preferences'), '/admin/coop_local/siteprefs/'),
+                        #]),
 
                     # RSS Sync menu gets inserted here if installed (see above)
 
