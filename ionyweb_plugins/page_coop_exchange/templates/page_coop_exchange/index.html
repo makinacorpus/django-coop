@@ -59,7 +59,7 @@
                     cloudmadeAttribution = 'Map data &copy; 2011 OpenStreetMap contributors, Imagery &copy; 2011 CloudMade',
                     cloudmade = new L.TileLayer(cloudmadeUrl, {maxZoom: 18, attribution: cloudmadeAttribution});
 
-                var centre = new L.LatLng({{ center.x }}, {{ center.y }});
+                var centre = new L.LatLng({{ center.y }}, {{ center.x }});
                 var map = new L.Map('leaflet_map');
                 map.setView(centre, 8).addLayer(cloudmade);
 
