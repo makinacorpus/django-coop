@@ -46,7 +46,7 @@
 
                     var map = new L.Map('leaflet_map');
                     var x,y;
-                    if($('input[name=location]').val != "") {
+                    if($('input[name=location]').val() != "") {
                         coords = $('input[name=location]').val().split(",");
                         x = coords[0];
                         y = coords[1];

@@ -52,21 +52,18 @@
         </div>
         <div class="search_column" id="search_column4">
             <div id="leaflet_map"></div>
-                <script src="http://leaflet.cloudmade.com/dist/leaflet.js"></script>
-                <script type="text/javascript">
+            <script src="http://leaflet.cloudmade.com/dist/leaflet.js"></script>
+            <script type="text/javascript">
 
-                    var cloudmadeUrl = 'http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png',
-                        cloudmadeAttribution = 'Map data &copy; 2011 OpenStreetMap contributors, Imagery &copy; 2011 CloudMade',
-                        cloudmade = new L.TileLayer(cloudmadeUrl, {maxZoom: 18, attribution: cloudmadeAttribution});
+                var cloudmadeUrl = 'http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png',
+                    cloudmadeAttribution = 'Map data &copy; 2011 OpenStreetMap contributors, Imagery &copy; 2011 CloudMade',
+                    cloudmade = new L.TileLayer(cloudmadeUrl, {maxZoom: 18, attribution: cloudmadeAttribution});
 
-                    var centre = new L.LatLng({{ center.x }}, {{ center.y }});
-                    var map = new L.Map('leaflet_map');
-                    map.setView(centre, 8).addLayer(cloudmade);
+                var centre = new L.LatLng({{ center.x }}, {{ center.y }});
+                var map = new L.Map('leaflet_map');
+                map.setView(centre, 8).addLayer(cloudmade);
 
-                </script>
-
-                </div>
-
+            </script>
 
         </div>
     </form>

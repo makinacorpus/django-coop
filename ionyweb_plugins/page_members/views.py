@@ -55,10 +55,6 @@ def index_view(request, page_app):
                 
                  # Get the possible location in the buffer...
                 possible_locations = Location.objects.filter(point__intersects=zone)
-                for o in Location.objects.all():
-                    print o.point
-                print possible_locations
-                print zone
                 # ...and filter organization according to these locations
                 organizations = organizations.filter(Q(located__location__in=possible_locations))
             
