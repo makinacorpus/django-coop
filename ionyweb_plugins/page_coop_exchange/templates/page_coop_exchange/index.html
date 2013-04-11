@@ -4,6 +4,12 @@
     <link rel="stylesheet" href="http://leaflet.cloudmade.com/dist/leaflet.css" />
 {% endblock %}
 
+
+<script type="text/javascript">
+    // We need to set a new class to content element, in order do properly display the form and the other elements
+    $('#main-content').addClass("search_form_enabled");
+</script>
+
 <div id="exchanges_top_search"></div>
 <div id="search_form">
     <form action="{{ base_url }}" method="post">{% csrf_token %}
