@@ -16,13 +16,21 @@ MEDIAS = (
 
 def index_view(request, plugin):
     
-    occ = Occurrence.objects.filter(
+    nb_events = plugin.nb_events
+    if plugin.category != "":
+        occ = Occurrence.objects.filter(
                             end_time__gt=datetime.now(),
                             event__active=True,
                             event__category__label=plugin.category
-                            ).order_by("start_time")[:3]
-
+                            ).order_by("start_time")[:nb_events]
+    else:
+        occ = Occurrence.objects.filter(
+                            end_time__gt=datetime.now(),
+                            event__active=True
+                            ).order_by("start_time")[:nb_events]
+        
     agenda_url = plugin.agenda_url
+    
     
     rdict = {'object': plugin, 'occ': occ, 'media_path': settings.MEDIA_URL, 'agenda_url': agenda_url}
     

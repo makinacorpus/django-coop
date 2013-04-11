@@ -10,6 +10,8 @@ class Plugin_CoopAgenda(AbstractPlugin):
     agenda_url = models.CharField(_('Agenda url'), blank=True, max_length=250)
     
     category =  models.CharField(_('Category'), blank=True, max_length=100)
+    
+    nb_events =  models.IntegerField(_('nb_events'), blank=True, max_length=100)
 
     def __unicode__(self):
         return u'CoopAgenda #%d' % (self.pk)
