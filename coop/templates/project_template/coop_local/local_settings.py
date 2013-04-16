@@ -1,7 +1,8 @@
 # -*- coding:utf-8 -*-
 
 from django.conf import settings
-import sys
+import sys, os
+from coop_local.settings import PROJECT_PATH
 
 # Here you can override any settings from coop default settings files
 # See :
@@ -76,3 +77,11 @@ MULTISITE_FALLBACK_KWARGS = {}
 
 # Ionyweb settings
 SITE_NAME = '{{ project_name }}'
+LAYOUTS_DEFAULT_PATH = 'layouts'
+LAYOUTS_DIRS = (
+    os.path.join(PROJECT_PATH, 'layouts'),
+)
+THEMES_DEFAULT_PATH = 'themes'
+THEMES_DIRS = (
+    os.path.join(PROJECT_PATH, 'themes'),
+)
