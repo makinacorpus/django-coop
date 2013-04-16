@@ -5,6 +5,12 @@
 {% endblock %}
 
 {% if search_form %}
+
+<script type="text/javascript">
+    // We need to set a new class to content element, in order do properly display the form and the other elements
+    $('#main-content').addClass("search_form_enabled");
+</script>
+
 <div id="members_top_search"></div>
 <div id="search_form">
     <form action="{{ base_url }}" method="post">{% csrf_token %}
@@ -46,7 +52,7 @@
 
                     var map = new L.Map('leaflet_map');
                     var x,y;
-                    if($('input[name=location]').val != "") {
+                    if($('input[name=location]').val() != "") {
                         coords = $('input[name=location]').val().split(",");
                         x = coords[0];
                         y = coords[1];

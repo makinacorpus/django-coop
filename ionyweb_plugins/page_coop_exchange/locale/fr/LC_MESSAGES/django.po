@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-27 11:35+0100\n"
+"POT-Creation-Date: 2013-04-11 09:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,80 +18,55 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: forms.py:10 templates/page_coop_exchange/index.html:8
-msgid "Offer"
-msgstr "Offre"
-
-#: forms.py:11 templates/page_coop_exchange/index.html:9
-msgid "Request"
-msgstr "Demande"
-
-#: forms.py:13 templates/page_coop_exchange/index.html:13
-msgid "Product"
-msgstr "Produit"
-
-#: forms.py:14 templates/page_coop_exchange/index.html:14
-msgid "Service"
-msgstr "Service"
-
-#: forms.py:15 templates/page_coop_exchange/index.html:15
-msgid "Skills"
-msgstr "Compétences"
-
-#: forms.py:16 templates/page_coop_exchange/index.html:16
-msgid "Project"
-msgstr "Projet"
-
-#: forms.py:17 templates/page_coop_exchange/index.html:17
-#: templates/page_coop_exchange/index.html:23
-msgid "Experience"
-msgstr "Expérience"
-
-#: forms.py:19 templates/page_coop_exchange/index.html:22
-msgid "Activity"
-msgstr "Activité"
-
-#: forms.py:20 templates/page_coop_exchange/index.html:32
-msgid "Location"
-msgstr "Localisation"
-
-#: forms.py:21 templates/page_coop_exchange/index.html:36
-msgid "Thematic"
-msgstr "Thématique"
-
-#: forms.py:23 templates/page_coop_exchange/index.html:43
+#: forms.py:14
 msgid "Gift"
 msgstr "Don"
 
-#: forms.py:24 templates/page_coop_exchange/index.html:44
+#: forms.py:15
 msgid "Swap"
-msgstr "Troc"
+msgstr "Echange"
 
-#: forms.py:25 templates/page_coop_exchange/index.html:45
+#: forms.py:16
+msgid "Skill"
+msgstr "Compétences"
+
+#: forms.py:17
 msgid "Euros"
-msgstr "Euros"
+msgstr ""
 
-#: forms.py:26 templates/page_coop_exchange/index.html:46
+#: forms.py:18
 msgid "Mutualization"
 msgstr "Mutualisation"
 
-#: forms.py:28 templates/page_coop_exchange/index.html:50
+#: forms.py:22
 msgid "Voluntary"
-msgstr "Bénévolat"
+msgstr "Volontaire"
 
-#: forms.py:29 templates/page_coop_exchange/index.html:51
+#: forms.py:23
 msgid "Training work"
 msgstr "Stage"
 
-#: forms.py:30
+#: forms.py:24
 msgid "Job offer"
 msgstr "Offre d'emploi"
 
-#: forms.py:31 templates/page_coop_exchange/index.html:53
+#: forms.py:25
 msgid "Training"
-msgstr "Formation"
+msgstr "Essai"
 
-#: forms.py:33 templates/page_coop_exchange/index.html:26
+#: forms.py:35 templates/page_coop_exchange/index.html:31
+msgid "Activity"
+msgstr "Activité"
+
+#: forms.py:36 templates/page_coop_exchange/index.html:41
+msgid "Location"
+msgstr "Lieu"
+
+#: forms.py:37 templates/page_coop_exchange/index.html:35
+msgid "Thematic"
+msgstr "Thématique"
+
+#: forms.py:43 templates/page_coop_exchange/index.html:20
 msgid "Free search"
 msgstr "Recherche libre"
 
@@ -99,38 +74,36 @@ msgstr "Recherche libre"
 msgid "CoopExchange"
 msgstr ""
 
-#: templates/page_coop_exchange/index.html:7
-msgid "I'm looking for"
-msgstr "Je recherche"
-
-#: templates/page_coop_exchange/index.html:12
-#: templates/page_coop_exchange/index.html:71
+#: templates/page_coop_exchange/detail.html:9
+#: templates/page_coop_exchange/index.html:16
+#: templates/page_coop_exchange/index.html:82
 msgid "Type"
 msgstr ""
 
-#: templates/page_coop_exchange/index.html:42
+#: templates/page_coop_exchange/index.html:12
+msgid "I'm looking for"
+msgstr "Je recherche"
+
+#: templates/page_coop_exchange/index.html:24
+msgid "Search"
+msgstr "Recherche"
+
+#: templates/page_coop_exchange/index.html:25
+msgid "Results"
+msgstr "Résultats"
+
+#: templates/page_coop_exchange/index.html:32
+msgid "Experience"
+msgstr "Expérience"
+
+#: templates/page_coop_exchange/index.html:45
 msgid "Exchange mode"
-msgstr "Mode d'échanges"
+msgstr "Mode d'échange"
 
 #: templates/page_coop_exchange/index.html:49
 msgid "If skills"
 msgstr "Si compétences"
 
-#: templates/page_coop_exchange/index.html:52
-msgid "Job"
-msgstr "Offre d'emploi"
-
-#: templates/page_coop_exchange/index.html:56
-msgid "Results"
-msgstr "Résultats"
-
-#: templates/page_coop_exchange/index.html:57
-msgid "Search"
-msgstr "Rechercher"
-
-#: templates/page_coop_exchange/index.html:74
+#: templates/page_coop_exchange/index.html:85
 msgid "Show details"
-msgstr "Annonce détaillée"
-
-#~ msgid "Submit"
-#~ msgstr "Chercher"
+msgstr "Voir les détails"
