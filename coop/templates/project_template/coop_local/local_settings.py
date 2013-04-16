@@ -73,3 +73,6 @@ SYMPA_SOAP = {
 # Keyword arguments for the MULTISITE_FALLBACK view.
 # Default: {}
 MULTISITE_FALLBACK_KWARGS = {}
+
+# Ionyweb settings
+SITE_NAME = '{{ project_name }}'
