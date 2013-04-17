@@ -45,3 +45,37 @@ class PageApp_CoopExchangeForm(ModuloModelForm):
     
     class Meta:
         model = PageApp_CoopExchange
+
+
+class PageApp_CoopExchangeNewForm(ModuloModelForm):
+
+    date_creation = forms.CharField(required=False, label=_('Activity'))
+    date_validity = forms.CharField(required=False, label=_('Activity'))
+    organization = forms.CharField(required=False, label=_('Activity'))
+    organizatiokn_person = forms.CharField(required=False, label=_('Activity'))
+    title = forms.CharField(required=False, label=_('Activity'))
+    type_exchange = forms.MultipleChoiceField(required=False, choices=EWAY, widget=forms.RadioSelect())
+    type = forms.MultipleChoiceField(required=False, choices=ETYPE, widget=forms.RadioSelect())
+    mode = forms.MultipleChoiceField(required=False, choices=EMODE, widget=forms.CheckboxSelectMultiple())
+    skills = forms.MultipleChoiceField(required=False, choices=ESKILLS, widget=forms.CheckboxSelectMultiple())
+    
+    date_start = forms.CharField(required=False, label=_('Activity'))
+    date_end = forms.CharField(required=False, label=_('Activity'))
+    
+    location_dep = forms.CharField(required=False, label=_('Activity'))
+    location_city = forms.CharField(required=False, label=_('Activity'))
+    location_other = forms.CharField(required=False, label=_('Activity'))
+    location_zone = forms.CharField(required=False, label=_('Activity'))
+    
+    description = forms.CharField(required=False, label=_('Activity'))
+    thematic = forms.CharField(required=False, label=_('Thematic'))
+    activity = forms.CharField(required=False, label=_('Activity'))
+    
+    key_words = forms.CharField(required=False, label=_('Activity'))
+    
+    media = forms.CharField(required=False, label=_('Activity'))
+        
+    
+        
+    class Meta:
+        model = PageApp_CoopExchange        

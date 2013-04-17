@@ -12,7 +12,7 @@ from django.shortcuts import get_object_or_404
 from ionyweb.website.rendering.medias import CSSMedia
 from datetime import datetime
 
-from .forms import PageApp_CoopExchangeForm
+from .forms import PageApp_CoopExchangeForm, PageApp_CoopExchangeNewForm
 
 from django.db.models import Q
 
@@ -50,6 +50,7 @@ def index_view(request, page_app):
                        MEDIAS,
                        context_instance=RequestContext(request))                           
 
+                       
 def detail_view(request, page_app, pk):
     event = get_object_or_404(Exchange, pk=pk)
     base_url = u'%sp/' % (page_app.get_absolute_url())
@@ -58,3 +59,27 @@ def detail_view(request, page_app, pk):
                        rdict,
                        MEDIAS,
                        context_instance=RequestContext(request))
+
+
+def add_view(request, page_app, pk):
+
+    base_url = u'new_exchange'
+
+    if request.method == 'POST': # If the form has been submitted        
+        # TODO: other filters
+        form = PageApp_CoopExchangeNewForm(request.POST)
+        if form.is_valid():
+            # TODO: save
+            form.save()
+    else:
+        form = PageApp_CoopExchangeNewForm() # An empty form
+    
+    rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form}
+    return render_view('page_coop_exchange/new.html',
+                       rdict,
+                       MEDIAS,
+                       context_instance=RequestContext(request))
+
+
+
+                       
