@@ -14,7 +14,6 @@ class TextPlainView(TemplateView):
 urlpatterns = patterns('',
 
     #url(r'^$', 'coop.views.home', name="home"),
-    url(r'', include('ionyweb.urls')),
 
     url(r'^rdf/', include('coop.rdf.urls')),
 
@@ -41,6 +40,9 @@ urlpatterns = patterns('',
     url(r'^communes/$', 'coop.views.communes'),
     url(r'^geojson/(?P<model>[\w-]+)', 'coop.views.geojson'),
     url(r'^geojson/', 'coop.views.geojson_amap'),
+    
+    url(r'', include('ionyweb.urls')),
+
 )
 
 if 'coop.exchange' in settings.INSTALLED_APPS:
