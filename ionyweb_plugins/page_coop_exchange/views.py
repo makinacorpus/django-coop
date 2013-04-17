@@ -61,21 +61,29 @@ def detail_view(request, page_app, pk):
                        context_instance=RequestContext(request))
 
 
-def add_view(request, page_app, pk):
-
-    base_url = u'new_exchange'
+def add_view(request, page_app):
+    base_url = u'%sp/exchange_add' % (page_app.get_absolute_url())
+    center_map = settings.COOP_MAP_DEFAULT_CENTER
 
     if request.method == 'POST': # If the form has been submitted        
-        # TODO: other filters
         form = PageApp_CoopExchangeNewForm(request.POST)
         if form.is_valid():
             # TODO: save
-            form.save()
+            #form.save()
+            
+            exchange = Exchange(
+                title = form.title,
+                type = form.type
+            )
+            exchange.save()
+            print exchange
+            print "iiiiiiiiiiiiiiiiiiiiii"
+
     else:
         form = PageApp_CoopExchangeNewForm() # An empty form
     
-    rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form}
-    return render_view('page_coop_exchange/new.html',
+    rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form, 'center': center_map}
+    return render_view('page_coop_exchange/add.html',
                        rdict,
                        MEDIAS,
                        context_instance=RequestContext(request))
