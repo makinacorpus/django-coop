@@ -17,6 +17,9 @@ from django.db.models import Q
 from django.contrib.gis import geos
 from coop_local.models import Location
 
+from math import pi
+
+
 MEDIAS = (
     CSSMedia('page_members.css'),
     )
@@ -41,7 +44,6 @@ def index_view(request, page_app):
     center_map = settings.COOP_MAP_DEFAULT_CENTER
         
     if request.method == 'POST': # If the form has been submitted
-        # TODO: other filters
         form = PageApp_MembersForm(request.POST)
         if form.is_valid():
             if form.cleaned_data['free_search']:
@@ -51,19 +53,22 @@ def index_view(request, page_app):
                 coords = form.cleaned_data['location'].split(",")
                 center = geos.Point(float(coords[0]), float(coords[1]))
                 radius = form.cleaned_data['location_buffer']
-                zone = center.buffer(float(radius))
+                distance_degrees = (360 * radius) / (pi * 6378)
+                zone = center.buffer(distance_degrees)
                 
                  # Get the possible location in the buffer...
                 possible_locations = Location.objects.filter(point__intersects=zone)
                 # ...and filter organization according to these locations
                 organizations = organizations.filter(Q(located__location__in=possible_locations))
+
+            if form.cleaned_data['thematic']:
+                organizations = organizations.filter(Q(transverse_themes=form.cleaned_data['thematic']))
             
-            #if form.cleaned_data['type_exchange']:
-            #    organizations = organizations.filter(Q(eway__in=form.cleaned_data['type_exchange']))
-
-            #if form.cleaned_data['type']:
-            #    organizations = organizations.filter(Q(etype__in=form.cleaned_data['type']))
-
+            if form.cleaned_data['activity']:
+                organizations = organizations.filter(Q(activity=form.cleaned_data['activity']))
+            
+            # TODO: statut
+            
     else:
         form = PageApp_MembersForm(initial={'location_buffer': '10'}) # An empty form
     
