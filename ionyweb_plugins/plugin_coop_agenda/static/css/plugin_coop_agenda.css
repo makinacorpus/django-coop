@@ -4,7 +4,7 @@
 
 .plugin_coop_agenda .coop_agenda_title {
     float: left;
-    font-size: 1.3em !important;
+    font-size: 1.3em;
 }
 
 .plugin_coop_agenda .desc {
