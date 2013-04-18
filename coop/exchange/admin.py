@@ -4,7 +4,7 @@ from django import forms
 from coop.exchange.models import BaseTransaction, BaseProduct
 from django.db.models.loading import get_model
 from django.utils.translation import ugettext_lazy as _
-from coop.utils.autocomplete_admin import FkAutocompleteAdmin, InlineAutocompleteAdmin
+from coop.utils.autocomplete_admin import FkAutocompleteAdmin, InlineAutocompleteAdmin, SelectableAdminMixin
 from coop_geo.admin import LocatedInline
 from tinymce.widgets import AdminTinyMCE
 from coop.utils.fields import MultiSelectFormField, MethodsCheckboxSelectMultiple, DomainCheckboxSelectMultiple
@@ -55,15 +55,16 @@ if 'coop.exchange' in settings.INSTALLED_APPS:
             widgets = {'sites': chosenwidgets.ChosenSelectMultiple()}
 
 
-    class ExchangeInline(admin.StackedInline, ObjEnabledInline):
+    class ExchangeInline(SelectableAdminMixin, admin.StackedInline, ObjEnabledInline):
         form = ExchangeForm
         model = get_model('coop_local', 'Exchange')
         fieldsets = ((None, {'fields': (('eway', 'etype'),
                                          'methods',
                                          'title',
                                         'description',  # 'tags',
-                                        'location', 'area')
+                                        'location', 'area', 'activity')
                             }),)
+        related_search_fields = {'activity': ('path',), }
         extra = 1
 
         def formfield_for_dbfield(self, db_field, **kwargs):
@@ -95,7 +96,8 @@ if 'coop.exchange' in settings.INSTALLED_APPS:
         list_display = ('title', 'etype')  # , 'methods')
         # TODO to be finished ...
         # list_editable = ('methods',)
-        related_search_fields = {'organization': ('title', 'subtitle', 'description'), }
+        related_search_fields = {'organization': ('title', 'subtitle', 'description'),
+                                 'activity': ('path',), }
         fieldsets = ((None, {'fields': [('eway', 'etype'),
                                          'methods',
                                          'title',
