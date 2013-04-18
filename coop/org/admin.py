@@ -11,7 +11,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
 
 from django.contrib.admin.widgets import AdminURLFieldWidget
-from django.db.models import URLField
+from django.db.models import URLField, ManyToManyField
 from django.utils.safestring import mark_safe
 from sorl.thumbnail.admin import AdminImageMixin
 from tinymce.widgets import AdminTinyMCE
@@ -145,6 +145,7 @@ class OrganizationAdmin(AdminImageMixin, FkAutocompleteAdmin):
     related_search_fields = {'activity': ('path',), }
     formfield_overrides = {
         URLField: {'widget': URLFieldWidget},
+        ManyToManyField: {'widget': forms.CheckboxSelectMultiple}
     }
 
     if "coop.exchange" in settings.INSTALLED_APPS:
@@ -181,7 +182,7 @@ class OrganizationAdmin(AdminImageMixin, FkAutocompleteAdmin):
                         'web']
             }),
         ('Description', {
-            'fields': ['description', 'category', 'activity']  # 'tags', ]
+            'fields': ['description', 'category', 'activity', 'transverse_themes']  # 'tags', ]
             }),
 
         ('Préférences', {

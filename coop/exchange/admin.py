@@ -11,6 +11,7 @@ from coop.utils.fields import MultiSelectFormField, MethodsCheckboxSelectMultipl
 from coop.exchange.models import ETYPE
 from django.conf import settings
 from chosen import widgets as chosenwidgets
+from django.db.models import ManyToManyField
 
 from coop.admin import ObjEnabledInline
 
@@ -62,10 +63,13 @@ if 'coop.exchange' in settings.INSTALLED_APPS:
                                          'methods',
                                          'title',
                                         'description',  # 'tags',
-                                        'location', 'area', 'activity')
+                                        'location', 'area', 'activity', 'transverse_themes')
                             }),)
         related_search_fields = {'activity': ('path',), }
         extra = 1
+        formfield_overrides = {
+            ManyToManyField: {'widget': forms.CheckboxSelectMultiple}
+        }
 
         def formfield_for_dbfield(self, db_field, **kwargs):
             if self.parent_obj != None:

@@ -47,6 +47,7 @@ BASE_COOP_LOCAL_MODELS = [
         u'Organization',
         u'ActivityNomenclature',
         u'ActivityNomenclatureAvise',
+        u'TransverseTheme',
     ]),
     ('coop.project', [
         u'ProjectCategory',

@@ -84,6 +84,7 @@ class CustomMenu(Menu):
                         items.MenuItem(_(u'Roles'), '/admin/coop_local/role/'),
                         items.MenuItem(_(u'Activity nomenclature'), '/admin/coop_local/activitynomenclature/'),
                         items.MenuItem(_(u'Activity nomenclature AVISE'), '/admin/coop_local/activitynomenclatureavise/'),
+                        items.MenuItem(_(u'Transverse Themes'), '/admin/coop_local/transversetheme/'),
                         ]),
 
                     items.MenuItem(_(u'Exchanges'), '#', icon='icon-random', children=[

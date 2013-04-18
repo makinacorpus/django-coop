@@ -62,6 +62,21 @@ class BaseActivityNomenclature(MPTTModel):
         app_label = 'coop_local'
 
 
+class BaseTransverseTheme(models.Model):
+
+    name = models.CharField(_(u'name'), blank=True, max_length=100)
+    description = models.TextField(_(u'description'), blank=True)
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        abstract = True
+        verbose_name = _(u'transverse theme')
+        verbose_name_plural = _(u'transverse themes')
+        app_label = 'coop_local'
+
+
 class BaseRoleCategory(models.Model):
     label = models.CharField(_(u'label'), max_length=60)
     slug = exfields.AutoSlugField(populate_from=('label'), overwrite=True)
@@ -502,6 +517,9 @@ class BaseOrganization(URIModel):
 
     activity = models.ForeignKey('ActivityNomenclature', verbose_name=_(u'activity sector'),
                                  blank=True, null=True)
+    transverse_themes = models.ManyToManyField('TransverseTheme',
+        verbose_name=_(u'transverse themes'), blank=True, null=True)
+
     class Meta:
         abstract = True
         ordering = ['title']

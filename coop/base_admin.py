@@ -24,6 +24,7 @@ register(Location, LocationAdmin)
 register(Area, AreaAdmin)
 register(ActivityNomenclature, ActivityNomenclatureAdmin)
 register(ActivityNomenclatureAvise)
+register(TransverseTheme)
 
 if "coop.project" in settings.INSTALLED_APPS:
     from coop.project.admin import ProjectAdmin

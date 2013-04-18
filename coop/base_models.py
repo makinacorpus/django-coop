@@ -7,7 +7,8 @@ from coop.exchange.models import BaseExchange, BaseProduct, BaseExchangeMethod
 from coop.org.models import (BaseOrganizationCategory, BaseOrganization,
                              BaseRelation, BaseEngagement, BaseRole, BaseOrgRelationType,
                              BaseContact, BaseRoleCategory, BaseContactMedium,
-                             BaseActivityNomenclature, BaseActivityNomenclatureAvise)
+                             BaseActivityNomenclature, BaseActivityNomenclatureAvise,
+                             BaseTransverseTheme)
 from coop.prefs.models import BaseSitePrefs
 from coop_geo.models import Location as BaseLocation
 from coop_geo.models import Located as BaseLocated
@@ -122,6 +123,10 @@ class ActivityNomenclature(BaseActivityNomenclature):
 
 
 class ActivityNomenclatureAvise(BaseActivityNomenclatureAvise):
+    pass
+
+
+class TransverseTheme(BaseTransverseTheme):
     pass
 
 
