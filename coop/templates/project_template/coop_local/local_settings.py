@@ -67,3 +67,6 @@ SYMPA_SOAP = {
 # Keyword arguments for the MULTISITE_FALLBACK view.
 # Default: {}
 MULTISITE_FALLBACK_KWARGS = {}
+
+SITE_NAME = 'Achetons Solidaires'
+DOMAIN_NAME = 'mes:8000'

@@ -2,7 +2,6 @@
 
 from django.conf import settings
 from coop.link.models import BaseLinkProperty, BaseLink
-from coop.article.models import CoopArticle, CoopNavTree
 from coop.person.models import BasePerson, BasePersonCategory
 from coop.exchange.models import BaseExchange, BaseProduct, BaseExchangeMethod
 from coop.org.models import (BaseOrganizationCategory, BaseOrganization,
@@ -33,6 +32,18 @@ class DeletedURI(BaseDeletedURI):
     pass
 
 
+# ----- Tag
+
+if 'coop_tag' in settings.INSTALLED_APPS:
+    from coop.tag.models import CoopTag, CoopTaggedItem
+
+    class Tag(CoopTag):
+        pass
+
+    class TaggedItem(CoopTaggedItem):
+        pass
+
+
 # ---- person
 
 
@@ -42,27 +53,6 @@ class LinkProperty(BaseLinkProperty):
 
 class Link(BaseLink):
     pass
-
-
-# ----- CMS
-
-class Article(CoopArticle):
-    pass
-
-
-class NavTree(CoopNavTree):
-    pass
-
-if 'coop_tag' in settings.INSTALLED_APPS:
-    from coop.tag.models import CoopTag, CoopTaggedItem
-
-    # ----- Tag
-
-    class Tag(CoopTag):
-        pass
-
-    class TaggedItem(CoopTaggedItem):
-        pass
 
 
 # ---- person

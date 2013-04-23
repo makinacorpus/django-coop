@@ -22,10 +22,6 @@ from django.contrib.sites.models import Site
 from django.contrib.auth import authenticate
 import base64
 
-# TODO ces 2 references doivent sauter
-from djaloha import utils as djaloha_utils
-from coop_cms.views import coop_bar_aloha_js
-
 
 
 def has_sympa_mail(user):
@@ -92,14 +88,8 @@ def edit_newsletter(request, newsletter_id):
     if request.method == "POST":
         form = newsletter_form_class(request.POST, instance=newsletter)
 
-        forms_args = djaloha_utils.extract_forms_args(request.POST)
-        djaloha_forms = djaloha_utils.make_forms(forms_args, request.POST)
-
-        if form.is_valid():  # and all([f.is_valid() for f in djaloha_forms]):
+        if form.is_valid():
             newsletter = form.save()
-
-            if djaloha_forms:
-                [f.save() for f in djaloha_forms]
 
             messages.success(request, _(u'The newsletter has been saved properly'))
 

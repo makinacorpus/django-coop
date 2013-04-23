@@ -9,11 +9,9 @@ from coop.org.forms import OrganizationForm, OrganizationCategoryForm
 from django.contrib.auth.decorators import login_required
 from logging import getLogger
 from django.core.exceptions import PermissionDenied
-from djaloha import utils as djaloha_utils
 from django.contrib import messages
 from django.utils.translation import ugettext as _
 from django.http import HttpResponse, HttpResponseRedirect
-from coop_cms.views import coop_bar_aloha_js
 import json
 from django.contrib.gis.geoip import GeoIP
 from django.contrib.gis.geos import fromstr
@@ -47,17 +45,13 @@ def org_edit(request, slug):
 
     if request.method == "POST":
         form = OrganizationForm(request.POST, request.FILES, instance=organization)
-        forms_args = djaloha_utils.extract_forms_args(request.POST)
-        djaloha_forms = djaloha_utils.make_forms(forms_args, request.POST)
-        if form.is_valid() and all([f.is_valid() for f in djaloha_forms]):
+        if form.is_valid():
             logger.error('formulaire valide')
             organization = form.save()
             # if organization.temp_logo:
             #     organization.logo = organization.temp_logo
             #     organization.temp_logo = ''
             #     organization.save()
-            if djaloha_forms:
-                [f.save() for f in djaloha_forms]
             messages.success(request, _(u'Your changes have been saved properly'))
 
             return HttpResponseRedirect(organization.get_absolute_url())
@@ -70,9 +64,6 @@ def org_edit(request, slug):
             messages.error(request, _(u"An error has occured."))
 
     else:
-        from coop_bar.urls import bar
-        if "pageSlide" not in bar.get_footer(request, RequestContext(request)):
-            bar.register_footer(coop_bar_aloha_js)
         form = OrganizationForm(instance=organization)
 
     context_dict = {
@@ -99,13 +90,9 @@ def org_category_edit(request, slug):
 
     if request.method == "POST":
         form = OrganizationCategoryForm(request.POST, request.FILES, instance=org_category)
-        forms_args = djaloha_utils.extract_forms_args(request.POST)
-        djaloha_forms = djaloha_utils.make_forms(forms_args, request.POST)
-        if form.is_valid() and all([f.is_valid() for f in djaloha_forms]):
+        if form.is_valid():
             logger.error('formulaire valide')
             org_category = form.save()
-            if djaloha_forms:
-                [f.save() for f in djaloha_forms]
             messages.success(request, _(u'Your changes have been saved properly'))
             return HttpResponseRedirect(org_category.get_absolute_url())
         else:
@@ -113,9 +100,6 @@ def org_category_edit(request, slug):
                 logger.error(u'FORM ERROR | ' + unicode(f) + u' : ' + unicode(form.errors[f][0]))
             messages.error(request, _(u"An error has occured."))
     else:
-        from coop_bar.urls import bar
-        if "pageSlide" not in bar.get_footer(request, RequestContext(request)):
-            bar.register_footer(coop_bar_aloha_js)
         form = OrganizationCategoryForm(instance=org_category)
 
     context_dict = {

@@ -36,41 +36,6 @@ class CustomMenu(Menu):
             #items.MenuItem(_(u'Dashboard'), reverse('admin:index')),
             #items.Bookmarks(u'Favoris'),
 
-            items.MenuItem(_(u'Navigation tree'), '/admin/coop_local/navtree/1/', icon='icon-list-alt icon-white'),
-
-            items.MenuItem(_(u'Articles'), '/admin/coop_local/article/', icon='icon-pencil icon-white'),
-
-            items.MenuItem(_(u'CMS'), '#', icon='icon-cog icon-white',
-                children=[
-
-                    items.MenuItem(_(u'Content'), '#', icon='icon-file', children=[
-                        items.MenuItem(_(u'Article categories'), '/admin/coop_cms/articlecategory/'),
-                        items.MenuItem(_(u'Documents'), '/admin/coop_cms/document/'),
-                        items.MenuItem(_(u'Images'), '/admin/coop_cms/image/'),
-                        # items.MenuItem(_(u'Newsletters'), '/admin/coop_local/newsletter/'),
-                        # items.MenuItem(_(u'MailingLists'), '/admin/coop_local/mailinglist/'),
-                        items.MenuItem(_(u'Comments'), '/admin/comments/comment/'),
-                        items.MenuItem(_(u'Forms'), '/admin/forms/form/'),
-                        items.MenuItem(_(u'Preferences'), '/admin/coop_local/siteprefs/'),
-
-                        ]),
-
-                    # RSS Sync menu gets inserted here if installed (see above)
-
-                    items.MenuItem(_(u'Tags'), '#', icon='icon-tags', children=[
-                        items.MenuItem(_(u'Tags'), '/admin/coop_local/tag/'),
-                        #items.MenuItem(_('Tag categories'), '/admin/coop_tag/tagcategory/'),
-                        items.MenuItem(_(u'Tag trees'), '/admin/coop_local/navtree/'),
-                        ]),
-
-                    items.MenuItem(_(u'Django'), '#', icon='icon-coop icon-django', children=[
-                        items.MenuItem(_(u'Users'), '/admin/auth/user/'),
-                        items.MenuItem(_(u'Sites'), '/admin/sites/site/'),
-                        ]),
-                ]
-            ),
-
-
             # Agenda menu inserted here if coop.agenda installed
 
             items.MenuItem(_('Network'), '#', icon='icon-coop icon-group icon-white',
@@ -109,17 +74,8 @@ class CustomMenu(Menu):
 
         ]
 
-        if 'coop_cms.apps.rss_sync' in settings.INSTALLED_APPS:
-            self.children[2].children.insert(1,
-
-                    items.MenuItem(_(u'RSS'), '#', icon='icon-coop icon-rss', children=[
-                        items.MenuItem(_(u'RSS items'), '/admin/rss_sync/rssitem/'),
-                        items.MenuItem(_(u'RSS sources'), '/admin/rss_sync/rsssource/'),
-                        ])
-                    )
-
         if 'coop.agenda' in settings.INSTALLED_APPS:
-            self.children.insert(2,
+            self.children.insert(0,
                 items.MenuItem(_(u'Agenda'), '#', icon='icon-calendar icon-white',
                     children=[
                         items.MenuItem(_(u'Events'), '/admin/coop_local/event/'),
@@ -130,9 +86,9 @@ class CustomMenu(Menu):
 
         if 'coop.mailing' in settings.INSTALLED_APPS:
             if 'coop.agenda' in settings.INSTALLED_APPS:
-                menu_nb = 3
+                menu_nb = 1
             else:
-                menu_nb = 2
+                menu_nb = 0
 
             self.children[menu_nb].children[0].children.insert(3, 
                     items.MenuItem(_(u'Newsletters'), '/admin/coop_local/newsletter/'),)
@@ -142,9 +98,9 @@ class CustomMenu(Menu):
 
         if 'coop.project' in settings.INSTALLED_APPS:
             if 'coop.agenda' in settings.INSTALLED_APPS:
-                menu_nb = 4
+                menu_nb = 2
             else:
-                menu_nb = 3
+                menu_nb = 1
 
             self.children[menu_nb].children.insert(1,
 

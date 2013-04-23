@@ -1,0 +1,109 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-11 09:25+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+
+#: forms.py:14
+msgid "Gift"
+msgstr "Don"
+
+#: forms.py:15
+msgid "Swap"
+msgstr "Echange"
+
+#: forms.py:16
+msgid "Skill"
+msgstr "Compétences"
+
+#: forms.py:17
+msgid "Euros"
+msgstr ""
+
+#: forms.py:18
+msgid "Mutualization"
+msgstr "Mutualisation"
+
+#: forms.py:22
+msgid "Voluntary"
+msgstr "Volontaire"
+
+#: forms.py:23
+msgid "Training work"
+msgstr "Stage"
+
+#: forms.py:24
+msgid "Job offer"
+msgstr "Offre d'emploi"
+
+#: forms.py:25
+msgid "Training"
+msgstr "Essai"
+
+#: forms.py:35 templates/page_coop_exchange/index.html:31
+msgid "Activity"
+msgstr "Activité"
+
+#: forms.py:36 templates/page_coop_exchange/index.html:41
+msgid "Location"
+msgstr "Lieu"
+
+#: forms.py:37 templates/page_coop_exchange/index.html:35
+msgid "Thematic"
+msgstr "Thématique"
+
+#: forms.py:43 templates/page_coop_exchange/index.html:20
+msgid "Free search"
+msgstr "Recherche libre"
+
+#: models.py:15
+msgid "CoopExchange"
+msgstr ""
+
+#: templates/page_coop_exchange/detail.html:9
+#: templates/page_coop_exchange/index.html:16
+#: templates/page_coop_exchange/index.html:82
+msgid "Type"
+msgstr ""
+
+#: templates/page_coop_exchange/index.html:12
+msgid "I'm looking for"
+msgstr "Je recherche"
+
+#: templates/page_coop_exchange/index.html:24
+msgid "Search"
+msgstr "Recherche"
+
+#: templates/page_coop_exchange/index.html:25
+msgid "Results"
+msgstr "Résultats"
+
+#: templates/page_coop_exchange/index.html:32
+msgid "Experience"
+msgstr "Expérience"
+
+#: templates/page_coop_exchange/index.html:45
+msgid "Exchange mode"
+msgstr "Mode d'échange"
+
+#: templates/page_coop_exchange/index.html:49
+msgid "If skills"
+msgstr "Si compétences"
+
+#: templates/page_coop_exchange/index.html:85
+msgid "Show details"
+msgstr "Voir les détails"

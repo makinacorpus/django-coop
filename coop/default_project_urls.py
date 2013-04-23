@@ -96,9 +96,12 @@ urlpatterns += patterns('',
     (r'^id/', include('uriredirect.urls')),
     (r'^data/', include('coop.data_urls')),
     (r'^', include('coop_geo.urls', app_name='coop_geo')),
-    (r'^djaloha/', include('djaloha.urls')),
     (r'^', include('coop.urls')),
-    # (r'^', include('coop_cms.urls')),
+)
+
+# Ionyweb
+urlpatterns += patterns('',
+    (r'^', include('ionyweb.urls')),
 )
 
 if settings.DEBUG:

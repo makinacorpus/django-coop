@@ -3,7 +3,6 @@ from django import forms
 import floppyforms
 import re
 from coop_local.models import Organization, OrganizationCategory
-from djaloha.widgets import AlohaInput
 from django.utils.translation import ugettext as _
 from django.core.exceptions import ValidationError
 
@@ -18,10 +17,6 @@ class OrganizationForm(floppyforms.ModelForm):
     class Meta:
         model = Organization
         fields = ('title', 'description', 'logo')
-        widgets = {
-            'title': AlohaInput(text_color_plugin=False),
-            'description': AlohaInput(text_color_plugin=False),
-        }
 
     # def set_logo_size(self, logo_size=None):
     #     thumbnail_src = self.logo_thumbnail(logo_size)
@@ -52,10 +47,6 @@ class OrganizationCategoryForm(floppyforms.ModelForm):
     class Meta:
         model = OrganizationCategory
         fields = ('label', 'description')
-        widgets = {
-            'label': AlohaInput(text_color_plugin=False),
-            'description': AlohaInput(text_color_plugin=False),
-        }
 
     def clean_label(self):
         label = self.cleaned_data['label'].strip()
