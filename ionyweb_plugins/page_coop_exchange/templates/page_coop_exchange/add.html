@@ -5,104 +5,93 @@
 {% endblock %}
 
 <div id="exchanges_top"></div>
-<div id="result_exchanges">
+<div id="result_exchanges" class="add_form">
     <h1>{% trans "Add new exchange" %}</h1>
+
     <form action="{{ base_url }}" method="post">{% csrf_token %}
-        <div class="new_block" id="looking_for">
-            {{ form.type_exchange }}
-        </div>
-        <div class="new_block" id="type">
-            <span class="form_label">{% trans "Type" %}</span>
-            {{ form.type }}
+
+        <div class="fieldWrapper">
+            {{ form.eway.errors }}
+            {{ form.eway.label_tag }}: {{ form.eway }}
         </div>
 
-        <div class="new_block">
-            <span class="form_label">{% trans "Date of creation" %}</span>
-            {{ form.date_creation }}
-        </div>
-        <div class="new_block">
-            <span class="form_label">{% trans "Date of validity" %}</span>
-            {{ form.date_validity }}
-        </div>
-        <div class="new_block">
-            <span class="form_label">{% trans "Organization" %}</span>
-            {{ form.organization }}
-        </div>
-        <div class="new_block">
-            <span class="form_label">{% trans "Organization person" %}</span>
-            {{ form.organizatiokn_person }}
-        </div>
-        <div class="new_block">
-            <span class="form_label">{% trans "Title" %}</span>
-            {{ form.title }}
-        </div>
-        <div class="new_block">
-            <span class="form_label">{% trans "Mode" %}</span>
-            {{ form.mode }}
-        </div>
-        <div class="new_block">
-            <span class="form_label">{% trans "Skills" %}</span>
-            {{ form.skills }}
-        </div>
-        <div class="new_block">
-            <span class="form_label">{% trans "Date start" %}</span>
-            {{ form.date_start }} 
-        </div>
-        <div class="new_block">
-            <span class="form_label">{% trans "Date end" %}</span>
-            {{ form.date_end }} 
-        </div>
-        <div class="new_block">
-            <span class="form_label">{% trans "Department" %}</span>
-            {{ form.location_dep }} 
-        </div>
-        <div class="new_block">
-            <span class="form_label">{% trans "City" %}</span>
-            {{ form.location_city }} 
-        </div>
-        <div class="new_block">
-            <span class="form_label">{% trans "Address" %}</span>
-            {{ form.location_other }} 
-        </div>
-        <div class="new_block">
-            <span class="form_label">{% trans "zone" %}</span>
-            {{ form.location_zone }} 
-        </div>
-        <div class="new_block">
-            <span class="form_label">{% trans "Description" %}</span>            
-            {{ form.description }} 
-        </div>
-        <div class="new_block">
-            <span class="form_label">{% trans "Thematic" %}</span>
-            {{ form.thematic }}
-        </div>
-        <div class="new_block">
-            <span class="form_label">{% trans "Activity" %}</span>
-            {{ form.activity }} 
-        </div>
-        <div class="new_block">
-            <span class="form_label">{% trans "Keywords" %}</span>            
-            {{ form.key_words }} 
-        </div>
-        <div class="new_block">
-            <span class="form_label">{% trans "Media" %}</span>            
-            {{ form.media }} 
-        </div>
+        <!--<div class="fieldWrapper">
+            {{ form.date_validity.errors }}
+            {{ form.date_validity.label_tag }}: {{ form.date_validity }}
+        </div>-->
+        
+        <div class="fieldWrapper">
+            {{ form.organization.errors }}
+            {{ form.organization.label_tag }}: {{ form.organization }}
+        </div>        
+        
+        <div class="fieldWrapper">
+            {{ form.person.errors }}
+            {{ form.person.label_tag }}: {{ form.person }}
+        </div>        
+        
+        <div class="fieldWrapper">
+            {{ form.title.errors }}
+            {{ form.title.label_tag }}: {{ form.title }}
+        </div>          
+        
+        <div class="fieldWrapper">
+            {{ form.etype.errors }}
+            {{ form.etype.label_tag }}: {{ form.etype }}
+        </div>          
+        
+        <!--<div class="fieldWrapper">
+            {{ form.mode.errors }}
+            {{ form.mode.label_tag }}: {{ form.mode }}
+        </div>   
 
-        <div id="leaflet_map"></div>
-        <script src="http://leaflet.cloudmade.com/dist/leaflet.js"></script>
-        <script type="text/javascript">
+        <div class="fieldWrapper">
+            {{ form.skills.errors }}
+            {{ form.skills.label_tag }}:{{ form.skills }}
+        </div>   -->
 
-            var cloudmadeUrl = 'http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png',
-                cloudmadeAttribution = 'Map data &copy; 2011 OpenStreetMap contributors, Imagery &copy; 2011 CloudMade',
-                cloudmade = new L.TileLayer(cloudmadeUrl, {maxZoom: 18, attribution: cloudmadeAttribution});
+        <!--<div class="fieldWrapper">
+            {{ form.date_start.errors }}
+            {{ form.date_start.label_tag }}: {{ form.date_start }}
+        </div>   -->
 
-            var centre = new L.LatLng({{ center.y }}, {{ center.x }});
-            var map = new L.Map('leaflet_map');
-            map.setView(centre, 8).addLayer(cloudmade);
+        <div class="fieldWrapper">
+            {{ form.expiration.errors }}
+            {{ form.expiration.label_tag }}: {{ form.expiration }}
+        </div>   
 
-        </script>
+        <div class="fieldWrapper">
+            {{ form.location.errors }}
+            {{ form.location.label_tag }}: {{ form.location }}
+        </div>   
 
+        <div class="fieldWrapper">
+            {{ form.description.errors }}
+            {{ form.description.label_tag }}: {{ form.description }}
+        </div>   
+        
+        <div class="fieldWrapper">
+            {{ form.transverse_themes.errors }}
+            {{ form.transverse_themes.label_tag }}: {{ form.transverse_themes }}
+        </div>   
+        
+        <div class="fieldWrapper">
+            {{ form.activity.errors }}
+            {{ form.activity.label_tag }}: {{ form.activity }}
+        </div>   
+        
+        <!--<div class="fieldWrapper">
+            {{ form.key_words.errors }}
+            {{ form.key_words.label_tag }}: {{ form.key_words }}
+        </div>   
+
+        <div class="fieldWrapper">
+            {{ form.media.errors }}
+            {{ form.media.label_tag }}: {{ form.media }}
+        </div>   -->
+
+
+        {{ form.errors }}
 
         <div class="new_block" id="new_submit">
             <input type="submit" value="{% trans "Create" %}" />                

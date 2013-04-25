@@ -35,7 +35,7 @@
         <div class="search_column" id="search_column2">
             <div class="search_block" id="activity">
                 <span class="search_title">{% trans "Activity" %}</span>
-                {% trans "Experience" %} : {{ form.activity }}
+                {{ form.activity }}
             </div>
             <div class="search_block" id="thematic">
                 <span class="search_title">{% trans "Thematic" %}</span>
@@ -47,6 +47,11 @@
                 <span class="search_title">{% trans "Location" %}</span>
                 {{ form.location }}
             </div>
+            <div class="search_block" id="location">
+                <span class="search_title">{% trans "Location buffer" %}</span>
+                {{ form.location_buffer }}
+            </div>
+
             <div class="search_block checkbox_custom" id="mode">
                 <span class="search_title">{% trans "Exchange mode" %}</span>
                 {{ form.mode }}

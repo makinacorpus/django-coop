@@ -7,6 +7,10 @@ from .models import PageApp_CoopExchange
 
 from coop.exchange.models import ETYPE
 from coop.exchange.models import EWAY
+from coop.exchange.admin import ExchangeForm
+from coop_local.models import Exchange
+
+from coop.base_models import ActivityNomenclature, TransverseTheme
 
 from extended_choices import Choices
 
@@ -32,9 +36,11 @@ class PageApp_CoopExchangeForm(ModuloModelForm):
 
     type = forms.MultipleChoiceField(required=False, choices=ETYPE, widget=forms.CheckboxSelectMultiple())
 
-    activity = forms.CharField(required=False, label=_('Activity'))
+    activity = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.all(),required=False, label=_('Activity'))
+    
     location = forms.CharField(required=False, label=_('Location'))
-    thematic = forms.CharField(required=False, label=_('Thematic'))
+    location_buffer = forms.IntegerField(required=False, label=_('Location buffer'))
+    thematic = forms.ModelChoiceField(queryset=TransverseTheme.objects.all(), required=False, label=_('Thematic'))
     
     mode = forms.MultipleChoiceField(required=False, choices=EMODE, widget=forms.CheckboxSelectMultiple())
     
@@ -46,36 +52,9 @@ class PageApp_CoopExchangeForm(ModuloModelForm):
     class Meta:
         model = PageApp_CoopExchange
 
-
-class PageApp_CoopExchangeNewForm(ModuloModelForm):
-
-    date_creation = forms.CharField(required=False, label=_('Date creation'))
-    date_validity = forms.CharField(required=False, label=_('Date validity'))
-    organization = forms.CharField(required=False, label=_('Organization'))
-    organizatiokn_person = forms.CharField(required=False, label=_('Person'))
-    title = forms.CharField(required=False, label=_('Title'))
-    type_exchange = forms.MultipleChoiceField(required=False, choices=EWAY, widget=forms.RadioSelect())
-    type = forms.MultipleChoiceField(required=False, choices=ETYPE, widget=forms.RadioSelect())
-    mode = forms.MultipleChoiceField(required=False, choices=EMODE, widget=forms.CheckboxSelectMultiple())
-    skills = forms.MultipleChoiceField(required=False, choices=ESKILLS, widget=forms.CheckboxSelectMultiple())
-    
-    date_start = forms.CharField(required=False, label=_('Date start'))
-    date_end = forms.CharField(required=False, label=_('Date end'))
-    
-    location_dep = forms.CharField(required=False, label=_('Location departement'))
-    location_city = forms.CharField(required=False, label=_('Location city'))
-    location_other = forms.CharField(required=False, label=_('Location other'))
-    location_zone = forms.CharField(required=False, label=_('Location zone'))
-    
-    description = forms.CharField(required=False, label=_('Description'))
-    thematic = forms.CharField(required=False, label=_('Thematic'))
-    activity = forms.CharField(required=False, label=_('Activity'))
-    
-    key_words = forms.CharField(required=False, label=_('Keywords'))
-    
-    media = forms.CharField(required=False, label=_('Media'))
         
-    
-        
+class PartialExchangeForm(ExchangeForm):
     class Meta:
-        model = PageApp_CoopExchange        
+        model = Exchange
+        exclude = ('products', 'sites', )
+        
