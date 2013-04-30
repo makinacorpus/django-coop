@@ -6,7 +6,9 @@ from coop.person.models import BasePerson, BasePersonCategory
 from coop.exchange.models import BaseExchange, BaseProduct, BaseExchangeMethod
 from coop.org.models import (BaseOrganizationCategory, BaseOrganization,
                              BaseRelation, BaseEngagement, BaseRole, BaseOrgRelationType,
-                             BaseContact, BaseRoleCategory, BaseContactMedium)
+                             BaseContact, BaseRoleCategory, BaseContactMedium,
+                             BaseActivityNomenclature, BaseActivityNomenclatureAvise,
+                             BaseTransverseTheme)
 from coop.prefs.models import BaseSitePrefs
 from coop_geo.models import Location as BaseLocation
 from coop_geo.models import Located as BaseLocated
@@ -32,10 +34,11 @@ class DeletedURI(BaseDeletedURI):
     pass
 
 
-# ----- Tag
 
 if 'coop_tag' in settings.INSTALLED_APPS:
     from coop.tag.models import CoopTag, CoopTaggedItem
+
+    # ----- Tag
 
     class Tag(CoopTag):
         pass
@@ -102,6 +105,18 @@ class OrganizationCategory(BaseOrganizationCategory):
 
 
 class Organization(BaseOrganization):
+    pass
+
+
+class ActivityNomenclature(BaseActivityNomenclature):
+    pass
+
+
+class ActivityNomenclatureAvise(BaseActivityNomenclatureAvise):
+    pass
+
+
+class TransverseTheme(BaseTransverseTheme):
     pass
 
 

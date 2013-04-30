@@ -40,14 +40,15 @@ ADMIN_TOOLS_PATH = os.path.dirname(os.path.abspath(admin_tools.__file__))
 
 STATICFILES_DIRS = [
     os.path.abspath(ADMIN_TOOLS_PATH + '/media/'),
+    os.path.join(get_ionyweb_path(), 'static'),
 ]
 
 STATICFILES_FINDERS = [
-    'ionyweb.loaders.layouts_finders.StaticFinder',
-    'ionyweb.loaders.themes_finders.StaticFinder',
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'ionyweb.loaders.layouts_finders.StaticFinder',
+    'ionyweb.loaders.themes_finders.StaticFinder',
 ]
 
 
@@ -56,13 +57,13 @@ TEMPLATE_DIRS = [
 ]
 
 TEMPLATE_LOADERS = [
-    'ionyweb.loaders.layouts_templates.Loader',
-    'ionyweb.loaders.themes_templates.Loader',
     'multisite.template_loader.Loader',
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 #     'django.template.loaders.eggs.Loader',
     'apptemplates.Loader',
+    'ionyweb.loaders.layouts_templates.Loader',
+    'ionyweb.loaders.themes_templates.Loader',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -78,6 +79,7 @@ MIDDLEWARE_CLASSES = [
     #'django_webid.auth.middleware.WEBIDAuthMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'coop.utils.middleware.CORSMiddleware',
+#    'pagination.middleware.PaginationMiddleware',
     'ionyweb.website.middleware.ProvideWebSiteMiddleware',
     'ionyweb.website.middleware.PreamptiveWebSiteMiddleware',
 ]
@@ -195,20 +197,20 @@ INSTALLED_APPS = [
 
     'coop_geo',
 
+    # Keep after coop
+    'mptt',
+
     # PuSH
     'django_rq',
     'subhub',
     'django_push.subscriber',
-    'uriredirect',
 
-    # ionyweb
+    #ionyweb
     'ionyweb',
     'django.contrib.sitemaps',
     'grappelli',
     'django.contrib.admindocs',
-    'tinymce',
     'mptt',
-    'floppyforms',
     'sekizai',
     'djangorestframework',
     'less',
@@ -229,6 +231,7 @@ INSTALLED_APPS = [
     'ionyweb.page_app.page_book',
     'ionyweb.page_app.page_gallery_images',
     'ionyweb.page_app.page_sitemap',
+
 
     # Plugins
     'ionyweb.plugin_app.plugin_text',
@@ -265,8 +268,6 @@ TINYMCE_DEFAULT_CONFIG = {
     'theme_advanced_buttons1': 'bold,italic,|,justifyleft,justifycenter,justifyright,|,bullist,numlist,|,link,unlink,|,code',
     'theme_advanced_buttons2': '', 'theme_advanced_buttons3': ''
     }
-
-COOP_NEWLETTER_ITEM_CLASSES = ['article']
 
 
 FORMS_BUILDER_USE_SITES = False
@@ -417,7 +418,7 @@ THEMES_DIRS = (
 TINYMCE_JS_URL = os.path.join(STATIC_URL, "tiny_mce/tiny_mce_src.js")
 TINYMCE_JS_ROOT = os.path.join(get_ionyweb_path(), 'static', "tiny_mce")
 
-TINYMCE_COMPRESSOR = False
+TINYMCE_COMPRESSOR = True
 TINYMCE_SPELLCHECKER = True
 TINYMCE_FILEBROWSER = False
 TINYMCE_DEFAULT_CONFIG = {

@@ -11,19 +11,20 @@ from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
 
 from django.contrib.admin.widgets import AdminURLFieldWidget
-from django.db.models import URLField
+from django.db.models import URLField, ManyToManyField
 from django.utils.safestring import mark_safe
 from sorl.thumbnail.admin import AdminImageMixin
 from tinymce.widgets import AdminTinyMCE
 
 from chosen import widgets as chosenwidgets
+from selectable.forms import AutoCompleteSelectWidget
+from mptt.admin import MPTTModelAdmin
 
 if "coop.exchange" in settings.INSTALLED_APPS:
     from coop.exchange.admin import ExchangeInline
 
 if "coop_geo" in settings.INSTALLED_APPS:
     from coop_geo.admin import LocatedInline, AreaInline
-
 
 
 
@@ -141,8 +142,10 @@ class OrganizationAdmin(AdminImageMixin, FkAutocompleteAdmin):
     list_select_related = True
     #read_only_fields = ['created','modified']
     ordering = ('title',)
+    related_search_fields = {'activity': ('path',), }
     formfield_overrides = {
         URLField: {'widget': URLFieldWidget},
+        ManyToManyField: {'widget': forms.CheckboxSelectMultiple}
     }
 
     if "coop.exchange" in settings.INSTALLED_APPS:
@@ -179,7 +182,7 @@ class OrganizationAdmin(AdminImageMixin, FkAutocompleteAdmin):
                         'web']
             }),
         ('Description', {
-            'fields': ['description', 'category',]  # 'tags', ]
+            'fields': ['description', 'category', 'activity', 'transverse_themes']  # 'tags', ]
             }),
 
         ('Préférences', {
@@ -205,4 +208,11 @@ class OrganizationAdmin(AdminImageMixin, FkAutocompleteAdmin):
     class Media:
         js = ('/static/js/admin_customize.js',)
 
+
+class ActivityNomenclatureAdmin(MPTTModelAdmin, FkAutocompleteAdmin):
+
+    related_search_fields = {'avise': ('label',), 'parent': ('path',)}
+    mptt_indent_field = 'label'
+    mptt_level_indent = 50
+    list_display = ('label', )
 

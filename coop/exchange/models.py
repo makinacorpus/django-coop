@@ -110,6 +110,10 @@ class BaseExchange(URIModel):
                                                 help_text=_(u'fill this only if the organization record is not available locally'))
 
     methods = models.ManyToManyField('coop_local.ExchangeMethod', verbose_name=_(u'exchange methods'))
+    activity = models.ForeignKey('coop_local.ActivityNomenclature', verbose_name=_(u'activity sector'),
+                                 blank=True, null=True)
+    transverse_themes = models.ManyToManyField('coop_local.TransverseTheme',
+        verbose_name=_(u'transverse themes'), blank=True, null=True)
 
     if "coop.agenda" in settings.INSTALLED_APPS:
         dated = generic.GenericRelation('coop_local.Dated')
