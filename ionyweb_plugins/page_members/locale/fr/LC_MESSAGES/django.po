@@ -1,0 +1,80 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-05-14 11:15+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+
+#: forms.py:16
+msgid "Type"
+msgstr ""
+
+#: forms.py:18 templates/page_members/index.html:19
+msgid "Activity"
+msgstr "Activité"
+
+#: forms.py:20 templates/page_members/detail.html:29
+#: templates/page_members/index.html:35
+msgid "Location"
+msgstr "Lieu"
+
+#: forms.py:21 templates/page_members/index.html:39
+msgid "Location buffer"
+msgstr "Lieu buffer"
+
+#: forms.py:22 templates/page_members/index.html:29
+msgid "Thematic"
+msgstr "Thématique"
+
+#: forms.py:24 templates/page_members/index.html:23
+msgid "Free search"
+msgstr "Recherche libre"
+
+#: models.py:9
+msgid "type"
+msgstr ""
+
+#: models.py:15
+msgid "Members"
+msgstr "Structures"
+
+#: templates/page_members/add.html:9 templates/page_members/add_success.html:6
+msgid "Add new member"
+msgstr "Ajouter une nouvelle structure"
+
+#: templates/page_members/add.html:26
+msgid "Create"
+msgstr "Ajouter"
+
+#: templates/page_members/add_success.html:7
+msgid "Member added. You may now consult it in the list"
+msgstr "Structure ajoutée. Vous pouvez à présent la consulter dans la liste"
+
+#: templates/page_members/add_success.html:8
+msgid "Member list"
+msgstr "Liste des structures"
+
+#: templates/page_members/forbidden.html:3
+msgid "You must be logged in to view this page"
+msgstr "Vous devez être connecté pour voir cette page"
+
+#: templates/page_members/index.html:79
+msgid "Search"
+msgstr "Recherche"
+
+#: templates/page_members/index.html:80
+msgid "Results"
+msgstr "Résultats"
