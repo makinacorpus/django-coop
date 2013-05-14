@@ -100,7 +100,12 @@ def add_view(request, page_app):
             
             if form.is_valid():
                 exchange = form.save()
-                #return HttpResponse()
+                base_url = u'%s' % (page_app.get_absolute_url())
+                rdict = {'base_url': base_url}
+                return render_view('page_coop_exchange/add_success.html',
+                                rdict,
+                                MEDIAS,
+                                context_instance=RequestContext(request))
         else:
             form = PartialExchangeForm() # An empty form
         

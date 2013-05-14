@@ -6,92 +6,95 @@
 
 <div id="exchanges_top"></div>
 <div id="result_exchanges" class="add_form">
-    <h1>{% trans "Add new exchange" %}</h1>
+    <h2 class="maj_title">{% trans "Add new exchange" %}</h2>
 
-    <form action="{{ base_url }}" method="post">{% csrf_token %}
+    <form action="{{ base_url }}" method="post" class="add_form">{% csrf_token %}
 
-        <div class="fieldWrapper">
-            {{ form.eway.errors }}
-            {{ form.eway.label_tag }}: {{ form.eway }}
+        <div class="bg_form">
+
+            <div class="fieldWrapper">
+                {{ form.eway.errors }}
+                {{ form.eway.label_tag }}: {{ form.eway }}
+            </div>
+
+            <!--<div class="fieldWrapper">
+                {{ form.date_validity.errors }}
+                {{ form.date_validity.label_tag }}: {{ form.date_validity }}
+            </div>-->
+            
+            <div class="fieldWrapper">
+                {{ form.organization.errors }}
+                {{ form.organization.label_tag }}: {{ form.organization }}
+            </div>        
+            
+            <div class="fieldWrapper">
+                {{ form.person.errors }}
+                {{ form.person.label_tag }}: {{ form.person }}
+            </div>        
+            
+            <div class="fieldWrapper">
+                {{ form.title.errors }}
+                {{ form.title.label_tag }}: {{ form.title }}
+            </div>          
+            
+            <div class="fieldWrapper">
+                {{ form.etype.errors }}
+                {{ form.etype.label_tag }}: {{ form.etype }}
+            </div>          
+            
+            <!--<div class="fieldWrapper">
+                {{ form.mode.errors }}
+                {{ form.mode.label_tag }}: {{ form.mode }}
+            </div>   
+
+            <div class="fieldWrapper">
+                {{ form.skills.errors }}
+                {{ form.skills.label_tag }}:{{ form.skills }}
+            </div>   -->
+
+            <!--<div class="fieldWrapper">
+                {{ form.date_start.errors }}
+                {{ form.date_start.label_tag }}: {{ form.date_start }}
+            </div>   -->
+
+            <div class="fieldWrapper">
+                {{ form.expiration.errors }}
+                {{ form.expiration.label_tag }}: {{ form.expiration }}
+            </div>   
+
+            <div class="fieldWrapper">
+                {{ form.location.errors }}
+                {{ form.location.label_tag }}: {{ form.location }}
+            </div>   
+
+            <div class="fieldWrapper">
+                {{ form.description.errors }}
+                {{ form.description.label_tag }}: {{ form.description }}
+            </div>   
+            
+            <div class="fieldWrapper">
+                {{ form.transverse_themes.errors }}
+                {{ form.transverse_themes.label_tag }}: {{ form.transverse_themes }}
+            </div>   
+            
+            <div class="fieldWrapper">
+                {{ form.activity.errors }}
+                {{ form.activity.label_tag }}: {{ form.activity }}
+            </div>   
+            
+            <!--<div class="fieldWrapper">
+                {{ form.key_words.errors }}
+                {{ form.key_words.label_tag }}: {{ form.key_words }}
+            </div>   
+
+            <div class="fieldWrapper">
+                {{ form.media.errors }}
+                {{ form.media.label_tag }}: {{ form.media }}
+            </div>   -->
+
+
+            {{ form.errors }}
         </div>
-
-        <!--<div class="fieldWrapper">
-            {{ form.date_validity.errors }}
-            {{ form.date_validity.label_tag }}: {{ form.date_validity }}
-        </div>-->
-        
-        <div class="fieldWrapper">
-            {{ form.organization.errors }}
-            {{ form.organization.label_tag }}: {{ form.organization }}
-        </div>        
-        
-        <div class="fieldWrapper">
-            {{ form.person.errors }}
-            {{ form.person.label_tag }}: {{ form.person }}
-        </div>        
-        
-        <div class="fieldWrapper">
-            {{ form.title.errors }}
-            {{ form.title.label_tag }}: {{ form.title }}
-        </div>          
-        
-        <div class="fieldWrapper">
-            {{ form.etype.errors }}
-            {{ form.etype.label_tag }}: {{ form.etype }}
-        </div>          
-        
-        <!--<div class="fieldWrapper">
-            {{ form.mode.errors }}
-            {{ form.mode.label_tag }}: {{ form.mode }}
-        </div>   
-
-        <div class="fieldWrapper">
-            {{ form.skills.errors }}
-            {{ form.skills.label_tag }}:{{ form.skills }}
-        </div>   -->
-
-        <!--<div class="fieldWrapper">
-            {{ form.date_start.errors }}
-            {{ form.date_start.label_tag }}: {{ form.date_start }}
-        </div>   -->
-
-        <div class="fieldWrapper">
-            {{ form.expiration.errors }}
-            {{ form.expiration.label_tag }}: {{ form.expiration }}
-        </div>   
-
-        <div class="fieldWrapper">
-            {{ form.location.errors }}
-            {{ form.location.label_tag }}: {{ form.location }}
-        </div>   
-
-        <div class="fieldWrapper">
-            {{ form.description.errors }}
-            {{ form.description.label_tag }}: {{ form.description }}
-        </div>   
-        
-        <div class="fieldWrapper">
-            {{ form.transverse_themes.errors }}
-            {{ form.transverse_themes.label_tag }}: {{ form.transverse_themes }}
-        </div>   
-        
-        <div class="fieldWrapper">
-            {{ form.activity.errors }}
-            {{ form.activity.label_tag }}: {{ form.activity }}
-        </div>   
-        
-        <!--<div class="fieldWrapper">
-            {{ form.key_words.errors }}
-            {{ form.key_words.label_tag }}: {{ form.key_words }}
-        </div>   
-
-        <div class="fieldWrapper">
-            {{ form.media.errors }}
-            {{ form.media.label_tag }}: {{ form.media }}
-        </div>   -->
-
-
-        {{ form.errors }}
 
         <div class="new_block" id="new_submit">
             <input type="submit" value="{% trans "Create" %}" />                

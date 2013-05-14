@@ -6,6 +6,9 @@ from django.forms import ModelForm
 from .models import PageApp_Members
 from django.utils.translation import ugettext, ugettext_lazy as _
 
+from coop_local.models import Organization
+from coop.org.admin import OrganizationAdminForm
+
 from coop.base_models import ActivityNomenclature, TransverseTheme
 
 class PageApp_MembersForm(ModelForm):
@@ -22,3 +25,9 @@ class PageApp_MembersForm(ModelForm):
     
     class Meta:
         model = PageApp_Members
+        
+        
+class PartialMemberForm(OrganizationAdminForm):
+    class Meta:
+        model = Organization
+        #exclude = ('products', 'sites', )

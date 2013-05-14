@@ -1,0 +1,40 @@
+{% load i18n %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="http://leaflet.cloudmade.com/dist/leaflet.css" />
+{% endblock %}
+
+
+<div id="exchanges_top_search"></div>
+<div id="new_form">
+    <form action="{{ base_url }}" method="post">{% csrf_token %}
+        <div class="new_block" id="looking_for">
+            <span class="search_title">{% trans "I'm looking for" %}</span>
+            {{ form.type_exchange }}
+        </div>
+        <div class="new_block" id="type">
+            <span class="search_title">{% trans "Type" %}</span>
+            {{ form.type }}
+        </div>
+        <div id="leaflet_map"></div>
+        <script src="http://leaflet.cloudmade.com/dist/leaflet.js"></script>
+        <script type="text/javascript">
+
+            var cloudmadeUrl = 'http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png',
+                cloudmadeAttribution = 'Map data &copy; 2011 OpenStreetMap contributors, Imagery &copy; 2011 CloudMade',
+                cloudmade = new L.TileLayer(cloudmadeUrl, {maxZoom: 18, attribution: cloudmadeAttribution});
+
+            var centre = new L.LatLng({{ center.y }}, {{ center.x }});
+            var map = new L.Map('leaflet_map');
+            map.setView(centre, 8).addLayer(cloudmade);
+
+        </script>
+
+
+        <div class="new_block" id="new_submit">
+            <input type="submit" value="{% trans "Create" %}" />                
+        </div>
+
+    </form>
+</div>
+

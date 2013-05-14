@@ -10,7 +10,7 @@ from django.shortcuts import get_object_or_404
 
 from ionyweb.website.rendering.medias import CSSMedia
 
-from .forms import PageApp_MembersForm
+from .forms import PageApp_MembersForm, PartialMemberForm
 
 from django.db.models import Q
 
@@ -86,3 +86,32 @@ def detail_view(request, page_app, pk):
                        { 'member':  member, 'media_path': settings.MEDIA_URL },
                        MEDIAS,
                        context_instance=RequestContext(request))
+                       
+def add_view(request, page_app):
+    if request.user.is_authenticated():
+        base_url = u'%sp/member_add' % (page_app.get_absolute_url())
+        center_map = settings.COOP_MAP_DEFAULT_CENTER
+
+        if request.method == 'POST': # If the form has been submitted        
+            member = Organization()
+            form = PartialMemberForm(request.POST, instance = member)
+            
+            if form.is_valid():
+                member = form.save()
+                base_url = u'%s' % (page_app.get_absolute_url())
+                rdict = {'base_url': base_url}
+                return render_view('page_members/add_success.html',
+                                rdict,
+                                MEDIAS,
+                                context_instance=RequestContext(request))
+        else:
+            form = PartialMemberForm() # An empty form
+        
+        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form, 'center': center_map}
+        return render_view('page_members/add.html',
+                        rdict,
+                        MEDIAS,
+                        context_instance=RequestContext(request))
+    else:
+        return render_view('page_members/forbidden.html')
+
