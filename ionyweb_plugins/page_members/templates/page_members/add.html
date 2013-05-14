@@ -5,7 +5,7 @@
 {% endblock %}
 
 <div id="members_top"></div>
-<div id="members">
+<div id="members" class="add_form">
     <h2 class="maj_title">{% trans "Add new member" %}</h2>
 
     <form action="{{ base_url }}" method="post" class="add_form">{% csrf_token %}
@@ -13,11 +13,134 @@
         <div class="bg_form">
 
             <div class="fieldWrapper">
-                {{ form.eway.errors }}
-                {{ form.eway.label_tag }}: {{ form.eway }}
+                {{ form.title.errors  }}
+                {{ form.title.label_tag }}: {{ form.title }}
             </div>
 
+            <div class="fieldWrapper">
+                {{ form.acronym.errors  }}
+                {{ form.acronym.label_tag }}: {{ form.acronym }}
+            </div>
 
+            <div class="fieldWrapper">
+                {{ form.pref_label.errors  }}
+                {{ form.pref_label.label_tag }}: {{ form.pref_label }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.subtitle.errors  }}
+                {{ form.subtitle.label_tag }}: {{ form.subtitle }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.description.errors  }}
+                {{ form.description.label_tag }}: {{ form.description }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.logo.errors  }}
+                {{ form.logo.label_tag }}: {{ form.logo }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.relations.errors  }}
+                {{ form.relations.label_tag }}: {{ form.relations }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.category.errors  }}
+                {{ form.category.label_tag }}: {{ form.category }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.members.errors  }}
+                {{ form.members.label_tag }}: {{ form.members }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.contacts.errors  }}
+                {{ form.contacts.label_tag }}: {{ form.contacts }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.subs.errors  }}
+                {{ form.subs.label_tag }}: {{ form.subs }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.located.errors }}
+                {{ form.located.label_tag }}: {{ form.located }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.framed.errors  }}
+                {{ form.framed.label_tag }}: {{ form.framed }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.birth.errors  }}
+                {{ form.birth.label_tag }}: {{ form.birth }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.email.errors  }}
+                {{ form.email.label_tag }}: {{ form.email }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.email_sha1.errors  }}
+                {{ form.email_sha1.label_tag }}: {{ form.email_sha1 }}
+            </div>
+            
+            <div class="fieldWrapper">
+                {{ form.web.errors  }}
+                {{ form.web.label_tag }}: {{ form.web }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.pref_email.errors  }}
+                {{ form.pref_email.label_tag }}: {{ form.pref_email }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.pref_phone.errors  }}
+                {{ form.pref_phone.label_tag }}: {{ form.pref_phone }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.pref_address.errors  }}
+                {{ form.pref_address.label_tag }}: {{ form.pref_address }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.slug.errors  }}
+                {{ form.slug.label_tag }}: {{ form.slug }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.notes.errors  }}
+                {{ form.notes.label_tag }}: {{ form.notes }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.dated.errors  }}
+                {{ form.dated.label_tag }}: {{ form.dated }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.activity.errors  }}
+                {{ form.activity.label_tag }}: {{ form.activity }}
+            </div>
+                          
+            <div class="fieldWrapper">
+                {{ form.transverse_themes.errors  }}
+                {{ form.transverse_themes.label_tag }}: {{ form.transverse_themes }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.verbose_name.errors  }}
+                {{ form.verbose_name.label_tag }}: {{ form.verbose_name }}
+            </div>
 
             {{ form.errors }}
         </div>

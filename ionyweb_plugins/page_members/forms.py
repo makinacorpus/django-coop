@@ -30,4 +30,5 @@ class PageApp_MembersForm(ModelForm):
 class PartialMemberForm(OrganizationAdminForm):
     class Meta:
         model = Organization
-        #exclude = ('products', 'sites', )
+        exclude = ('members', 'secteur_fse', 'sites', 'relations', 'statut', )
+        
