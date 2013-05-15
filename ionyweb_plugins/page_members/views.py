@@ -66,8 +66,9 @@ def index_view(request, page_app):
             
             if form.cleaned_data['activity']:
                 organizations = organizations.filter(Q(activity=form.cleaned_data['activity']))
-            
-            # TODO: statut
+
+            if form.cleaned_data['statut']:
+                organizations = organizations.filter(Q(statut=form.cleaned_data['statut']))
             
     else:
         form = PageApp_MembersForm(initial={'location_buffer': '10'}) # An empty form
