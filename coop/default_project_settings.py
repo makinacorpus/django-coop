@@ -260,14 +260,25 @@ TAGGER_FKEY_NAME = 'coop_local.Tag'
 THUMBNAIL_FORMAT = 'PNG'
 ADMIN_THUMBS_SIZE = '60x60'
 
+# From coop
+#TINYMCE_DEFAULT_CONFIG = {
+    #'theme': "advanced",
+    #'relative_urls': False,
+    #'width': '617px', 'height': '220px',
+    #'theme_advanced_toolbar_location': 'top',
+    #'theme_advanced_buttons1': 'bold,italic,|,justifyleft,justifycenter,justifyright,|,bullist,numlist,|,link,unlink,|,code',
+    #'theme_advanced_buttons2': '', 'theme_advanced_buttons3': ''
+    #}
+
+# From ionyweb
 TINYMCE_DEFAULT_CONFIG = {
+    'plugins': "table,spellchecker,filemanager,paste,searchreplace,inlinepopups",
     'theme': "advanced",
-    'relative_urls': False,
-    'width': '617px', 'height': '220px',
-    'theme_advanced_toolbar_location': 'top',
-    'theme_advanced_buttons1': 'bold,italic,|,justifyleft,justifycenter,justifyright,|,bullist,numlist,|,link,unlink,|,code',
-    'theme_advanced_buttons2': '', 'theme_advanced_buttons3': ''
-    }
+    'theme_advanced_buttons1' : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,formatselect,fontsizeselect,|,forecolor,backcolor,|,bullist,numlist,|,outdent,indent,|,sub,sup,|,charmap,emotions,separator,forecolor,backcolor",
+    'theme_advanced_buttons2' : "pastetext,pasteword,selectall,|,undo,redo,|,link,unlink,anchor,image,filemanager,code,|,tablecontrols,|,fullscreen",
+    'theme_advanced_buttons3' : "",
+    'relative_urls': False
+}
 
 
 FORMS_BUILDER_USE_SITES = False
