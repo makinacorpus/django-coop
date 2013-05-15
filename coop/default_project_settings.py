@@ -53,6 +53,7 @@ STATICFILES_FINDERS = [
 
 
 TEMPLATE_DIRS = [
+    os.path.abspath(PROJECT_PATH + '/templates/'),
     os.path.abspath(PROJECT_PATH + '/coop_local/templates/')
 ]
 
