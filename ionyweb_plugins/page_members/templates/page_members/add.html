@@ -1,9 +1,5 @@
 {% load i18n %}
 
-{% block extra_head %}
-    <link rel="stylesheet" href="http://leaflet.cloudmade.com/dist/leaflet.css" />
-{% endblock %}
-
 <div id="members_top"></div>
 <div id="members" class="add_form">
     <h2 class="maj_title">{% trans "Add new member" %}</h2>
@@ -40,41 +36,6 @@
             <div class="fieldWrapper">
                 {{ form.logo.errors  }}
                 {{ form.logo.label_tag }}: {{ form.logo }}
-            </div>
-
-            <div class="fieldWrapper">
-                {{ form.relations.errors  }}
-                {{ form.relations.label_tag }}: {{ form.relations }}
-            </div>
-
-            <div class="fieldWrapper">
-                {{ form.category.errors  }}
-                {{ form.category.label_tag }}: {{ form.category }}
-            </div>
-
-            <div class="fieldWrapper">
-                {{ form.members.errors  }}
-                {{ form.members.label_tag }}: {{ form.members }}
-            </div>
-
-            <div class="fieldWrapper">
-                {{ form.contacts.errors  }}
-                {{ form.contacts.label_tag }}: {{ form.contacts }}
-            </div>
-
-            <div class="fieldWrapper">
-                {{ form.subs.errors  }}
-                {{ form.subs.label_tag }}: {{ form.subs }}
-            </div>
-
-            <div class="fieldWrapper">
-                {{ form.located.errors }}
-                {{ form.located.label_tag }}: {{ form.located }}
-            </div>
-
-            <div class="fieldWrapper">
-                {{ form.framed.errors  }}
-                {{ form.framed.label_tag }}: {{ form.framed }}
             </div>
 
             <div class="fieldWrapper">
@@ -123,11 +84,6 @@
             </div>
 
             <div class="fieldWrapper">
-                {{ form.dated.errors  }}
-                {{ form.dated.label_tag }}: {{ form.dated }}
-            </div>
-
-            <div class="fieldWrapper">
                 {{ form.activity.errors  }}
                 {{ form.activity.label_tag }}: {{ form.activity }}
             </div>
@@ -135,11 +91,6 @@
             <div class="fieldWrapper">
                 {{ form.transverse_themes.errors  }}
                 {{ form.transverse_themes.label_tag }}: {{ form.transverse_themes }}
-            </div>
-
-            <div class="fieldWrapper">
-                {{ form.verbose_name.errors  }}
-                {{ form.verbose_name.label_tag }}: {{ form.verbose_name }}
             </div>
 
             {{ form.errors }}
