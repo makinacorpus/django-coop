@@ -68,10 +68,11 @@ def index_view(request, page_app):
             
     else:
         form = PageApp_CoopExchangeForm({'location_buffer': '10'}) # An empty form
+        more_criteria = False
     
     center_map = settings.COOP_MAP_DEFAULT_CENTER
     
-    rdict = {'exchanges': exchanges, 'base_url': base_url, 'form': form, 'center': center_map}
+    rdict = {'exchanges': exchanges, 'base_url': base_url, 'form': form, 'center': center_map, 'more_criteria': more_criteria}
     
     return render_view('page_coop_exchange/index.html',
                        rdict,
