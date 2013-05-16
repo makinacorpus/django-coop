@@ -9,10 +9,12 @@ from coop.exchange.models import ETYPE
 from coop.exchange.models import EWAY
 from coop.exchange.admin import ExchangeForm
 from coop_local.models import Exchange
-
+from coop_local.widgets import CustomCheckboxSelectMultiple
 from coop.base_models import ActivityNomenclature, TransverseTheme
 
 from extended_choices import Choices
+
+
 
 EMODE = Choices(
     ('GIFT',    1,  _(u'Gift')),
@@ -30,11 +32,12 @@ ESKILLS = Choices(
 )
 
 
+
 class PageApp_CoopExchangeForm(ModuloModelForm):
 
-    type_exchange = forms.MultipleChoiceField(required=False, choices=EWAY, widget=forms.CheckboxSelectMultiple())
+    type_exchange = forms.MultipleChoiceField(required=False, choices=EWAY, widget=CustomCheckboxSelectMultiple())
 
-    type = forms.MultipleChoiceField(required=False, choices=ETYPE, widget=forms.CheckboxSelectMultiple())
+    type = forms.MultipleChoiceField(required=False, choices=ETYPE, widget=CustomCheckboxSelectMultiple())
 
     activity = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.all(),required=False, label=_('Activity'))
     
@@ -42,9 +45,9 @@ class PageApp_CoopExchangeForm(ModuloModelForm):
     location_buffer = forms.IntegerField(required=False, label=_('Location buffer'))
     thematic = forms.ModelChoiceField(queryset=TransverseTheme.objects.all(), required=False, label=_('Thematic'))
     
-    mode = forms.MultipleChoiceField(required=False, choices=EMODE, widget=forms.CheckboxSelectMultiple())
+    mode = forms.MultipleChoiceField(required=False, choices=EMODE, widget=CustomCheckboxSelectMultiple())
     
-    skills = forms.MultipleChoiceField(required=False, choices=ESKILLS, widget=forms.CheckboxSelectMultiple())
+    skills = forms.MultipleChoiceField(required=False, choices=ESKILLS, widget=CustomCheckboxSelectMultiple())
     
     free_search = forms.CharField(required=False, label=_('Free search'))
     
