@@ -95,7 +95,7 @@ def add_view(request, page_app):
 
         if request.method == 'POST': # If the form has been submitted        
             member = Organization()
-            form = PartialMemberForm(request.POST, instance = member)
+            form = PartialMemberForm(request.POST, request.FILES, instance = member)
             
             if form.is_valid():
                 member = form.save()
@@ -116,3 +116,4 @@ def add_view(request, page_app):
     else:
         return render_view('page_members/forbidden.html')
 
+        

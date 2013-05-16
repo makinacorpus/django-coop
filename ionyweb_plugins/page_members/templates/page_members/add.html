@@ -4,7 +4,7 @@
 <div id="members" class="add_form">
     <h2 class="maj_title">{% trans "Add new member" %}</h2>
 
-    <form action="{{ base_url }}" method="post" class="add_form">{% csrf_token %}
+    <form action="{{ base_url }}" method="post" class="add_form" enctype="multipart/form-data">{% csrf_token %}
 
         <div class="bg_form">
 
