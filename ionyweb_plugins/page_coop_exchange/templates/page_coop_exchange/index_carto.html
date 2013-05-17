@@ -1,9 +1,8 @@
 {% load i18n %}
+ {% load l10n %}
 
 {% block extra_head %}
-<!--     <link rel="stylesheet" href="http://leaflet.cloudmade.com/dist/leaflet.css" /> -->
     <link rel="stylesheet" href="{{ STATIC_URL }}themes/pes_auvergne/default/js/leaflet/leaflet.css" />
-
 {% endblock %}
 
 <script type="text/javascript">
@@ -87,7 +86,6 @@
 
 
     <div id="leaflet_map"></div>
-<!--     <script src="http://leaflet.cloudmade.com/dist/leaflet.js"></script> -->
    
     <script src="{{ STATIC_URL }}themes/pes_auvergne/default/js/leaflet/leaflet.js"></script>
 
@@ -106,8 +104,8 @@
         
         {% for e in exchanges %}
             {% if e.location %}
-                tab_markers.push(new L.LatLng({{ e.location.point.y|safe }}, {{ e.location.point.x|safe }}))
-                L.marker([{{ e.location.point.y|safe }}, {{ e.location.point.x|safe }}]).addTo(map)
+                tab_markers.push(new L.LatLng({{ e.location.point.y|unlocalize }}, {{ e.location.point.x|unlocalize }}))
+                L.marker([{{ e.location.point.y|unlocalize }}, {{ e.location.point.x|unlocalize }}]).addTo(map)
                         .bindPopup('{{ e.title|safe }}<br/><a href="{{ base_url }}p/{{ e.pk }}">{% trans "Read more" %}</a>')
                         .openPopup();
             {% endif %}
@@ -120,8 +118,6 @@
         }
 
     </script>
-
-
 
 
 
