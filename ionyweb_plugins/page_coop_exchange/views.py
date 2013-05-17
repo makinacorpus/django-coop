@@ -71,8 +71,7 @@ def filter_data(request, page_app):
             
             if form.cleaned_data['location']:
                 label = form.cleaned_data['location']
-                location = get_object_or_404(Location, label=label)
-                
+                location = get_object_or_404(Location, label=label)                
                 center = geos.Point(float(location.point.x), float(location.point.y))
                 radius = form.cleaned_data['location_buffer']
                 distance_degrees = (360 * radius) / (pi * 6378)

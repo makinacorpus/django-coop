@@ -16,6 +16,7 @@ from django.db.models import Q
 
 from django.contrib.gis import geos
 from coop_local.models import Location
+from django.utils.simplejson import dumps
 
 from math import pi
 
@@ -50,8 +51,9 @@ def index_view(request, page_app):
                 organizations = organizations.filter(Q(title__contains=form.cleaned_data['free_search']) | Q(description__contains=form.cleaned_data['free_search']))
 
             if form.cleaned_data['location']:
-                coords = form.cleaned_data['location'].split(",")
-                center = geos.Point(float(coords[0]), float(coords[1]))
+                label = form.cleaned_data['location']
+                location = get_object_or_404(Location, label=label)                
+                center = geos.Point(float(location.point.x), float(location.point.y))
                 radius = form.cleaned_data['location_buffer']
                 distance_degrees = (360 * radius) / (pi * 6378)
                 zone = center.buffer(distance_degrees)
@@ -73,7 +75,11 @@ def index_view(request, page_app):
     else:
         form = PageApp_MembersForm(initial={'location_buffer': '10'}) # An empty form
     
-    rdict = {'object': page_app, 'members': organizations, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'direct_link': direct_link, 'search_form': search_form, 'form' : form, 'center': center_map}
+    
+    # Get available locations for autocomplete
+    available_locations = dumps([location.label for location in Location.objects.all()])
+    
+    rdict = {'object': page_app, 'members': organizations, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'direct_link': direct_link, 'search_form': search_form, 'form' : form, 'center': center_map, 'available_locations': available_locations}
     
     return render_view('page_members/index.html',
                        rdict,
