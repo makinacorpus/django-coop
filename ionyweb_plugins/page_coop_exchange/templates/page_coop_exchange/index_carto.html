@@ -1,7 +1,9 @@
 {% load i18n %}
 
 {% block extra_head %}
-    <link rel="stylesheet" href="http://leaflet.cloudmade.com/dist/leaflet.css" />
+<!--     <link rel="stylesheet" href="http://leaflet.cloudmade.com/dist/leaflet.css" /> -->
+    <link rel="stylesheet" href="{{ STATIC_URL }}themes/pes_auvergne/default/js/leaflet/leaflet.css" />
+
 {% endblock %}
 
 <script type="text/javascript">
@@ -85,7 +87,10 @@
 
 
     <div id="leaflet_map"></div>
-    <script src="http://leaflet.cloudmade.com/dist/leaflet.js"></script>
+<!--     <script src="http://leaflet.cloudmade.com/dist/leaflet.js"></script> -->
+   
+    <script src="{{ STATIC_URL }}themes/pes_auvergne/default/js/leaflet/leaflet.js"></script>
+
     <script type="text/javascript">
 
         var cloudmadeUrl = 'http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png',
@@ -97,14 +102,22 @@
         map.setView(centre, 8).addLayer(cloudmade);
 
         // Add markers         
+        var tab_markers = new Array();
+        
         {% for e in exchanges %}
-            //var centre = new L.LatLng({{ e.location.point.y|safe }}, {{ e.location.point.x|safe }});
             {% if e.location %}
+                tab_markers.push(new L.LatLng({{ e.location.point.y|safe }}, {{ e.location.point.x|safe }}))
                 L.marker([{{ e.location.point.y|safe }}, {{ e.location.point.x|safe }}]).addTo(map)
                         .bindPopup('{{ e.title|safe }}<br/><a href="{{ base_url }}p/{{ e.pk }}">{% trans "Read more" %}</a>')
                         .openPopup();
             {% endif %}
         {% endfor %}
+
+        if(tab_markers.length > 0) {
+            global_bounds = new L.LatLngBounds(tab_markers);
+            map.fitBounds(global_bounds);
+            map.zoomOut();
+        }
 
     </script>
 
