@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-13 11:05+0200\n"
+"POT-Creation-Date: 2013-05-17 11:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,59 +18,65 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: forms.py:18
+#: forms.py:20
 msgid "Gift"
 msgstr "Don"
 
-#: forms.py:19
+#: forms.py:21
 msgid "Swap"
 msgstr "Echange"
 
-#: forms.py:20
+#: forms.py:22
 msgid "Skill"
 msgstr "Compétences"
 
-#: forms.py:21
+#: forms.py:23
 msgid "Euros"
 msgstr ""
 
-#: forms.py:22
+#: forms.py:24
 msgid "Mutualization"
 msgstr "Mutualisation"
 
-#: forms.py:26
+#: forms.py:28
 msgid "Voluntary"
 msgstr "Volontaire"
 
-#: forms.py:27
+#: forms.py:29
 msgid "Training work"
 msgstr "Stage"
 
-#: forms.py:28
+#: forms.py:30
 msgid "Job offer"
 msgstr "Offre d'emploi"
 
-#: forms.py:29
+#: forms.py:31
 msgid "Training"
 msgstr "Essai"
 
-#: forms.py:39 templates/page_coop_exchange/index.html:37
+#: forms.py:42 templates/page_coop_exchange/index.html:37
+#: templates/page_coop_exchange/index_carto.html:37
 msgid "Activity"
 msgstr "Activité"
 
-#: forms.py:41 templates/page_coop_exchange/index.html:47
+#: forms.py:44 templates/page_coop_exchange/index.html:47
+#: templates/page_coop_exchange/index_carto.html:55
 msgid "Location"
 msgstr "Lieu"
 
-#: forms.py:42 templates/page_coop_exchange/index.html:51
+#: forms.py:45 templates/page_coop_exchange/index.html:51
+#: templates/page_coop_exchange/index_carto.html:59
 msgid "Location buffer"
 msgstr "Lieu buffer"
 
-#: forms.py:43 templates/page_coop_exchange/index.html:41
+#: forms.py:46 templates/page_coop_exchange/index.html:41
+#: templates/page_coop_exchange/index_carto.html:41
 msgid "Thematic"
 msgstr "Thématique"
 
-#: forms.py:49 templates/page_coop_exchange/index.html:26
+#: forms.py:52 templates/page_coop_exchange/index.html:26
+#: templates/page_coop_exchange/index_carto.html:45
+#: templates/page_coop_exchange/index_carto.html:49
 msgid "Free search"
 msgstr "Recherche libre"
 
@@ -83,7 +89,7 @@ msgstr ""
 msgid "Add new exchange"
 msgstr "Proposer une annonce"
 
-#: templates/page_coop_exchange/add.html:97
+#: templates/page_coop_exchange/add.html:100
 #: templates/page_coop_exchange/new.html:35
 msgid "Create"
 msgstr "Ajouter"
@@ -99,6 +105,7 @@ msgstr "Liste des annonces"
 #: templates/page_coop_exchange/detail.html:9
 #: templates/page_coop_exchange/index.html:22
 #: templates/page_coop_exchange/index.html:93
+#: templates/page_coop_exchange/index_carto.html:22
 #: templates/page_coop_exchange/new.html:16
 msgid "Type"
 msgstr ""
@@ -108,29 +115,50 @@ msgid "You must be logged in to view this page"
 msgstr "Vous devez vous connecter pour voir cette page"
 
 #: templates/page_coop_exchange/index.html:18
+#: templates/page_coop_exchange/index_carto.html:18
 #: templates/page_coop_exchange/new.html:12
 msgid "I'm looking for"
 msgstr "Je recherche"
 
 #: templates/page_coop_exchange/index.html:30
+#: templates/page_coop_exchange/index_carto.html:30
 msgid "Search"
 msgstr "Recherche"
 
 #: templates/page_coop_exchange/index.html:31
+#: templates/page_coop_exchange/index_carto.html:31
 msgid "Results"
 msgstr "Résultats"
 
 #: templates/page_coop_exchange/index.html:56
+#: templates/page_coop_exchange/index_carto.html:66
 msgid "Exchange mode"
 msgstr "Mode d'échange"
 
 #: templates/page_coop_exchange/index.html:60
+#: templates/page_coop_exchange/index_carto.html:71
 msgid "If skills"
 msgstr "Si compétences"
 
 #: templates/page_coop_exchange/index.html:96
 msgid "Show details"
 msgstr "Voir les détails"
+
+#: templates/page_coop_exchange/index_carto.html:27
+msgid "Display more criteria"
+msgstr "Afficher plus de critères"
+
+#: templates/page_coop_exchange/index_carto.html:28
+msgid "Display less criteria"
+msgstr "Afficher moins de critères"
+
+#: templates/page_coop_exchange/index_carto.html:83
+msgid "List"
+msgstr "Liste"
+
+#: templates/page_coop_exchange/index_carto.html:109
+msgid "Read more"
+msgstr ""
 
 #~ msgid "Experience"
 #~ msgstr "Expérience"
