@@ -21,10 +21,13 @@ class PageApp_MembersForm(ModelForm):
     type = forms.CharField(required=False, label=_('Type'))
     
     activity = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.all(),required=False, label=_('Activity'))
+    activity2 = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.all(),required=False, label=_('Activity'))
     
     location = forms.CharField(required=False, label=_('Location'))
     location_buffer = forms.IntegerField(required=False, label=_('Location buffer'))
     thematic = forms.ModelChoiceField(queryset=TransverseTheme.objects.all(), required=False, label=_('Thematic'))
+    thematic2 = forms.ModelChoiceField(queryset=TransverseTheme.objects.all(), required=False, label=_('Thematic'))
+    thematic3 = forms.ModelChoiceField(queryset=TransverseTheme.objects.all(), required=False, label=_('Thematic'))
     statut = forms.ChoiceField(choices=(('', '---------'),)+STATUTS.CHOICES, required=False)
     
     free_search = forms.CharField(required=False, label=_('Free search'))
