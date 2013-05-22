@@ -97,10 +97,12 @@
         {% for m in members %}
             {% if m.located %}
                 {% for l in m.located.all %}
-                    tab_markers.push(new L.LatLng({{ l.location.point.y|unlocalize }}, {{ l.location.point.x|unlocalize }}))
-                    L.marker([{{ l.location.point.y|unlocalize }}, {{ l.location.point.x|unlocalize }}]).addTo(map)
-                            .bindPopup("{{ m.title|safe }}<br/><a href=\"{{ base_url }}p/{{ m.pk }}\">{% trans "Read more" %}</a>")
-                            .openPopup();
+                    {% if l.location %}
+                        tab_markers.push(new L.LatLng({{ l.location.point.y|unlocalize }}, {{ l.location.point.x|unlocalize }}))
+                        L.marker([{{ l.location.point.y|unlocalize }}, {{ l.location.point.x|unlocalize }}]).addTo(map)
+                                .bindPopup("{{ m.title|safe }}<br/><a href=\"{{ base_url }}p/{{ m.pk }}\">{% trans "Read more" %}</a>")
+                                .openPopup();
+                    {% endif %}
                 {% endfor %}
             {% endif %}
         {% endfor %}
