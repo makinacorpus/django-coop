@@ -29,7 +29,7 @@ MEDIAS = (
     CSSMedia('page_coop_exchange.css'),
 )
 
-def index_view(request, page_app):    
+def index_view(request, page_app):
     rdict = filter_data(request, page_app)
     return render_view('page_coop_exchange/index.html',
                        rdict,
@@ -50,7 +50,14 @@ def filter_data(request, page_app):
 
     exchanges = Exchange.objects.all()
     more_criteria = False
-
+    
+    if base_url == settings.COOP_EXCHANGE_SERVICES_URL:
+        exchanges = exchanges.filter(organization__isnull=True)
+        search_form_template = "page_coop_exchange/search_form_service.html"
+    if base_url == settings.COOP_EXCHANGE_EXCHANGES_URL:
+        exchanges = exchanges.filter(organization__isnull=False)
+        search_form_template = "page_coop_exchange/search_form_exchange.html"
+    
     if request.method == 'POST': # If the form has been submitted        
         form = PageApp_CoopExchangeForm(request.POST)
         if form.is_valid():
@@ -95,7 +102,7 @@ def filter_data(request, page_app):
     # Get available locations for autocomplete
     available_locations = dumps([location.label for location in Location.objects.all()])
     
-    rdict = {'exchanges': exchanges, 'base_url': base_url, 'form': form, 'center': center_map, 'more_criteria': more_criteria, 'available_locations': available_locations}
+    rdict = {'exchanges': exchanges, 'base_url': base_url, 'form': form, 'center': center_map, 'more_criteria': more_criteria, 'available_locations': available_locations, "search_form_template": search_form_template}
     
     return rdict
                        

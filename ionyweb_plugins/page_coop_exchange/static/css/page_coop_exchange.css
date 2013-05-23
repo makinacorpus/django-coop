@@ -54,55 +54,6 @@
     
 }
 
-.coop_exchange .exchange_button_detail,
-#search_submit input[type='submit'] {
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    border: 2px solid #f8b133;
-    padding: 5px;
-    max-width: 120px;
-    text-align: center;
-    text-shadow: 2px 2px 2px #aaa;
-    color: #fff;
-    
-    /* Old browser */
-    background: #f9b43b url("gradient-bg.png") repeat-x top;
-    -o-background-size: 100% 100%;
-    -moz-background-size: 100% 100%;
-    -webkit-background-size: 100% 100%;
-    background-size: 100% 100%;
-    /* Internet Explorer */
-    *background: #f9b43b;
-    background: #f9b43b\0/;
-    filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr=#FFfac972, endColorstr=#FFf9b43b);
-    /* Navigateurs récents */
-    background-image: -webkit-gradient(
-        linear,
-        left top, left bottom,
-        from(#fac972),
-        to(#f9b43b)
-    );
-    background-image: -webkit-linear-gradient(
-        top,
-        #fac972,
-        #f9b43b
-    );
-    background-image: -moz-linear-gradient(
-        top,
-        #fac972,
-        #f9b43b
-    );
-    background-image: -o-linear-gradient(
-        top,
-        #fac972,
-        #f9b43b
-    );
-    background-image: linear-gradient(
-        top,
-        #fac972,
-        #f9b43b
-    );
-}
 
 #search_form .search_block{
     float: left;
