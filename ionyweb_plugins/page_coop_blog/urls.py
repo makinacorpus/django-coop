@@ -13,8 +13,9 @@ from feeds import RssEntries, RssCategory
 urlpatterns = patterns('',
     url(r'^$', index_view),
     #url(r'^carto/$', carto_view),
-    url(r'^(?P<pk>[\w-]+)/$', detail_view),
     url(r'^entry_add/$', add_view),
+    url(r'^(?P<pk>[\w-]+)/$', detail_view),
+
     
     url(r'^(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/(?P<slug>[\w-]+)/$',
         entries_queryset_view_to_app(django.views.generic.date_based.object_detail),
