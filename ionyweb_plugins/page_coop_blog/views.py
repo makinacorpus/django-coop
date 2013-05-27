@@ -106,7 +106,7 @@ def filter_data(request, page_app):
         more_criteria = False
     
     
-    rdict = {'entries': entries, 'base_url': base_url, 'form': form}
+    rdict = {'entries': entries, 'base_url': base_url, 'form': form, 'media_path': settings.MEDIA_URL}
     
     return rdict
 
@@ -137,7 +137,7 @@ def add_view(request, page_app, entry_id=None):
             entry = CoopEntry()
         
         if request.method == 'POST': # If the form has been submitted        
-            form = EntryForm(request.POST, instance = entry)
+            form = EntryForm(request.POST, request.FILES, instance = entry)
             
             if form.is_valid():
             
