@@ -1,0 +1,62 @@
+{% load i18n %}
+
+<div id="articles_top"></div>
+<div id="articles">
+    <div class="bloc_title">
+        <div class="logo"></div>
+        <div class="header">
+            <h3 class="article_title">{{ e.title }}</h3>
+            <p>{{ e.resume }}</p>
+            <span class="article_by">{{ e.author }}</span><br/>
+            <span class="article_date">{{ e.publication_date|date:"d/m/Y @ H:i" }}</span><br/>
+            <span class="article_source">{{ e.source }}</span><br/>
+
+            <div id="links">
+                <a class="facebook" href=""></a>
+                <a class="twitter" href=""></a>
+                <a class="google_plus" href=""></a>
+                <a class="mail" href=""></a>
+                <a class="plus" href=""></a>
+                <a class="links" href=""></a>
+                <a class="print" href=""></a>
+            </div>
+        </div>
+
+        <span class="article_modification">{{ e.modification|date:"d/m/Y @ H:i" }}</span><br/>
+
+    
+    <div class="bloc_content">
+        {{ e.body|safe }}
+    </div>
+    
+    <div class="bloc_content">
+        <h3>{% trans "Galery" %}</h3>
+        <div class="fake_img"></div>
+        <div class="fake_img"></div>
+        <div class="fake_img"></div>
+    </div>
+    
+
+    <div class="bloc_content">
+        <div class="article_content_activity">
+            <h3>{% trans "Activity" %}</h3>
+            {{ e.activity }}
+        </div>
+            
+        <div class="article_content_thematic">
+            <h3>{% trans "Thematic" %}</h3>
+            {% for t in e.transverse_themes.all %}
+                {{ t }} <br/>
+            {% endfor %}
+        </div>
+
+        <div class="article_content_keywords">
+            <h3 class="article_link">{% trans "Keywords" %}</h3>
+        </div>
+
+    </div>
+
+
+</div>
+</div>
+

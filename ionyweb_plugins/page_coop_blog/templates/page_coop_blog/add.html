@@ -1,0 +1,120 @@
+{% load i18n %}
+
+<script type="text/javascript" src="/_tinymce/compressor/"></script>
+
+<div id="articles_top"></div>
+<div id="result_articles" class="add_form">
+    <h2 class="maj_title">{% trans "Add new article" %}</h2>
+
+    <form action="{{ base_url }}" method="post" class="add_form" enctype="multipart/form-data">{% csrf_token %}
+
+        <div class="bg_form">
+
+            <div class="fieldWrapper">
+                {{ form.title.errors }}
+                {{ form.title.label_tag }}: {{ form.title }}
+            </div>          
+            <div class="fieldWrapper">
+                {{ form.resume.errors }}
+                {{ form.resume.label_tag }}: {{ form.resume|safe }}
+            </div>   
+            
+            <div class="fieldWrapper">
+                {{ form.body.errors }}
+                {{ form.body.label_tag }}: {{ form.body|safe }}
+            </div>   
+       
+            <div class="fieldWrapper">
+                {{ form.category.errors }}
+                {{ form.category.label_tag }}: {{ form.category|safe }}
+            </div>   
+            <div class="fieldWrapper">
+                {{ form.image.errors }}
+                {{ form.image.label_tag }}: {{ form.image|safe }}
+            </div>   
+            <div class="fieldWrapper">
+                {{ form.key_words.errors }}
+                {{ form.key_words.label_tag }}: {{ form.key_words|safe }}
+            </div>   
+            <div class="fieldWrapper">
+                {{ form.activity.errors }}
+                {{ form.activity.label_tag }}: {{ form.activity|safe }}
+            </div>   
+            <div class="fieldWrapper">
+                {{ form.transverse_themes.errors }}
+                {{ form.transverse_themes.label_tag }}: {{ form.transverse_themes|safe }}
+            </div>   
+
+            <div class="fieldWrapper">
+                {{ form.publication_date.errors }}
+                {{ form.publication_date.label_tag }}: {{ form.publication_date|safe }}
+            </div>   
+            <div class="fieldWrapper">
+                {{ form.modification_date.errors }}
+                {{ form.modification_date.label_tag }}: {{ form.modification_date|safe }}
+            </div>   
+
+            <div class="fieldWrapper">
+                {{ form.docs.errors }}
+                {{ form.docs.label_tag }}: {{ form.docs|safe }}
+            </div>   
+
+                
+
+            <div class="fieldWrapper">
+                {{ form.status.errors }}
+                {{ form.status.label_tag }}: {{ form.status|safe }}
+            </div>   
+
+            <div class="fieldWrapper">
+                {{ form.author.errors }}
+                {{ form.author.label_tag }}: {{ form.author|safe }}
+            </div>   
+
+            <div class="fieldWrapper">
+                {{ form.slug.errors }}
+                {{ form.slug.label_tag }}: {{ form.slug|safe }}
+            </div>   
+
+
+
+            {{ form.errors }}
+        </div>
+
+        <div class="new_block" id="new_submit">
+            <input type="submit" value="{% trans "Create" %}" />                
+        </div>
+
+    </form>
+</div>
+
+
+<script type="text/javascript">
+    $(function() {
+        $.datepicker.regional['fr'] = {
+            closeText: 'Fermer',
+            prevText: '&#x3c;Préc',
+            nextText: 'Suiv&#x3e;',
+            currentText: 'Courant',
+            monthNames: ['Janvier','Février','Mars','Avril','Mai','Juin',
+            'Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
+            monthNamesShort: ['Jan','Fév','Mar','Avr','Mai','Jun',
+            'Jul','Aoû','Sep','Oct','Nov','Déc'],
+            dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
+            dayNamesShort: ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'],
+            dayNamesMin: ['Di','Lu','Ma','Me','Je','Ve','Sa'],
+            weekHeader: 'Sm',
+            dateFormat: 'dd/mm/yy',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: ''};
+        $.datepicker.setDefaults($.datepicker.regional['fr']);
+
+//         $('#id_date_creation').datepicker({dateFormat: 'yy-mm-dd', constrainInput: false});
+        tinyMCE.init({selector:'textarea'});
+        tinyMCE_GZ.init({"themes": "advanced", "languages": "fr", "debug": false, "diskcache": true, "plugins": "table,spellchecker,filemanager,paste,searchreplace,inlinepopups"})
+                        
+
+    });
+</script>
