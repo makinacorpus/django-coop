@@ -92,7 +92,7 @@ def filter_data(request, page_app):
             if form.cleaned_data['organization']:
                 entries = entries.filter(Q(organization__in=form.cleaned_data['organization']))
 
-            if form.cleaned_data['thematic'] or form.cleaned_data['thematic2'] or form.cleaned_data['thematic3']:
+            if form.cleaned_data['thematic'] or form.cleaned_data['thematic2'] or fedit_vieworm.cleaned_data['thematic3']:
                 entries = entries.filter(Q(transverse_themes=form.cleaned_data['thematic']) | Q(transverse_themes=form.cleaned_data['thematic2']) | Q(transverse_themes=form.cleaned_data['thematic3']))
             
             if form.cleaned_data['activity'] or form.cleaned_data['activity2']:
@@ -121,18 +121,27 @@ def detail_view(request, page_app, pk):
                        context_instance=RequestContext(request))
     
     
-def add_view(request, page_app):
+def add_view(request, page_app, entry_id=None):
     if request.user.is_authenticated():
+        if entry_id:
+            # update
+            entry = get_object_or_404(CoopEntry, pk=entry_id)
+            #if cut.owner != request.user and not Right.objects.has_right(request.user, cut, WRITE):
+                #raise Http404
+        else :
+            # new
+            entry = CoopEntry()
+        
         base_url = u'%sp/entry_add' % (page_app.get_absolute_url())
         center_map = settings.COOP_MAP_DEFAULT_CENTER
 
         if request.method == 'POST': # If the form has been submitted        
-            entry = CoopEntry()
+            #entry = CoopEntry()
             
             form = EntryForm(request.POST, instance = entry)
             
             if form.is_valid():
-
+            
                 entry.blog_id = 1
                 entry = form.save()
                 
@@ -143,7 +152,7 @@ def add_view(request, page_app):
                                 MEDIAS,
                                 context_instance=RequestContext(request))
         else:
-            form = EntryForm() # An empty form
+            form = EntryForm(instance=entry) # An empty form
         
         rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form, 'center': center_map}
         return render_view('page_coop_blog/add.html',

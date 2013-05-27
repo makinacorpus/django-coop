@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     url(r'^$', index_view),
     #url(r'^carto/$', carto_view),
     url(r'^entry_add/$', add_view),
+    url(r'^entry_edit/(?P<entry_id>\d+)/$', add_view),        
     url(r'^(?P<pk>[\w-]+)/$', detail_view),
 
     
