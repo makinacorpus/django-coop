@@ -122,13 +122,26 @@ def detail_view(request, page_app, pk):
                        context_instance=RequestContext(request))
 
 
-def add_view(request, page_app):
+def add_view(request, page_app, exchange_id=None):
     if request.user.is_authenticated():
-        base_url = u'%sp/exchange_add' % (page_app.get_absolute_url())
+        #base_url = u'%sp/exchange_add' % (page_app.get_absolute_url())
         center_map = settings.COOP_MAP_DEFAULT_CENTER
 
-        if request.method == 'POST': # If the form has been submitted        
+        if exchange_id:
+            # update
+            mode = 'update'
+            exchange = get_object_or_404(Exchange, pk=exchange_id)
+            base_url = u'%sp/exchange_edit/%s' % (page_app.get_absolute_url(),exchange_id)
+
+        else :
+            # new
+            mode = 'add'
+            base_url = u'%sp/exchange_add' % (page_app.get_absolute_url())
             exchange = Exchange()
+        
+        
+        if request.method == 'POST': # If the form has been submitted        
+            #exchange = Exchange()
             form = PartialExchangeForm(request.POST, instance = exchange)
             
             if form.is_valid():
@@ -140,9 +153,9 @@ def add_view(request, page_app):
                                 MEDIAS,
                                 context_instance=RequestContext(request))
         else:
-            form = PartialExchangeForm() # An empty form
+            form = PartialExchangeForm(instance=exchange) # An empty form
         
-        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form, 'center': center_map}
+        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form, 'center': center_map, 'mode': mode}
         return render_view('page_coop_exchange/add.html',
                         rdict,
                         MEDIAS,

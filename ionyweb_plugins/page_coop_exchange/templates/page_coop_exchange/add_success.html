@@ -3,8 +3,13 @@
 <div id="exchanges_top"></div>
 <div id="coop_exchange" class="coop_exchange">
     <div class="coop_exchange coop_exchange_detail">
-        <h1>{% trans "Add new exchange" %}</h1>
-        <p>{% trans "Exchange added. You may now consult it in the list" %}<p>
+        {% if mode = 'add' %}
+            <h1>{% trans "Add new exchange" %}</h1>
+            <p>{% trans "Exchange added. You may now consult it in the list" %}<p>
+        {% else %}
+            <h1>{% trans "Modify exchange" %}</h1>
+            <p>{% trans "Exchange modified. You may now consult it in the list" %}<p>
+        {% endif %}
         <a href="{{ base_url }}">{% trans "Exchange list" %}</a>
     </div>
 </div>

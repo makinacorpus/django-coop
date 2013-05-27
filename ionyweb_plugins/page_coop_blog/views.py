@@ -128,7 +128,7 @@ def add_view(request, page_app, entry_id=None):
             mode = 'update'
             entry = get_object_or_404(CoopEntry, pk=entry_id)
             base_url = u'%sp/entry_edit/%s' % (page_app.get_absolute_url(),entry_id)
-            #if cut.owner != request.user and not Right.objects.has_right(request.user, cut, WRITE):
+            #if entry.owner != request.user and not Right.objects.has_right(request.user, entry, WRITE):
                 #raise Http404
         else :
             # new
@@ -136,12 +136,7 @@ def add_view(request, page_app, entry_id=None):
             base_url = u'%sp/entry_add' % (page_app.get_absolute_url())
             entry = CoopEntry()
         
-        #base_url = u'%sp/entry_add' % (page_app.get_absolute_url())
-        #center_map = settings.COOP_MAP_DEFAULT_CENTER
-
         if request.method == 'POST': # If the form has been submitted        
-            #entry = CoopEntry()
-            
             form = EntryForm(request.POST, instance = entry)
             
             if form.is_valid():

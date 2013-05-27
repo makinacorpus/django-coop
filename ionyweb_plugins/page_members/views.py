@@ -184,13 +184,25 @@ def detail_view(request, page_app, pk):
                        MEDIAS,
                        context_instance=RequestContext(request))
                        
-def add_view(request, page_app):
+def add_view(request, page_app, member_id=None):
     if request.user.is_authenticated():
-        base_url = u'%sp/member_add' % (page_app.get_absolute_url())
+        #base_url = u'%sp/member_add' % (page_app.get_absolute_url())
         center_map = settings.COOP_MAP_DEFAULT_CENTER
 
+        if member_id:
+            # update
+            mode = 'update'
+            member = get_object_or_404(Organization, pk=member_id)
+            base_url = u'%sp/member_edit/%s' % (page_app.get_absolute_url(),member_id)
+
+        else :
+            # new
+            mode = 'add'
+            base_url = u'%sp/member_add' % (page_app.get_absolute_url())
+            member = Organization()        
+        
         if request.method == 'POST': # If the form has been submitted        
-            member = Organization()
+            #member = Organization()
             form = PartialMemberForm(request.POST, request.FILES, instance = member)
             
             if form.is_valid():
@@ -202,9 +214,9 @@ def add_view(request, page_app):
                                 MEDIAS,
                                 context_instance=RequestContext(request))
         else:
-            form = PartialMemberForm() # An empty form
+            form = PartialMemberForm(instance=member) # An empty form
         
-        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form, 'center': center_map}
+        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form, 'center': center_map, 'mode': mode}
         return render_view('page_members/add.html',
                         rdict,
                         MEDIAS,

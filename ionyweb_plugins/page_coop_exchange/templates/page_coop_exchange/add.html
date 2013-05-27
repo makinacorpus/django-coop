@@ -97,7 +97,11 @@
         </div>
 
         <div class="new_block" id="new_submit">
-            <input type="submit" value="{% trans "Create" %}" />                
+            {% if mode = 'add' %}
+                <input type="submit" value="{% trans "Create" %}" />                
+            {% else %}
+                <input type="submit" value="{% trans "Modify" %}" />                
+            {% endif %}          
         </div>
 
     </form>

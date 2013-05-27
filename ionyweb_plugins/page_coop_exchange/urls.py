@@ -7,5 +7,6 @@ urlpatterns = patterns('',
                        url(r'^$', index_view),
                        url(r'^carto/$', carto_view),
                        url(r'^exchange_add/$', add_view),
+                       url(r'^exchange_edit/(?P<exchange_id>\d+)/$', add_view),  
                        url(r'^(?P<pk>[\w-]+)/$', detail_view),
                        )                          
