@@ -70,15 +70,9 @@ def filter_data(request, page_app):
             if form.cleaned_data['type']:
                 exchanges = exchanges.filter(Q(etype__in=form.cleaned_data['type']))
 
-            #if form.cleaned_data['activity']:
-                #exchanges = exchanges.filter(Q(activity=form.cleaned_data['activity']))
-            
-            #if form.cleaned_data['thematic']:
-                #exchanges = exchanges.filter(Q(transverse_themes=form.cleaned_data['thematic']))
-
             if form.cleaned_data['thematic'] or form.cleaned_data['thematic2'] or form.cleaned_data['thematic3']:
                 exchanges = exchanges.filter(Q(transverse_themes=form.cleaned_data['thematic']) | Q(transverse_themes=form.cleaned_data['thematic2']) | Q(transverse_themes=form.cleaned_data['thematic3']))
-                
+            
             if form.cleaned_data['activity'] or form.cleaned_data['activity2']:
                 exchanges = exchanges.filter(Q(activity=form.cleaned_data['activity']) | Q(activity=form.cleaned_data['activity2']))
                 
@@ -99,6 +93,10 @@ def filter_data(request, page_app):
             #TODO : mode
             
             #TODO : skills
+            
+            #TODO : warranty
+            
+            #TODO : organization
             
     else:
         form = PageApp_CoopExchangeForm({'location_buffer': '10'}) # An empty form

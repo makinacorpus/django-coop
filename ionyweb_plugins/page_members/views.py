@@ -80,10 +80,25 @@ def filter_data(request, page_app):
 
             if form.cleaned_data['thematic'] or form.cleaned_data['thematic2'] or form.cleaned_data['thematic3']:
                 organizations = organizations.filter(Q(transverse_themes=form.cleaned_data['thematic']) | Q(transverse_themes=form.cleaned_data['thematic2']) | Q(transverse_themes=form.cleaned_data['thematic3']))
-                
-            if form.cleaned_data['activity'] or form.cleaned_data['activity2']:
-                organizations = organizations.filter(Q(activity=form.cleaned_data['activity']) | Q(activity=form.cleaned_data['activity2']))
 
+            if form.cleaned_data['activity'] or form.cleaned_data['activity2']:
+                activity = form.cleaned_data['activity']
+                activity2 = form.cleaned_data['activity2']
+                
+                #TODO !!
+                #print activity
+                #print Organization.objects.filter(activity__parent=activity)
+                #for o in Organization.objects.all():
+                    #print o.activity
+                    #if o.activity:
+                        #print "Parent: %s" % (o.activity.parent)
+                        #if o.activity.parent:
+                            #print o.activity.parent.parent
+                            
+                organizations = organizations.filter(Q(activity=activity) | Q(activity=activity2)
+                                        | Q(activity__parent=activity) | Q(activity__parent=activity2))
+
+                
             if form.cleaned_data['statut']:
                 organizations = organizations.filter(Q(statut=form.cleaned_data['statut']))
             

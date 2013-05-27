@@ -39,8 +39,8 @@ class PageApp_CoopExchangeForm(ModuloModelForm):
 
     type = forms.MultipleChoiceField(required=False, choices=ETYPE, widget=CustomCheckboxSelectMultiple())
 
-    activity = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.all(),required=False, label=_('Activity'))
-    activity2 = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.all(),required=False, label=_('Activity'))
+    activity = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.filter(parent__isnull=True).order_by('label'),required=False, label=_('Activity'))
+    activity2 = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.filter(parent__isnull=True).order_by('label'),required=False, label=_('Activity'))
     
     location = forms.CharField(required=False, label=_('Location'))
     location_buffer = forms.IntegerField(required=False, label=_('Location buffer'))
@@ -54,6 +54,9 @@ class PageApp_CoopExchangeForm(ModuloModelForm):
     
     free_search = forms.CharField(required=False, label=_('Free search'))
     
+    warranty = forms.CharField(required=False, label=_('Warranty'))
+    
+    organization = forms.CharField(required=False, label=_('Organization'))
     
     class Meta:
         model = PageApp_CoopExchange
