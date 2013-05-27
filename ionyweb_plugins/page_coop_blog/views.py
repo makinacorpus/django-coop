@@ -125,15 +125,19 @@ def add_view(request, page_app, entry_id=None):
     if request.user.is_authenticated():
         if entry_id:
             # update
+            mode = 'update'
             entry = get_object_or_404(CoopEntry, pk=entry_id)
+            base_url = u'%sp/entry_edit/%s' % (page_app.get_absolute_url(),entry_id)
             #if cut.owner != request.user and not Right.objects.has_right(request.user, cut, WRITE):
                 #raise Http404
         else :
             # new
+            mode = 'add'
+            base_url = u'%sp/entry_add' % (page_app.get_absolute_url())
             entry = CoopEntry()
         
-        base_url = u'%sp/entry_add' % (page_app.get_absolute_url())
-        center_map = settings.COOP_MAP_DEFAULT_CENTER
+        #base_url = u'%sp/entry_add' % (page_app.get_absolute_url())
+        #center_map = settings.COOP_MAP_DEFAULT_CENTER
 
         if request.method == 'POST': # If the form has been submitted        
             #entry = CoopEntry()
@@ -146,7 +150,7 @@ def add_view(request, page_app, entry_id=None):
                 entry = form.save()
                 
                 base_url = u'%s' % (page_app.get_absolute_url())
-                rdict = {'base_url': base_url}
+                rdict = {'base_url': base_url, 'mode': mode}
                 return render_view('page_coop_blog/add_success.html',
                                 rdict,
                                 MEDIAS,
@@ -154,7 +158,7 @@ def add_view(request, page_app, entry_id=None):
         else:
             form = EntryForm(instance=entry) # An empty form
         
-        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form, 'center': center_map}
+        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form, 'mode': mode}
         return render_view('page_coop_blog/add.html',
                         rdict,
                         MEDIAS,

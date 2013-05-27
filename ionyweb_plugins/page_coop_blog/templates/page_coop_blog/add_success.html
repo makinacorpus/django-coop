@@ -3,8 +3,13 @@
 <div id="articles_top"></div>
 <div id="coop_article" class="coop_article">
     <div class="coop_article coop_article_detail">
-        <h1>{% trans "Add new article" %}</h1>
-        <p>{% trans "Article added. You may now consult it in the list" %}<p>
+        {% if mode = 'add' %}
+            <h1>{% trans "Add new article" %}</h1>
+            <p>{% trans "Article added. You may now consult it in the list" %}<p>
+        {% else %}
+            <h1>{% trans "Modify article" %}</h1>
+            <p>{% trans "Article modified. You may now consult it in the list" %}<p>
+        {% endif %}
         <a href="{{ base_url }}">{% trans "Article list" %}</a>
     </div>
 </div>
