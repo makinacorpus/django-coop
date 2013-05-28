@@ -52,6 +52,7 @@
 
         <div class="article_content_keywords">
             <h3 class="article_link">{% trans "Keywords" %}</h3>
+            {{ e.tags.all|join:", " }}
         </div>
 
     </div>

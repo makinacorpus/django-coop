@@ -102,7 +102,7 @@
                 {{ entry.publication_date|date:"d/m/Y @ H:i" }}
             </p>
             <div class="entry-body">
-                {{ entry.resume|truncatewords_html:50|safe }}
+                {{ entry.resume|truncatechars:150|safe }}
             </div>
             <span class="readmore"><a class="articles_link" href="{{ base_url }}p/{{ entry.pk }}">{% trans "Read more" %}</a></span>
             {% if request.user.is_superuser %}

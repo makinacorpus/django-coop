@@ -65,6 +65,8 @@ class PageApp_CoopBlogForm(ModuloModelForm):
     
     organization = forms.CharField(required=False, label=_('Organization'))
     
+    tags = forms.CharField(required=False, label=_('Keywords'))
+    
     class Meta:
         model = PageApp_Coop_Blog
         
