@@ -24,6 +24,7 @@ class PageApp_MembersForm(ModelForm):
     activity2 = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.filter(parent__isnull=True).order_by('label'),required=False, label=_('Activity'))
     
     location = forms.CharField(required=False, label=_('Location'))
+    location_id = forms.IntegerField(required=False)
     location_buffer = forms.IntegerField(required=False, label=_('Location buffer'))
     thematic = forms.ModelChoiceField(queryset=TransverseTheme.objects.all(), required=False, label=_('Thematic'))
     thematic2 = forms.ModelChoiceField(queryset=TransverseTheme.objects.all(), required=False, label=_('Thematic'))

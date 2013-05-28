@@ -18,7 +18,7 @@ from .forms import PageApp_CoopExchangeForm, PartialExchangeForm
 from django.db.models import Q
 
 from django.contrib.gis import geos
-from coop_local.models import Location
+from coop_local.models import Location, Area
 from math import pi
 from django.utils.simplejson import dumps
 
@@ -70,8 +70,8 @@ def filter_data(request, page_app):
             if form.cleaned_data['type']:
                 exchanges = exchanges.filter(Q(etype__in=form.cleaned_data['type']))
 
-            if form.cleaned_data['thematic'] or form.cleaned_data['thematic2'] or form.cleaned_data['thematic3']:
-                exchanges = exchanges.filter(Q(transverse_themes=form.cleaned_data['thematic']) | Q(transverse_themes=form.cleaned_data['thematic2']) | Q(transverse_themes=form.cleaned_data['thematic3']))
+            if form.cleaned_data['thematic'] or form.cleaned_data['thematic2']:
+                exchanges = exchanges.filter(Q(transverse_themes=form.cleaned_data['thematic']) | Q(transverse_themes=form.cleaned_data['thematic2']))
             
             if form.cleaned_data['activity'] or form.cleaned_data['activity2']:
                 exchanges = exchanges.filter(Q(activity=form.cleaned_data['activity']) | Q(activity=form.cleaned_data['activity2']))
@@ -79,12 +79,11 @@ def filter_data(request, page_app):
                 
             if form.cleaned_data['location']:
                 label = form.cleaned_data['location']
-                location = get_object_or_404(Location, label=label)                
-                center = geos.Point(float(location.point.x), float(location.point.y))
+                pk = form.cleaned_data['location_id']
+                area = get_object_or_404(Area, pk=pk)
                 radius = form.cleaned_data['location_buffer']
                 distance_degrees = (360 * radius) / (pi * 6378)
-                zone = center.buffer(distance_degrees)
-                
+                zone = area.polygon.buffer(distance_degrees)
                  # Get the possible location in the buffer...
                 possible_locations = Location.objects.filter(point__intersects=zone)
                 # ...and filter organization according to these locations
@@ -105,7 +104,7 @@ def filter_data(request, page_app):
     center_map = settings.COOP_MAP_DEFAULT_CENTER
     
     # Get available locations for autocomplete
-    available_locations = dumps([location.label for location in Location.objects.all()])
+    available_locations = dumps([{'label':area.label, 'value':area.pk} for area in Area.objects.all().order_by('label')])
     
     rdict = {'exchanges': exchanges, 'base_url': base_url, 'form': form, 'center': center_map, 'more_criteria': more_criteria, 'available_locations': available_locations, "search_form_template": search_form_template}
     

@@ -44,6 +44,8 @@ class PageApp_CoopExchangeForm(ModuloModelForm):
     
     location = forms.CharField(required=False, label=_('Location'))
     location_buffer = forms.IntegerField(required=False, label=_('Location buffer'))
+    location_id = forms.IntegerField(required=False)
+    
     thematic = forms.ModelChoiceField(queryset=TransverseTheme.objects.all(), required=False, label=_('Thematic'))
     thematic2 = forms.ModelChoiceField(queryset=TransverseTheme.objects.all(), required=False, label=_('Thematic'))
     thematic3 = forms.ModelChoiceField(queryset=TransverseTheme.objects.all(), required=False, label=_('Thematic'))

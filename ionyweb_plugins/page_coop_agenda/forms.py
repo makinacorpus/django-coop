@@ -11,6 +11,7 @@ from coop_local.models import Event
 class PageApp_CoopAgendaForm(ModuloModelForm):
 
     location = forms.CharField(required=False, label=_('Location'))
+    location_id = forms.IntegerField(required=False)
     location_buffer = forms.IntegerField(required=False, label=_('Location buffer'))
     free_search = forms.CharField(required=False, label=_('Free search'))
     activity = forms.CharField(required=False, label=_('Activity'))

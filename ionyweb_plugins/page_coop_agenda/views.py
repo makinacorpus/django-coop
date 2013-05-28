@@ -17,7 +17,7 @@ from django.db.models import Q
 
 from django.contrib.gis import geos
 from django.contrib.gis.measure import D
-from coop_local.models import Location
+from coop_local.models import Location, Area
 from django.utils.simplejson import dumps
 
 from math import pi
@@ -89,15 +89,14 @@ def filter_data(request, page_app):
 
                     if occ.exists() and form.cleaned_data['location']:
                         label = form.cleaned_data['location']
-                        location = get_object_or_404(Location, label=label)                
-                        center = geos.Point(float(location.point.x), float(location.point.y))
+                        pk = form.cleaned_data['location_id']
+                        area = get_object_or_404(Area, pk=pk)
                         radius = form.cleaned_data['location_buffer']
                         distance_degrees = (360 * radius) / (pi * 6378)
-                        zone = center.buffer(distance_degrees)
-                        
+                        zone = area.polygon.buffer(distance_degrees)
                         # Get the possible location in the buffer...
                         possible_locations = Location.objects.filter(point__intersects=zone)
-                        # ...and filter events according to these locations
+                        # ...and filter occ according to these locations
                         occ = occ.filter(Q(event__location__in=possible_locations))
 
                         
@@ -122,7 +121,7 @@ def filter_data(request, page_app):
             form = PageApp_CoopAgendaForm(initial={'location_buffer': '10'}) # An empty form
     
     # Get available locations for autocomplete
-    available_locations = dumps([location.label for location in Location.objects.all()])
+    available_locations = dumps([{'label':area.label, 'value':area.pk} for area in Area.objects.all().order_by('label')])
  
     rdict = {'agenda': agenda, 'events_by_categories': categories, 'object': page_app, 'base_url': base_url, 'search_form': search_form, 'form': form, 'center': center_map, 'occs_count': occs_count, 'available_locations': available_locations, 'search_form_template': search_form_template}
     

@@ -33,6 +33,7 @@
             <div class="search_block" id="location">
                 <span class="search_title">{% trans "Location" %}</span>
                 {{ form.location }}
+                {{ form.location_id.as_hidden }}
             </div>
             <div class="search_block" id="location">
                 <span class="search_title">{% trans "Location buffer" %}</span>
@@ -46,7 +47,6 @@
         <div id="search_bottom">
             <div class="search_block" id="search_submit">
                 <input type="submit" value="{% trans "Search" %}" />
-                <div id="results_block"><span class="nb_results">{{ occs_count }}</span> <span class="label_results">{% trans "Results" %}</span></div>
             </div>
         </div>
     </form>
