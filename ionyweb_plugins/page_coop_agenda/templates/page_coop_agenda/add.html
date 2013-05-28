@@ -1,0 +1,108 @@
+{% load i18n %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="http://leaflet.cloudmade.com/dist/leaflet.css" />
+{% endblock %}
+
+<div id="agenda_top"></div>
+<div id="coop_agenda" class="add_form">
+    <h2 class="maj_title">{% trans "Add new event" %}</h2>
+
+    <form action="{{ base_url }}" method="post" class="add_form">{% csrf_token %}
+
+        <div class="bg_form">
+            <div class="fieldWrapper">
+                {{ form.title.errors }}
+                {{ form.title.label_tag }}: {{ form.title }}
+            </div>
+
+
+            <div class="fieldWrapper">
+                {{ form.date.errors }}
+                {{ form.date.label_tag }}: {{ form.date }}
+            </div>
+            <div class="fieldWrapper">
+                {{ form.location.errors }}
+                {{ form.location.label_tag }}: {{ form.location }}
+            </div>
+            <div class="fieldWrapper">
+                {{ form.organization.errors }}
+                {{ form.organization.label_tag }}: {{ form.organization }}
+            </div>
+            <div class="fieldWrapper">
+                {{ form.description.errors }}
+                {{ form.description.label_tag }}: {{ form.description }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.category.errors }}
+                {{ form.category.label_tag }}: {{ form.category }}
+            </div>
+            <div class="fieldWrapper">
+                {{ form.event_type.errors }}
+                {{ form.event_type.label_tag }}: {{ form.event_type }}
+            </div>
+            <div class="fieldWrapper">
+                {{ form.calendar.errors }}
+                {{ form.calendar.label_tag }}: {{ form.calendar }}
+            </div>
+            
+
+            <div class="fieldWrapper">
+                {{ form.source.errors }}
+                {{ form.source.label_tag }}: {{ form.source }}
+            </div>
+    
+            <div class="fieldWrapper">
+                {{ form.activity.errors }}
+                {{ form.activity.label_tag }}: {{ form.activity|safe }}
+            </div>   
+            <div class="fieldWrapper">
+                {{ form.transverse_themes.errors }}
+                {{ form.transverse_themes.label_tag }}: {{ form.transverse_themes|safe }}
+            </div>   
+
+
+            {{ form.errors }}
+        </div>
+
+        <div class="new_block" id="new_submit">
+            {% if mode = 'add' %}
+                <input type="submit" value="{% trans "Create" %}" />                
+            {% else %}
+                <input type="submit" value="{% trans "Modify" %}" />                
+            {% endif %}          
+        </div>
+
+    </form>
+</div>
+
+
+<script type="text/javascript">
+    $(function() {
+        $.datepicker.regional['fr'] = {
+            closeText: 'Fermer',
+            prevText: '&#x3c;Préc',
+            nextText: 'Suiv&#x3e;',
+            currentText: 'Courant',
+            monthNames: ['Janvier','Février','Mars','Avril','Mai','Juin',
+            'Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
+            monthNamesShort: ['Jan','Fév','Mar','Avr','Mai','Jun',
+            'Jul','Aoû','Sep','Oct','Nov','Déc'],
+            dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
+            dayNamesShort: ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'],
+            dayNamesMin: ['Di','Lu','Ma','Me','Je','Ve','Sa'],
+            weekHeader: 'Sm',
+            dateFormat: 'dd/mm/yy',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: ''};
+        $.datepicker.setDefaults($.datepicker.regional['fr']);
+
+        $('#id_date_creation').datepicker({dateFormat: 'yy-mm-dd', constrainInput: false});
+        $('#id_date_validity').datepicker({dateFormat: 'yy-mm-dd', constrainInput: false});
+        $('#id_date_start').datepicker({dateFormat: 'yy-mm-dd', constrainInput: false});
+        $('#id_date_end').datepicker({dateFormat: 'yy-mm-dd', constrainInput: false});
+    });
+</script>

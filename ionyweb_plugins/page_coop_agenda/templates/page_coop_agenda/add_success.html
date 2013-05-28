@@ -1,0 +1,16 @@
+{% load i18n %}
+
+<div id="agenda_top"></div>
+<div id="coop_agenda" class="coop_agenda">
+    <div class="coop_agenda coop_agenda_detail">
+        {% if mode = 'add' %}
+            <h1>{% trans "Add new event" %}</h1>
+            <p>{% trans "Event added. You may now consult it in the list" %}<p>
+        {% else %}
+            <h1>{% trans "Modify event" %}</h1>
+            <p>{% trans "Event modified. You may now consult it in the list" %}<p>
+        {% endif %}
+        <a href="{{ base_url }}">{% trans "Event list" %}</a>
+    </div>
+</div>
+

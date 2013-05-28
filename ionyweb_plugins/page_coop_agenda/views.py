@@ -11,7 +11,7 @@ from django.shortcuts import get_object_or_404
 from ionyweb.website.rendering.medias import CSSMedia
 from datetime import datetime
 
-from .forms import PageApp_CoopAgendaForm
+from .forms import PageApp_CoopAgendaForm, PartialEventForm
 
 from django.db.models import Q
 
@@ -27,6 +27,21 @@ MEDIAS = (
     )
 
 def index_view(request, page_app):
+    rdict = filter_data(request, page_app)
+    return render_view('page_coop_agenda/index.html',
+                       rdict,
+                       MEDIAS,
+                       context_instance=RequestContext(request))                           
+
+
+def carto_view(request, page_app):
+    rdict = filter_data(request, page_app)    
+    return render_view('page_coop_agenda/index_carto.html',
+                        rdict,
+                        MEDIAS,
+                        context_instance=RequestContext(request))     
+    
+def filter_data(request, page_app):
     
     base_url = u'%s' % (page_app.get_absolute_url())
 
@@ -34,6 +49,8 @@ def index_view(request, page_app):
     categories = {}
 
     center_map = settings.COOP_MAP_DEFAULT_CENTER
+    
+    search_form_template = "page_coop_agenda/search_form_agenda.html"
     
     try:
         search_form = settings.COOP_AGENDA_SEARCH_FORM
@@ -107,12 +124,9 @@ def index_view(request, page_app):
     # Get available locations for autocomplete
     available_locations = dumps([location.label for location in Location.objects.all()])
  
-    rdict = {'agenda': agenda, 'events_by_categories': categories, 'object': page_app, 'base_url': base_url, 'search_form': search_form, 'form': form, 'center': center_map, 'occs_count': occs_count, 'available_locations': available_locations}
+    rdict = {'agenda': agenda, 'events_by_categories': categories, 'object': page_app, 'base_url': base_url, 'search_form': search_form, 'form': form, 'center': center_map, 'occs_count': occs_count, 'available_locations': available_locations, 'search_form_template': search_form_template}
     
-    return render_view('page_coop_agenda/index.html',
-                       rdict,
-                       MEDIAS,
-                       context_instance=RequestContext(request))
+    return rdict
 
 
 def detail_view(request, page_app, pk):
@@ -123,3 +137,46 @@ def detail_view(request, page_app, pk):
                        rdict,
                        MEDIAS,
                        context_instance=RequestContext(request))                              
+
+
+def add_view(request, page_app, event_id=None):
+    if request.user.is_authenticated():
+        center_map = settings.COOP_MAP_DEFAULT_CENTER
+
+        if event_id:
+            # update
+            mode = 'update'
+            event = get_object_or_404(Event, pk=event_id)
+            base_url = u'%sp/event_edit/%s' % (page_app.get_absolute_url(),event_id)
+
+        else :
+            # new
+            mode = 'add'
+            base_url = u'%sp/event_add' % (page_app.get_absolute_url())
+            event = Event()
+        
+        
+        if request.method == 'POST': # If the form has been submitted        
+            form = PartialEventForm(request.POST, instance = event)
+            
+            if form.is_valid():
+                event = form.save()
+                base_url = u'%s' % (page_app.get_absolute_url())
+                rdict = {'base_url': base_url}
+                return render_view('page_coop_agenda/add_success.html',
+                                rdict,
+                                MEDIAS,
+                                context_instance=RequestContext(request))
+        else:
+            form = PartialEventForm(instance=event) # An empty form
+        
+        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form, 'center': center_map, 'mode': mode}
+        return render_view('page_coop_agenda/add.html',
+                        rdict,
+                        MEDIAS,
+                        context_instance=RequestContext(request))
+    else:
+        return render_view('page_coop_agenda/forbidden.html')
+
+
+                       
