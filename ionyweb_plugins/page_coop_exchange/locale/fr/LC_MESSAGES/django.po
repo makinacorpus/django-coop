@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-17 11:26+0200\n"
+"POT-Creation-Date: 2013-05-29 10:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,59 +54,91 @@ msgstr "Offre d'emploi"
 msgid "Training"
 msgstr "Essai"
 
-#: forms.py:42 templates/page_coop_exchange/index.html:37
-#: templates/page_coop_exchange/index_carto.html:37
+#: forms.py:42 forms.py:43 templates/page_coop_exchange/index.html:39
+#: templates/page_coop_exchange/search_form_exchange.html:25
+#: templates/page_coop_exchange/search_form_service.html:25
 msgid "Activity"
 msgstr "Activité"
 
-#: forms.py:44 templates/page_coop_exchange/index.html:47
-#: templates/page_coop_exchange/index_carto.html:55
+#: forms.py:45 templates/page_coop_exchange/index.html:49
+#: templates/page_coop_exchange/search_form_exchange.html:43
+#: templates/page_coop_exchange/search_form_service.html:43
 msgid "Location"
 msgstr "Lieu"
 
-#: forms.py:45 templates/page_coop_exchange/index.html:51
-#: templates/page_coop_exchange/index_carto.html:59
+#: forms.py:46 templates/page_coop_exchange/index.html:53
+#: templates/page_coop_exchange/search_form_exchange.html:47
+#: templates/page_coop_exchange/search_form_service.html:47
 msgid "Location buffer"
 msgstr "Lieu buffer"
 
-#: forms.py:46 templates/page_coop_exchange/index.html:41
-#: templates/page_coop_exchange/index_carto.html:41
+#: forms.py:49 forms.py:50 forms.py:51
+#: templates/page_coop_exchange/index.html:43
+#: templates/page_coop_exchange/search_form_exchange.html:29
+#: templates/page_coop_exchange/search_form_service.html:29
 msgid "Thematic"
 msgstr "Thématique"
 
-#: forms.py:52 templates/page_coop_exchange/index.html:26
-#: templates/page_coop_exchange/index_carto.html:45
-#: templates/page_coop_exchange/index_carto.html:49
+#: forms.py:57 templates/page_coop_exchange/index.html:28
+#: templates/page_coop_exchange/search_form_exchange.html:33
+#: templates/page_coop_exchange/search_form_exchange.html:37
+#: templates/page_coop_exchange/search_form_service.html:33
+#: templates/page_coop_exchange/search_form_service.html:37
 msgid "Free search"
 msgstr "Recherche libre"
+
+#: forms.py:59
+msgid "Warranty"
+msgstr "Garantie"
+
+#: forms.py:61
+msgid "Organization"
+msgstr "Structure"
+
+#: forms.py:63
+msgid "Keywords"
+msgstr "Mots clef"
 
 #: models.py:15
 msgid "CoopExchange"
 msgstr ""
 
 #: templates/page_coop_exchange/add.html:9
-#: templates/page_coop_exchange/add_success.html:6
+#: templates/page_coop_exchange/add_success.html:7
 msgid "Add new exchange"
 msgstr "Proposer une annonce"
 
-#: templates/page_coop_exchange/add.html:100
+#: templates/page_coop_exchange/add.html:84
 #: templates/page_coop_exchange/new.html:35
 msgid "Create"
 msgstr "Ajouter"
 
-#: templates/page_coop_exchange/add_success.html:7
+#: templates/page_coop_exchange/add.html:86
+msgid "Modify"
+msgstr "Modifier"
+
+#: templates/page_coop_exchange/add_success.html:8
 msgid "Exchange added. You may now consult it in the list"
 msgstr "Annonce ajoutée. Vous pouvez à présent la consulter dans la liste."
 
-#: templates/page_coop_exchange/add_success.html:8
+#: templates/page_coop_exchange/add_success.html:10
+msgid "Modify exchange"
+msgstr "Modifier une annonce"
+
+#: templates/page_coop_exchange/add_success.html:11
+msgid "Exchange modified. You may now consult it in the list"
+msgstr "Annonce modifiée. Vous pouvez à présent la consulter dans la liste."
+
+#: templates/page_coop_exchange/add_success.html:13
 msgid "Exchange list"
 msgstr "Liste des annonces"
 
 #: templates/page_coop_exchange/detail.html:9
-#: templates/page_coop_exchange/index.html:22
-#: templates/page_coop_exchange/index.html:93
-#: templates/page_coop_exchange/index_carto.html:22
+#: templates/page_coop_exchange/index.html:24
+#: templates/page_coop_exchange/index.html:95
 #: templates/page_coop_exchange/new.html:16
+#: templates/page_coop_exchange/search_form_exchange.html:10
+#: templates/page_coop_exchange/search_form_service.html:10
 msgid "Type"
 msgstr ""
 
@@ -114,51 +146,58 @@ msgstr ""
 msgid "You must be logged in to view this page"
 msgstr "Vous devez vous connecter pour voir cette page"
 
-#: templates/page_coop_exchange/index.html:18
-#: templates/page_coop_exchange/index_carto.html:18
+#: templates/page_coop_exchange/index.html:20
 #: templates/page_coop_exchange/new.html:12
+#: templates/page_coop_exchange/search_form_exchange.html:6
+#: templates/page_coop_exchange/search_form_service.html:6
 msgid "I'm looking for"
 msgstr "Je recherche"
 
-#: templates/page_coop_exchange/index.html:30
-#: templates/page_coop_exchange/index_carto.html:30
+#: templates/page_coop_exchange/index.html:32
+#: templates/page_coop_exchange/search_form_exchange.html:18
+#: templates/page_coop_exchange/search_form_service.html:18
 msgid "Search"
 msgstr "Recherche"
 
-#: templates/page_coop_exchange/index.html:31
-#: templates/page_coop_exchange/index_carto.html:31
+#: templates/page_coop_exchange/index.html:33
+#: templates/page_coop_exchange/search_form_exchange.html:19
+#: templates/page_coop_exchange/search_form_service.html:19
 msgid "Results"
 msgstr "Résultats"
 
-#: templates/page_coop_exchange/index.html:56
-#: templates/page_coop_exchange/index_carto.html:66
+#: templates/page_coop_exchange/index.html:58
+#: templates/page_coop_exchange/search_form_exchange.html:54
+#: templates/page_coop_exchange/search_form_service.html:54
 msgid "Exchange mode"
 msgstr "Mode d'échange"
 
-#: templates/page_coop_exchange/index.html:60
-#: templates/page_coop_exchange/index_carto.html:71
+#: templates/page_coop_exchange/index.html:62
+#: templates/page_coop_exchange/search_form_exchange.html:59
+#: templates/page_coop_exchange/search_form_service.html:59
 msgid "If skills"
 msgstr "Si compétences"
 
-#: templates/page_coop_exchange/index.html:96
+#: templates/page_coop_exchange/index.html:98
 msgid "Show details"
 msgstr "Voir les détails"
 
-#: templates/page_coop_exchange/index_carto.html:27
-msgid "Display more criteria"
-msgstr "Afficher plus de critères"
-
-#: templates/page_coop_exchange/index_carto.html:28
-msgid "Display less criteria"
-msgstr "Afficher moins de critères"
-
-#: templates/page_coop_exchange/index_carto.html:83
+#: templates/page_coop_exchange/index_carto.html:25
 msgid "List"
 msgstr "Liste"
 
-#: templates/page_coop_exchange/index_carto.html:109
+#: templates/page_coop_exchange/index_carto.html:51
 msgid "Read more"
-msgstr ""
+msgstr "En savoir plus"
+
+#: templates/page_coop_exchange/search_form_exchange.html:15
+#: templates/page_coop_exchange/search_form_service.html:15
+msgid "Display more criteria"
+msgstr "Afficher plus de critères"
+
+#: templates/page_coop_exchange/search_form_exchange.html:16
+#: templates/page_coop_exchange/search_form_service.html:16
+msgid "Display less criteria"
+msgstr "Afficher moins de critères"
 
 #~ msgid "Experience"
 #~ msgstr "Expérience"

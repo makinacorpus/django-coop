@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-18 15:46+0100\n"
+"POT-Creation-Date: 2013-05-29 09:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,17 +18,91 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
+#: forms.py:13 templates/page_coop_agenda/index.html:47
+#: templates/page_coop_agenda/search_form_agenda.html:34
+#: templates/page_coop_agenda/search_form_exchange.html:34
+msgid "Location"
+msgstr "Territoire"
+
+#: forms.py:15 templates/page_coop_agenda/index.html:51
+#: templates/page_coop_agenda/search_form_agenda.html:39
+#: templates/page_coop_agenda/search_form_exchange.html:38
+msgid "Location buffer"
+msgstr "Périmètre de recherche"
+
+#: forms.py:16 templates/page_coop_agenda/index.html:27
+#: templates/page_coop_agenda/search_form_agenda.html:14
+#: templates/page_coop_agenda/search_form_exchange.html:14
+msgid "Free search"
+msgstr "Recherche libre"
+
+#: forms.py:17 templates/page_coop_agenda/index.html:19
+#: templates/page_coop_agenda/search_form_agenda.html:6
+#: templates/page_coop_agenda/search_form_exchange.html:6
+msgid "Activity"
+msgstr "Activité"
+
+#: forms.py:18 templates/page_coop_agenda/detail.html:32
+#: templates/page_coop_agenda/index.html:23
+#: templates/page_coop_agenda/search_form_agenda.html:10
+#: templates/page_coop_agenda/search_form_exchange.html:10
+msgid "Organization"
+msgstr "Orgaisation"
+
+#: forms.py:19 templates/page_coop_agenda/index.html:37
+#: templates/page_coop_agenda/search_form_agenda.html:24
+#: templates/page_coop_agenda/search_form_exchange.html:24
+msgid "Start date"
+msgstr "Date de début"
+
+#: forms.py:20 templates/page_coop_agenda/index.html:41
+#: templates/page_coop_agenda/search_form_agenda.html:28
+#: templates/page_coop_agenda/search_form_exchange.html:28
+msgid "End date"
+msgstr "Date de fin"
+
+#: forms.py:21 templates/page_coop_agenda/index.html:33
+#: templates/page_coop_agenda/search_form_agenda.html:20
+#: templates/page_coop_agenda/search_form_exchange.html:20
+msgid "Type"
+msgstr ""
+
 #: models.py:15
 msgid "CoopAgenda"
 msgstr ""
 
+#: templates/page_coop_agenda/add.html:9
+#: templates/page_coop_agenda/add_success.html:7
+msgid "Add new event"
+msgstr "Ajouter un nouvel évènement"
+
+#: templates/page_coop_agenda/add.html:71
+msgid "Create"
+msgstr "Créer"
+
+#: templates/page_coop_agenda/add.html:73
+msgid "Modify"
+msgstr "Modifier"
+
+#: templates/page_coop_agenda/add_success.html:8
+msgid "Event added. You may now consult it in the list"
+msgstr "Evènement ajouté. Vous pouvez à présent le consulter dans la liste"
+
+#: templates/page_coop_agenda/add_success.html:10
+msgid "Modify event"
+msgstr "Modifier l'évènement"
+
+#: templates/page_coop_agenda/add_success.html:11
+msgid "Event modified. You may now consult it in the list"
+msgstr "Evènement modifié. Vous pouvez à présent le consulter dans la liste"
+
+#: templates/page_coop_agenda/add_success.html:13
+msgid "Event list"
+msgstr "Liste des évènements"
+
 #: templates/page_coop_agenda/detail.html:30
 msgid "Description"
 msgstr "Description"
-
-#: templates/page_coop_agenda/detail.html:32
-msgid "Organization"
-msgstr "Orgaisation"
 
 #: templates/page_coop_agenda/detail.html:34
 msgid "Place"
@@ -42,17 +116,41 @@ msgstr "Type évènement"
 msgid "Dates"
 msgstr "Dates"
 
-#: templates/page_coop_agenda/index.html:5
+#: templates/page_coop_agenda/forbidden.html:3
+msgid "You must be logged in to view this page"
+msgstr "Vous devez être connecté pour voir cette page"
+
+#: templates/page_coop_agenda/index.html:91
+#: templates/page_coop_agenda/search_form_agenda.html:49
+#: templates/page_coop_agenda/search_form_exchange.html:48
+msgid "Search"
+msgstr "Rechercher"
+
+#: templates/page_coop_agenda/index.html:92
+#: templates/page_coop_agenda/search_form_exchange.html:49
+msgid "Results"
+msgstr "Résultats"
+
+#: templates/page_coop_agenda/index.html:130
 msgid "Agenda"
 msgstr "Agenda"
 
-#: templates/page_coop_agenda/index.html:17
+#: templates/page_coop_agenda/index.html:142
 msgid "to"
 msgstr "au"
 
-#: templates/page_coop_agenda/index.html:30
+#: templates/page_coop_agenda/index.html:155
 msgid "in"
 msgstr "à"
+
+#: templates/page_coop_agenda/index_carto.html:25
+msgid "List"
+msgstr "Liste"
+
+#: templates/page_coop_agenda/index_carto.html:51
+#: templates/page_coop_agenda/index_carto.html:60
+msgid "Read more"
+msgstr "En savoir plus"
 
 #~ msgid "Person"
 #~ msgstr "Personne"

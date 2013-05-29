@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-27 11:03+0200\n"
+"POT-Creation-Date: 2013-05-29 10:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -76,6 +76,10 @@ msgstr "Recherche libre"
 #: forms.py:66 templates/page_coop_blog/coopentry_archive.html:36
 msgid "Organization"
 msgstr "Structure"
+
+#: forms.py:68 templates/page_coop_blog/entry_detail.html:54
+msgid "Keywords"
+msgstr "Mots clefs"
 
 #: models.py:25 models.py:164 models.py:167
 msgid "title"
@@ -214,25 +218,21 @@ msgstr ""
 msgid "Search"
 msgstr "Recherche"
 
-#: templates/page_coop_blog/coopentry_archive.html:75
+#: templates/page_coop_blog/coopentry_archive.html:107
 msgid "Read more"
 msgstr "Lisez la suite"
 
-#: templates/page_coop_blog/coopentry_archive.html:77
+#: templates/page_coop_blog/coopentry_archive.html:109
 msgid "Edit"
 msgstr "Editer"
 
-#: templates/page_coop_blog/coopentry_archive.html:82
+#: templates/page_coop_blog/coopentry_archive.html:115
 msgid "No entry yet"
 msgstr "Aucun article disponible actuellement"
 
 #: templates/page_coop_blog/entry_detail.html:33
 msgid "Galery"
 msgstr "Galerie"
-
-#: templates/page_coop_blog/entry_detail.html:54
-msgid "Keywords"
-msgstr "Mots clefs"
 
 #: templates/page_coop_blog/forbidden.html:3
 msgid "You must be logged in to view this page"
