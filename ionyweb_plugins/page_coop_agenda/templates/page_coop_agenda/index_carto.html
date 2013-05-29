@@ -19,7 +19,7 @@
 
 
 <div id="agenda_top"></div>
-<div id="result_agenda">
+<div id="coop_agenda">
 
 <div class="agenda_pagination_top pagination_top">
     <div class="carto"><a href="{{ base_url }}">{% trans "List" %}</a></div>
@@ -44,13 +44,23 @@
         // Add markers         
         var tab_markers = new Array();
         
-        {% for e in exchanges %}
-            {% if e.location %}
-                tab_markers.push(new L.LatLng({{ e.location.point.y|unlocalize }}, {{ e.location.point.x|unlocalize }}))
-                L.marker([{{ e.location.point.y|unlocalize }}, {{ e.location.point.x|unlocalize }}]).addTo(map)
-                        .bindPopup("{{ e.title|safe }}<br/><a href=\"{{ base_url }}p/{{ e.pk }}\">{% trans "Read more" %}</a>")
-                        .openPopup();
-            {% endif %}
+//         {% for e in exchanges %}
+//             {% if e.location %}
+//                 tab_markers.push(new L.LatLng({{ e.location.point.y|unlocalize }}, {{ e.location.point.x|unlocalize }}))
+//                 L.marker([{{ e.location.point.y|unlocalize }}, {{ e.location.point.x|unlocalize }}]).addTo(map)
+//                         .bindPopup("{{ e.title|safe }}<br/><a href=\"{{ base_url }}p/{{ e.pk }}\">{% trans "Read more" %}</a>")
+//                         .openPopup();
+//             {% endif %}
+//         {% endfor %}
+        {% for event_category, occs in events_by_categories.items %}
+                {% for o in occs %}            
+                    {% if o.event.location == None %} {% else %}
+                        tab_markers.push(new L.LatLng({{ o.event.location.point.y|unlocalize }}, {{ o.event.location.point.x|unlocalize }}))
+                        L.marker([{{ o.event.location.point.y|unlocalize }}, {{ o.event.location.point.x|unlocalize }}]).addTo(map)
+                                .bindPopup("{{ o.event.title|safe }}<br/><a href=\"{{ base_url }}p/{{ o.event.pk }}\">{% trans "Read more" %}</a>")
+                                .openPopup();
+                    {% endif %}
+                {% endfor %}
         {% endfor %}
 
         if(tab_markers.length > 0) {
@@ -58,6 +68,22 @@
             map.fitBounds(global_bounds);
             map.zoomOut();
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     </script>
 
