@@ -2,7 +2,12 @@
 
 <div id="members_top"></div>
 <div id="members" class="add_form">
-    <h2 class="maj_title">{% trans "Add new member" %}</h2>
+    {% if mode = 'add' %}
+        <h2 class="maj_title">{% trans "Add new member" %}</h2>
+    {% else %}
+        <h2 class="maj_title">{% trans "Modify member" %}</h2>
+    {% endif %}
+
 
     <form action="{{ base_url }}" method="post" class="add_form" enctype="multipart/form-data">{% csrf_token %}
 

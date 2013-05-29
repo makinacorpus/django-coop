@@ -6,7 +6,12 @@
 
 <div id="agenda_top"></div>
 <div id="coop_agenda" class="add_form">
-    <h2 class="maj_title">{% trans "Add new event" %}</h2>
+    
+    {% if mode = 'add' %}
+        <h2 class="maj_title">{% trans "Add new event" %}</h2>
+    {% else %}
+        <h2 class="maj_title">{% trans "Modify event" %}</h2>
+    {% endif %}
 
     <form action="{{ base_url }}" method="post" class="add_form">{% csrf_token %}
 

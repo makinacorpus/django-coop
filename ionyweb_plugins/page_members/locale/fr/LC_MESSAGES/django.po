@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-29 10:00+0200\n"
+"POT-Creation-Date: 2013-05-29 10:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,25 +56,26 @@ msgstr ""
 msgid "Members"
 msgstr "Structures"
 
-#: templates/page_members/add.html:5 templates/page_members/add_success.html:7
+#: templates/page_members/add.html:6 templates/page_members/add_success.html:7
 msgid "Add new member"
 msgstr "Ajouter une nouvelle structure"
 
-#: templates/page_members/add.html:101
+#: templates/page_members/add.html:8
+#: templates/page_members/add_success.html:10
+msgid "Modify member"
+msgstr "Modifier la structure"
+
+#: templates/page_members/add.html:106
 msgid "Create"
 msgstr "Ajouter"
 
-#: templates/page_members/add.html:103
+#: templates/page_members/add.html:108
 msgid "Modify"
 msgstr "Modifier"
 
 #: templates/page_members/add_success.html:8
 msgid "Member added. You may now consult it in the list"
 msgstr "Structure ajoutée. Vous pouvez à présent la consulter dans la liste"
-
-#: templates/page_members/add_success.html:10
-msgid "Modify member"
-msgstr "Modifier la structure"
 
 #: templates/page_members/add_success.html:11
 msgid "Member modified. You may now consult it in the list"

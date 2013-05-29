@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-29 10:00+0200\n"
+"POT-Creation-Date: 2013-05-29 10:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -181,26 +181,27 @@ msgstr "Date de publication"
 msgid "Status"
 msgstr "Statut"
 
-#: templates/page_coop_blog/add.html:7
+#: templates/page_coop_blog/add.html:8
 #: templates/page_coop_blog/add_success.html:7
 msgid "Add new article"
 msgstr "Ajouter un article"
 
-#: templates/page_coop_blog/add.html:86
+#: templates/page_coop_blog/add.html:10
+#: templates/page_coop_blog/add_success.html:10
+msgid "Modify article"
+msgstr "Modifier un article"
+
+#: templates/page_coop_blog/add.html:90
 msgid "Create"
 msgstr "Créer"
 
-#: templates/page_coop_blog/add.html:88
+#: templates/page_coop_blog/add.html:92
 msgid "Modify"
 msgstr "Modifier"
 
 #: templates/page_coop_blog/add_success.html:8
 msgid "Article added. You may now consult it in the list"
 msgstr "Article ajouté. Vous pouvez à présent le consulter dans la liste"
-
-#: templates/page_coop_blog/add_success.html:10
-msgid "Modify article"
-msgstr "Modifier un article"
 
 #: templates/page_coop_blog/add_success.html:11
 msgid "Article modified. You may now consult it in the list"

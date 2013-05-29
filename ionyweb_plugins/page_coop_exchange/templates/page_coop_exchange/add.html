@@ -6,7 +6,12 @@
 
 <div id="exchanges_top"></div>
 <div id="result_exchanges" class="add_form">
-    <h2 class="maj_title">{% trans "Add new exchange" %}</h2>
+    
+    {% if mode = 'add' %}
+        <h2 class="maj_title">{% trans "Add new exchange" %}</h2>
+    {% else %}
+        <h2 class="maj_title">{% trans "Modify exchange" %}</h2>
+    {% endif %}
 
     <form action="{{ base_url }}" method="post" class="add_form">{% csrf_token %}
 
