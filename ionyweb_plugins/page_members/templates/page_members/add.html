@@ -13,7 +13,10 @@
 
         <div class="bg_form">
 
-            <!-- TODO: project or not -->   
+            <div class="fieldWrapper">
+                {{ form.is_project.errors  }}
+                {{ form.is_project.label_tag }}: {{ form.is_project }}
+            </div>
 
             <div class="fieldWrapper">
                 {{ form.title.errors  }}
