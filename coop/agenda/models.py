@@ -15,7 +15,7 @@ from django.conf import settings
 import rdflib
 from django.template.defaultfilters import date as _date
 from datetime import datetime
-
+from sorl.thumbnail import ImageField
 
 class BaseCalendar(URIModel):
     title = models.CharField(_('title'), blank=True, max_length=250)
@@ -102,6 +102,16 @@ class BaseEvent(URIModel):
     organization = models.ForeignKey('coop_local.Organization', null=True, blank=True, verbose_name=_('organization'), related_name=_('publisher organization'), on_delete=models.PROTECT)
     organizations = models.ManyToManyField('coop_local.Organization', null=True, blank=True, verbose_name=_('organizations'), related_name=_('other organizations'))
 
+    image = ImageField(upload_to='event_img/', null=True, blank=True)
+    
+    #TODO: add image galery
+    #TODO: add attached documents
+    
+    #TODO attached articles
+    #TODO attached exchanges
+    
+    #TODO add comments
+    
     person = models.ForeignKey('coop_local.Person', null=True, blank=True, verbose_name=_('author'), on_delete=models.PROTECT)
     if "coop_geo" in settings.INSTALLED_APPS:
         # it a rather redundant with feild pref_address ... 

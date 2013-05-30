@@ -19,27 +19,41 @@
                 {{ form.title.label_tag }}: {{ form.title }}
             </div>          
             <div class="fieldWrapper">
+                {{ form.image.errors }}
+                {{ form.image.label_tag }}: {{ form.image|safe }}
+            </div>   
+            <div class="fieldWrapper">
+                {{ form.author.errors }}
+                {{ form.author.label_tag }}: {{ form.author|safe }}
+            </div>   
+            <div class="fieldWrapper">
+                {{ form.source.errors }}
+                {{ form.source.label_tag }}: {{ form.source|safe }}
+            </div> 
+            <div class="fieldWrapper">
+                {{ form.publication_date.errors }}
+                {{ form.publication_date.label_tag }}: {{ form.publication_date|safe }}
+            </div>   
+            <div class="fieldWrapper">
+                {{ form.creation_date.errors }}
+                {{ form.creation_date.label_tag }}: {{ form.creation_date|safe }}
+            </div>   
+            <div class="fieldWrapper">
+                {{ form.modification_date.errors }}
+                {{ form.modification_date.label_tag }}: {{ form.modification_date|safe }}
+            </div>   
+            <div class="fieldWrapper">
                 {{ form.resume.errors }}
                 {{ form.resume.label_tag }}: {{ form.resume|safe }}
-            </div>   
-            
+            </div>               
             <div class="fieldWrapper">
                 {{ form.body.errors }}
                 {{ form.body.label_tag }}: {{ form.body|safe }}
             </div>   
        
-            <div class="fieldWrapper">
-                {{ form.category.errors }}
-                {{ form.category.label_tag }}: {{ form.category|safe }}
-            </div>   
-            <div class="fieldWrapper">
-                {{ form.image.errors }}
-                {{ form.image.label_tag }}: {{ form.image|safe }}
-            </div>   
-            <div class="fieldWrapper">
-                {{ form.tags.errors }}
-                {{ form.tags.label_tag }}: {{ form.tags|safe }}
-            </div>   
+            <!-- TODO: doc attached             -->
+            <!-- TODO: img attached             -->
+
             <div class="fieldWrapper">
                 {{ form.activity.errors }}
                 {{ form.activity.label_tag }}: {{ form.activity|safe }}
@@ -49,36 +63,27 @@
                 {{ form.transverse_themes.label_tag }}: {{ form.transverse_themes|safe }}
             </div>   
 
+            <!-- TODO: category ?             -->
+
             <div class="fieldWrapper">
-                {{ form.publication_date.errors }}
-                {{ form.publication_date.label_tag }}: {{ form.publication_date|safe }}
+                {{ form.tags.errors }}
+                {{ form.tags.label_tag }}: {{ form.tags|safe }}
             </div>   
-            <div class="fieldWrapper">
-                {{ form.modification_date.errors }}
-                {{ form.modification_date.label_tag }}: {{ form.modification_date|safe }}
-            </div>   
+
+            <!-- TODO: site synchro             -->
 
             <div class="fieldWrapper">
                 {{ form.docs.errors }}
                 {{ form.docs.label_tag }}: {{ form.docs|safe }}
             </div>   
 
-                
+            <!-- TODO: comments             -->
 
             <div class="fieldWrapper">
                 {{ form.status.errors }}
                 {{ form.status.label_tag }}: {{ form.status|safe }}
             </div>   
 
-            <div class="fieldWrapper">
-                {{ form.author.errors }}
-                {{ form.author.label_tag }}: {{ form.author|safe }}
-            </div>   
-
-            <div class="fieldWrapper">
-                {{ form.slug.errors }}
-                {{ form.slug.label_tag }}: {{ form.slug|safe }}
-            </div>   
 
 
 

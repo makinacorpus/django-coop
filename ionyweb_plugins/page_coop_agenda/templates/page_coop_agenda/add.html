@@ -13,51 +13,76 @@
         <h2 class="maj_title">{% trans "Modify event" %}</h2>
     {% endif %}
 
-    <form action="{{ base_url }}" method="post" class="add_form">{% csrf_token %}
+    <form action="{{ base_url }}" method="post" class="add_form" enctype="multipart/form-data">{% csrf_token %}
 
         <div class="bg_form">
+
             <div class="fieldWrapper">
                 {{ form.title.errors }}
                 {{ form.title.label_tag }}: {{ form.title }}
-            </div>
-
-
-            <div class="fieldWrapper">
-                {{ form.date.errors }}
-                {{ form.date.label_tag }}: {{ form.date }}
-            </div>
-            <div class="fieldWrapper">
-                {{ form.location.errors }}
-                {{ form.location.label_tag }}: {{ form.location }}
             </div>
             <div class="fieldWrapper">
                 {{ form.organization.errors }}
                 {{ form.organization.label_tag }}: {{ form.organization }}
             </div>
+            <!-- TODO: poste par           -->
+    
+            <div class="fieldWrapper">
+                {{ form.organizations.errors }}
+                {{ form.organizations.label_tag }}: {{ form.organizations }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.image.errors }}
+                {{ form.image.label_tag }}: {{ form.image }}
+            </div>
+
             <div class="fieldWrapper">
                 {{ form.description.errors }}
                 {{ form.description.label_tag }}: {{ form.description }}
             </div>
 
+<!--            <div class="fieldWrapper">
+                {{ form.date.errors }}
+                {{ form.date.label_tag }}: {{ form.date }}
+            </div>-->
+            <!-- TODO: hours             -->
+
+
+
+            <div class="fieldWrapper">
+                {{ occ_form.start_time.errors }}
+                {{ occ_form.start_time.label_tag }}: {{ occ_form.start_time }}
+            </div>
+            <div class="fieldWrapper">
+                {{ occ_form.end_time.errors }}
+                {{ occ_form.end_time.label_tag }}: {{ occ_form.end_time }}
+            </div>
+
+
+
+<!--             {{ occ_form.repeats.label_tag }} -->
+
+
+            <!-- TODO: content            -->
+
+            <!-- TODO: address            -->
+
+            <!-- TODO: town            -->
+
+            <!-- TODO: postal code            -->
+
             <div class="fieldWrapper">
                 {{ form.category.errors }}
                 {{ form.category.label_tag }}: {{ form.category }}
             </div>
-            <div class="fieldWrapper">
-                {{ form.event_type.errors }}
-                {{ form.event_type.label_tag }}: {{ form.event_type }}
-            </div>
-            <div class="fieldWrapper">
-                {{ form.calendar.errors }}
-                {{ form.calendar.label_tag }}: {{ form.calendar }}
-            </div>
-            
 
-            <div class="fieldWrapper">
-                {{ form.source.errors }}
-                {{ form.source.label_tag }}: {{ form.source }}
-            </div>
-    
+            <!-- TODO: doc attached           -->
+
+            <!-- TODO: img attached           -->
+
+            <!-- TODO: partners           -->
+
             <div class="fieldWrapper">
                 {{ form.activity.errors }}
                 {{ form.activity.label_tag }}: {{ form.activity|safe }}
@@ -67,8 +92,42 @@
                 {{ form.transverse_themes.label_tag }}: {{ form.transverse_themes|safe }}
             </div>   
 
+            <!-- TODO: articles associated             -->
+
+            <!-- TODO: exchanges associated             -->
+
+            <div class="fieldWrapper">
+                {{ form.tags.errors }}
+                {{ form.tags.label_tag }}: {{ form.tags|safe }}
+            </div>   
+
+            <!-- TODO: comments             -->
+
+            <div class="fieldWrapper">
+                {{ form.active.errors }}
+                {{ form.active.label_tag }}: {{ form.active|safe }}
+            </div>   
+
+<!--            <div class="fieldWrapper">
+                {{ form.location.errors }}
+                {{ form.location.label_tag }}: {{ form.location }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.event_type.errors }}
+                {{ form.event_type.label_tag }}: {{ form.event_type }}
+            </div>
+            <div class="fieldWrapper">
+                {{ form.calendar.errors }}
+                {{ form.calendar.label_tag }}: {{ form.calendar }}
+            </div>-->
+            
+
+    
+
 
             {{ form.errors }}
+            {{ occ_form.errors }}
         </div>
 
         <div class="new_block" id="new_submit">

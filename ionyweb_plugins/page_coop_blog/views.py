@@ -7,6 +7,7 @@ from django.utils.decorators import available_attrs
 from django.utils.safestring import mark_safe
 from django.template import RequestContext
 from django.shortcuts import get_object_or_404
+from django.template.defaultfilters import slugify
 
 from ionyweb.website.rendering import HTMLRendering
 from ionyweb.website.rendering.medias import JSAdminMedia, RSSMedia
@@ -138,10 +139,13 @@ def add_view(request, page_app, entry_id=None):
         
         if request.method == 'POST': # If the form has been submitted        
             form = EntryForm(request.POST, request.FILES, instance = entry)
-            
+                        
             if form.is_valid():
             
-                entry.blog_id = 1
+                if not entry_id:
+                    entry.slug = slugify(entry.title)
+                    
+                entry.blog_id = 1 # default blog
                 entry = form.save()
                 
                 base_url = u'%s' % (page_app.get_absolute_url())

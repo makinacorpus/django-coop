@@ -11,7 +11,7 @@ from django.shortcuts import get_object_or_404
 from ionyweb.website.rendering.medias import CSSMedia
 from datetime import datetime
 
-from .forms import PageApp_CoopAgendaForm, PartialEventForm
+from .forms import PageApp_CoopAgendaForm, PartialEventForm, PartialOccEventForm
 
 from django.db.models import Q
 
@@ -123,7 +123,7 @@ def filter_data(request, page_app):
     # Get available locations for autocomplete
     available_locations = dumps([{'label':area.label, 'value':area.pk} for area in Area.objects.all().order_by('label')])
  
-    rdict = {'agenda': agenda, 'events_by_categories': categories, 'object': page_app, 'base_url': base_url, 'search_form': search_form, 'form': form, 'center': center_map, 'occs_count': occs_count, 'available_locations': available_locations, 'search_form_template': search_form_template}
+    rdict = {'media_path': settings.MEDIA_URL,'agenda': agenda, 'events_by_categories': categories, 'object': page_app, 'base_url': base_url, 'search_form': search_form, 'form': form, 'center': center_map, 'occs_count': occs_count, 'available_locations': available_locations, 'search_form_template': search_form_template}
     
     return rdict
 
@@ -139,6 +139,10 @@ def detail_view(request, page_app, pk):
 
 
 def add_view(request, page_app, event_id=None):
+    event_form_class = PartialEventForm
+    occ_form_class = PartialOccEventForm
+    agenda = get_object_or_404(Calendar, sites__id=settings.SITE_ID)                
+    
     if request.user.is_authenticated():
         center_map = settings.COOP_MAP_DEFAULT_CENTER
 
@@ -146,30 +150,36 @@ def add_view(request, page_app, event_id=None):
             # update
             mode = 'update'
             event = get_object_or_404(Event, pk=event_id)
+            occ = get_object_or_404(Occurrence, event__pk = event_id)
             base_url = u'%sp/event_edit/%s' % (page_app.get_absolute_url(),event_id)
-
         else :
             # new
             mode = 'add'
             base_url = u'%sp/event_add' % (page_app.get_absolute_url())
-            event = Event()
-        
-        
-        if request.method == 'POST': # If the form has been submitted        
-            form = PartialEventForm(request.POST, instance = event)
+            event = Event(calendar=agenda)
+            occ = Occurrence(event=event)
+
+        if request.method == 'POST':
             
-            if form.is_valid():
-                event = form.save()
+            event_form = event_form_class(request.POST, request.FILES, instance = event)
+            occ_form = occ_form_class(request.POST, instance = occ)
+            if event_form.is_valid() and occ_form.is_valid():
+                event = event_form.save()
+                occ.event_id = event.pk
+                occ = occ_form.save(event)
+                
                 base_url = u'%s' % (page_app.get_absolute_url())
                 rdict = {'base_url': base_url}
                 return render_view('page_coop_agenda/add_success.html',
                                 rdict,
                                 MEDIAS,
                                 context_instance=RequestContext(request))
+
         else:
-            form = PartialEventForm(instance=event) # An empty form
+            event_form = event_form_class(instance = event)
+            occ_form = occ_form_class(instance = occ)
         
-        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form, 'center': center_map, 'mode': mode}
+        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': event_form, 'occ_form': occ_form, 'center': center_map, 'mode': mode}
         return render_view('page_coop_agenda/add.html',
                         rdict,
                         MEDIAS,

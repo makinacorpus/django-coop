@@ -174,7 +174,8 @@ class CoopEntry(models.Model):
     
     slug = models.SlugField(_('slug'), max_length=255, unique_for_date='publication_date')
     author = models.ForeignKey('auth.User', verbose_name=_('author'))
-    category = TreeForeignKey(Category, verbose_name=_('category'), related_name="entries")
+    source = models.CharField(_('source'), max_length=255, null=True, blank=True)
+    category = TreeForeignKey(Category, verbose_name=_('category'), related_name="entries", null=True, blank=True)
     creation_date = models.DateTimeField(_('creation date'), auto_now_add=True)
     modification_date = models.DateTimeField(_('modification date'), auto_now=True)
     publication_date = models.DateTimeField(_('publication date'), 

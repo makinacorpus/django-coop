@@ -4,9 +4,9 @@ import floppyforms as forms
 from ionyweb.forms import ModuloModelForm
 from .models import PageApp_CoopAgenda
 from django.utils.translation import ugettext, ugettext_lazy as _
-from coop.agenda.forms import EventForm
+from coop.agenda.forms import EventForm, MultipleOccurrenceForm, SingleOccurrenceForm
 
-from coop_local.models import Event
+from coop_local.models import Event, Occurrence
 
 class PageApp_CoopAgendaForm(ModuloModelForm):
 
@@ -24,6 +24,14 @@ class PageApp_CoopAgendaForm(ModuloModelForm):
         model = PageApp_CoopAgenda
 
 class PartialEventForm(EventForm):
+    
     class Meta:
         model = Event
-        #exclude = ('products', 'sites', )
+        exclude = ('calendar', 'sites', )
+
+        
+class PartialOccEventForm(SingleOccurrenceForm):
+    
+    class Meta:
+        model = Occurrence
+        #exclude = ('',)
