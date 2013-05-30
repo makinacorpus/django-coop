@@ -104,6 +104,11 @@ class BaseEvent(URIModel):
 
     image = ImageField(upload_to='event_img/', null=True, blank=True)
     
+    activity = models.ForeignKey('coop_local.ActivityNomenclature', verbose_name=_(u'activity sector'),
+                                 blank=True, null=True)
+    transverse_themes = models.ManyToManyField('coop_local.TransverseTheme',
+        verbose_name=_(u'transverse themes'), blank=True, null=True)
+    
     #TODO: add image galery
     #TODO: add attached documents
     
