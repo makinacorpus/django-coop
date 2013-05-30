@@ -405,7 +405,7 @@ class BaseOrganizationCategory(models.Model):
     label = models.CharField(blank=True, max_length=100)
     slug = exfields.AutoSlugField(populate_from=('label'), overwrite=True)
     description = models.TextField(_(u'description'), blank=True)
-
+    
     class Meta:
         abstract = True
         verbose_name = _(u'organization category')
@@ -485,6 +485,9 @@ class BaseOrganization(URIModel):
 
     contacts = generic.GenericRelation('coop_local.Contact')
 
+    is_project = models.BooleanField(_(u'project'), blank=True)
+
+    
     if 'coop.mailing' in settings.INSTALLED_APPS:
         subs = generic.GenericRelation('coop_local.Subscription')
 
