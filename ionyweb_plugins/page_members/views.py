@@ -107,8 +107,8 @@ def filter_data(request, page_app):
                                         | Q(activity__parent=activity) | Q(activity__parent=activity2))
 
                 
-            if form.cleaned_data['statut']:
-                organizations = organizations.filter(Q(statut=form.cleaned_data['statut']))
+            if form.cleaned_data['statut'] or form.cleaned_data['statut2']:
+                organizations = organizations.filter(Q(statut=form.cleaned_data['statut']) | Q(statut=form.cleaned_data['statut2']))
             
     else:
         form = PageApp_MembersForm(initial={'location_buffer': '10'}) # An empty form
@@ -153,7 +153,7 @@ def add_view(request, page_app, member_id=None):
             if form.is_valid():
                 member = form.save()
                 base_url = u'%s' % (page_app.get_absolute_url())
-                rdict = {'base_url': base_url}
+                rdict = {'base_url': base_url, 'member_id': member.pk}
                 return render_view('page_members/add_success.html',
                                 rdict,
                                 MEDIAS,

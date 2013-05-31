@@ -29,8 +29,11 @@ class PageApp_MembersForm(ModelForm):
     thematic = forms.ModelChoiceField(queryset=TransverseTheme.objects.all(), required=False, label=_('Thematic'))
     thematic2 = forms.ModelChoiceField(queryset=TransverseTheme.objects.all(), required=False, label=_('Thematic'))
     statut = forms.ChoiceField(choices=(('', '---------'),)+STATUTS.CHOICES, required=False)
+    statut2 = forms.ChoiceField(choices=(('', '---------'),)+STATUTS.CHOICES, required=False)
     
     free_search = forms.CharField(required=False, label=_('Free search'))
+    
+    date_start = forms.DateField(required=False)
     
     class Meta:
         model = PageApp_Members
