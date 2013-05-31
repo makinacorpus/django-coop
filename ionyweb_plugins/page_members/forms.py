@@ -28,7 +28,6 @@ class PageApp_MembersForm(ModelForm):
     location_buffer = forms.IntegerField(required=False, label=_('Location buffer'))
     thematic = forms.ModelChoiceField(queryset=TransverseTheme.objects.all(), required=False, label=_('Thematic'))
     thematic2 = forms.ModelChoiceField(queryset=TransverseTheme.objects.all(), required=False, label=_('Thematic'))
-    thematic3 = forms.ModelChoiceField(queryset=TransverseTheme.objects.all(), required=False, label=_('Thematic'))
     statut = forms.ChoiceField(choices=(('', '---------'),)+STATUTS.CHOICES, required=False)
     
     free_search = forms.CharField(required=False, label=_('Free search'))

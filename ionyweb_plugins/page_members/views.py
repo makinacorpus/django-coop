@@ -86,8 +86,8 @@ def filter_data(request, page_app):
                 organizations = organizations.filter(Q(located__location__in=possible_locations))
                 
 
-            if form.cleaned_data['thematic'] or form.cleaned_data['thematic2'] or form.cleaned_data['thematic3']:
-                organizations = organizations.filter(Q(transverse_themes=form.cleaned_data['thematic']) | Q(transverse_themes=form.cleaned_data['thematic2']) | Q(transverse_themes=form.cleaned_data['thematic3']))
+            if form.cleaned_data['thematic'] or form.cleaned_data['thematic2']:
+                organizations = organizations.filter(Q(transverse_themes=form.cleaned_data['thematic']) | Q(transverse_themes=form.cleaned_data['thematic2']))
 
             if form.cleaned_data['activity'] or form.cleaned_data['activity2']:
                 activity = form.cleaned_data['activity']

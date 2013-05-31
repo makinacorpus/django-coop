@@ -12,6 +12,9 @@ from .models import CoopEntry, Category, PageApp_Coop_Blog
 from ionyweb.widgets import DateTimePicker, SlugWidget, DatePicker, TinyMCELargeTable
 from coop.base_models import ActivityNomenclature, TransverseTheme
 
+from coop_local.widgets import CustomCheckboxSelectMultiple
+from extended_choices import Choices
+
 class PageApp_BlogForm(ModuloModelForm):
 
     class Meta:
@@ -50,16 +53,23 @@ class EntryForm(ModuloModelForm):
             'slug': SlugWidget('title'),
         }
 
+        
+EDATE = Choices(
+    ('',    '',  _(u'-----')),
+    ('3days',    '3',  _(u'Since 3 days')),
+    ('week',   '7',  _(u'Since a week')),
+    ('month',   '30',  _(u'Since a month')),
+)        
+        
 class PageApp_CoopBlogForm(ModuloModelForm):
 
-    date = forms.DateField(required=False)
-
+    date = forms.ChoiceField(required=False, choices=EDATE)
+    
     activity = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.filter(parent__isnull=True).order_by('label'),required=False, label=_('Activity'))
     activity2 = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.filter(parent__isnull=True).order_by('label'),required=False, label=_('Activity'))
     
     thematic = forms.ModelChoiceField(queryset=TransverseTheme.objects.all(), required=False, label=_('Thematic'))
     thematic2 = forms.ModelChoiceField(queryset=TransverseTheme.objects.all(), required=False, label=_('Thematic'))
-    thematic3 = forms.ModelChoiceField(queryset=TransverseTheme.objects.all(), required=False, label=_('Thematic'))
     
     free_search = forms.CharField(required=False, label=_('Free search'))
     
@@ -69,4 +79,5 @@ class PageApp_CoopBlogForm(ModuloModelForm):
     
     class Meta:
         model = PageApp_Coop_Blog
+        exclude = ('title', )
         

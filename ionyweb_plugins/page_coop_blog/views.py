@@ -8,6 +8,8 @@ from django.utils.safestring import mark_safe
 from django.template import RequestContext
 from django.shortcuts import get_object_or_404
 from django.template.defaultfilters import slugify
+from datetime import datetime, timedelta
+from django.db.models import Q
 
 from ionyweb.website.rendering import HTMLRendering
 from ionyweb.website.rendering.medias import JSAdminMedia, RSSMedia
@@ -81,7 +83,7 @@ def categories_queryset_view_to_app(view_func):
 def filter_data(request, page_app):
     base_url = u'%s' % (page_app.get_absolute_url())
 
-    entries = CoopEntry.objects.all()
+    entries = CoopEntry.objects.filter(status=1)
     more_criteria = False
     
     if request.method == 'POST': # If the form has been submitted        
@@ -93,14 +95,14 @@ def filter_data(request, page_app):
             if form.cleaned_data['organization']:
                 entries = entries.filter(Q(organization__in=form.cleaned_data['organization']))
 
-            if form.cleaned_data['thematic'] or form.cleaned_data['thematic2'] or fedit_vieworm.cleaned_data['thematic3']:
-                entries = entries.filter(Q(transverse_themes=form.cleaned_data['thematic']) | Q(transverse_themes=form.cleaned_data['thematic2']) | Q(transverse_themes=form.cleaned_data['thematic3']))
+            if form.cleaned_data['thematic'] or form.cleaned_data['thematic2']:
+                entries = entries.filter(Q(transverse_themes=form.cleaned_data['thematic']) | Q(transverse_themes=form.cleaned_data['thematic2']))
             
             if form.cleaned_data['activity'] or form.cleaned_data['activity2']:
                 entries = entries.filter(Q(activity=form.cleaned_data['activity']) | Q(activity=form.cleaned_data['activity2']))
-                
-                
-            #TODO : date
+               
+            if form.cleaned_data['date'] != '' :
+                entries = entries.filter(Q(publication_date__gte=datetime.date(datetime.today() - timedelta(days = int(form.cleaned_data['date'])))))
             
     else:
         form = PageApp_CoopBlogForm() # An empty form

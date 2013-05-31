@@ -113,6 +113,11 @@ def filter_data(request, page_app):
                         occ = occ.filter(Q(end_time__lt=form.cleaned_data['end_date']))
                         
                     # TODO filter activity
+                    if form.cleaned_data['thematic'] or form.cleaned_data['thematic2']:
+                        occ = occ.filter(Q(event__transverse_themes=form.cleaned_data['thematic']) | Q(event__transverse_themes=form.cleaned_data['thematic2']))
+                    
+                    if form.cleaned_data['activity'] or form.cleaned_data['activity2']:
+                        occ = occ.filter(Q(event__activity=form.cleaned_data['activity']) | Q(event__activity=form.cleaned_data['activity2']))
                     
                     if occ.exists():
                         categories[cat] = occ
