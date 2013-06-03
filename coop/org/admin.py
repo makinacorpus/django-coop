@@ -264,7 +264,10 @@ class OrganizationAdmin(AdminImageMixin, FkAutocompleteAdmin):
         ('Préférences', {
             #'classes': ('collapse',),
             'fields': ['pref_email', 'pref_phone', 'pref_address', 'notes',]
-        })
+            }),
+        (_(u'Testimony'), {
+            'fields': ['testimony',]
+            }),
     )
 
     if settings.COOP_USE_SITES:

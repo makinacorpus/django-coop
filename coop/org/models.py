@@ -506,6 +506,7 @@ class BaseOrganization(URIModel):
 
     short_description = models.TextField(_(u'short description'), blank=True)
     description = models.TextField(_(u'description'), blank=True, null=True)
+    testimony = models.TextField(_(u'testimony'), blank=True)
 
     logo = ImageField(upload_to='logos/', null=True, blank=True)
     #temp_logo = models.ImageField(upload_to=get_logo_folder, blank=True, null=True, default='')
