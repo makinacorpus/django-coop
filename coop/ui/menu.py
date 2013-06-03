@@ -166,7 +166,7 @@ class CustomMenu(Menu):
                     items.MenuItem(_('Person categories'), '/admin/coop_local/personcategory/'),
                     items.MenuItem(_('Customer targets'), '/admin/coop_local/clienttarget/'),
                     #items.MenuItem(_('Agreements IAE'), '/admin/coop_local/agreementiae/'),
-                    #items.MenuItem(_('Guaranties'), '/admin/coop_local/guaranty/'),
+                    items.MenuItem(_('Guaranties'), '/admin/coop_local/guaranty/'),
                     items.MenuItem(_('Tags'), '/admin/coop_local/tag/'),
                     items.MenuItem(_('Activity nomenclature'), '/admin/coop_local/activitynomenclature/'),
                     items.MenuItem(_('Roles'), '/admin/coop_local/role/'),

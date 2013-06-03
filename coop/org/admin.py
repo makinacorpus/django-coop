@@ -168,13 +168,24 @@ class DocumentInline(InlineAutocompleteAdmin):
     extra = 1
 
 
+class GuarantyAdmin(AdminImageMixin, admin.ModelAdmin):
+
+    list_display = ('logo_list_display', 'type', 'name')
+    list_display_links = ('name', )
+    list_filter = ('type', )
+    search_fields = ('type', 'name')
+
+
 class OrganizationAdminForm(forms.ModelForm):
     description = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 60}), required=False)
 
     class Meta:
         model = get_model('coop_local', 'Organization')
-        widgets = {'category': chosenwidgets.ChosenSelectMultiple(),
-                    'sites': chosenwidgets.ChosenSelectMultiple()}
+        widgets = {
+            'category': chosenwidgets.ChosenSelectMultiple(),
+            'sites': chosenwidgets.ChosenSelectMultiple(),
+            'guaranties': chosenwidgets.ChosenSelectMultiple(),
+        }
 
     def __init__(self, *args, **kwargs):
         super(OrganizationAdminForm, self).__init__(*args, **kwargs)
@@ -277,6 +288,9 @@ class OrganizationAdmin(AdminImageMixin, FkAutocompleteAdmin):
             }),
         (_(u'Testimony'), {
             'fields': ['testimony',]
+            }),
+        (_(u'Guaranties'), {
+            'fields': ['guaranties']
             }),
     )
 

@@ -513,6 +513,46 @@ class BaseDocument(models.Model):
         app_label = 'coop_local'
 
 
+ORGANISATION_GUARANTY_TYPES = Choices(
+    ('NORME', 1, _(u'Norme')),
+    ('OFFICIAL_LABEL', 2, _(u'Official label')),
+    ('PRIVATE_LABEL', 3, _(u'Private label')),
+    ('QUALITY', 4, _(u'Quality process')),
+    ('AGREEMENT', 5, _(u'Agreement')),
+)
+
+class BaseGuaranty(models.Model):
+
+    type = models.IntegerField(_(u'type'), choices=ORGANISATION_GUARANTY_TYPES.CHOICES)
+    name = models.CharField(_(u'name'), blank=True, max_length=100)
+    description = models.TextField(_(u'description'), blank=True)
+    logo = ImageField(upload_to='guaranty_logos/', null=True, blank=True)
+
+    def __unicode__(self):
+        return self.name
+
+    def logo_list_display(self):
+        try:
+            if self.logo:
+                thumb = default.backend.get_thumbnail(self.logo.file, ADMIN_THUMBS_SIZE)
+                return '<img width="%s" src="%s" />' % (thumb.width, thumb.url)
+            else:
+                return _(u"No Image")
+        except IOError:
+            raise
+            return _(u"No Image")
+
+    logo_list_display.short_description = _(u"logo")
+    logo_list_display.allow_tags = True
+
+    class Meta:
+        abstract = True
+        verbose_name = _(u'guaranty')
+        verbose_name_plural = _(u'guaranties')
+        ordering = ['name']
+        app_label = 'coop_local'
+
+
 PREFLABEL = Choices(
     ('TITLE',   1,  _(u'title')),
     ('ACRO',    2,  _(u'acronym')),
@@ -538,6 +578,7 @@ class BaseOrganization(URIModel):
     short_description = models.TextField(_(u'short description'), blank=True)
     description = models.TextField(_(u'description'), blank=True, null=True)
     testimony = models.TextField(_(u'testimony'), blank=True)
+    guaranties = models.ManyToManyField('coop_local.Guaranty', verbose_name=_(u'guaranties'), blank=True, null=True)
 
     logo = ImageField(upload_to='logos/', null=True, blank=True)
     #temp_logo = models.ImageField(upload_to=get_logo_folder, blank=True, null=True, default='')

@@ -4,7 +4,7 @@ from django.contrib import admin
 from coop.utils.autocomplete_admin import register
 from coop_local.models import *
 from coop.person.admin import PersonAdmin
-from coop.org.admin import OrganizationAdmin, ActivityNomenclatureAdmin
+from coop.org.admin import OrganizationAdmin, ActivityNomenclatureAdmin, GuarantyAdmin
 from coop.prefs.admin import SitePrefsAdmin
 from coop_geo.admin import LocationAdmin, AreaAdmin
 from django.conf import settings
@@ -18,6 +18,7 @@ register(PersonCategory)
 register(Person, PersonAdmin)
 register(ClientTarget)
 register(DocumentType)
+register(Guaranty, GuarantyAdmin)
 register(Organization, OrganizationAdmin)
 register(OrganizationCategory)
 register(OrgRelationType)

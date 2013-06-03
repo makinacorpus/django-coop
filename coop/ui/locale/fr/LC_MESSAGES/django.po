@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coop.ui\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-03 17:30+0200\n"
+"POT-Creation-Date: 2013-06-03 18:06+0200\n"
 "PO-Revision-Date: 2012-09-30 18:58+0100\n"
 "Last-Translator: Dominique Guardiola <dguardiola@quinode.fr>\n"
 "Language-Team: Quinode <contact@quinode.fr>\n"
@@ -173,6 +173,10 @@ msgstr "Thésaurus"
 #: menu.py:167
 msgid "Customer targets"
 msgstr "Cibles client"
+
+#: menu.py:169
+msgid "Guaranties"
+msgstr "Garanties"
 
 #: menu.py:174
 msgid "Themes"
