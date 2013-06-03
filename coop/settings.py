@@ -44,6 +44,8 @@ BASE_COOP_LOCAL_MODELS = [
         u'OrgRelationType',
         u'Relation',
         u'OrganizationCategory',
+        u'ClientTarget',
+        u'Offer',
         u'Organization',
         u'ActivityNomenclature',
         u'ActivityNomenclatureAvise',

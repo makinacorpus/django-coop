@@ -20,6 +20,7 @@ import logging
 from urlparse import urlsplit
 from django.contrib.gis.db import models as geomodels
 from mptt.models import MPTTModel, TreeForeignKey
+from django.core.validators import MaxLengthValidator
 
 
 class BaseActivityNomenclatureAvise(models.Model):
@@ -440,9 +441,45 @@ class BaseOrganizationCategory(models.Model):
         return self._can_modify_organizationcategory(user)
 
 
+class BaseClientTarget(models.Model):
+
+    label = models.CharField(_(u'label'), max_length=100, unique=True)
+
+    def __unicode__(self):
+        return self.label
+
+    class Meta:
+        abstract = True
+        verbose_name = _(u'customer target')
+        verbose_name_plural = _(u'customer targets')
+        ordering = ['label']
+        app_label = 'coop_local'
 
 
+class BaseOffer(models.Model):
 
+    title = models.CharField(_(u'title'), max_length=250)
+    activity = models.ForeignKey('coop_local.ActivityNomenclature', verbose_name=_(u'activity sector'))
+    description = models.TextField(_(u'description'), blank=True, validators = [MaxLengthValidator(400)])
+    targets = models.ManyToManyField('ClientTarget', verbose_name=_(u'customer targets'), blank=True, null=True)
+    technical_means = models.TextField(_(u'technical means'), blank=True, validators = [MaxLengthValidator(400)])
+    workforce = models.IntegerField(_(u'available workforce'), blank=True, null=True)
+    practical_modalities = models.TextField(_(u'practical modalities'), blank=True, validators = [MaxLengthValidator(400)])
+    provider = models.ForeignKey('Organization', verbose_name=_('provider'))
+    area = models.ManyToManyField('coop_local.Area', verbose_name=_(u'coverage'), blank=True, null=True)
+
+    def __unicode__(self):
+
+        return unicode(self.activity)
+
+    def unchecked_targets(self):
+        return ClientTarget.objects.exclude(id__in=self.targets.all().values_list('id', flat=True))
+
+    class Meta:
+        abstract = True
+        verbose_name = _(u'offer')
+        verbose_name_plural = _(u'offers')
+        app_label = 'coop_local'
 
 
 PREFLABEL = Choices(
@@ -467,6 +504,7 @@ class BaseOrganization(URIModel):
                 max_length=250,
                 help_text=_(u'tell us what your organization do in one line.'))
 
+    short_description = models.TextField(_(u'short description'), blank=True)
     description = models.TextField(_(u'description'), blank=True, null=True)
 
     logo = ImageField(upload_to='logos/', null=True, blank=True)

@@ -8,7 +8,7 @@ from coop.org.models import (BaseOrganizationCategory, BaseOrganization,
                              BaseRelation, BaseEngagement, BaseRole, BaseOrgRelationType,
                              BaseContact, BaseRoleCategory, BaseContactMedium,
                              BaseActivityNomenclature, BaseActivityNomenclatureAvise,
-                             BaseTransverseTheme)
+                             BaseTransverseTheme, BaseOffer, BaseClientTarget)
 from coop.prefs.models import BaseSitePrefs
 from coop_geo.models import Location as BaseLocation
 from coop_geo.models import Located as BaseLocated
@@ -111,6 +111,14 @@ class OrgRelationType(BaseOrgRelationType):
 
 
 class OrganizationCategory(BaseOrganizationCategory):
+    pass
+
+
+class ClientTarget(BaseClientTarget):
+    pass
+
+
+class Offer(BaseOffer):
     pass
 
 

@@ -1,0 +1,91 @@
+{% extends 'admintools_bootstrap/tabbed_change_form.html' %}
+{% load i18n %}
+{% load url from future %}
+
+{% block object-tools %}
+{% if change %}{% if not is_popup %}
+  <div class="pull-right">
+    {#<a href='{% url 'admin:organization_odt' object_id 'doc' %}' class="btn btn-info">{% trans "DOC export" %}</a>#}
+    {#<a href='{% url 'admin:organization_odt' object_id 'odt' %}' class="btn btn-info">{% trans "ODT export" %}</a>#}
+    {#<a href='{% url 'admin:organization_odt' object_id 'pdf' %}' class="btn btn-info">{% trans "PDF export" %}</a>#}
+    {% block object-tools-items %}
+    <a href="history/" class="btn btn-info">{% trans "History" %}</a>
+    {% if has_absolute_url %}<a href="../../../r/{{ content_type_id }}/{{ object_id }}/" class="btn primary">{% trans "View on site" %}</a>{% endif%}
+    {% endblock %}
+  </div>
+{% endif %}{% endif %}
+{% endblock %}
+
+
+{% block content %}
+
+<script type="text/javascript">
+
+function showActivityLookupPopup(triggeringLink) {
+    var name = triggeringLink.id.replace(/^lookup_/, '');
+    name = id_to_windowname(name);
+    var href = triggeringLink.href;
+    var win = window.open(href, name, 'height=600,width=600,resizable=yes,scrollbars=yes');
+    win.focus();
+    return false;
+}
+
+function dismissActivityLookupPopup(win, chosenId, chosenRepr) {
+    /* See if the popup came from a selectable field.
+        If not, pass control to Django's code.
+        If so, handle it. */
+    var fieldName = windowname_to_id(win.name); /* e.g. "id_fieldname" */
+    var field = $('#' + fieldName + '_0');
+    /* Check for bound selectable */
+    var singleWidget = field.data('djselectable');
+    if (singleWidget) {
+        // newId and newRepr are expected to have previously been escaped by
+        // django.utils.html.escape.
+        var item =  {
+            id: html_unescape(chosenId),
+            value: html_unescape(chosenRepr)
+        };
+        field.djselectable('select', item);
+        win.close();
+    }
+};
+
+jQuery(document).ready(function() {
+    $('#id_is_provider').change(function() {
+        var tabs = $('a[href="#target-group"], a[href="#offer_set-group"]').parent();
+        var fields = $('label[for="id_added_value"], label[for="id_transverse_themes_0"], label[for="id_category"], label[for="id_category_iae"], label[for="id_agreement_iae_0"]').parent()
+        if ($(this).is(':checked')) {
+            tabs.removeClass('hide');
+            fields.show()
+        } else {
+            tabs.addClass('hide');
+            fields.hide()
+        }
+    });
+    $('#id_is_customer').change(function() {
+        var fields = $('#id_customer_type, label[for="id_customer_type"]')
+        if ($(this).is(':checked')) {
+            fields.show()
+        } else {
+            fields.hide()
+        }
+    });
+    $('#id_is_provider').trigger('change');
+    $('#id_is_customer').trigger('change');
+});
+
+</script>
+
+{{ block.super }}
+{% endblock content %}
+
+{% comment %}
+{% block messages %}
+    {{ block.super }}
+    {% if not has_object_change_permission %}
+        <div class="alert alert-error" data-alert="alert">
+            Vous n'avez pas la permission de modifier ce Fournisseur.
+        </div>
+    {% endif %}
+{% endblock %}
+{% endcomment %}

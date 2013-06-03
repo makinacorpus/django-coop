@@ -6,7 +6,7 @@ from django.conf import settings
 from django.db.models.loading import get_model
 from django.utils.translation import ugettext_lazy as _
 from coop.utils.autocomplete_admin import FkAutocompleteAdmin, InlineAutocompleteAdmin, GenericInlineAutocompleteAdmin
-from coop_local.models import Contact, Person, Location
+from coop_local.models import Contact, Person, Location, ActivityNomenclature
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
 
@@ -20,12 +20,42 @@ from chosen import widgets as chosenwidgets
 from selectable.forms import AutoCompleteSelectWidget
 from mptt.admin import MPTTModelAdmin
 
+from coop.utils.autocomplete_admin import AutoCompleteSelectEditWidget
+from selectable.base import ModelLookup
+from django.contrib.admin.widgets import RelatedFieldWidgetWrapper
+from selectable.forms import AutoCompleteSelectMultipleWidget
+from django.core.urlresolvers import reverse
+from selectable.registry import registry
+from django.conf.urls.defaults import patterns, url
+from django.contrib.admin.templatetags.admin_static import static
+from django.shortcuts import render
+
 if "coop.exchange" in settings.INSTALLED_APPS:
     from coop.exchange.admin import ExchangeInline
 
 if "coop_geo" in settings.INSTALLED_APPS:
     from coop_geo.admin import LocatedInline, AreaInline
 
+
+class AreaLookup(ModelLookup):
+    model = get_model('coop_local', 'Area')
+    search_fields = ('label__icontains', 'reference__icontains')
+
+
+class ActivityLookup(ModelLookup):
+    model = ActivityNomenclature
+    search_fields = ('path__icontains', )
+    filters = {'level': 2}
+
+
+try:
+    registry.register(AreaLookup)
+except LookupAlreadyRegistered:
+    pass
+try:
+    registry.register(ActivityLookup)
+except LookupAlreadyRegistered:
+    pass
 
 
 class URLFieldWidget(AdminURLFieldWidget):
@@ -86,6 +116,50 @@ class RoleAdmin(admin.ModelAdmin):
     list_editable = ('category',)
 
 
+class ActivityWidget(AutoCompleteSelectEditWidget):
+
+    def render(self, name, value, attrs=None):
+        markup = super(ActivityWidget, self).render(name, value, attrs)
+        related_url = reverse('admin:coop_local_offer_activity_list', current_app=self.admin_site.name)
+        markup += u'&nbsp;<a href="%s" class="activity-lookup" id="lookup_id_%s" onclick="return showActivityLookupPopup(this);">' % (related_url, name)
+        markup += u'<img src="%s" width="16" height="16"></a>' % static('admin/img/selector-search.gif')
+        return mark_safe(markup)
+
+
+def make_offer_form(admin_site, request):
+    class OfferAdminForm(forms.ModelForm):
+        class Meta:
+            model = get_model('coop_local', 'Offer')
+        def __init__(self, *args, **kwargs):
+            super(OfferAdminForm, self).__init__(*args, **kwargs)
+            activity_rel = get_model('coop_local', 'Offer')._meta.get_field_by_name('activity')[0].rel
+            related_modeladmin = admin_site._registry.get(activity_rel.to)
+            can_change_related = bool(related_modeladmin and
+                related_modeladmin.has_change_permission(request))
+            can_add_related = bool(related_modeladmin and
+                related_modeladmin.has_add_permission(request))
+            activity_widget = ActivityWidget(activity_rel, admin_site, ActivityLookup, can_change_related=can_change_related)
+            activity_widget.choices = None
+            self.fields['activity'].widget = RelatedFieldWidgetWrapper(activity_widget, activity_rel, admin_site, can_add_related=can_add_related)
+            targets_rel = get_model('coop_local', 'Offer')._meta.get_field_by_name('targets')[0].rel
+            targets_widget = forms.CheckboxSelectMultiple(attrs={'class': 'multiple_checkboxes'}, choices=self.fields['targets'].choices)
+            self.fields['targets'].widget = RelatedFieldWidgetWrapper(targets_widget, targets_rel, admin_site, can_add_related=False)
+            #area_rel = get_model('coop_local', 'Offer')._meta.get_field_by_name('area')[0].rel
+            self.fields['area'].widget = AutoCompleteSelectMultipleWidget(AreaLookup)
+    return OfferAdminForm
+
+
+class OfferInline(admin.StackedInline):
+
+    model = get_model('coop_local', 'Offer')
+    verbose_name = _(u'offer')
+    verbose_name_plural = _(u'offers')
+    formfield_overrides = {ManyToManyField: {'widget': forms.CheckboxSelectMultiple(attrs={'class':'multiple_checkboxes'})}}
+
+    def get_formset(self, request, obj=None, **kwargs):
+        return forms.models.inlineformset_factory(get_model('coop_local', 'Organization'), get_model('coop_local', 'Offer'), form=make_offer_form(self.admin_site, request), extra=1)
+
+
 class OrganizationAdminForm(forms.ModelForm):
     description = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 60}), required=False)
 
@@ -128,7 +202,7 @@ def create_action(category):
 
 
 class OrganizationAdmin(AdminImageMixin, FkAutocompleteAdmin):
-    change_form_template = 'admintools_bootstrap/tabbed_change_form.html'
+    change_form_template = 'admin/coop_local/organization/tabbed_change_form.html'
     form = OrganizationAdminForm
     list_display = ['logo_list_display', 'label', 'active', 'has_description', 'has_location']
     list_display_links = ['label', ]
@@ -155,11 +229,13 @@ class OrganizationAdmin(AdminImageMixin, FkAutocompleteAdmin):
                         RelationInline,
                         LocatedInline,
                         AreaInline,
+                        OfferInline,
                         ]
     else:
         inlines = [ ContactInline,
                     EngagementInline,
                     LocatedInline,
+                    OfferInline,
                     ]
 
     # grace au patch
@@ -204,6 +280,17 @@ class OrganizationAdmin(AdminImageMixin, FkAutocompleteAdmin):
         # just save obj reference for future processing in Inline
         request._obj_ = obj
         return super(OrganizationAdmin, self).get_form(request, obj, **kwargs)
+
+    def get_urls(self):
+        urls = super(OrganizationAdmin, self).get_urls()
+        my_urls = patterns('',
+            url(r'^activity_list/$', self.activity_list_view, name='coop_local_offer_activity_list')
+        )
+        return my_urls + urls
+
+    def activity_list_view(self, request):
+        activities = ActivityNomenclature.objects.all()
+        return render(request, 'admin/activity_list.html', {'activities': activities, 'is_popup': True})
 
     class Media:
         js = ('/static/js/admin_customize.js',)
