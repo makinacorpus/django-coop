@@ -160,6 +160,14 @@ class OfferInline(admin.StackedInline):
         return forms.models.inlineformset_factory(get_model('coop_local', 'Organization'), get_model('coop_local', 'Offer'), form=make_offer_form(self.admin_site, request), extra=1)
 
 
+class DocumentInline(InlineAutocompleteAdmin):
+
+    model = get_model('coop_local', 'Document')
+    verbose_name = _(u'document')
+    verbose_name_plural = _(u'documents')
+    extra = 1
+
+
 class OrganizationAdminForm(forms.ModelForm):
     description = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 60}), required=False)
 
@@ -230,12 +238,14 @@ class OrganizationAdmin(AdminImageMixin, FkAutocompleteAdmin):
                         LocatedInline,
                         AreaInline,
                         OfferInline,
+                        DocumentInline,
                         ]
     else:
         inlines = [ ContactInline,
                     EngagementInline,
                     LocatedInline,
                     OfferInline,
+                    DocumentInline,
                     ]
 
     # grace au patch

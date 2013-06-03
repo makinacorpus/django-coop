@@ -482,6 +482,37 @@ class BaseOffer(models.Model):
         app_label = 'coop_local'
 
 
+class BaseDocumentType(models.Model):
+
+    name = models.CharField(_(u'name'), blank=True, max_length=100)
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        abstract = True
+        verbose_name = _(u'document type')
+        verbose_name_plural = _(u'document types')
+        ordering = ['name']
+        app_label = 'coop_local'
+
+
+class BaseDocument(models.Model):
+
+    name = models.CharField(_(u'name'), blank=True, max_length=100)
+    description = models.TextField(_(u'description'), blank=True)
+    attachment = models.FileField(_(u'attachment'), upload_to='docs', max_length=255)
+    organization = models.ForeignKey('Organization')
+    type = models.ForeignKey('DocumentType', verbose_name=_(u'type'), blank=True, null=True)
+
+    class Meta:
+        abstract = True
+        verbose_name = _(u'associated document')
+        verbose_name_plural = _(u'associated documents')
+        ordering = ['name']
+        app_label = 'coop_local'
+
+
 PREFLABEL = Choices(
     ('TITLE',   1,  _(u'title')),
     ('ACRO',    2,  _(u'acronym')),
