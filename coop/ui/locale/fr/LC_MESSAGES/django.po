@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coop.ui\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-08 16:40+0100\n"
+"POT-Creation-Date: 2013-06-03 17:30+0200\n"
 "PO-Revision-Date: 2012-09-30 18:58+0100\n"
 "Last-Translator: Dominique Guardiola <dguardiola@quinode.fr>\n"
 "Language-Team: Quinode <contact@quinode.fr>\n"
@@ -26,167 +26,162 @@ msgstr "Actions récentes"
 msgid "Latest Django News"
 msgstr "Dernières nouvelles de Django"
 
-#: menu.py:39
-msgid "Navigation tree"
-msgstr "Menu de navigation"
-
-#: menu.py:41
-msgid "Articles"
-msgstr "Articles"
-
-#: menu.py:43
+#: menu.py:44
 msgid "CMS"
 msgstr "CMS"
 
-#: menu.py:46
-msgid "Content"
-msgstr "Contenus"
-
-#: menu.py:47
-msgid "Article categories"
-msgstr "Catégories d'articles"
-
-#: menu.py:48
-msgid "Documents"
-msgstr "Documents"
-
-#: menu.py:49
-msgid "Images"
-msgstr "Images"
-
-#: menu.py:50
-msgid "Newsletters"
-msgstr "Lettres d'information"
-
-#: menu.py:51
-msgid "MailingLists"
-msgstr "Listes de diffusion"
-
-#: menu.py:52
-msgid "Comments"
-msgstr "Commentaires"
-
-#: menu.py:53
-msgid "Forms"
-msgstr "Formulaires"
-
-#: menu.py:54
-msgid "Preferences"
-msgstr "Préférences"
-
-#: menu.py:60 menu.py:61
+#: menu.py:61 menu.py:62 menu.py:170
 msgid "Tags"
 msgstr "Tags"
 
-#: menu.py:63
+#: menu.py:64
 msgid "Tag trees"
 msgstr "Taxonomie"
 
-#: menu.py:66
+#: menu.py:67
 msgid "Django"
 msgstr "Django"
 
-#: menu.py:67
+#: menu.py:68
 msgid "Users"
 msgstr "Comptes utilisateurs"
 
-#: menu.py:68
+#: menu.py:69
 msgid "Sites"
 msgstr "Configuration du site"
 
-#: menu.py:76
+#: menu.py:77
 msgid "Network"
 msgstr "Réseau"
 
-#: menu.py:79
+#: menu.py:80
 msgid "Directory"
 msgstr "Annuaire"
 
-#: menu.py:80
+#: menu.py:81
 msgid "Organizations"
 msgstr "Organisations"
 
-#: menu.py:81
+#: menu.py:82
 msgid "Persons"
 msgstr "Personnes"
 
-#: menu.py:82
+#: menu.py:83
 msgid "Organization categories"
 msgstr "Catégories d'organisations"
 
-#: menu.py:83
+#: menu.py:84 menu.py:166
 msgid "Person categories"
 msgstr "Catégories de personnes"
 
-#: menu.py:84
+#: menu.py:85 menu.py:172
 msgid "Roles"
 msgstr "Rôles"
 
-#: menu.py:87 menu.py:88
+#: menu.py:86 menu.py:171
 msgid "Activity nomenclature"
 msgstr "Nomenclature d'activité"
 
-#: menu.py:84
+#: menu.py:87
 msgid "Activity nomenclature AVISE"
 msgstr "Nomenclature d'activité AVISE"
 
-#: menu.py:87 menu.py:88
+#: menu.py:88
+msgid "Transverse Themes"
+msgstr "Thématiques"
+
+#: menu.py:91 menu.py:92
 msgid "Exchanges"
 msgstr "Échanges"
 
-#: menu.py:89
+#: menu.py:93
 msgid "Exchange methods"
 msgstr "Modalités d'échange"
 
-#: menu.py:92
+#: menu.py:96
 msgid "Cartography"
 msgstr "Cartographie"
 
-#: menu.py:93
+#: menu.py:97
 msgid "Locations"
 msgstr "Lieux"
 
-#: menu.py:94
+#: menu.py:98
 msgid "Areas"
 msgstr "Zones"
 
-#: menu.py:95
+#: menu.py:99 menu.py:165
 msgid "Location categories"
 msgstr "Catégories de lieux"
 
-#: menu.py:99
+#: menu.py:103
 msgid "RDF settings"
 msgstr "Réglages RDF"
 
-#: menu.py:100
+#: menu.py:104
 msgid "URI redirection"
 msgstr "Redirection d'URI"
 
-#: menu.py:117
+#: menu.py:118
 msgid "RSS"
 msgstr "RSS"
 
-#: menu.py:118
+#: menu.py:119
 msgid "RSS items"
 msgstr "Articles à importer"
 
-#: menu.py:119
+#: menu.py:120
 msgid "RSS sources"
 msgstr "Sources d'articles"
 
-#: menu.py:132 menu.py:134
+#: menu.py:126
 msgid "Agenda"
 msgstr "Agenda"
 
-#: menu.py:125
+#: menu.py:128
 msgid "Events"
 msgstr "Événements"
 
-#: menu.py:126
+#: menu.py:129
 msgid "Calendar"
 msgstr "Calendrier"
 
-#: menu.py:127
+#: menu.py:130
 msgid "Event categories"
 msgstr "Catégories d'événements"
 
+#: menu.py:141
+msgid "Newsletters"
+msgstr "Lettres d'information"
+
+#: menu.py:143
+msgid "MailingLists"
+msgstr "Listes de diffusion"
+
+#: menu.py:154 menu.py:155
+msgid "Projects"
+msgstr "Projets"
+
+#: menu.py:156
+msgid "Projects categories"
+msgstr "Catégories de projets"
+
+#: menu.py:164
+msgid "Thesaurus"
+msgstr "Thésaurus"
+
+#: menu.py:167
+msgid "Customer targets"
+msgstr "Cibles client"
+
+#: menu.py:174
+msgid "Themes"
+msgstr "Thématiques"
+
+#: menu.py:175
+msgid "Document types"
+msgstr "Types de document"
+
+#: menu.py:176
+msgid "ESS categories"
+msgstr "Catégories ESS"

@@ -30,8 +30,9 @@ class CustomMenu(Menu):
                 ]
 
     """
-    def __init__(self, **kwargs):
-        Menu.__init__(self, **kwargs)
+
+    def init_with_context(self, context):
+        super(CustomMenu, self).init_with_context(context)
         self.children = [
             #items.MenuItem(_(u'Dashboard'), reverse('admin:index')),
             #items.Bookmarks(u'Favoris'),
@@ -109,7 +110,6 @@ class CustomMenu(Menu):
             ),
 
 
-
         ]
 
         if 'coop_cms.apps.rss_sync' in settings.INSTALLED_APPS:
@@ -157,6 +157,27 @@ class CustomMenu(Menu):
                         ])
                     )
 
+        is_superuser = context['request'].user.is_superuser
+
+        if is_superuser:
+            self.children.append(
+                items.MenuItem(_('Thesaurus'), '#', icon='icon-coop icon-rdf icon-white', children=[
+                    items.MenuItem(_('Location categories'), '/admin/coop_geo/locationcategory/'),
+                    items.MenuItem(_('Person categories'), '/admin/coop_local/personcategory/'),
+                    items.MenuItem(_('Customer targets'), '/admin/coop_local/clienttarget/'),
+                    #items.MenuItem(_('Agreements IAE'), '/admin/coop_local/agreementiae/'),
+                    #items.MenuItem(_('Guaranties'), '/admin/coop_local/guaranty/'),
+                    items.MenuItem(_('Tags'), '/admin/coop_local/tag/'),
+                    items.MenuItem(_('Activity nomenclature'), '/admin/coop_local/activitynomenclature/'),
+                    items.MenuItem(_('Roles'), '/admin/coop_local/role/'),
+                    #items.MenuItem(_('Legal statuses'), '/admin/coop_local/legalstatus/'),
+                    items.MenuItem(_('Themes'), '/admin/coop_local/transversetheme/'),
+                    items.MenuItem(_('Document types'), '/admin/coop_local/documenttype/'),
+                    items.MenuItem(_('ESS categories'), '/admin/coop_local/organizationcategory/'),
+                    #items.MenuItem(_('IAE categories'), '/admin/coop_local/categoryiae/'),
+                ])
+            )
+
         try:    
             idx = len(self.children)
             for menu in settings.ADMINTOOLS_CUSTOM_MENUS:
@@ -168,9 +189,3 @@ class CustomMenu(Menu):
                 idx += 1
         except AttributeError:
             pass        
-
-    def init_with_context(self, context):
-        """
-        Use this method if you need to access the request context.
-        """
-        return super(CustomMenu, self).init_with_context(context)
