@@ -22,6 +22,7 @@ from django.contrib.gis.db import models as geomodels
 from mptt.models import MPTTModel, TreeForeignKey
 from django.core.validators import MaxLengthValidator
 
+ADMIN_THUMBS_SIZE = '60x60'
 
 class BaseActivityNomenclatureAvise(models.Model):
 
