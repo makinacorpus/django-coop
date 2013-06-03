@@ -258,7 +258,7 @@ class OrganizationAdmin(AdminImageMixin, FkAutocompleteAdmin):
                         'web', 'is_project']
             }),
         ('Description', {
-            'fields': ['description', 'category', 'activity', 'transverse_themes']  # 'tags', ]
+            'fields': ['short_description', 'description', 'category', 'activity', 'transverse_themes']  # 'tags', ]
             }),
 
         ('Préférences', {
