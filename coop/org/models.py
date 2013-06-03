@@ -675,6 +675,9 @@ class BaseOrganization(URIModel):
         else:
             return None
 
+    def offer_activities(self):
+        return ", ".join([o.activity.title for o in self.offer_set.all()])
+
 
 
     def save(self, *args, **kwargs):
