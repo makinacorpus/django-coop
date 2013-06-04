@@ -461,7 +461,7 @@ class BaseClientTarget(models.Model):
 
 class BaseOffer(models.Model):
 
-    title = models.CharField(_(u'title'), max_length=250)
+    title = models.CharField(_(u'title'), max_length=250, blank=True)
     activity = models.ForeignKey('coop_local.ActivityNomenclature', verbose_name=_(u'activity sector'))
     description = models.TextField(_(u'description'), blank=True, validators = [MaxLengthValidator(400)])
     targets = models.ManyToManyField('ClientTarget', verbose_name=_(u'customer targets'), blank=True, null=True)
