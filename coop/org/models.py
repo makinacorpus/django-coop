@@ -580,6 +580,8 @@ class BaseOrganization(URIModel):
     description = models.TextField(_(u'description'), blank=True, null=True)
     testimony = models.TextField(_(u'testimony'), blank=True)
     guaranties = models.ManyToManyField('coop_local.Guaranty', verbose_name=_(u'guaranties'), blank=True, null=True)
+    annual_revenue = models.IntegerField(_(u'annual revenue'), blank=True, null=True)
+    workforce = models.DecimalField(_(u'workforce'), blank=True, null=True, max_digits=10, decimal_places=1)
 
     logo = ImageField(upload_to='logos/', null=True, blank=True)
     #temp_logo = models.ImageField(upload_to=get_logo_folder, blank=True, null=True, default='')

@@ -211,6 +211,10 @@ class OrganizationAdminForm(forms.ModelForm):
           | Q(id__in=member_locations_id)
             )
 
+        for field_name in ('workforce', ):
+            self.fields[field_name].localize = True
+
+
 
 def create_action(category):
     def add_cat(modeladmin, request, queryset):
@@ -281,7 +285,9 @@ class OrganizationAdmin(AdminImageMixin, FkAutocompleteAdmin):
         ('Description', {
             'fields': ['short_description', 'description', 'category', 'activity', 'transverse_themes']  # 'tags', ]
             }),
-
+        (_(u'Economic info'), {
+            'fields': [('annual_revenue', 'workforce')]
+            }),
         ('Préférences', {
             #'classes': ('collapse',),
             'fields': ['pref_email', 'pref_phone', 'pref_address', 'notes',]
