@@ -71,7 +71,7 @@ def filter_data(request, page_app):
         form = PageApp_MembersForm(request.POST)
         if form.is_valid():
             if form.cleaned_data['free_search']:
-                organizations = organizations.filter(Q(title__contains=form.cleaned_data['free_search']) | Q(description__contains=form.cleaned_data['free_search']))
+                organizations = organizations.filter(Q(title__icontains=form.cleaned_data['free_search']) | Q(description__icontains=form.cleaned_data['free_search']))
 
             if form.cleaned_data['location']:
                 label = form.cleaned_data['location']
@@ -108,7 +108,7 @@ def filter_data(request, page_app):
 
                 
             if form.cleaned_data['statut'] or form.cleaned_data['statut2']:
-                organizations = organizations.filter(Q(statut=form.cleaned_data['statut']) | Q(statut=form.cleaned_data['statut2']))
+                organizations = organizations.filter(Q(legalstatut=form.cleaned_data['statut']) | Q(legalstatut=form.cleaned_data['statut2']))
             
     else:
         form = PageApp_MembersForm(initial={'location_buffer': '10'}) # An empty form
