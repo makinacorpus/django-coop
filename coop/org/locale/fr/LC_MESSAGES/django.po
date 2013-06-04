@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coop.organization\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-04 10:52+0200\n"
+"POT-Creation-Date: 2013-06-04 15:21+0200\n"
 "PO-Revision-Date: 2013-01-11 11:30+0100\n"
 "Last-Translator: Quinode <contact@quinode.fr>\n"
 "Language-Team: Quinode <contact@quinode.fr>\n"
@@ -18,64 +18,60 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: admin.py:71 models.py:211
-msgid "location"
-msgstr "Lieu"
-
-#: admin.py:80
+#: admin.py:114
 msgid "Contact information"
 msgstr "Contact"
 
-#: admin.py:81
+#: admin.py:115
 msgid "Contact informations"
 msgstr "Contacts"
 
-#: admin.py:90
+#: admin.py:133
 msgid "Member"
 msgstr "Membre"
 
-#: admin.py:91
+#: admin.py:134
 msgid "Members"
 msgstr "Membres"
 
-#: admin.py:113 models.py:363
+#: admin.py:156 models.py:363
 msgid "Engagement"
 msgstr "Engagement"
 
-#: admin.py:114 models.py:364
+#: admin.py:157 models.py:364
 msgid "Engagements"
 msgstr "Engagements"
 
-#: admin.py:166 models.py:483
+#: admin.py:209 models.py:483
 msgid "offer"
 msgstr "offre"
 
-#: admin.py:167 models.py:484
+#: admin.py:210 models.py:484
 msgid "offers"
 msgstr "offres"
 
-#: admin.py:177
+#: admin.py:220
 msgid "document"
 msgstr "document"
 
-#: admin.py:178
+#: admin.py:221
 msgid "documents"
 msgstr "documents"
 
-#: admin.py:235
+#: admin.py:278
 #, python-format
 msgid "Add to the \"%s\" category"
 msgstr "Classer dans \"%s\""
 
-#: admin.py:299
+#: admin.py:342
 msgid "Economic info"
 msgstr "Infos économiques"
 
-#: admin.py:306
+#: admin.py:349
 msgid "Testimony"
 msgstr "Témoignage"
 
-#: admin.py:309
+#: admin.py:352
 msgid "Guaranties"
 msgstr "Garanties"
 
@@ -153,7 +149,7 @@ msgid "name"
 msgstr "nom"
 
 #: models.py:70 models.py:411 models.py:466 models.py:506 models.py:531
-#: models.py:582
+#: models.py:574 models.py:623
 msgid "description"
 msgstr "description"
 
@@ -161,7 +157,7 @@ msgstr "description"
 msgid "transverse theme"
 msgstr "thématique"
 
-#: models.py:78 models.py:640
+#: models.py:78 models.py:682
 msgid "transverse themes"
 msgstr "thématiques"
 
@@ -177,7 +173,7 @@ msgstr "Catégorie de rôle"
 msgid "Role categories"
 msgstr "Catégories de rôles"
 
-#: models.py:107 models.py:597
+#: models.py:107 models.py:639
 msgid "category"
 msgstr "catégorie"
 
@@ -260,6 +256,10 @@ msgstr "détails"
 #: models.py:205 models.py:345
 msgid "Display"
 msgstr "Affichage"
+
+#: models.py:211
+msgid "location"
+msgstr "Lieu"
 
 #: models.py:217
 msgid "Contact"
@@ -414,11 +414,11 @@ msgstr "cible client"
 msgid "customer targets"
 msgstr "cibles client"
 
-#: models.py:464 models.py:560 models.py:571
+#: models.py:464 models.py:560 models.py:612
 msgid "title"
 msgstr "titre"
 
-#: models.py:465 models.py:637
+#: models.py:465 models.py:679
 msgid "activity sector"
 msgstr "secteur d'activité"
 
@@ -486,11 +486,11 @@ msgstr "Processus qualité"
 msgid "Agreement"
 msgstr "Agrément"
 
-#: models.py:543 models.py:546 models.py:720 models.py:722
+#: models.py:543 models.py:546 models.py:762 models.py:764
 msgid "No Image"
 msgstr "Pas d'image"
 
-#: models.py:548 models.py:724
+#: models.py:548 models.py:766
 msgid "logo"
 msgstr "logo"
 
@@ -498,99 +498,107 @@ msgstr "logo"
 msgid "guaranty"
 msgstr "garantie"
 
-#: models.py:554 models.py:584
+#: models.py:554 models.py:625
 msgid "guaranties"
 msgstr "garanties"
 
-#: models.py:561 models.py:573
+#: models.py:561 models.py:614
 msgid "acronym"
 msgstr "sigle"
 
-#: models.py:574
+#: models.py:578 models.py:628
+msgid "legal status"
+msgstr "statut juridique"
+
+#: models.py:579
+msgid "legal statuses"
+msgstr "statuts juridiques"
+
+#: models.py:615
 msgid "Preferred label"
 msgstr "nom préféré"
 
-#: models.py:577
+#: models.py:618
 msgid "tagline"
 msgstr "slogan"
 
-#: models.py:579
+#: models.py:620
 msgid "tell us what your organization do in one line."
 msgstr "indiquez en une ligne ce que fait votre organisation (ou un slogan)"
 
-#: models.py:581
+#: models.py:622
 msgid "short description"
 msgstr "description succincte"
 
-#: models.py:583
+#: models.py:624
 msgid "testimony"
 msgstr "témoignage"
 
-#: models.py:585
+#: models.py:626
 msgid "annual revenue"
 msgstr "Chiffre d'affaire annuel"
 
-#: models.py:586
+#: models.py:627
 msgid "workforce"
 msgstr "effectif total (ETP)"
 
-#: models.py:594
+#: models.py:636
 msgid "relations"
 msgstr "relations"
 
-#: models.py:600
+#: models.py:642
 msgid "members"
 msgstr "membres"
 
-#: models.py:604
+#: models.py:646
 msgid "project"
 msgstr "en projet"
 
-#: models.py:615
+#: models.py:657
 msgid "creation date"
 msgstr "date de création"
 
-#: models.py:616
+#: models.py:658
 msgid "global email"
 msgstr "email général"
 
-#: models.py:617
+#: models.py:659
 msgid "email checksum"
 msgstr "checksum e-mail"
 
-#: models.py:619
+#: models.py:661
 msgid "web site"
 msgstr "site web"
 
-#: models.py:622
+#: models.py:664
 msgid "preferred email"
 msgstr "courriel préféré"
 
-#: models.py:625
+#: models.py:667
 msgid "preferred phone"
 msgstr "téléphone préféré"
 
-#: models.py:628
+#: models.py:670
 msgid "preferred postal address"
 msgstr "adresse postale préférée"
 
-#: models.py:632
+#: models.py:674
 msgid "notes"
 msgstr "notes"
 
-#: models.py:645
+#: models.py:687
 msgid "Organization"
 msgstr "Organisation"
 
-#: models.py:646
+#: models.py:688
 msgid "Organizations"
 msgstr "Organisations"
 
-#: models.py:665
+#: models.py:707
 msgid "geo"
 msgstr "geo"
 
-#: models.py:711
+#: models.py:753
 msgid "desc."
 msgstr "desc."
 
