@@ -208,6 +208,8 @@ class BaseContact(URIModel):
     content_type = models.ForeignKey(ContentType, blank=True, null=True)
     object_id = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey('content_type', 'object_id')
+    location = models.ForeignKey('Location', verbose_name=_(u'location'),
+                   blank=True, null=True, on_delete=models.SET_NULL)
 
     class Meta:
         abstract = True

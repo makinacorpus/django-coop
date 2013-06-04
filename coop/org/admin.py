@@ -20,21 +20,42 @@ from chosen import widgets as chosenwidgets
 from selectable.forms import AutoCompleteSelectWidget
 from mptt.admin import MPTTModelAdmin
 
-from coop.utils.autocomplete_admin import AutoCompleteSelectEditWidget
+from coop.utils.autocomplete_admin import AutoCompleteSelectEditWidget, AutoComboboxSelectEditWidget
 from selectable.base import ModelLookup
 from django.contrib.admin.widgets import RelatedFieldWidgetWrapper
 from selectable.forms import AutoCompleteSelectMultipleWidget
 from django.core.urlresolvers import reverse
 from selectable.registry import registry
+from selectable.exceptions import LookupAlreadyRegistered
 from django.conf.urls.defaults import patterns, url
 from django.contrib.admin.templatetags.admin_static import static
 from django.shortcuts import render
+from django.contrib.contenttypes.generic import generic_inlineformset_factory
 
 if "coop.exchange" in settings.INSTALLED_APPS:
     from coop.exchange.admin import ExchangeInline
 
 if "coop_geo" in settings.INSTALLED_APPS:
     from coop_geo.admin import LocatedInline, AreaInline
+
+
+class LocationLookup(ModelLookup):
+    model = Location
+    search_fields = ('label__icontains', 'adr1__icontains', 'adr2__icontains', 'zipcode__icontains', 'city__icontains')
+
+    def get_query(self, request, term):
+        print term
+        results = super(LocationLookup, self).get_query(request, term)
+        print results
+        if 'pks' in request.GET:
+            print request.GET['pks']
+            if request.GET['pks']:
+                pks = request.GET['pks'].split(',')
+                results = results.filter(pk__in=pks)
+            else:
+                results = results.none()
+            print results
+        return results
 
 
 class AreaLookup(ModelLookup):
@@ -48,6 +69,10 @@ class ActivityLookup(ModelLookup):
     filters = {'level': 2}
 
 
+try:
+    registry.register(LocationLookup)
+except LookupAlreadyRegistered:
+    pass
 try:
     registry.register(AreaLookup)
 except LookupAlreadyRegistered:
@@ -66,12 +91,41 @@ class URLFieldWidget(AdminURLFieldWidget):
                          u'.value);return false;" class="btn btn-mini"/>Afficher dans une nouvelle fenêtre</a>' % (widget, attrs['id']))
 
 
+def make_contact_form(pks, admin_site, request):
+    class ContactForm(forms.ModelForm):
+        def __init__(self, *args, **kwargs):
+            super(ContactForm, self).__init__(*args, **kwargs)
+            location_rel = Contact._meta.get_field_by_name('location')[0].rel
+            medium_rel = Contact._meta.get_field_by_name('contact_medium')[0].rel
+            self.fields['location'].widget = AutoComboboxSelectEditWidget(location_rel, admin_site, LocationLookup)
+            if pks is not None:
+                self.fields['location'].widget.update_query_parameters({'pks': ','.join(map(str, pks))})
+            self.fields['location'].widget.choices = None
+            self.fields['location'].widget = RelatedFieldWidgetWrapper(self.fields['location'].widget, location_rel, admin_site, can_add_related=False)
+            self.fields['contact_medium'].widget = RelatedFieldWidgetWrapper(self.fields['contact_medium'].widget, medium_rel, admin_site, can_add_related=False)
+        class Meta:
+            model = Contact
+            fields = ('contact_medium', 'content', 'details', 'location', 'display')
+    return ContactForm
+
+
 class ContactInline(GenericInlineAutocompleteAdmin):
     model = get_model('coop_local', 'Contact')
     verbose_name = _(u'Contact information')
     verbose_name_plural = _(u'Contact informations')
-    fields = ('contact_medium', 'content', 'details', 'display')
+    fields = ('contact_medium', 'content', 'details', 'location', 'display')
     extra = 1
+    def get_formset(self, request, obj=None, **kwargs):
+        if not obj:
+            pks = None
+        elif isinstance(obj, get_model('coop_local', 'Organization')):
+            pks = Location.objects.filter(located__organization=obj).values_list('pk', flat=True)
+        elif isinstance(obj, Person):
+            pks = [obj.location.pk] if obj.location else []
+            pks += Location.objects.filter(located__organization__members=obj).values_list('pk', flat=True)
+        else:
+            pks = None
+        return generic_inlineformset_factory(Contact, form=make_contact_form(pks, self.admin_site, request))
 
 
 class EngagementInline(InlineAutocompleteAdmin):
