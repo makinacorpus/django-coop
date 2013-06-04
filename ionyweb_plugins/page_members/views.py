@@ -107,8 +107,8 @@ def filter_data(request, page_app):
                                         | Q(activity__parent=activity) | Q(activity__parent=activity2))
 
                 
-            if form.cleaned_data['statut'] or form.cleaned_data['statut2']:
-                organizations = organizations.filter(Q(legalstatut=form.cleaned_data['statut']) | Q(legalstatut=form.cleaned_data['statut2']))
+            if form.cleaned_data['statut'] and form.cleaned_data['statut2']:
+                organizations = organizations.filter(Q(legal_status=form.cleaned_data['statut']) | Q(legal_status=form.cleaned_data['statut2']))
             
     else:
         form = PageApp_MembersForm(initial={'location_buffer': '10'}) # An empty form

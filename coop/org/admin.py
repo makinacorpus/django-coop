@@ -158,7 +158,7 @@ class OrgInline(InlineAutocompleteAdmin):
     fields = ('organization', 'role', 'role_detail', 'engagement_display')
 
     related_search_fields = {
-        'organization': ('title', 'subtitle', 'acronym',),
+        'organization': ('title', 'acronym',),
         'role': ('label', ),
     }
     related_combobox = ('role', )
@@ -283,7 +283,7 @@ class OrganizationAdmin(AdminImageMixin, FkAutocompleteAdmin):
     form = OrganizationAdminForm
     list_display = ['logo_list_display', 'label', 'active', 'has_description', 'has_location']
     list_display_links = ['label', ]
-    search_fields = ['title', 'acronym', 'subtitle', 'acronym', 'description']
+    search_fields = ['title', 'acronym', 'acronym', 'description']
     list_filter = ['active', 'category']
     #actions_on_top = True
     #actions_on_bottom = True
@@ -333,7 +333,7 @@ class OrganizationAdmin(AdminImageMixin, FkAutocompleteAdmin):
 
     fieldsets = (
         ('Identité', {
-            'fields': ['logo', 'title', ('acronym', 'pref_label'), 'subtitle', ('birth', 'active',),
+            'fields': ['logo', 'title', ('acronym', 'pref_label'), ('birth', 'active',),
                         'web', 'is_project', 'legal_status']
             }),
         ('Description', {

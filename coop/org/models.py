@@ -615,10 +615,6 @@ class BaseOrganization(URIModel):
     pref_label = models.PositiveSmallIntegerField(_(u'Preferred label'),
                         choices=PREFLABEL.CHOICES, default=PREFLABEL.TITLE)
 
-    subtitle = models.CharField(_(u'tagline'), blank=True, null=True,
-                max_length=250,
-                help_text=_(u'tell us what your organization do in one line.'))
-
     short_description = models.TextField(_(u'short description'), blank=True)
     description = models.TextField(_(u'description'), blank=True, null=True)
     testimony = models.TextField(_(u'testimony'), blank=True)
@@ -858,7 +854,6 @@ class BaseOrganization(URIModel):
         ('single_mapping', (settings.NS.dct.modified, 'modified'), 'single_reverse'),
         ('single_mapping', (settings.NS.legal.legalName, 'title'), 'single_reverse'),
         ('single_mapping', (settings.NS.ov.prefAcronym, 'acronym'), 'single_reverse'),
-        ('single_mapping', (settings.NS.rdfs.comment, 'subtitle'), 'single_reverse'),
         ('single_mapping', (settings.NS.dct.description, 'description'), 'single_reverse'),
         ('single_mapping', (settings.NS.foaf.mbox_sha1sum, 'email_sha1'), 'single_reverse'),
         ('single_mapping', (settings.NS.foaf.homepage, 'web'), 'single_reverse'),
