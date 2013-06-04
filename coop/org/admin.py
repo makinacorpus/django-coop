@@ -334,7 +334,7 @@ class OrganizationAdmin(AdminImageMixin, FkAutocompleteAdmin):
     fieldsets = (
         ('Identité', {
             'fields': ['logo', 'title', ('acronym', 'pref_label'), 'subtitle', ('birth', 'active',),
-                        'web', 'is_project']
+                        'web', 'is_project', 'legal_status']
             }),
         ('Description', {
             'fields': ['short_description', 'description', 'category', 'activity', 'transverse_themes']  # 'tags', ]

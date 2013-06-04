@@ -567,6 +567,47 @@ def get_logo_folder(self, filename):
     return u'{0}/{1}/{2}'.format(img_root, self.id, filename)
 
 
+class BaseLegalStatus(models.Model):
+
+    label = models.CharField(blank=True, max_length=100)
+    slug = exfields.AutoSlugField(populate_from=('label'), overwrite=True)
+    description = models.TextField(_(u'description'), blank=True)
+
+    class Meta:
+        abstract = True
+        verbose_name = _(u'legal status')
+        verbose_name_plural = _(u'legal statuses')
+        ordering = ['label']
+        app_label = 'coop_local'
+
+    def __unicode__(self):
+        return self.label
+
+    #@models.permalink
+    def get_absolute_url(self):
+        return reverse('org_legalstatus_detail', args=[self.slug])
+
+    def get_edit_url(self):
+        return reverse('org_legalstatus_edit', args=[self.slug])
+
+    def get_cancel_url(self):
+        return reverse('org_legalstatus_edit_cancel', args=[self.slug])
+
+    def _can_modify_legalstatus(self, user):
+        if user.is_authenticated():
+            if user.is_superuser:
+                return True
+            else:
+                return False
+
+    def can_view_legalstatus(self, user):
+        # TODO use global privacy permissions on objects
+        return True
+
+    def can_edit_legalstatus(self, user):
+        return self._can_modify_legalstatus(user)
+
+
 class BaseOrganization(URIModel):
     title = models.CharField(_(u'title'), max_length=250)
 
@@ -584,6 +625,7 @@ class BaseOrganization(URIModel):
     guaranties = models.ManyToManyField('coop_local.Guaranty', verbose_name=_(u'guaranties'), blank=True, null=True)
     annual_revenue = models.IntegerField(_(u'annual revenue'), blank=True, null=True)
     workforce = models.DecimalField(_(u'workforce'), blank=True, null=True, max_digits=10, decimal_places=1)
+    legal_status = models.ForeignKey('coop_local.LegalStatus', blank=True, null=True,  verbose_name=_(u'legal status'))
 
     logo = ImageField(upload_to='logos/', null=True, blank=True)
     #temp_logo = models.ImageField(upload_to=get_logo_folder, blank=True, null=True, default='')

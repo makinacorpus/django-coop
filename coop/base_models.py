@@ -9,7 +9,8 @@ from coop.org.models import (BaseOrganizationCategory, BaseOrganization,
                              BaseContact, BaseRoleCategory, BaseContactMedium,
                              BaseActivityNomenclature, BaseActivityNomenclatureAvise,
                              BaseTransverseTheme, BaseOffer, BaseClientTarget,
-                             BaseDocumentType, BaseDocument, BaseGuaranty)
+                             BaseDocumentType, BaseDocument, BaseGuaranty,
+                             BaseLegalStatus)
 from coop.prefs.models import BaseSitePrefs
 from coop_geo.models import Location as BaseLocation
 from coop_geo.models import Located as BaseLocated
@@ -132,6 +133,10 @@ class Document(BaseDocument):
 
 
 class Guaranty(BaseGuaranty):
+    pass
+
+
+class LegalStatus(BaseLegalStatus):
     pass
 
 

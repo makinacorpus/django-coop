@@ -170,7 +170,7 @@ class CustomMenu(Menu):
                     items.MenuItem(_('Tags'), '/admin/coop_local/tag/'),
                     items.MenuItem(_('Activity nomenclature'), '/admin/coop_local/activitynomenclature/'),
                     items.MenuItem(_('Roles'), '/admin/coop_local/role/'),
-                    #items.MenuItem(_('Legal statuses'), '/admin/coop_local/legalstatus/'),
+                    items.MenuItem(_('Legal statuses'), '/admin/coop_local/legalstatus/'),
                     items.MenuItem(_('Themes'), '/admin/coop_local/transversetheme/'),
                     items.MenuItem(_('Document types'), '/admin/coop_local/documenttype/'),
                     items.MenuItem(_('ESS categories'), '/admin/coop_local/organizationcategory/'),
