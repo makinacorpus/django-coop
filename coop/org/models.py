@@ -549,6 +549,12 @@ class BaseOrganization(URIModel):
             from coop_local.models import Location
             return Location.objects.filter(id__in=self.located.all().values_list('location_id', flat=True))
 
+        def main_location(self):
+            try:
+                return self.located.get(main_location=True).location
+            except:
+                return None
+
         def areas(self):
             from coop_local.models import Area
             return Area.objects.filter(id__in=self.framed.all().values_list('location_id', flat=True))
