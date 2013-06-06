@@ -472,7 +472,7 @@ TEMPLATE_PLACEHOLDER = 'layout/placeholder.html'
 TEMPLATE_APP = 'layout/placeholder-app.html'
 TEMPLATE_PLUGIN = 'layout/plugin.html'
 TEMPLATE_NAV_DEFAULT = 'navigation.html'
-TEMPLATE_MAINTENANCE_DEFAULT = 'maintenance.html'
+TEMPLATE_MAINTENANCE_DEFAULT = 'default/maintenance.html'
 TEMPLATE_THEME_FILE_DEFAULT = 'index.html'
 LAYOUT_DEFAULT = '100'
 
