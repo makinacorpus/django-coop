@@ -25,6 +25,22 @@ from django.contrib.auth.models import User
 
 ADMIN_THUMBS_SIZE = '60x60'
 
+
+class BaseReference(models.Model):
+
+    organization = models.ForeignKey('coop_local.Organization')
+    customer = models.CharField(_(u'customer'), max_length=100)
+    from_year = models.IntegerField(_('from year'), blank=True, null=True)
+    to_year = models.IntegerField(_('to year'), blank=True, null=True)
+    services = models.TextField(_(u'services'), blank=True)
+
+    class Meta:
+        abstract = True
+        verbose_name = _(u'reference')
+        verbose_name_plural = _(u'references')
+        app_label = 'coop_local'
+
+
 class BaseActivityNomenclatureAvise(models.Model):
 
     label = models.CharField(_(u'label'), max_length=100, unique=True)

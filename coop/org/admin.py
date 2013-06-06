@@ -91,6 +91,15 @@ class URLFieldWidget(AdminURLFieldWidget):
                          u'.value);return false;" class="btn btn-mini"/>Afficher dans une nouvelle fenêtre</a>' % (widget, attrs['id']))
 
 
+class ReferenceInline(InlineAutocompleteAdmin):
+
+    model = get_model('coop_local', 'Reference')
+    verbose_name = _(u'reference')
+    verbose_name_plural = _(u'references')
+    fields = ('customer', 'from_year', 'to_year', 'services')
+    extra = 1
+
+
 def make_contact_form(pks, admin_site, request):
     class ContactForm(forms.ModelForm):
         def __init__(self, *args, **kwargs):
@@ -310,6 +319,7 @@ class OrganizationAdmin(AdminImageMixin, FkAutocompleteAdmin):
                         AreaInline,
                         OfferInline,
                         DocumentInline,
+                        ReferenceInline,
                         ]
     else:
         inlines = [ ContactInline,
@@ -317,6 +327,7 @@ class OrganizationAdmin(AdminImageMixin, FkAutocompleteAdmin):
                     LocatedInline,
                     OfferInline,
                     DocumentInline,
+                    ReferenceInline,
                     ]
 
     # grace au patch

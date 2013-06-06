@@ -10,7 +10,7 @@ from coop.org.models import (BaseOrganizationCategory, BaseOrganization,
                              BaseActivityNomenclature, BaseActivityNomenclatureAvise,
                              BaseTransverseTheme, BaseOffer, BaseClientTarget,
                              BaseDocumentType, BaseDocument, BaseGuaranty,
-                             BaseLegalStatus)
+                             BaseLegalStatus, BaseReference)
 from coop.prefs.models import BaseSitePrefs
 from coop_geo.models import Location as BaseLocation
 from coop_geo.models import Located as BaseLocated
@@ -82,6 +82,10 @@ class Person(BasePerson):
 
 
 # ----- org
+
+
+class Reference(BaseReference):
+    pass
 
 
 class ContactMedium(BaseContactMedium):
