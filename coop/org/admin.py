@@ -239,6 +239,7 @@ class OrganizationAdminForm(forms.ModelForm):
             'category': chosenwidgets.ChosenSelectMultiple(),
             'sites': chosenwidgets.ChosenSelectMultiple(),
             'guaranties': chosenwidgets.ChosenSelectMultiple(),
+            'authors': chosenwidgets.ChosenSelectMultiple(),
         }
 
     def __init__(self, *args, **kwargs):
@@ -285,6 +286,7 @@ class OrganizationAdmin(AdminImageMixin, FkAutocompleteAdmin):
     list_display_links = ['label', ]
     search_fields = ['title', 'acronym', 'acronym', 'description']
     list_filter = ['active', 'category']
+    readonly_fields = ['creation', 'modification']
     #actions_on_top = True
     #actions_on_bottom = True
     #save_on_top = True
@@ -342,6 +344,10 @@ class OrganizationAdmin(AdminImageMixin, FkAutocompleteAdmin):
         (_(u'Economic info'), {
             'fields': [('annual_revenue', 'workforce')]
             }),
+        (_(u'Management'), {
+            'fields': ['creation', 'modification', 'status', 'correspondence', 'transmission',
+                       'transmission_date', 'authors', 'validation']
+            }),
         ('Préférences', {
             #'classes': ('collapse',),
             'fields': ['pref_email', 'pref_phone', 'pref_address', 'notes',]
@@ -378,6 +384,11 @@ class OrganizationAdmin(AdminImageMixin, FkAutocompleteAdmin):
     def activity_list_view(self, request):
         activities = ActivityNomenclature.objects.all()
         return render(request, 'admin/activity_list.html', {'activities': activities, 'is_popup': True})
+
+    def save_related(self, request, form, formsets, change):
+        super(OrganizationAdmin, self).save_related(request, form, formsets, change)
+        if not change:
+            form.instance.authors.add(request.user)
 
     class Media:
         js = ('/static/js/admin_customize.js',)

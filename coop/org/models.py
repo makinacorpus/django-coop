@@ -21,6 +21,7 @@ from urlparse import urlsplit
 from django.contrib.gis.db import models as geomodels
 from mptt.models import MPTTModel, TreeForeignKey
 from django.core.validators import MaxLengthValidator
+from django.contrib.auth.models import User
 
 ADMIN_THUMBS_SIZE = '60x60'
 
@@ -608,6 +609,21 @@ class BaseLegalStatus(models.Model):
         return self._can_modify_legalstatus(user)
 
 
+ORGANIZATION_STATUSES = Choices(
+    ('PROPOSED', 'P', _(u'Proposed')),
+    ('VALIDATED', 'V', _(u'Validated')),
+    ('TRANSMITTED', 'T', _(u'Transmitted for validation')),
+    ('INCOMPLETE', 'I', _(u'Incomplete')),
+)
+
+
+TRANSMISSION_MODES = Choices(
+    ('ONLINE', 1, _(u'Keboarded online')),
+    ('ADMINISTRATION', 2, _(u'Administration')),
+    ('IMPORT', 3, _('Import')),
+)
+
+
 class BaseOrganization(URIModel):
     title = models.CharField(_(u'title'), max_length=250)
 
@@ -641,7 +657,16 @@ class BaseOrganization(URIModel):
 
     is_project = models.BooleanField(_(u'project'), blank=True)
 
-    
+    # Management
+    creation = models.DateField(_(u'creation date'), auto_now_add=True)
+    modification = models.DateField(_(u'modification date'), auto_now=True)
+    status = models.CharField(_(u'status'), max_length=1, choices=ORGANIZATION_STATUSES.CHOICES, blank=True)
+    correspondence = models.TextField(_(u'correspondence'), blank=True)
+    transmission = models.IntegerField(_(u'transmission mode'), choices=TRANSMISSION_MODES.CHOICES, blank=True, null=True)
+    transmission_date = models.DateField(_(u'transmission date'), blank=True, null=True)
+    authors = models.ManyToManyField(User, blank=True, null=True, verbose_name=_('authors'))
+    validation = models.DateField(_(u'validation date'), blank=True, null=True)
+
     if 'coop.mailing' in settings.INSTALLED_APPS:
         subs = generic.GenericRelation('coop_local.Subscription')
 
