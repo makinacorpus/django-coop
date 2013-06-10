@@ -156,7 +156,7 @@ class RelationInline(InlineAutocompleteAdmin):
     fk_name = 'source'
     readonly_fields = ('created',)
     fields = ('relation_type', 'target', 'created')
-    related_search_fields = {'target': ('title', 'subtitle', 'acronym',), }
+    related_search_fields = {'target': ('title', 'acronym')}
     extra = 1
 
 
