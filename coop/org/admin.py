@@ -304,7 +304,6 @@ class OrganizationAdmin(AdminImageMixin, FkAutocompleteAdmin):
     list_select_related = True
     #read_only_fields = ['created','modified']
     ordering = ('title',)
-    related_search_fields = {'activity': ('path',), }
     formfield_overrides = {
         URLField: {'widget': URLFieldWidget},
         ManyToManyField: {'widget': forms.CheckboxSelectMultiple}
@@ -350,7 +349,7 @@ class OrganizationAdmin(AdminImageMixin, FkAutocompleteAdmin):
                         'web', 'is_project', 'legal_status']
             }),
         ('Description', {
-            'fields': ['short_description', 'description', 'category', 'activity', 'transverse_themes']  # 'tags', ]
+            'fields': ['short_description', 'description', 'category', 'transverse_themes']  # 'tags', ]
             }),
         (_(u'Economic info'), {
             'fields': [('annual_revenue', 'workforce')]
