@@ -126,9 +126,10 @@ def filter_data(request, page_app):
     
 def detail_view(request, page_app, pk):
     member = get_object_or_404(Organization, pk=pk)
-    imgs = Document.objects.all().filter(organization=member, type__name='Image')
+    imgs = Document.objects.all().filter(organization=member, type__name='Galerie')
+    docs = Document.objects.all().filter(~Q(type__name='Galerie'), organization=member )
     return render_view('page_members/detail.html',
-                       { 'member':  member, 'imgs': imgs, 'media_path': settings.MEDIA_URL },
+                       { 'member':  member, 'imgs': imgs, 'docs': docs, 'media_path': settings.MEDIA_URL },
                        MEDIAS,
                        context_instance=RequestContext(request))
                        
