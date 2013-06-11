@@ -3,7 +3,8 @@
 from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
 
-from coop_local.models import Organization
+from coop_local.models import Organization, Offer, Document, Reference, Relation, Engagement
+
 from django.conf import settings
 
 from django.shortcuts import get_object_or_404
@@ -13,6 +14,7 @@ from ionyweb.website.rendering.medias import CSSMedia
 from .forms import PageApp_MembersForm, PartialMemberForm
 
 from django.db.models import Q
+from django.forms.models import inlineformset_factory
 
 from django.contrib.gis import geos
 from coop_local.models import Location, Area
@@ -124,8 +126,9 @@ def filter_data(request, page_app):
     
 def detail_view(request, page_app, pk):
     member = get_object_or_404(Organization, pk=pk)
+    imgs = Document.objects.all().filter(organization=member, type__name='Image')
     return render_view('page_members/detail.html',
-                       { 'member':  member, 'media_path': settings.MEDIA_URL },
+                       { 'member':  member, 'imgs': imgs, 'media_path': settings.MEDIA_URL },
                        MEDIAS,
                        context_instance=RequestContext(request))
                        
@@ -133,6 +136,11 @@ def add_view(request, page_app, member_id=None):
     if request.user.is_authenticated():
         #base_url = u'%sp/member_add' % (page_app.get_absolute_url())
         center_map = settings.COOP_MAP_DEFAULT_CENTER
+        OfferFormSet = inlineformset_factory(Organization, Offer)
+        DocFormSet = inlineformset_factory(Organization, Document)
+        ReferenceFormSet = inlineformset_factory(Organization, Reference)
+        #RelationFormSet = inlineformset_factory(Organization, Relation)
+        EngagementFormSet = inlineformset_factory(Organization, Engagement)
 
         if member_id:
             # update
@@ -147,8 +155,12 @@ def add_view(request, page_app, member_id=None):
             member = Organization()        
         
         if request.method == 'POST': # If the form has been submitted        
-            #member = Organization()
             form = PartialMemberForm(request.POST, request.FILES, instance = member)
+            offerFormset = OfferFormSet(instance=member)            
+            docFormset = DocFormSet(instance=member)
+            referenceFormset = ReferenceFormSet(instance=member)    
+            #relationFormset = RelationFormSet(instance=member)    
+            engagementFormset = EngagementFormSet(instance=member)    
             
             if form.is_valid():
                 member = form.save()
@@ -160,8 +172,13 @@ def add_view(request, page_app, member_id=None):
                                 context_instance=RequestContext(request))
         else:
             form = PartialMemberForm(instance=member) # An empty form
+            offerFormset = OfferFormSet()
+            docFormset = DocFormSet()
+            referenceFormset = ReferenceFormSet()
+            #relationFormset = RelationFormSet()
+            engagementFormset = EngagementFormSet()
         
-        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form, 'center': center_map, 'mode': mode}
+        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form, 'offer_form': offerFormset, 'doc_form': docFormset, 'reference_form': referenceFormset,  'engagement_form': engagementFormset,'center': center_map, 'mode': mode}
         return render_view('page_members/add.html',
                         rdict,
                         MEDIAS,

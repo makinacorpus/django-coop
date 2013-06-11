@@ -1,5 +1,7 @@
 {% load i18n %}
 
+<script type="text/javascript" src="/_tinymce/compressor/"></script>
+
 <div id="members_top"></div>
 <div id="members" class="add_form">
     {% if mode = 'add' %}
@@ -33,10 +35,46 @@
                 {{ form.pref_label.label_tag }}: {{ form.pref_label }}
             </div>
 
-            <div class="fieldWrapper">
+<!--            <div class="fieldWrapper">
                 {{ form.subtitle.errors  }}
                 {{ form.subtitle.label_tag }}: {{ form.subtitle }}
+            </div>-->
+            <div class="fieldWrapper">
+                {{ form.creation.errors  }}
+                {{ form.creation.label_tag }}: {{ form.creation }}
             </div>
+<!--            <div class="fieldWrapper">
+                {{ form.birth.errors  }}
+                {{ form.birth.label_tag }}: {{ form.birth }}
+            </div>-->
+
+            <div class="fieldWrapper">
+                {{ form.legal_status.errors  }}
+                {{ form.legal_status.label_tag }}: {{ form.legal_status }}
+            </div>
+
+
+            <!--  TODO: type strucutre ESS           -->
+
+            <div class="fieldWrapper">
+                {{ form.short_description.errors  }}
+                {{ form.short_description.label_tag }}: {{ form.short_description }}
+            </div>
+
+
+            <!--  liste produits et services            -->
+            <div class="fieldWrapper formset">
+            {% for occ_offer_form in offer_form %}
+                {% for field in occ_offer_form %}
+                    <div class="fieldWrapper">
+                        {{ field.errors  }}
+                        {{ field.label_tag }}: {{ field }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            </div>
+
+            <!--  TODO: jours ouverture et horaires            -->
 
             <div class="fieldWrapper">
                 {{ form.description.errors  }}
@@ -44,14 +82,183 @@
             </div>
 
             <div class="fieldWrapper">
+                {{ form.description2.errors  }}
+                {{ form.description2.label_tag }}: {{ form.description2 }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.pref_address.errors  }}
+                {{ form.pref_address.label_tag }}: {{ form.pref_address }}
+            </div>
+            <!--  TODO: code postal            -->
+            <!--  TODO: ville            -->
+            <!--  TODO: membre à contact préféré            -->
+
+            <div class="fieldWrapper">
+                {{ form.pref_phone.errors  }}
+                {{ form.pref_phone.label_tag }}: {{ form.pref_phone }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.pref_email.errors  }}
+                {{ form.pref_email.label_tag }}: {{ form.pref_email }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.web.errors  }}
+                {{ form.web.label_tag }}: {{ form.web }}
+            </div>
+
+
+
+            <div class="fieldWrapper">
+                {{ form.testimony.errors  }}
+                {{ form.testimony.label_tag }}: {{ form.testimony }}
+            </div>
+
+            <!-- Doc associés -->
+            <div class="fieldWrapper formset">
+            {% for occ_doc_form in doc_form %}
+                {% for field in occ_doc_form %}
+                    <div class="fieldWrapper">
+                        {{ field.errors  }}
+                        {{ field.label_tag }}: {{ field }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.crowdfunding.errors  }}
+                {{ form.crowdfunding.label_tag }}: {{ form.crowdfunding }}
+            </div>
+
+            <!--<div class="fieldWrapper">
+                {{ form.activity.errors  }}
+                {{ form.activity.label_tag }}: {{ form.activity }}
+            </div>-->
+
+            <div class="fieldWrapper">
+                {{ form.transverse_themes.errors  }}
+                {{ form.transverse_themes.label_tag }}: {{ form.transverse_themes }}
+            </div>
+
+
+            <div class="fieldWrapper">
+                {{ form.tags.errors  }}
+                {{ form.tags.label_tag }}: {{ form.tags }}
+            </div>
+
+
+            <div class="fieldWrapper">
+                {{ form.guaranties.errors  }}
+                {{ form.guaranties.label_tag }}: {{ form.guaranties }}
+            </div>
+
+            <!-- TODO plus value solidaire -->
+            
+            <!-- TODO Relations avec d'autres structures
+            "Pour chaque relation :
+            Type de relation :
+            Organisation cible :"-->
+            <div class="fieldWrapper">
+                {{ form.relations.errors  }}
+                {{ form.relations.label_tag }}: {{ form.relations }}
+            </div>
+
+           <!-- <div class="fieldWrapper formset">
+            {% for occ_rel_form in relation_form %}
+                {% for field in occ_rel_form %}
+                    <div class="fieldWrapper">
+                        {{ field.errors  }}
+                        {{ field.label_tag }}: {{ field }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            </div>-->
+
+
+
+
+            <div class="fieldWrapper">
+                {{ form.siret.errors  }}
+                {{ form.siret.label_tag }}: {{ form.siret }}
+            </div>
+
+
+
+<!-- Chiffre d’affaires annuel -->
+<!-- Effectif total (ETP) -->
+<!--Autres adresses
+Code postal
+Ville
+Contact
+Téléphone
+Courriel-->
+<!--"Pour chaque contact : 
+medium 
+Contenu"-->
+<!-- Détail -->
+<!-- Lieu associé -->
+<!-- Affichage (liste ; choix unique) -->
+<!-- Membre -->
+<!--"Pour chaque membre : 
+Nom 
+Fonction
+Rôle détaillé
+Editeur
+Affichage (liste ; choix unique)"-->
+<!-- Références -->
+<!--"Pour chaque référence : 
+Client De l’année
+A l’année
+Prestations"-->
+<!-- Commentaires -->
+
+
+            <div class="fieldWrapper">
+                {{ form.creation.errors  }}
+                {{ form.creation.label_tag }}: {{ form.creation }}
+            </div>
+            <div class="fieldWrapper">
+                {{ form.modification.errors  }}
+                {{ form.modification.label_tag }}: {{ form.modification }}
+            </div>
+
+<!-- TODO Site synchronisé -->
+
+            <div class="fieldWrapper">
+                {{ form.status.errors  }}
+                {{ form.status.label_tag }}: {{ form.status }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.correspondence.errors  }}
+                {{ form.correspondence.label_tag }}: {{ form.correspondence }}
+            </div>
+            <div class="fieldWrapper">
+                {{ form.transmission.errors  }}
+                {{ form.transmission.label_tag }}: {{ form.transmission }}
+            </div>
+            <div class="fieldWrapper">
+                {{ form.transmission_date.errors  }}
+                {{ form.transmission_date.label_tag }}: {{ form.transmission_date }}
+            </div>
+            <div class="fieldWrapper">
+                {{ form.authors.errors  }}
+                {{ form.authors.label_tag }}: {{ form.authors }}
+            </div>
+            <div class="fieldWrapper">
+                {{ form.validation.errors  }}
+                {{ form.validation.label_tag }}: {{ form.validation }}
+            </div>
+
+
+            <div class="fieldWrapper">
                 {{ form.logo.errors  }}
                 {{ form.logo.label_tag }}: {{ form.logo }}
             </div>
 
-            <div class="fieldWrapper">
-                {{ form.birth.errors  }}
-                {{ form.birth.label_tag }}: {{ form.birth }}
-            </div>
 
             <div class="fieldWrapper">
                 {{ form.email.errors  }}
@@ -63,25 +270,8 @@
                 {{ form.email_sha1.label_tag }}: {{ form.email_sha1 }}
             </div>
             
-            <div class="fieldWrapper">
-                {{ form.web.errors  }}
-                {{ form.web.label_tag }}: {{ form.web }}
-            </div>
 
-            <div class="fieldWrapper">
-                {{ form.pref_email.errors  }}
-                {{ form.pref_email.label_tag }}: {{ form.pref_email }}
-            </div>
 
-            <div class="fieldWrapper">
-                {{ form.pref_phone.errors  }}
-                {{ form.pref_phone.label_tag }}: {{ form.pref_phone }}
-            </div>
-
-            <div class="fieldWrapper">
-                {{ form.pref_address.errors  }}
-                {{ form.pref_address.label_tag }}: {{ form.pref_address }}
-            </div>
 
             <div class="fieldWrapper">
                 {{ form.slug.errors  }}
@@ -93,16 +283,7 @@
                 {{ form.notes.label_tag }}: {{ form.notes }}
             </div>
 
-            <div class="fieldWrapper">
-                {{ form.activity.errors  }}
-                {{ form.activity.label_tag }}: {{ form.activity }}
-            </div>
                           
-            <div class="fieldWrapper">
-                {{ form.transverse_themes.errors  }}
-                {{ form.transverse_themes.label_tag }}: {{ form.transverse_themes }}
-            </div>
-
             {{ form.errors }}
         </div>
 
@@ -145,5 +326,12 @@
         $('#id_date_validity').datepicker({dateFormat: 'yy-mm-dd', constrainInput: false});
         $('#id_date_start').datepicker({dateFormat: 'yy-mm-dd', constrainInput: false});
         $('#id_date_end').datepicker({dateFormat: 'yy-mm-dd', constrainInput: false});
+
+        tinyMCE.init({selector:'textarea'});
+        tinyMCE_GZ.init({"themes": "advanced", "languages": "fr", "debug": false, "diskcache": true, "plugins": "table,spellchecker,filemanager,paste,searchreplace,inlinepopups"})
+
     });
 </script>
+
+
+
