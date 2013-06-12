@@ -125,23 +125,23 @@ def filter_data(request, page_app):
     
     
 def detail_view(request, page_app, pk):
+    base_url = u'%s' % (page_app.get_absolute_url())
     member = get_object_or_404(Organization, pk=pk)
     imgs = Document.objects.all().filter(organization=member, type__name='Galerie')
     docs = Document.objects.all().filter(~Q(type__name='Galerie'), organization=member )
     return render_view('page_members/detail.html',
-                       { 'member':  member, 'imgs': imgs, 'docs': docs, 'media_path': settings.MEDIA_URL },
+                       { 'member':  member, 'imgs': imgs, 'docs': docs, 'media_path': settings.MEDIA_URL , 'base_url': base_url},
                        MEDIAS,
                        context_instance=RequestContext(request))
                        
 def add_view(request, page_app, member_id=None):
     if request.user.is_authenticated():
-        #base_url = u'%sp/member_add' % (page_app.get_absolute_url())
         center_map = settings.COOP_MAP_DEFAULT_CENTER
-        OfferFormSet = inlineformset_factory(Organization, Offer)
-        DocFormSet = inlineformset_factory(Organization, Document)
-        ReferenceFormSet = inlineformset_factory(Organization, Reference)
+        OfferFormSet = inlineformset_factory(Organization, Offer, extra=1)
+        DocFormSet = inlineformset_factory(Organization, Document, extra=1)
+        #ReferenceFormSet = inlineformset_factory(Organization, Reference, extra=1)
         #RelationFormSet = inlineformset_factory(Organization, Relation)
-        EngagementFormSet = inlineformset_factory(Organization, Engagement)
+        EngagementFormSet = inlineformset_factory(Organization, Engagement, extra=1)
 
         if member_id:
             # update
@@ -155,16 +155,25 @@ def add_view(request, page_app, member_id=None):
             base_url = u'%sp/member_add' % (page_app.get_absolute_url())
             member = Organization()        
         
-        if request.method == 'POST': # If the form has been submitted        
+        if request.method == 'POST': # If the form has been submitted
+        
+            if page_app.get_absolute_url() == settings.COOP_MEMBER_ORGANIZATIONS_URL:
+                member.is_project = False
+            if page_app.get_absolute_url() == settings.COOP_MEMBER_PROJECTS_URL:
+                member.is_project = True
+
+        
             form = PartialMemberForm(request.POST, request.FILES, instance = member)
-            offerFormset = OfferFormSet(instance=member)            
-            docFormset = DocFormSet(instance=member)
-            referenceFormset = ReferenceFormSet(instance=member)    
+            offerFormset = OfferFormSet(request.POST, request.FILES, prefix='offer', instance=member)            
+            docFormset = DocFormSet(request.POST, request.FILES, prefix='doc', instance=member)
+            #referenceFormset = ReferenceFormSet(prefix='ref', instance=member)    
             #relationFormset = RelationFormSet(instance=member)    
-            engagementFormset = EngagementFormSet(instance=member)    
+            engagementFormset = EngagementFormSet(request.POST, request.FILES, prefix='eng', instance=member)    
             
-            if form.is_valid():
+            if form.is_valid() and docFormset.is_valid() and offerFormset.is_valid():
                 member = form.save()
+                docFormset.save()
+                offerFormset.save()
                 base_url = u'%s' % (page_app.get_absolute_url())
                 rdict = {'base_url': base_url, 'member_id': member.pk}
                 return render_view('page_members/add_success.html',
@@ -173,13 +182,13 @@ def add_view(request, page_app, member_id=None):
                                 context_instance=RequestContext(request))
         else:
             form = PartialMemberForm(instance=member) # An empty form
-            offerFormset = OfferFormSet()
-            docFormset = DocFormSet()
-            referenceFormset = ReferenceFormSet()
+            offerFormset = OfferFormSet(prefix='offer')
+            docFormset = DocFormSet(prefix='doc')
+            #referenceFormset = ReferenceFormSet(prefix='ref')
             #relationFormset = RelationFormSet()
-            engagementFormset = EngagementFormSet()
+            engagementFormset = EngagementFormSet(prefix='eng')
         
-        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form, 'offer_form': offerFormset, 'doc_form': docFormset, 'reference_form': referenceFormset,  'engagement_form': engagementFormset,'center': center_map, 'mode': mode}
+        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form, 'offer_form': offerFormset, 'doc_form': docFormset, 'engagement_form': engagementFormset,'center': center_map, 'mode': mode}
         return render_view('page_members/add.html',
                         rdict,
                         MEDIAS,

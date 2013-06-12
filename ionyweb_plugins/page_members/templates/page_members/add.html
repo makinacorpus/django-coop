@@ -1,6 +1,7 @@
 {% load i18n %}
 
 <script type="text/javascript" src="/_tinymce/compressor/"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}themes/pes_auvergne/default/js/forms_utils.js"></script>
 
 <div id="members_top"></div>
 <div id="members" class="add_form">
@@ -15,10 +16,10 @@
 
         <div class="bg_form">
 
-            <div class="fieldWrapper">
+<!--            <div class="fieldWrapper">
                 {{ form.is_project.errors  }}
                 {{ form.is_project.label_tag }}: {{ form.is_project }}
-            </div>
+            </div>-->
 
             <div class="fieldWrapper">
                 {{ form.title.errors  }}
@@ -54,7 +55,7 @@
             </div>
 
 
-            <!--  TODO: type strucutre ESS           -->
+            <!--  TODO: type structure ESS           -->
 
             <div class="fieldWrapper">
                 {{ form.short_description.errors  }}
@@ -63,16 +64,20 @@
 
 
             <!--  liste produits et services            -->
-            <div class="fieldWrapper formset">
-            {% for occ_offer_form in offer_form %}
-                {% for field in occ_offer_form %}
-                    <div class="fieldWrapper">
-                        {{ field.errors  }}
-                        {{ field.label_tag }}: {{ field }}
+            <h3>{% trans "Products and services" %}</h3>
+            <div id="offer" class="fieldWrapper formset">
+                {{ offer_form.management_form }}
+                {% for d in offer_form.forms %}
+                    <div class='table_formset table_offer'>
+                        <table class='no_error'>
+                            {{ d.as_table }}
+                        </table>
                     </div>
                 {% endfor %}
-            {% endfor %}
+                <input type="button" value="Add More" id="add_more_offer">
             </div>
+
+
 
             <!--  TODO: jours ouverture et horaires            -->
 
@@ -111,22 +116,25 @@
 
 
 
-            <div class="fieldWrapper">
+<!--            <div class="fieldWrapper">
                 {{ form.testimony.errors  }}
                 {{ form.testimony.label_tag }}: {{ form.testimony }}
-            </div>
+            </div>-->
 
             <!-- Doc associés -->
-            <div class="fieldWrapper formset">
-            {% for occ_doc_form in doc_form %}
-                {% for field in occ_doc_form %}
-                    <div class="fieldWrapper">
-                        {{ field.errors  }}
-                        {{ field.label_tag }}: {{ field }}
+            <h3>{% trans "Documents" %}</h3>
+            <div id="docs" class="fieldWrapper formset">
+                {{ doc_form.management_form }}
+                {% for d in doc_form.forms %}
+                    <div class='table_formset table_doc'>
+                        <table class='no_error'>
+                            {{ d.as_table }}
+                        </table>
                     </div>
                 {% endfor %}
-            {% endfor %}
+                <input type="button" value="Add More" id="add_more_doc">
             </div>
+            
 
             <div class="fieldWrapper">
                 {{ form.crowdfunding.errors  }}
@@ -156,6 +164,19 @@
             </div>
 
             <!-- TODO plus value solidaire -->
+            <h3>{% trans "Engagement" %}</h3>
+            <div id="eng" class="fieldWrapper formset">
+                {{ engagement_form.management_form }}
+                {% for d in engagement_form.forms %}
+                    <div class='table_formset table_eng'>
+                        <table class='no_error'>
+                            {{ d.as_table }}
+                        </table>
+                    </div>
+                {% endfor %}
+                <input type="button" value="Add More" id="add_more_eng">
+            </div>
+
             
             <!-- TODO Relations avec d'autres structures
             "Pour chaque relation :
@@ -177,30 +198,35 @@
             {% endfor %}
             </div>-->
 
-
-
-
             <div class="fieldWrapper">
                 {{ form.siret.errors  }}
                 {{ form.siret.label_tag }}: {{ form.siret }}
             </div>
 
+            <div class="fieldWrapper">
+                {{ form.annual_revenue.errors  }}
+                {{ form.annual_revenue.label_tag }}: {{ form.annual_revenue }}
+            </div>
 
+            <div class="fieldWrapper">
+                {{ form.workforce.errors  }}
+                {{ form.workforce.label_tag }}: {{ form.workforce }}
+            </div>
 
-<!-- Chiffre d’affaires annuel -->
-<!-- Effectif total (ETP) -->
 <!--Autres adresses
 Code postal
 Ville
 Contact
 Téléphone
 Courriel-->
+
 <!--"Pour chaque contact : 
 medium 
 Contenu"-->
 <!-- Détail -->
 <!-- Lieu associé -->
 <!-- Affichage (liste ; choix unique) -->
+
 <!-- Membre -->
 <!--"Pour chaque membre : 
 Nom 
@@ -208,11 +234,23 @@ Fonction
 Rôle détaillé
 Editeur
 Affichage (liste ; choix unique)"-->
-<!-- Références -->
-<!--"Pour chaque référence : 
-Client De l’année
-A l’année
-Prestations"-->
+
+            <!--  Standby            -->
+<!--            <h3>{% trans "References" %}</h3>
+            <div id="refs" class="fieldWrapper formset">
+                {{ reference_form.management_form }}
+                {% for d in reference_form.forms %}
+                    <div class='table_formset table_ref'>
+                        <table class='no_error'>
+                            {{ d.as_table }}
+                        </table>
+                    </div>
+                {% endfor %}
+                <input type="button" value="Add More" id="add_more_ref">
+            </div>-->
+
+
+
 <!-- Commentaires -->
 
 
@@ -330,7 +368,23 @@ Prestations"-->
         tinyMCE.init({selector:'textarea'});
         tinyMCE_GZ.init({"themes": "advanced", "languages": "fr", "debug": false, "diskcache": true, "plugins": "table,spellchecker,filemanager,paste,searchreplace,inlinepopups"})
 
+
+        $('#add_more_doc').click(function() {
+            cloneMore('div.table_doc:last', 'doc');
+        });
+        $('#add_more_offer').click(function() {
+            cloneMore('div.table_offer:last', 'offer');
+        });
+        $('#add_more_ref').click(function() {
+            cloneMore('div.table_ref:last', 'ref');
+        });
+        $('#add_more_eng').click(function() {
+            cloneMore('div.table_ref:last', 'eng');
+        });
+
     });
+
+
 </script>
 
 
