@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-29 10:17+0200\n"
+"POT-Creation-Date: 2013-06-13 14:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,33 +18,43 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: forms.py:21
+#: forms.py:20
 msgid "Type"
 msgstr ""
 
-#: forms.py:23 forms.py:24 templates/page_members/index.html:19
+#: forms.py:22 forms.py:23 templates/page_members/index.html:19
 #: templates/page_members/index_carto.html:21
+#: templates/page_members/search_form_organization.html:4
+#: templates/page_members/search_form_project.html:4
 msgid "Activity"
 msgstr "Activité"
 
-#: forms.py:26 templates/page_members/detail.html:29
+#: forms.py:25 templates/page_members/detail.html:29
 #: templates/page_members/index.html:35
 #: templates/page_members/index_carto.html:40
+#: templates/page_members/search_form_organization.html:23
+#: templates/page_members/search_form_project.html:23
 msgid "Location"
 msgstr "Territoire"
 
-#: forms.py:28 templates/page_members/index.html:39
+#: forms.py:27 templates/page_members/index.html:39
 #: templates/page_members/index_carto.html:44
+#: templates/page_members/search_form_organization.html:28
+#: templates/page_members/search_form_project.html:28
 msgid "Location buffer"
 msgstr "Périmètre de recherche"
 
-#: forms.py:29 forms.py:30 forms.py:31 templates/page_members/index.html:29
+#: forms.py:28 forms.py:29 templates/page_members/index.html:29
 #: templates/page_members/index_carto.html:50
+#: templates/page_members/search_form_organization.html:34
+#: templates/page_members/search_form_project.html:34
 msgid "Thematic"
 msgstr "Thématique"
 
-#: forms.py:34 templates/page_members/index.html:23
+#: forms.py:33 templates/page_members/index.html:23
 #: templates/page_members/index_carto.html:28
+#: templates/page_members/search_form_organization.html:11
+#: templates/page_members/search_form_project.html:11
 msgid "Free search"
 msgstr "Recherche libre"
 
@@ -56,20 +66,57 @@ msgstr ""
 msgid "Members"
 msgstr "Structures"
 
-#: templates/page_members/add.html:6 templates/page_members/add_success.html:7
+#: templates/page_members/add.html:13
+#: templates/page_members/add_success.html:7
 msgid "Add new member"
 msgstr "Ajouter une nouvelle structure"
 
-#: templates/page_members/add.html:8
+#: templates/page_members/add.html:15
 #: templates/page_members/add_success.html:10
 msgid "Modify member"
 msgstr "Modifier la structure"
 
-#: templates/page_members/add.html:106
+#: templates/page_members/add.html:25
+msgid "Simple"
+msgstr "Simple"
+
+#: templates/page_members/add.html:26
+msgid "Detailed"
+msgstr "Détaillé"
+
+#: templates/page_members/add.html:71
+msgid "Products and services"
+msgstr "Produits et services"
+
+#: templates/page_members/add.html:108
+msgid "Documents"
+msgstr ""
+
+#: templates/page_members/add.html:172
+msgid "Relationship"
+msgstr "Relations"
+
+#: templates/page_members/add.html:195
+msgid "Locations"
+msgstr "Territoire"
+
+#: templates/page_members/add.html:214
+msgid "Contact"
+msgstr ""
+
+#: templates/page_members/add.html:228
+msgid "Engagement"
+msgstr "Membres"
+
+#: templates/page_members/add.html:242
+msgid "References"
+msgstr "Références"
+
+#: templates/page_members/add.html:329
 msgid "Create"
 msgstr "Ajouter"
 
-#: templates/page_members/add.html:108
+#: templates/page_members/add.html:331
 msgid "Modify"
 msgstr "Modifier"
 
@@ -82,6 +129,10 @@ msgid "Member modified. You may now consult it in the list"
 msgstr "Structure modifiée. Vous pouvez à présent la consulter dans la liste"
 
 #: templates/page_members/add_success.html:13
+msgid "See the detail"
+msgstr "Voir la fiche détaillée"
+
+#: templates/page_members/add_success.html:13
 msgid "Member list"
 msgstr "Liste des structures"
 
@@ -91,15 +142,21 @@ msgstr "Vous devez être connecté pour voir cette page"
 
 #: templates/page_members/index.html:79
 #: templates/page_members/index_carto.html:63
+#: templates/page_members/search_form_organization.html:47
+#: templates/page_members/search_form_project.html:47
 msgid "Search"
 msgstr "Recherche"
 
 #: templates/page_members/index.html:80
 #: templates/page_members/index_carto.html:64
+#: templates/page_members/search_form_organization.html:48
+#: templates/page_members/search_form_project.html:48
 msgid "Results"
 msgstr "Résultats"
 
 #: templates/page_members/index_carto.html:34
+#: templates/page_members/search_form_organization.html:17
+#: templates/page_members/search_form_project.html:17
 msgid "Statut"
 msgstr "Statut"
 

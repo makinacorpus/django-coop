@@ -10,10 +10,10 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 from extended_choices import Choices
 
 from coop_local.models import Organization, LegalStatus
-from coop.org.admin import OrganizationAdminForm
+from coop.org.admin import OrganizationAdminForm, RelationInline
 
 from coop.base_models import ActivityNomenclature, TransverseTheme
-
+from coop_local.models import Relation
 
 class PageApp_MembersForm(ModelForm):
 
@@ -42,4 +42,10 @@ class PartialMemberForm(OrganizationAdminForm):
     class Meta:
         model = Organization
         exclude = ('members', 'secteur_fse', 'sites', 'relations', 'statut', )
+        
+
+#class PartialRelationForm(RelationInline):
+    #class Meta:
+        #model = Relation
+        ##exclude = ()
         

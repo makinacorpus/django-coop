@@ -3,6 +3,10 @@
 <script type="text/javascript" src="/_tinymce/compressor/"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}themes/pes_auvergne/default/js/forms_utils.js"></script>
 
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}admintools_bootstrap/css/custom-theme/jquery-ui-1.8.16.custom.css" />
+
+
+
 <div id="members_top"></div>
 <div id="members" class="add_form">
     {% if mode = 'add' %}
@@ -12,15 +16,17 @@
     {% endif %}
 
 
+
+
     <form action="{{ base_url }}" method="post" class="add_form" enctype="multipart/form-data">{% csrf_token %}
 
-        <div class="bg_form">
-
-<!--            <div class="fieldWrapper">
-                {{ form.is_project.errors  }}
-                {{ form.is_project.label_tag }}: {{ form.is_project }}
-            </div>-->
-
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">{% trans "Simple" %}</a></li>
+            <li><a href="#tabs-2">{% trans "Detailed" %}</a></li>
+        </ul>
+        <div id="tabs-1">
+<!--         <div class="bg_form"> -->
             <div class="fieldWrapper">
                 {{ form.title.errors  }}
                 {{ form.title.label_tag }}: {{ form.title }}
@@ -41,8 +47,8 @@
                 {{ form.subtitle.label_tag }}: {{ form.subtitle }}
             </div>-->
             <div class="fieldWrapper">
-                {{ form.creation.errors  }}
-                {{ form.creation.label_tag }}: {{ form.creation }}
+                {{ form.birth.errors  }}
+                {{ form.birth.label_tag }}: {{ form.birth }}
             </div>
 <!--            <div class="fieldWrapper">
                 {{ form.birth.errors  }}
@@ -55,8 +61,6 @@
             </div>
 
 
-            <!--  TODO: type structure ESS           -->
-
             <div class="fieldWrapper">
                 {{ form.short_description.errors  }}
                 {{ form.short_description.label_tag }}: {{ form.short_description }}
@@ -64,7 +68,7 @@
 
 
             <!--  liste produits et services            -->
-            <h3>{% trans "Products and services" %}</h3>
+            <h3 class="title_formset">{% trans "Products and services" %}</h3>
             <div id="offer" class="fieldWrapper formset">
                 {{ offer_form.management_form }}
                 {% for d in offer_form.forms %}
@@ -87,18 +91,8 @@
                 {{ form.description2.label_tag }}: {{ form.description2 }}
             </div>
 
-            <div class="fieldWrapper">
-                {{ form.pref_address.errors  }}
-                {{ form.pref_address.label_tag }}: {{ form.pref_address }}
-            </div>
             <!--  TODO: code postal            -->
             <!--  TODO: ville            -->
-            <!--  TODO: membre à contact préféré            -->
-
-            <div class="fieldWrapper">
-                {{ form.pref_phone.errors  }}
-                {{ form.pref_phone.label_tag }}: {{ form.pref_phone }}
-            </div>
 
             <div class="fieldWrapper">
                 {{ form.pref_email.errors  }}
@@ -110,15 +104,8 @@
                 {{ form.web.label_tag }}: {{ form.web }}
             </div>
 
-
-
-<!--            <div class="fieldWrapper">
-                {{ form.testimony.errors  }}
-                {{ form.testimony.label_tag }}: {{ form.testimony }}
-            </div>-->
-
             <!-- Doc associés -->
-            <h3>{% trans "Documents" %}</h3>
+            <h3 class="title_formset">{% trans "Documents" %}</h3>
             <div id="docs" class="fieldWrapper formset">
                 {{ doc_form.management_form }}
                 {% for d in doc_form.forms %}
@@ -149,10 +136,31 @@
 
 
             <div class="fieldWrapper">
+                {{ form.logo.errors  }}
+                {{ form.logo.label_tag }}: {{ form.logo }}
+            </div>
+
+            <div class="fieldWrapper">
                 {{ form.tags.errors  }}
                 {{ form.tags.label_tag }}: {{ form.tags }}
             </div>
+<!--         </div> -->
+        </div>
+        <div id="tabs-2">
+<!--         <div class="bg_form"> -->
+            <!--  TODO: type structure ESS           -->
 
+            <div class="fieldWrapper">
+                {{ form.pref_address.errors  }}
+                {{ form.pref_address.label_tag }}: {{ form.pref_address }}
+            </div>
+
+            <!--  TODO: membre à contact préféré            -->
+
+            <div class="fieldWrapper">
+                {{ form.pref_phone.errors  }}
+                {{ form.pref_phone.label_tag }}: {{ form.pref_phone }}
+            </div>
 
             <div class="fieldWrapper">
                 {{ form.guaranties.errors  }}
@@ -161,7 +169,7 @@
 
             <!-- TODO plus value solidaire -->
 
-            <h3>{% trans "Relationship" %}</h3>
+            <h3 class="title_formset">{% trans "Relationship" %}</h3>
             <div id="rel" class="fieldWrapper formset">
                 {{ rel_form.management_form }}
                 {% for d in rel_form.forms %}
@@ -174,22 +182,6 @@
                 <input type="button" value="Add More" id="add_more_rel">
             </div>
 
-           <!-- <div class="fieldWrapper formset">
-            {% for occ_rel_form in relation_form %}
-                {% for field in occ_rel_form %}
-                    <div class="fieldWrapper">
-                        {{ field.errors  }}
-                        {{ field.label_tag }}: {{ field }}
-                    </div>
-                {% endfor %}
-            {% endfor %}
-            </div>-->
-
-            <div class="fieldWrapper">
-                {{ form.siret.errors  }}
-                {{ form.siret.label_tag }}: {{ form.siret }}
-            </div>
-
             <div class="fieldWrapper">
                 {{ form.annual_revenue.errors  }}
                 {{ form.annual_revenue.label_tag }}: {{ form.annual_revenue }}
@@ -200,8 +192,7 @@
                 {{ form.workforce.label_tag }}: {{ form.workforce }}
             </div>
 
-
-            <h3>{% trans "Locations" %}</h3>
+            <h3 class="title_formset">{% trans "Locations" %}</h3>
             <div id="contact" class="fieldWrapper formset">
                 {{ located_form.management_form }}
                 {% for d in located_form.forms %}
@@ -220,7 +211,7 @@
             <!-- Détail -->
             <!-- Lieu associé -->
             <!-- Affichage (liste ; choix unique) -->
-            <h3>{% trans "Contact" %}</h3>
+            <h3 class="title_formset">{% trans "Contact" %}</h3>
             <div id="contact" class="fieldWrapper formset">
                 {{ contact_form.management_form }}
                 {% for d in contact_form.forms %}
@@ -234,7 +225,7 @@
             </div>
 
             <!-- Membres             -->
-            <h3>{% trans "Engagement" %}</h3>
+            <h3 class="title_formset">{% trans "Engagement" %}</h3>
             <div id="eng" class="fieldWrapper formset">
                 {{ engagement_form.management_form }}
                 {% for d in engagement_form.forms %}
@@ -246,8 +237,6 @@
                 {% endfor %}
                 <input type="button" value="Add More" id="add_more_eng">
             </div>
-
-
 
             <!--  Standby            -->
 <!--            <h3>{% trans "References" %}</h3>
@@ -263,68 +252,9 @@
                 <input type="button" value="Add More" id="add_more_ref">
             </div>-->
 
-
-
             <div class="fieldWrapper">
-                {{ form.creation.errors  }}
-                {{ form.creation.label_tag }}: {{ form.creation }}
-            </div>
-            <div class="fieldWrapper">
-                {{ form.modification.errors  }}
-                {{ form.modification.label_tag }}: {{ form.modification }}
-            </div>
-
-<!-- TODO Site synchronisé -->
-
-            <div class="fieldWrapper">
-                {{ form.status.errors  }}
-                {{ form.status.label_tag }}: {{ form.status }}
-            </div>
-
-            <div class="fieldWrapper">
-                {{ form.correspondence.errors  }}
-                {{ form.correspondence.label_tag }}: {{ form.correspondence }}
-            </div>
-            <div class="fieldWrapper">
-                {{ form.transmission.errors  }}
-                {{ form.transmission.label_tag }}: {{ form.transmission }}
-            </div>
-            <div class="fieldWrapper">
-                {{ form.transmission_date.errors  }}
-                {{ form.transmission_date.label_tag }}: {{ form.transmission_date }}
-            </div>
-            <div class="fieldWrapper">
-                {{ form.authors.errors  }}
-                {{ form.authors.label_tag }}: {{ form.authors }}
-            </div>
-            <div class="fieldWrapper">
-                {{ form.validation.errors  }}
-                {{ form.validation.label_tag }}: {{ form.validation }}
-            </div>
-
-
-            <div class="fieldWrapper">
-                {{ form.logo.errors  }}
-                {{ form.logo.label_tag }}: {{ form.logo }}
-            </div>
-
-
-            <div class="fieldWrapper">
-                {{ form.email.errors  }}
-                {{ form.email.label_tag }}: {{ form.email }}
-            </div>
-
-            <div class="fieldWrapper">
-                {{ form.email_sha1.errors  }}
-                {{ form.email_sha1.label_tag }}: {{ form.email_sha1 }}
-            </div>
-            
-
-
-
-            <div class="fieldWrapper">
-                {{ form.slug.errors  }}
-                {{ form.slug.label_tag }}: {{ form.slug }}
+                {{ form.siret.errors  }}
+                {{ form.siret.label_tag }}: {{ form.siret }}
             </div>
 
             <div class="fieldWrapper">
@@ -332,9 +262,25 @@
                 {{ form.notes.label_tag }}: {{ form.notes }}
             </div>
 
-                          
-            {{ form.errors }}
+<!--            <div class="fieldWrapper">
+                {{ form.testimony.errors  }}
+                {{ form.testimony.label_tag }}: {{ form.testimony }}
+            </div>-->
+<!--         </div> -->
         </div>
+    </div>
+
+
+
+            <div class="fieldWrapper">
+                {{ form.status.errors  }}
+                {{ form.status.label_tag }}: {{ form.status }}
+            </div>
+
+
+                          
+        {{ form.errors }}
+
 
         <div class="new_block" id="new_submit">
             {% if mode = 'add' %}
@@ -371,7 +317,7 @@
             yearSuffix: ''};
         $.datepicker.setDefaults($.datepicker.regional['fr']);
 
-        $('#id_date_creation').datepicker({dateFormat: 'yy-mm-dd', constrainInput: false});
+        $('#id_birth').datepicker({dateFormat: 'yy-mm-dd', constrainInput: false});
         $('#id_date_validity').datepicker({dateFormat: 'yy-mm-dd', constrainInput: false});
         $('#id_date_start').datepicker({dateFormat: 'yy-mm-dd', constrainInput: false});
         $('#id_date_end').datepicker({dateFormat: 'yy-mm-dd', constrainInput: false});
@@ -401,6 +347,8 @@
         $('#add_more_located').click(function() {
             cloneMore('div.table_located:last', 'located');
         });
+
+        $( "#tabs" ).tabs();
 
     });
 
