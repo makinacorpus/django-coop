@@ -77,10 +77,6 @@
                 <input type="button" value="Add More" id="add_more_offer">
             </div>
 
-
-
-            <!--  TODO: jours ouverture et horaires            -->
-
             <div class="fieldWrapper">
                 {{ form.description.errors  }}
                 {{ form.description.label_tag }}: {{ form.description }}
@@ -164,27 +160,18 @@
             </div>
 
             <!-- TODO plus value solidaire -->
-            <h3>{% trans "Engagement" %}</h3>
-            <div id="eng" class="fieldWrapper formset">
-                {{ engagement_form.management_form }}
-                {% for d in engagement_form.forms %}
+
+            <h3>{% trans "Relationship" %}</h3>
+            <div id="rel" class="fieldWrapper formset">
+                {{ rel_form.management_form }}
+                {% for d in rel_form.forms %}
                     <div class='table_formset table_eng'>
                         <table class='no_error'>
                             {{ d.as_table }}
                         </table>
                     </div>
                 {% endfor %}
-                <input type="button" value="Add More" id="add_more_eng">
-            </div>
-
-            
-            <!-- TODO Relations avec d'autres structures
-            "Pour chaque relation :
-            Type de relation :
-            Organisation cible :"-->
-            <div class="fieldWrapper">
-                {{ form.relations.errors  }}
-                {{ form.relations.label_tag }}: {{ form.relations }}
+                <input type="button" value="Add More" id="add_more_rel">
             </div>
 
            <!-- <div class="fieldWrapper formset">
@@ -213,27 +200,54 @@
                 {{ form.workforce.label_tag }}: {{ form.workforce }}
             </div>
 
-<!--Autres adresses
-Code postal
-Ville
-Contact
-Téléphone
-Courriel-->
 
-<!--"Pour chaque contact : 
-medium 
-Contenu"-->
-<!-- Détail -->
-<!-- Lieu associé -->
-<!-- Affichage (liste ; choix unique) -->
+            <h3>{% trans "Locations" %}</h3>
+            <div id="contact" class="fieldWrapper formset">
+                {{ located_form.management_form }}
+                {% for d in located_form.forms %}
+                    <div class='table_formset table_located'>
+                        <table class='no_error'>
+                            {{ d.as_table }}
+                        </table>
+                    </div>
+                {% endfor %}
+                <input type="button" value="Add More" id="add_more_located">
+            </div>
 
-<!-- Membre -->
-<!--"Pour chaque membre : 
-Nom 
-Fonction
-Rôle détaillé
-Editeur
-Affichage (liste ; choix unique)"-->
+            <!--TODO  "Pour chaque contact : 
+            medium 
+            Contenu"-->
+            <!-- Détail -->
+            <!-- Lieu associé -->
+            <!-- Affichage (liste ; choix unique) -->
+            <h3>{% trans "Contact" %}</h3>
+            <div id="contact" class="fieldWrapper formset">
+                {{ contact_form.management_form }}
+                {% for d in contact_form.forms %}
+                    <div class='table_formset table_contact'>
+                        <table class='no_error'>
+                            {{ d.as_table }}
+                        </table>
+                    </div>
+                {% endfor %}
+                <input type="button" value="Add More" id="add_more_contact">
+            </div>
+
+            <!-- Membres             -->
+            <h3>{% trans "Engagement" %}</h3>
+            <div id="eng" class="fieldWrapper formset">
+                {{ engagement_form.management_form }}
+                {% for d in engagement_form.forms %}
+                    <div class='table_formset table_eng'>
+                        <table class='no_error'>
+                            {{ d.as_table }}
+                        </table>
+                    </div>
+                {% endfor %}
+                <input type="button" value="Add More" id="add_more_eng">
+            </div>
+
+
 
             <!--  Standby            -->
 <!--            <h3>{% trans "References" %}</h3>
@@ -249,9 +263,6 @@ Affichage (liste ; choix unique)"-->
                 <input type="button" value="Add More" id="add_more_ref">
             </div>-->
 
-
-
-<!-- Commentaires -->
 
 
             <div class="fieldWrapper">
@@ -379,7 +390,16 @@ Affichage (liste ; choix unique)"-->
             cloneMore('div.table_ref:last', 'ref');
         });
         $('#add_more_eng').click(function() {
-            cloneMore('div.table_ref:last', 'eng');
+            cloneMore('div.table_eng:last', 'eng');
+        });
+        $('#add_more_rel').click(function() {
+            cloneMore('div.table_rel:last', 'rel');
+        });
+        $('#add_more_contact').click(function() {
+            cloneMore('div.table_contact:last', 'contact');
+        });
+        $('#add_more_located').click(function() {
+            cloneMore('div.table_located:last', 'located');
         });
 
     });
