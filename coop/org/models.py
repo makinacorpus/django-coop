@@ -495,6 +495,9 @@ class BaseOffer(models.Model):
     def unchecked_targets(self):
         return ClientTarget.objects.exclude(id__in=self.targets.all().values_list('id', flat=True))
 
+    def get_desc(self):
+        return "%s<br/>%s: %s<br/>%s: %s<br/>%s: %s" % (self.description,_(u'customer targets'),", ".join([o.label for o in self.targets.all()]),_(u'coverage'),", ".join([o.label for o in self.area.all()]),_(u'activity sector'),self.activity)
+        
     class Meta:
         abstract = True
         verbose_name = _(u'offer')
