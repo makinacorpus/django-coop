@@ -37,7 +37,7 @@
 .member .member_address,
 .member .member_email,
 .member .member_location {
-    margin-left: 100px;
+/*     margin-left: 100px; */
 }
 
 .member .member_acronym {

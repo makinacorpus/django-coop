@@ -47,6 +47,9 @@ def carto_view(request, page_app):
                         context_instance=RequestContext(request)) 
 
 def filter_data(request, page_app):
+    # check rights    
+    can_edit, can_add = get_rights(request)
+    
     if page_app.type != "":
         organizations = Organization.objects.filter(category__label=page_app.type)
     else:
@@ -123,22 +126,29 @@ def filter_data(request, page_app):
     # Get available locations for autocomplete
     available_locations = dumps([{'label':area.label, 'value':area.pk} for area in Area.objects.all().order_by('label')])
     
-    rdict = {'object': page_app, 'members': organizations, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'direct_link': direct_link, 'search_form': search_form, 'form' : form, 'center': center_map, 'available_locations': available_locations, 'search_form_template': search_form_template}
+    rdict = {'object': page_app, 'members': organizations, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'direct_link': direct_link, 'search_form': search_form, 'form' : form, 'center': center_map, 'available_locations': available_locations, 'search_form_template': search_form_template, 'can_edit': can_edit}
 
     return rdict
     
     
 def detail_view(request, page_app, pk):
+    # check rights    
+    can_edit, can_add = get_rights(request)
+    
     base_url = u'%s' % (page_app.get_absolute_url())
     member = get_object_or_404(Organization, pk=pk)
     imgs = Document.objects.all().filter(organization=member, type__name='Galerie')
     docs = Document.objects.all().filter(~Q(type__name='Galerie'), organization=member )
     return render_view('page_members/detail.html',
-                       { 'member':  member, 'imgs': imgs, 'docs': docs, 'media_path': settings.MEDIA_URL , 'base_url': base_url},
+                       { 'member':  member, 'imgs': imgs, 'docs': docs, 'media_path': settings.MEDIA_URL , 'base_url': base_url, 'can_edit': can_edit},
                        MEDIAS,
                        context_instance=RequestContext(request))
                        
 def add_view(request, page_app, member_id=None):
+    # check rights    
+    can_edit, can_add = get_rights(request,member_id)
+
+
     if request.user.is_authenticated():
         center_map = settings.COOP_MAP_DEFAULT_CENTER
         OfferFormSet = inlineformset_factory(Organization, Offer, extra=1)
@@ -224,3 +234,37 @@ def add_view(request, page_app, member_id=None):
         return render_view('page_members/forbidden.html')
 
         
+def get_rights(request, member_id=None): 
+    can_edit = False
+    can_add = False
+    
+    if request.user.is_superuser:
+        can_edit = True
+        can_add = True
+    else:
+        if request.user.is_authenticated():
+            try:
+                pes_user = Person.objects.get(user=request.user)
+            except Person.DoesNotExist:
+                pes_user = None
+   
+            if pes_user :
+                if member_id:
+                    #engagement = get_object_or_404(Engagement, person_id=pes_user.pk, organization_id=member_id)
+                    try:
+                        engagement = Engagement.objects.get(person_id=pes_user.pk, organization_id=member_id)
+                    except Engagement.DoesNotExist:
+                        engagement = None
+                else:
+                    #engagement = get_object_or_404(Engagement, person_id=pes_user.pk)
+                    try:
+                        engagement = Engagement.objects.get(person_id=pes_user.pk)
+                    except Engagement.DoesNotExist:
+                        engagement = None
+
+                if engagement and engagement.org_admin == True:
+                    can_edit = True
+            
+    return can_edit, can_add
+
+    

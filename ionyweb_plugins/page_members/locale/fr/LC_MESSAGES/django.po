@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-14 11:01+0200\n"
+"POT-Creation-Date: 2013-06-14 11:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -88,9 +88,20 @@ msgstr "Détaillé"
 msgid "Products and services"
 msgstr "Produits et services"
 
+#: templates/page_members/add.html:71 templates/page_members/add.html:108
+#: templates/page_members/add.html:172 templates/page_members/add.html:195
+#: templates/page_members/add.html:214 templates/page_members/add.html:228
+#: templates/page_members/add.html:242
+msgid "Add More"
+msgstr "Ajouter"
+
 #: templates/page_members/add.html:98
 msgid "Documents"
 msgstr ""
+
+#: templates/page_members/add.html:114
+msgid "Crowdfunding link"
+msgstr "Lien crowdfunding"
 
 #: templates/page_members/add.html:162
 msgid "Relationship"
@@ -99,10 +110,6 @@ msgstr "Relations"
 #: templates/page_members/add.html:185
 msgid "Locations"
 msgstr "Territoire"
-
-#: templates/page_members/add.html:195
-msgid "Add More"
-msgstr "Ajouter"
 
 #: templates/page_members/add.html:204
 msgid "Contact"
