@@ -14,6 +14,17 @@ from coop.org.admin import OrganizationAdminForm, RelationInline
 
 from coop.base_models import ActivityNomenclature, TransverseTheme
 from coop_local.models import Relation
+from coop_local.models import Location
+from coop.base_models import Located
+from django.db.models.loading import get_model
+
+from chosen import widgets as chosenwidgets
+
+import floppyforms as forms
+import models
+
+
+
 
 class PageApp_MembersForm(ModelForm):
 
@@ -42,10 +53,48 @@ class PartialMemberForm(OrganizationAdminForm):
     class Meta:
         model = Organization
         exclude = ('members', 'secteur_fse', 'sites', 'relations', 'statut', )
-        
 
-#class PartialRelationForm(RelationInline):
-    #class Meta:
-        #model = Relation
-        ##exclude = ()
+
+class CustomLocatedForm(forms.ModelForm):
+    address = forms.CharField(required=False)
+    city = forms.CharField(required=False)
+    zipcode = forms.CharField(required=False)
+    
+    class Meta:
+        model = Located
+
+        fields = ('address', 'city', 'zipcode', 'opening', 'main_location')
+
+    def __init__(self, *args, **kwargs):
+        super(CustomLocatedForm, self).__init__(*args, **kwargs)
         
+        
+        try:
+            location = self.instance.location
+        except Location.DoesNotExist:
+            location = None
+
+        if location :
+            self.fields['address'].initial = location.adr1
+            self.fields['city'].initial = location.city
+            self.fields['zipcode'].initial = location.zipcode
+        
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        return cleaned_data
+        
+    def save(self, commit=True):
+        located = super(CustomLocatedForm, self).save(commit=False)
+        
+        if self.cleaned_data:
+            location = Location()
+            location.adr1 = self.cleaned_data['address']
+            location.zipcode = self.cleaned_data['zipcode']
+            location.city = self.cleaned_data['city']
+            located.location_id = location      
+            if commit:
+                location.save()
+      
+        if commit:
+            located.save()
+        return located

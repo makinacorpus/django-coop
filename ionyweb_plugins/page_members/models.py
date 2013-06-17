@@ -3,6 +3,8 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from ionyweb.page.models import AbstractPageApp
 
+
+
 class PageApp_Members(AbstractPageApp):
     
     # Define your fields here

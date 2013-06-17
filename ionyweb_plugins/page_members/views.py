@@ -11,10 +11,10 @@ from django.shortcuts import get_object_or_404
 
 from ionyweb.website.rendering.medias import CSSMedia
 
-from .forms import PageApp_MembersForm, PartialMemberForm
+from .forms import PageApp_MembersForm, PartialMemberForm, CustomLocatedForm
 
 from django.db.models import Q
-from django.forms.models import inlineformset_factory
+from django.forms.models import inlineformset_factory, formset_factory
 from django.contrib.contenttypes.generic import generic_inlineformset_factory
 
 from django.contrib.gis import geos
@@ -151,7 +151,7 @@ def add_view(request, page_app, member_id=None):
 
     if request.user.is_authenticated():
         center_map = settings.COOP_MAP_DEFAULT_CENTER
-        OfferFormSet = inlineformset_factory(Organization, Offer, extra=1)
+        OfferFormSet = inlineformset_factory(Organization, Offer, exclude=['technical_means', 'workforce', 'practical_modalities'],  extra=1)
         DocFormSet = inlineformset_factory(Organization, Document, extra=1)
         #ReferenceFormSet = inlineformset_factory(Organization, Reference, extra=1)
         #RelationFormSet = inlineformset_factory(Organization, Relation, form=PartialRelationForm, fk_name='source', extra=1)
@@ -162,7 +162,9 @@ def add_view(request, page_app, member_id=None):
         ContactFormSet = generic_inlineformset_factory(Contact, exclude=['active','sites'], extra=1)
         #ContactFormSet = generic_inlineformset_factory(Contact, Organization, extra=1, ct_field='content_type')
         #LocatedFormSet = inlineformset_factory(Organization, Located, extra=1)
-        LocatedFormSet = generic_inlineformset_factory(Located, extra=1)
+        
+        #LocatedFormSet = generic_inlineformset_factory(Located, extra=1)
+        LocatedFormSet = generic_inlineformset_factory(Located, extra=1, form=CustomLocatedForm)
 
         if member_id:
             # update
@@ -208,6 +210,10 @@ def add_view(request, page_app, member_id=None):
                 engagementFormset.save()
                 contactFormset.save()
                 locatedFormset.save()
+                #for current_located in locatedFormset:
+                #    current_located.save()
+                
+                
                 base_url = u'%s' % (page_app.get_absolute_url())
                 rdict = {'base_url': base_url, 'member_id': member.pk}
                 return render_view('page_members/add_success.html',

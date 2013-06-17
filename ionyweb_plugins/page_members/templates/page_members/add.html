@@ -3,6 +3,9 @@
 <script type="text/javascript" src="/_tinymce/compressor/"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}themes/pes_auvergne/default/js/forms_utils.js"></script>
 
+<script type="text/javascript" src="{{ STATIC_URL }}tagger/js/jquery.autoSuggest.minified.js"></script>
+
+
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}admintools_bootstrap/css/custom-theme/jquery-ui-1.8.16.custom.css" />
 
 
@@ -81,8 +84,25 @@
                 {{ form.description2.label_tag }}: {{ form.description2 }}
             </div>
 
-            <!--  TODO: code postal            -->
-            <!--  TODO: ville            -->
+            <h3 class="title_formset">{% trans "Locations" %}</h3>
+            <div id="contact" class="fieldWrapper formset">
+                {{ located_form.management_form }}
+                {% for d in located_form.forms %}
+                    <div class='table_formset table_located'>
+                        <table class='no_error'>
+                            {{ d.as_table }}
+                        </table>
+                    </div>
+                {% endfor %}
+                <input type="button" value="{% trans 'Add More' %}" id="add_more_located">
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.pref_address.errors  }}
+                {{ form.pref_address.label_tag }}: {{ form.pref_address }}
+            </div>
+
+
 
             <div class="fieldWrapper">
                 {{ form.pref_email.errors  }}
@@ -138,11 +158,9 @@
         </div>
         <div id="tabs-2">
 <!--         <div class="bg_form"> -->
-            <!--  TODO: type structure ESS           -->
-
             <div class="fieldWrapper">
-                {{ form.pref_address.errors  }}
-                {{ form.pref_address.label_tag }}: {{ form.pref_address }}
+                {{ form.category.errors  }}
+                {{ form.category.label_tag }}: {{ form.category }}
             </div>
 
             <!--  TODO: membre à contact préféré            -->
@@ -180,19 +198,6 @@
             <div class="fieldWrapper">
                 {{ form.workforce.errors  }}
                 {{ form.workforce.label_tag }}: {{ form.workforce }}
-            </div>
-
-            <h3 class="title_formset">{% trans "Locations" %}</h3>
-            <div id="contact" class="fieldWrapper formset">
-                {{ located_form.management_form }}
-                {% for d in located_form.forms %}
-                    <div class='table_formset table_located'>
-                        <table class='no_error'>
-                            {{ d.as_table }}
-                        </table>
-                    </div>
-                {% endfor %}
-                <input type="button" value="{% trans 'Add More' %}" id="add_more_located">
             </div>
 
             <!--TODO  "Pour chaque contact : 
@@ -339,6 +344,38 @@
         });
 
         $( "#tabs" ).tabs();
+
+
+//         var data = {items: [
+//         {value: "21", name: "Mick Jagger"},
+//         {value: "43", name: "Johnny Storm"},
+//         {value: "46", name: "Richard Hatch"},
+//         {value: "54", name: "Kelly Slater"},
+//         {value: "55", name: "Rudy Hamilton"},
+//         {value: "79", name: "Michael Jordan"}
+//         ]};
+//         $("#id_tags").autoSuggest(data);
+//         $("input[type=text]").autoSuggest("http://mysite.com/path/to/script", {minChars: 2, matchCase: true});
+
+
+//         tags_as_string = $('#id_tags').val();
+//         $("#id_tags__tagautosuggest").autoSuggest("/list/", {
+//             asHtmlID: "id_tags__tagautosuggest",
+//             startText: "Entrez vos tags ici",
+//             emptyText: "Aucun résultat",
+//             limitText: "Vous ne pouvez pas faire plus de sélection",
+//             preFill: tags_as_string,
+//             queryParam: 'q',
+//             retrieveLimit: 20,
+//             minChars: 1,
+//             neverSubmit: true
+//         });
+// 
+//         $('#id_tags').parents().find('form').submit(function (){
+//             tags_as_string = $("#as-values-id_tags__tagautosuggest").val();
+//             $("#id_tags__tagautosuggest").remove();
+//             $("#id_tags").val(tags_as_string);
+//         });
 
 
         // Sample: Move the paragraph from #myDiv1 to #myDiv2
