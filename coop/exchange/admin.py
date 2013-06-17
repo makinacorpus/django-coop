@@ -62,7 +62,8 @@ if 'coop.exchange' in settings.INSTALLED_APPS:
         fieldsets = ((None, {'fields': (('eway', 'etype'),
                                          'methods',
                                          'title',
-                                        'description',  # 'tags',
+                                        'description', 'tags',
+                                        'expiration',
                                         'location', 'area', 'activity', 'transverse_themes')
                             }),)
         related_search_fields = {'activity': ('path',), }
