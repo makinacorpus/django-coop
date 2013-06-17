@@ -721,6 +721,8 @@ class BaseOrganization(URIModel):
     transverse_themes = models.ManyToManyField('TransverseTheme',
         verbose_name=_(u'transverse themes'), blank=True, null=True)
 
+    document_set = generic.GenericRelation('coop_local.Document')
+
     class Meta:
         abstract = True
         ordering = ['title']
