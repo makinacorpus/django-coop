@@ -19,8 +19,7 @@ from django.contrib.gis import geos
 from django.contrib.gis.measure import D
 from coop_local.models import Location
 
-from django.contrib.auth import authenticate, login
-
+from django.contrib.auth import authenticate, login, logout
 
 
 MEDIAS = (
@@ -64,6 +63,17 @@ def index_view(request, page_app):
                        MEDIAS,
                        context_instance=RequestContext(request))
 
+def logout_view(request, page_app):
+    logout(request)
+    base_url = u'%s' % (page_app.get_absolute_url())
+    render_page = 'page_coop_account/login.html'
+    rdict = {'object': page_app, 'base_url': base_url}
+    
+    return render_view(render_page,
+                       rdict,
+                       MEDIAS,
+                       context_instance=RequestContext(request))
+
 
 def detail_view(request, page_app, pk):
     event = get_object_or_404(Event, pk=pk)
@@ -72,4 +82,6 @@ def detail_view(request, page_app, pk):
     return render_view('page_coop_account/detail.html',
                        rdict,
                        MEDIAS,
-                       context_instance=RequestContext(request))                              
+                       context_instance=RequestContext(request))                
+
+
