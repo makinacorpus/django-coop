@@ -32,6 +32,8 @@ from django.contrib.admin.templatetags.admin_static import static
 from django.shortcuts import render
 from django.contrib.contenttypes.generic import generic_inlineformset_factory
 
+from coop.org.document_admin import DocumentInline
+
 if "coop.exchange" in settings.INSTALLED_APPS:
     from coop.exchange.admin import ExchangeInline
 
@@ -221,14 +223,6 @@ class OfferInline(admin.StackedInline):
 
     def get_formset(self, request, obj=None, **kwargs):
         return forms.models.inlineformset_factory(get_model('coop_local', 'Organization'), get_model('coop_local', 'Offer'), form=make_offer_form(self.admin_site, request), extra=1)
-
-
-class DocumentInline(InlineAutocompleteAdmin):
-
-    model = get_model('coop_local', 'Document')
-    verbose_name = _(u'document')
-    verbose_name_plural = _(u'documents')
-    extra = 1
 
 
 class GuarantyAdmin(AdminImageMixin, admin.ModelAdmin):

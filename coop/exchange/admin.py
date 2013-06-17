@@ -14,6 +14,7 @@ from chosen import widgets as chosenwidgets
 from django.db.models import ManyToManyField
 
 from coop.admin import ObjEnabledInline
+from coop.org.document_admin import DocumentInline
 
 # class PaymentInline(admin.TabularInline):
 #     model = get_model('coop_local', 'PaymentModality')
@@ -97,18 +98,20 @@ if 'coop.exchange' in settings.INSTALLED_APPS:
         extra = 1
 
     class ExchangeAdmin(FkAutocompleteAdmin):  # AdminImageMixin,
+        change_form_template = 'admintools_bootstrap/tabbed_change_form.html'
         form = ExchangeForm
         list_display = ('title', 'etype')  # , 'methods')
         # TODO to be finished ...
         # list_editable = ('methods',)
         related_search_fields = {'organization': ('title', 'subtitle', 'description'),
                                  'activity': ('path',), }
-        fieldsets = ((None, {'fields': [('eway', 'etype'),
+        fieldsets = ((_(u'Exchange'), {'fields': [('eway', 'etype'),
                                          'methods',
                                          'title',
                                          'organization',
                                         'description',]# 'tags')
                             }),)
+        inlines = [DocumentInline]
 
         if settings.COOP_USE_SITES:
             fieldsets[0][1]['fields'].insert(0, 'sites')

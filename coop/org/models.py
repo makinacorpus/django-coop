@@ -525,8 +525,10 @@ class BaseDocument(models.Model):
     name = models.CharField(_(u'name'), blank=True, max_length=100)
     description = models.TextField(_(u'description'), blank=True)
     attachment = models.FileField(_(u'attachment'), upload_to='docs', max_length=255)
-    organization = models.ForeignKey('Organization')
     type = models.ForeignKey('DocumentType', verbose_name=_(u'type'), blank=True, null=True)
+    content_type = models.ForeignKey(ContentType)
+    object_id = models.PositiveIntegerField()
+    content_object = generic.GenericForeignKey('content_type', 'object_id')
 
     class Meta:
         abstract = True
