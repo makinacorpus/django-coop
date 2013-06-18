@@ -88,9 +88,8 @@ class CustomLocatedForm(forms.ModelForm):
         
         if self.cleaned_data:
 
-            try:
-                location = self.instance.location
-            except Location.DoesNotExist:
+            location = self.instance.location
+            if location == None:
                 location = Location()
 
             location.adr1 = self.cleaned_data['address']
