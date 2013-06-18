@@ -56,9 +56,9 @@ class PartialMemberForm(OrganizationAdminForm):
 
 
 class CustomLocatedForm(forms.ModelForm):
-    address = forms.CharField(required=False)
-    city = forms.CharField(required=False)
-    zipcode = forms.CharField(required=False)
+    address = forms.CharField(required=False, label=_('Address'))
+    city = forms.CharField(required=False, label=_('City'))
+    zipcode = forms.CharField(required=False, label=_('Zipcode'))
     
     class Meta:
         model = Located

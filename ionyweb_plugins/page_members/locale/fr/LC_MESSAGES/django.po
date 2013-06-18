@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-14 11:58+0200\n"
+"POT-Creation-Date: 2013-06-18 09:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,18 +18,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: forms.py:20
+#: forms.py:31
 msgid "Type"
 msgstr ""
 
-#: forms.py:22 forms.py:23 templates/page_members/index.html:19
+#: forms.py:33 forms.py:34 templates/page_members/index.html:19
 #: templates/page_members/index_carto.html:21
 #: templates/page_members/search_form_organization.html:4
 #: templates/page_members/search_form_project.html:4
 msgid "Activity"
 msgstr "Activité"
 
-#: forms.py:25 templates/page_members/detail.html:29
+#: forms.py:36 templates/page_members/detail.html:29
 #: templates/page_members/index.html:35
 #: templates/page_members/index_carto.html:40
 #: templates/page_members/search_form_organization.html:23
@@ -37,97 +37,109 @@ msgstr "Activité"
 msgid "Location"
 msgstr "Territoire"
 
-#: forms.py:27 templates/page_members/index.html:39
+#: forms.py:38 templates/page_members/index.html:39
 #: templates/page_members/index_carto.html:44
 #: templates/page_members/search_form_organization.html:28
 #: templates/page_members/search_form_project.html:28
 msgid "Location buffer"
 msgstr "Périmètre de recherche"
 
-#: forms.py:28 forms.py:29 templates/page_members/index.html:29
+#: forms.py:39 forms.py:40 templates/page_members/index.html:29
 #: templates/page_members/index_carto.html:50
 #: templates/page_members/search_form_organization.html:34
 #: templates/page_members/search_form_project.html:34
 msgid "Thematic"
 msgstr "Thématique"
 
-#: forms.py:33 templates/page_members/index.html:23
+#: forms.py:44 templates/page_members/index.html:23
 #: templates/page_members/index_carto.html:28
 #: templates/page_members/search_form_organization.html:11
 #: templates/page_members/search_form_project.html:11
 msgid "Free search"
 msgstr "Recherche libre"
 
-#: models.py:9
+#: forms.py:59
+msgid "Address"
+msgstr "Adresse"
+
+#: forms.py:60
+msgid "City"
+msgstr "Ville"
+
+#: forms.py:61
+msgid "Zipcode"
+msgstr "Code postal"
+
+#: models.py:11
 msgid "type"
 msgstr ""
 
-#: models.py:15
+#: models.py:17
 msgid "Members"
 msgstr "Structures"
 
-#: templates/page_members/add.html:13
+#: templates/page_members/add.html:16
 #: templates/page_members/add_success.html:7
 msgid "Add new member"
 msgstr "Ajouter une nouvelle structure"
 
-#: templates/page_members/add.html:15
+#: templates/page_members/add.html:18
 #: templates/page_members/add_success.html:10
 msgid "Modify member"
 msgstr "Modifier la structure"
 
-#: templates/page_members/add.html:25
+#: templates/page_members/add.html:28
 msgid "Simple"
 msgstr "Simple"
 
-#: templates/page_members/add.html:26
+#: templates/page_members/add.html:29
 msgid "Detailed"
 msgstr "Détaillé"
 
-#: templates/page_members/add.html:61
+#: templates/page_members/add.html:64
 msgid "Products and services"
 msgstr "Produits et services"
 
-#: templates/page_members/add.html:71 templates/page_members/add.html:108
-#: templates/page_members/add.html:172 templates/page_members/add.html:195
-#: templates/page_members/add.html:214 templates/page_members/add.html:228
-#: templates/page_members/add.html:242
+#: templates/page_members/add.html:74 templates/page_members/add.html.py:97
+#: templates/page_members/add.html:128 templates/page_members/add.html:190
+#: templates/page_members/add.html:219 templates/page_members/add.html:233
+#: templates/page_members/add.html:247
 msgid "Add More"
 msgstr "Ajouter"
 
-#: templates/page_members/add.html:98
-msgid "Documents"
-msgstr ""
-
-#: templates/page_members/add.html:114
-msgid "Crowdfunding link"
-msgstr "Lien crowdfunding"
-
-#: templates/page_members/add.html:162
-msgid "Relationship"
-msgstr "Relations"
-
-#: templates/page_members/add.html:185
+#: templates/page_members/add.html:87
 msgid "Locations"
 msgstr "Territoire"
 
-#: templates/page_members/add.html:204
+#: templates/page_members/add.html:118
+msgid "Documents"
+msgstr ""
+
+#: templates/page_members/add.html:134
+msgid "Crowdfunding link"
+msgstr "Lien crowdfunding"
+
+#: templates/page_members/add.html:180
+msgid "Relationship"
+msgstr "Relations"
+
+#: templates/page_members/add.html:209
 msgid "Contact"
 msgstr ""
 
-#: templates/page_members/add.html:218
+#: templates/page_members/add.html:223
 msgid "Engagement"
 msgstr "Membres"
 
-#: templates/page_members/add.html:232
+#: templates/page_members/add.html:237
 msgid "References"
 msgstr "Références"
 
-#: templates/page_members/add.html:277
+#: templates/page_members/add.html:282
 msgid "Create"
 msgstr "Ajouter"
 
-#: templates/page_members/add.html:279
+#: templates/page_members/add.html:284
 msgid "Modify"
 msgstr "Modifier"
 
