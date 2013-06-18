@@ -162,16 +162,10 @@ def add_view(request, page_app, member_id=None):
         OfferFormSet = inlineformset_factory(Organization, Offer, exclude=['technical_means', 'workforce', 'practical_modalities'],  extra=1)
         DocFormSet = generic_inlineformset_factory(Document, extra=1)
         #ReferenceFormSet = inlineformset_factory(Organization, Reference, extra=1)
-        #RelationFormSet = inlineformset_factory(Organization, Relation, form=PartialRelationForm, fk_name='source', extra=1)
         RelationFormSet = inlineformset_factory(Organization, Relation, exclude=['reltype'], fk_name='source', extra=1)
         EngagementFormSet = inlineformset_factory(Organization, Engagement,exclude=['active','sites'], extra=1)
         #MembersFormSet = inlineformset_factory(Organization, Person, extra=1)
-        #ContactFormSet = generic_inlineformset_factory(Organization, Contact, extra=1)
         ContactFormSet = generic_inlineformset_factory(Contact, exclude=['active','sites'], extra=1)
-        #ContactFormSet = generic_inlineformset_factory(Contact, Organization, extra=1, ct_field='content_type')
-        #LocatedFormSet = inlineformset_factory(Organization, Located, extra=1)
-        
-        #LocatedFormSet = generic_inlineformset_factory(Located, extra=1)
         LocatedFormSet = generic_inlineformset_factory(Located, extra=1, form=CustomLocatedForm)
 
         if member_id:
@@ -217,10 +211,7 @@ def add_view(request, page_app, member_id=None):
                 relationFormset.save()
                 engagementFormset.save()
                 contactFormset.save()
-                locatedFormset.save()
-                #for current_located in locatedFormset:
-                #    current_located.save()
-                
+                locatedFormset.save()                
                 
                 base_url = u'%s' % (page_app.get_absolute_url())
                 rdict = {'base_url': base_url, 'member_id': member.pk}
