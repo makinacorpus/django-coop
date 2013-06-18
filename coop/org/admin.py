@@ -240,7 +240,7 @@ class GuarantyAdmin(AdminImageMixin, admin.ModelAdmin):
 
 
 class OrganizationAdminForm(forms.ModelForm):
-    description = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 60}), required=False)
+    description = forms.CharField(widget=AdminTinyMCE(attrs={'cols': 80, 'rows': 30}), required=False)
 
     class Meta:
         model = get_model('coop_local', 'Organization')

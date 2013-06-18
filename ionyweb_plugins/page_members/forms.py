@@ -87,11 +87,16 @@ class CustomLocatedForm(forms.ModelForm):
         located = super(CustomLocatedForm, self).save(commit=False)
         
         if self.cleaned_data:
-            location = Location()
+
+            try:
+                location = self.instance.location
+            except Location.DoesNotExist:
+                location = Location()
+
             location.adr1 = self.cleaned_data['address']
             location.zipcode = self.cleaned_data['zipcode']
             location.city = self.cleaned_data['city']
-            located.location_id = location      
+            located.location = location      
             if commit:
                 location.save()
       
