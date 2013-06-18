@@ -41,8 +41,8 @@ if "coop.mailing" in settings.INSTALLED_APPS:
     admin.site.register(Newsletter, NewsletterAdmin)
 
 if "coop.exchange" in settings.INSTALLED_APPS:
-    from coop.exchange.admin import ExchangeAdmin
-    admin.site.register(ExchangeMethod)
+    from coop.exchange.admin import ExchangeAdmin, ExchangeMethodAdmin
+    admin.site.register(ExchangeMethod, ExchangeMethodAdmin)
     admin.site.register(Exchange, ExchangeAdmin)
 
 if "coop_cms" in settings.INSTALLED_APPS:

@@ -137,8 +137,8 @@ def detail_view(request, page_app, pk):
     
     base_url = u'%s' % (page_app.get_absolute_url())
     member = get_object_or_404(Organization, pk=pk)
-    imgs = Document.objects.all().filter(organization=member, type__name='Galerie')
-    docs = Document.objects.all().filter(~Q(type__name='Galerie'), organization=member )
+    imgs = member.document_set.filter(type__name='Galerie')
+    docs = member.document_set.exclude(type__name='Galerie')
     return render_view('page_members/detail.html',
                        { 'member':  member, 'imgs': imgs, 'docs': docs, 'media_path': settings.MEDIA_URL , 'base_url': base_url, 'can_edit': can_edit},
                        MEDIAS,
@@ -152,7 +152,7 @@ def add_view(request, page_app, member_id=None):
     if request.user.is_authenticated():
         center_map = settings.COOP_MAP_DEFAULT_CENTER
         OfferFormSet = inlineformset_factory(Organization, Offer, exclude=['technical_means', 'workforce', 'practical_modalities'],  extra=1)
-        DocFormSet = inlineformset_factory(Organization, Document, extra=1)
+        DocFormSet = generic_inlineformset_factory(Document, extra=1)
         #ReferenceFormSet = inlineformset_factory(Organization, Reference, extra=1)
         #RelationFormSet = inlineformset_factory(Organization, Relation, form=PartialRelationForm, fk_name='source', extra=1)
         RelationFormSet = inlineformset_factory(Organization, Relation, exclude=['reltype'], fk_name='source', extra=1)
