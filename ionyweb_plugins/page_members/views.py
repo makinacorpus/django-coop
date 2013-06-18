@@ -11,7 +11,7 @@ from django.shortcuts import get_object_or_404
 
 from ionyweb.website.rendering.medias import CSSMedia
 
-from .forms import PageApp_MembersForm, PartialMemberForm, CustomLocatedForm
+from .forms import PageApp_MembersForm, PartialMemberForm, CustomLocatedForm, DocumentForm
 
 from django.db.models import Q
 from django.forms.models import inlineformset_factory, formset_factory
@@ -167,7 +167,7 @@ def add_view(request, page_app, member_id=None):
     if request.user.is_authenticated():
         center_map = settings.COOP_MAP_DEFAULT_CENTER
         OfferFormSet = inlineformset_factory(Organization, Offer, exclude=['technical_means', 'workforce', 'practical_modalities'],  extra=1)
-        DocFormSet = generic_inlineformset_factory(Document, extra=1)
+        DocFormSet = generic_inlineformset_factory(Document, form=DocumentForm, extra=1)
         #ReferenceFormSet = inlineformset_factory(Organization, Reference, extra=1)
         RelationFormSet = inlineformset_factory(Organization, Relation, exclude=['reltype'], fk_name='source', extra=1)
         EngagementFormSet = inlineformset_factory(Organization, Engagement,exclude=['active','sites'], extra=1)

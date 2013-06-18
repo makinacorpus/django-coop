@@ -13,8 +13,7 @@ from coop_local.models import Organization, LegalStatus
 from coop.org.admin import OrganizationAdminForm, RelationInline
 
 from coop.base_models import ActivityNomenclature, TransverseTheme
-from coop_local.models import Relation
-from coop_local.models import Location
+from coop_local.models import Relation, Location, Document
 from coop.base_models import Located
 from django.db.models.loading import get_model
 
@@ -105,3 +104,12 @@ class CustomLocatedForm(forms.ModelForm):
         if commit:
             located.save()
         return located
+
+        
+        
+class DocumentForm(forms.ModelForm):
+    class Meta:
+        model = Document
+        widgets = {
+            'description': forms.Textarea(attrs={'rows': 3}),
+        }

@@ -74,3 +74,4 @@ class OrganizationCategoryForm(floppyforms.ModelForm):
         return label
 
 
+    
