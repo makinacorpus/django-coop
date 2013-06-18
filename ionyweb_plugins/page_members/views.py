@@ -32,7 +32,7 @@ MEDIAS = (
     )
 
 def index_view(request, page_app):    
-    rdict = filter_data(request, page_app)
+    rdict = filter_data(request, page_app, "list")
     return render_view('page_members/index.html',
                        rdict,
                        MEDIAS,
@@ -40,13 +40,13 @@ def index_view(request, page_app):
 
 
 def carto_view(request, page_app):
-    rdict = filter_data(request, page_app)    
+    rdict = filter_data(request, page_app, "carto")    
     return render_view('page_members/index_carto.html',
                         rdict,
                         MEDIAS,
                         context_instance=RequestContext(request)) 
 
-def filter_data(request, page_app):
+def filter_data(request, page_app, mode):
     # check rights    
     can_edit, can_add = get_rights(request)
     
@@ -85,14 +85,21 @@ def filter_data(request, page_app):
             if form.cleaned_data['location']:
                 label = form.cleaned_data['location']
                 pk = form.cleaned_data['location_id']
-                area = get_object_or_404(Area, pk=pk)
-                radius = form.cleaned_data['location_buffer']
-                distance_degrees = (360 * radius) / (pi * 6378)
-                zone = area.polygon.buffer(distance_degrees)
-                 # Get the possible location in the buffer...
-                possible_locations = Location.objects.filter(point__intersects=zone)
-                # ...and filter organization according to these locations
-                organizations = organizations.filter(Q(located__location__in=possible_locations))
+                
+                print pk
+                try:
+                    area = Area.objects.get(pk=pk)
+                except Area.DoesNotExist:
+                    area = None
+    
+                if area :
+                    radius = form.cleaned_data['location_buffer']
+                    distance_degrees = (360 * radius) / (pi * 6378)
+                    zone = area.polygon.buffer(distance_degrees)
+                    # Get the possible location in the buffer...
+                    possible_locations = Location.objects.filter(point__intersects=zone)
+                    # ...and filter organization according to these locations
+                    organizations = organizations.filter(Q(located__location__in=possible_locations))
                 
 
             if form.cleaned_data['thematic'] or form.cleaned_data['thematic2']:
@@ -126,7 +133,7 @@ def filter_data(request, page_app):
     # Get available locations for autocomplete
     available_locations = dumps([{'label':area.label, 'value':area.pk} for area in Area.objects.all().order_by('label')])
     
-    rdict = {'object': page_app, 'members': organizations, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'direct_link': direct_link, 'search_form': search_form, 'form' : form, 'center': center_map, 'available_locations': available_locations, 'search_form_template': search_form_template, 'can_edit': can_edit}
+    rdict = {'object': page_app, 'members': organizations, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'direct_link': direct_link, 'search_form': search_form, 'form' : form, 'center': center_map, 'available_locations': available_locations, 'search_form_template': search_form_template, 'can_edit': can_edit, 'mode': mode}
 
     return rdict
     

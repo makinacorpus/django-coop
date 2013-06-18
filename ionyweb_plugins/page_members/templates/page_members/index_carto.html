@@ -6,67 +6,19 @@
 {% endblock %}
 
 
-{% if search_form %}
 
 <script type="text/javascript">
     // We need to set a new class to content element, in order do properly display the form and the other elements
     $('#main-content').addClass("search_form_enabled_member");
 </script>
 
+
 <div id="members_top_search"></div>
 <div id="search_form">
-    <form action="{{ base_url }}" method="post">{% csrf_token %}
-        <div class="search_column" id="search_column1">
-            <div class="search_block" id="looking_for">
-                <span class="search_title">{% trans "Activity" %}</span>
-                {{ form.activity }}
-            </div>
-            <div class="search_block" id="looking_for2">
-                {{ form.activity2 }}
-            </div>
-            <div class="search_block" id="free_search">
-                <span class="search_title">{% trans "Free search" %}</span>
-                {{ form.free_search }}
-            </div>
-        </div>
-        <div class="search_column" id="search_column2">
-            <div class="search_block" id="statut">
-                <span class="search_title">{% trans "Statut" %}</span>
-                {{ form.statut }}
-            </div>
-        </div>
-        <div class="search_column" id="search_column3">
-            <div class="search_block" id="location">
-                <span class="search_title">{% trans "Location" %}</span>
-                {{ form.location }}
-            </div>
-            <div class="search_block" id="location">
-                <span class="search_title">{% trans "Location buffer" %}</span>
-                {{ form.location_buffer }}
-            </div>
-        </div>
-        <div class="search_column" id="search_column4">
-            <div class="search_block" id="thematic">
-                <span class="search_title">{% trans "Thematic" %}</span>
-                {{ form.thematic }}
-            </div>
-            <div class="search_block" id="thematic2">
-                {{ form.thematic2 }}
-            </div>
-            <div class="search_block" id="thematic3">
-                {{ form.thematic3 }}
-            </div>
-        </div>
-
-        <div id="search_bottom">
-            <div class="search_block" id="search_submit">
-                <input type="submit" value="{% trans "Search" %}" />
-                <!--<div id="results_block"><span class="nb_results">{{ members.count }}</span> <span class="label_results">{% trans "Results" %}</span></div>-->
-            </div>
-        </div>
-    </form>
+    {% include search_form_template %}
 </div>
-{% endif %}
+
+
 
 
 <div id="members_top"></div>
@@ -98,10 +50,12 @@
             {% if m.located %}
                 {% for l in m.located.all %}
                     {% if l.location %}
-                        tab_markers.push(new L.LatLng({{ l.location.point.y|unlocalize }}, {{ l.location.point.x|unlocalize }}))
-                        L.marker([{{ l.location.point.y|unlocalize }}, {{ l.location.point.x|unlocalize }}]).addTo(map)
-                                .bindPopup("{{ m.title|safe }}<br/><a href=\"{{ base_url }}p/{{ m.pk }}\">{% trans "Read more" %}</a>")
-                                .openPopup();
+                        {% if l.location.point %}
+                            tab_markers.push(new L.LatLng({{ l.location.point.y|unlocalize }}, {{ l.location.point.x|unlocalize }}))
+                            L.marker([{{ l.location.point.y|unlocalize }}, {{ l.location.point.x|unlocalize }}]).addTo(map)
+                                    .bindPopup("{{ m.title|safe }}<br/><a href=\"{{ base_url }}p/{{ m.pk }}\">{% trans "Read more" %}</a>")
+                                    .openPopup();
+                        {% endif %}
                     {% endif %}
                 {% endfor %}
             {% endif %}
@@ -117,5 +71,18 @@
 
 </div>
 
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#id_location").autocomplete({
+            source: {{ available_locations|safe }},
+            select: function(e, ui) {
+                e.preventDefault() // <--- Prevent the value from being inserted.
+                $("#id_location_id").val(ui.item.value);
+
+                $(this).val(ui.item.label);
+            }
+        });
+    });
+</script>
 
 
