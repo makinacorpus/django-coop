@@ -139,8 +139,16 @@ def detail_view(request, page_app, pk):
     member = get_object_or_404(Organization, pk=pk)
     imgs = member.document_set.filter(type__name='Galerie')
     docs = member.document_set.exclude(type__name='Galerie')
+    
+    # check if openings
+    openings = False
+    for l in member.located.all():
+        if l.opening:
+            openings = True
+
+    
     return render_view('page_members/detail.html',
-                       { 'member':  member, 'imgs': imgs, 'docs': docs, 'media_path': settings.MEDIA_URL , 'base_url': base_url, 'can_edit': can_edit},
+                       { 'member':  member, 'imgs': imgs, 'docs': docs, 'media_path': settings.MEDIA_URL , 'base_url': base_url, 'can_edit': can_edit, 'openings': openings},
                        MEDIAS,
                        context_instance=RequestContext(request))
                        
