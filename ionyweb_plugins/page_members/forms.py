@@ -15,13 +15,18 @@ from coop.org.admin import OrganizationAdminForm, RelationInline
 from coop.base_models import ActivityNomenclature, TransverseTheme
 from coop_local.models import Relation, Location, Document
 from coop.base_models import Located
+from coop_geo.widgets import LocationPointWidget
+
 from django.db.models.loading import get_model
+
+from django.contrib.gis.db import models as gismodels
 
 from chosen import widgets as chosenwidgets
 
 import floppyforms as forms
 import models
 
+from django.conf import settings
 
 
 
@@ -59,12 +64,20 @@ class CustomLocatedForm(forms.ModelForm):
     address = forms.CharField(required=False, label=_('Address'))
     city = forms.CharField(required=False, label=_('City'))
     zipcode = forms.CharField(required=False, label=_('Zipcode'))
+    #point = forms.CharField(required=False)
+    #point = gismodels.PointField(verbose_name=_(u"point"), blank=True, null=True,
+                              #srid=settings.COOP_GEO_EPSG_PROJECTION)
     
     class Meta:
         model = Located
 
         fields = ('label', 'address', 'city', 'zipcode', 'opening', 'main_location')
 
+        #widgets = {
+            #'point': LocationPointWidget(),
+        #}
+        
+        
     def __init__(self, *args, **kwargs):
         super(CustomLocatedForm, self).__init__(*args, **kwargs)
         
