@@ -56,6 +56,7 @@ class PartialMemberForm(OrganizationAdminForm):
 
 
 class CustomLocatedForm(forms.ModelForm):
+    label = forms.CharField(required=False, label=_('Label'))
     address = forms.CharField(required=False, label=_('Address'))
     city = forms.CharField(required=False, label=_('City'))
     zipcode = forms.CharField(required=False, label=_('Zipcode'))
@@ -63,7 +64,7 @@ class CustomLocatedForm(forms.ModelForm):
     class Meta:
         model = Located
 
-        fields = ('address', 'city', 'zipcode', 'opening', 'main_location')
+        fields = ('label', 'address', 'city', 'zipcode', 'opening', 'main_location')
 
     def __init__(self, *args, **kwargs):
         super(CustomLocatedForm, self).__init__(*args, **kwargs)
@@ -75,6 +76,7 @@ class CustomLocatedForm(forms.ModelForm):
             location = None
 
         if location :
+            self.fields['label'].initial = location.label
             self.fields['address'].initial = location.adr1
             self.fields['city'].initial = location.city
             self.fields['zipcode'].initial = location.zipcode
@@ -87,17 +89,18 @@ class CustomLocatedForm(forms.ModelForm):
         located = super(CustomLocatedForm, self).save(commit=False)
         
         if self.cleaned_data:
-
             location = self.instance.location
             if location == None:
                 location = Location()
 
+            location.label = self.cleaned_data['label']
             location.adr1 = self.cleaned_data['address']
             location.zipcode = self.cleaned_data['zipcode']
             location.city = self.cleaned_data['city']
-            located.location = location      
             if commit:
                 location.save()
+      
+            located.location = location            
       
         if commit:
             located.save()
