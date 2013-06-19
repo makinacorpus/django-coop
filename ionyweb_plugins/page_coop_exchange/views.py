@@ -30,7 +30,7 @@ MEDIAS = (
 )
 
 def index_view(request, page_app):
-    rdict = filter_data(request, page_app)
+    rdict = filter_data(request, page_app, "list")
     return render_view('page_coop_exchange/index.html',
                        rdict,
                        MEDIAS,
@@ -38,14 +38,14 @@ def index_view(request, page_app):
 
 
 def carto_view(request, page_app):
-    rdict = filter_data(request, page_app)    
+    rdict = filter_data(request, page_app, "carto")    
     return render_view('page_coop_exchange/index_carto.html',
                         rdict,
                         MEDIAS,
                         context_instance=RequestContext(request)) 
 
 
-def filter_data(request, page_app):
+def filter_data(request, page_app, mode):
     base_url = u'%s' % (page_app.get_absolute_url())
 
     exchanges = Exchange.objects.all()
@@ -106,7 +106,7 @@ def filter_data(request, page_app):
     # Get available locations for autocomplete
     available_locations = dumps([{'label':area.label, 'value':area.pk} for area in Area.objects.all().order_by('label')])
     
-    rdict = {'exchanges': exchanges, 'base_url': base_url, 'form': form, 'center': center_map, 'more_criteria': more_criteria, 'available_locations': available_locations, "search_form_template": search_form_template}
+    rdict = {'exchanges': exchanges, 'base_url': base_url, 'form': form, 'center': center_map, 'more_criteria': more_criteria, 'available_locations': available_locations, "search_form_template": search_form_template, "mode": mode}
     
     return rdict
                        

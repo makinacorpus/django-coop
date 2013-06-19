@@ -22,7 +22,7 @@
 <div id="result_exchanges">
 
 <div class="exchanges_pagination_top pagination_top">
-    <div class="carto"><a href="{{ base_url }}">{% trans "List" %}</a></div>
+    <div class="carto"><a href="javascript:submitForm('{{ base_url }}')">{% trans "List" %}</a></div>
 </div>
 
 
@@ -69,3 +69,10 @@
 
 
 
+<script type="text/javascript">
+    function submitForm(url) {
+        document.forms["search_form"].action = url;
+        document.forms["search_form"].submit();
+    }
+
+</script>
