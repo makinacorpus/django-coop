@@ -3,7 +3,7 @@
 from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
 
-from coop_local.models import Organization, Offer, Document, Reference, Relation, Engagement, Person, Contact
+from coop_local.models import Organization, Offer, Document, Reference, Relation, Engagement, Person, Contact, ActivityNomenclature
 
 from django.conf import settings
 
@@ -104,22 +104,23 @@ def filter_data(request, page_app, mode):
             if form.cleaned_data['thematic'] or form.cleaned_data['thematic2']:
                 organizations = organizations.filter(Q(transverse_themes=form.cleaned_data['thematic']) | Q(transverse_themes=form.cleaned_data['thematic2']))
 
-            if form.cleaned_data['activity'] or form.cleaned_data['activity2']:
+            if form.cleaned_data['activity'] and form.cleaned_data['activity2']:
                 activity = form.cleaned_data['activity']
                 activity2 = form.cleaned_data['activity2']
                 
-                #TODO !!
-                #print activity
-                #print Organization.objects.filter(activity__parent=activity)
-                #for o in Organization.objects.all():
-                    #print o.activity
-                    #if o.activity:
-                        #print "Parent: %s" % (o.activity.parent)
-                        #if o.activity.parent:
-                            #print o.activity.parent.parent
-                            
-                organizations = organizations.filter(Q(activity=activity) | Q(activity=activity2)
-                                        | Q(activity__parent=activity) | Q(activity__parent=activity2))
+                tab_keep = get_list_org_to_keep(organizations, activity)
+                tab_keep2 = get_list_org_to_keep(organizations, activity2)
+                organizations = organizations.filter(Q(pk__in=tab_keep) | Q(pk__in=tab_keep2) )
+            else:
+                if form.cleaned_data['activity']:
+                    activity = form.cleaned_data['activity']                    
+                    tab_keep = get_list_org_to_keep(organizations, activity)
+                    organizations = organizations.filter(pk__in=tab_keep)
+                else:
+                    if form.cleaned_data['activity2']:
+                        activity = form.cleaned_data['activity2']                    
+                        tab_keep = get_list_org_to_keep(organizations, activity)
+                        organizations = organizations.filter(pk__in=tab_keep)
 
             if form.cleaned_data['statut'] and form.cleaned_data['statut2']:
                 organizations = organizations.filter(Q(legal_status=form.cleaned_data['statut']) | Q(legal_status=form.cleaned_data['statut2']))
@@ -129,7 +130,7 @@ def filter_data(request, page_app, mode):
                 else:
                     if form.cleaned_data['statut2']:
                         organizations = organizations.filter(Q(legal_status=form.cleaned_data['statut2']))
-            
+                
     else:
         form = PageApp_MembersForm(initial={'location_buffer': '10'}) # An empty form
     
@@ -140,7 +141,22 @@ def filter_data(request, page_app, mode):
     rdict = {'object': page_app, 'members': organizations, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'direct_link': direct_link, 'search_form': search_form, 'form' : form, 'center': center_map, 'available_locations': available_locations, 'search_form_template': search_form_template, 'can_edit': can_edit, 'mode': mode}
 
     return rdict
+
     
+def get_list_org_to_keep(organizations, activity):    
+    tab_keep = []
+    for org in organizations:
+        for o in org.offer_set.all():
+            parent = get_parent_activity_leve_0(o.activity)
+            if parent == activity.label:
+                tab_keep.append(org.pk)
+    return tab_keep
+    
+def get_parent_activity_leve_0(activity):
+    if activity.parent:
+        return get_parent_activity_leve_0(activity.parent)
+    else:
+        return activity.label
     
 def detail_view(request, page_app, pk):
     # check rights    
