@@ -15,7 +15,7 @@ from coop.org.admin import OrganizationAdminForm, RelationInline
 from coop.base_models import ActivityNomenclature, TransverseTheme
 from coop_local.models import Relation, Location, Document
 from coop.base_models import Located
-from coop_geo.widgets import LocationPointWidget
+from coop_geo.widgets import LocationPointWidget, ChooseLocationWidget
 
 from django.db.models.loading import get_model
 
@@ -64,23 +64,25 @@ class CustomLocatedForm(forms.ModelForm):
     address = forms.CharField(required=False, label=_('Address'))
     city = forms.CharField(required=False, label=_('City'))
     zipcode = forms.CharField(required=False, label=_('Zipcode'))
-    #point = forms.CharField(required=False)
-    #point = gismodels.PointField(verbose_name=_(u"point"), blank=True, null=True,
-                              #srid=settings.COOP_GEO_EPSG_PROJECTION)
+    point = forms.gis.PointField(required=False, label=_('Point'), widget=forms.gis.BaseOsmWidget(attrs={'map_width': 300,'map_height': 300}), null=True,srid=settings.COOP_GEO_EPSG_PROJECTION)
+    #point = forms.gis.PointField(label=_('Point'), widget=LocationPointWidget, null=True,srid=settings.COOP_GEO_EPSG_PROJECTION)
+    #point = forms.gis.PointField(label=_('Point'), null=True,srid=settings.COOP_GEO_EPSG_PROJECTION)
+    #point = forms.gis.PointField(required=False, label=_('Point'), widget=LocationPointWidget(attrs={'map_width': 300,'map_height': 300}), null=True,srid=settings.COOP_GEO_EPSG_PROJECTION)
+    # LocationPointWidget does not seem to work in formset due to numbers in JS variables
+    
     
     class Meta:
         model = Located
 
-        fields = ('label', 'address', 'city', 'zipcode', 'opening', 'main_location')
+        fields = ('label', 'address', 'city', 'zipcode', 'point', 'opening', 'main_location')
 
         #widgets = {
-            #'point': LocationPointWidget(),
+            #'point': ChooseLocationWidget(),
         #}
         
         
     def __init__(self, *args, **kwargs):
         super(CustomLocatedForm, self).__init__(*args, **kwargs)
-        
         
         try:
             location = self.instance.location
@@ -92,6 +94,7 @@ class CustomLocatedForm(forms.ModelForm):
             self.fields['address'].initial = location.adr1
             self.fields['city'].initial = location.city
             self.fields['zipcode'].initial = location.zipcode
+            self.fields['point'].initial = location.point
         
     def clean(self):
         cleaned_data = self.cleaned_data
@@ -109,6 +112,7 @@ class CustomLocatedForm(forms.ModelForm):
             location.adr1 = self.cleaned_data['address']
             location.zipcode = self.cleaned_data['zipcode']
             location.city = self.cleaned_data['city']
+            location.point = self.cleaned_data['point']
             if commit:
                 location.save()
       

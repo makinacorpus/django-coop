@@ -5,10 +5,16 @@
 
 <script type="text/javascript" src="{{ STATIC_URL }}tagger/js/jquery.autoSuggest.minified.js"></script>
 
+<link href="{{ STATIC_URL }}css/openlayers.css" type="text/css" media="all" rel="stylesheet" />
+
+
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/OpenLayers.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/gis/OpenStreetMap.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/MapWidget.js"></script>
+
 
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}admintools_bootstrap/css/custom-theme/jquery-ui-1.8.16.custom.css" />
-
-
 
 <div id="members_top"></div>
 <div id="members" class="add_form">
@@ -267,10 +273,10 @@
 
 
 
-            <div class="fieldWrapper">
+<!--            <div class="fieldWrapper">
                 {{ form.status.errors  }}
                 {{ form.status.label_tag }}: {{ form.status }}
-            </div>
+            </div>-->
 
 
                           
