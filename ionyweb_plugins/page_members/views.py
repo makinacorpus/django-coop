@@ -86,7 +86,6 @@ def filter_data(request, page_app, mode):
                 label = form.cleaned_data['location']
                 pk = form.cleaned_data['location_id']
                 
-                print pk
                 try:
                     area = Area.objects.get(pk=pk)
                 except Area.DoesNotExist:
@@ -122,9 +121,14 @@ def filter_data(request, page_app, mode):
                 organizations = organizations.filter(Q(activity=activity) | Q(activity=activity2)
                                         | Q(activity__parent=activity) | Q(activity__parent=activity2))
 
-                
             if form.cleaned_data['statut'] and form.cleaned_data['statut2']:
                 organizations = organizations.filter(Q(legal_status=form.cleaned_data['statut']) | Q(legal_status=form.cleaned_data['statut2']))
+            else:
+                if form.cleaned_data['statut']:
+                    organizations = organizations.filter(Q(legal_status=form.cleaned_data['statut']))
+                else:
+                    if form.cleaned_data['statut2']:
+                        organizations = organizations.filter(Q(legal_status=form.cleaned_data['statut2']))
             
     else:
         form = PageApp_MembersForm(initial={'location_buffer': '10'}) # An empty form
