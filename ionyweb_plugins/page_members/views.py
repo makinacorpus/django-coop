@@ -93,6 +93,8 @@ def filter_data(request, page_app, mode):
     
                 if area :
                     radius = form.cleaned_data['location_buffer']
+                    if not radius:
+                        radius = 0
                     distance_degrees = (360 * radius) / (pi * 6378)
                     zone = area.polygon.buffer(distance_degrees)
                     # Get the possible location in the buffer...
