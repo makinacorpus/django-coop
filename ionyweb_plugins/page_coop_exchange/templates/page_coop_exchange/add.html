@@ -2,7 +2,10 @@
 
 {% block extra_head %}
     <link rel="stylesheet" href="http://leaflet.cloudmade.com/dist/leaflet.css" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}admintools_bootstrap/css/custom-theme/jquery-ui-1.8.16.custom.css" />
 {% endblock %}
+
+
 
 <div id="exchanges_top"></div>
 <div id="result_exchanges" class="add_form">
@@ -13,41 +16,13 @@
         <h2 class="maj_title">{% trans "Modify exchange" %}</h2>
     {% endif %}
 
-    <form action="{{ base_url }}" method="post" class="add_form">{% csrf_token %}
+    <form action="{{ base_url }}" method="post" class="add_form" enctype="multipart/form-data">{% csrf_token %}
 
         <div class="bg_form">
-
-            <div class="fieldWrapper">
-                {{ form.eway.errors }}
-                {{ form.eway.label_tag }}: {{ form.eway }}
-            </div>
-
-            <!--<div class="fieldWrapper">
-                {{ form.date_validity.errors }}
-                {{ form.date_validity.label_tag }}: {{ form.date_validity }}
-            </div>-->
-            
-            <div class="fieldWrapper">
-                {{ form.organization.errors }}
-                {{ form.organization.label_tag }}: {{ form.organization }}
-            </div>        
-            
-            <div class="fieldWrapper">
-                {{ form.person.errors }}
-                {{ form.person.label_tag }}: {{ form.person }}
-            </div>        
-            
             <div class="fieldWrapper">
                 {{ form.title.errors }}
                 {{ form.title.label_tag }}: {{ form.title }}
             </div>          
-            
-            <div class="fieldWrapper">
-                {{ form.etype.errors }}
-                {{ form.etype.label_tag }}: {{ form.etype }}
-            </div>          
-            
-
 
             <div class="fieldWrapper">
                 {{ form.expiration.errors }}
@@ -55,19 +30,54 @@
             </div>   
 
             <div class="fieldWrapper">
+                {{ form.organization.errors }}
+                {{ form.organization.label_tag }}: {{ form.organization }}
+            </div>        
+            
+            <div class="fieldWrapper">
+                {{ form.img.errors }}
+                {{ form.img.label_tag }}: {{ form.img }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.eway.errors }}
+                {{ form.eway.label_tag }}: {{ form.eway }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.etype.errors }}
+                {{ form.etype.label_tag }}: {{ form.etype }}
+            </div>          
+
+
+<!-- TODO: modalites de l echange -->
+
+            <div class="fieldWrapper">
                 {{ form.location.errors }}
                 {{ form.location.label_tag }}: {{ form.location }}
             </div>   
+
+<!-- TODO: email de reponse a l annonce -->
 
             <div class="fieldWrapper">
                 {{ form.description.errors }}
                 {{ form.description.label_tag }}: {{ form.description }}
             </div>   
-            
+
+<!-- TODO: adresse preferee, code postal, ville -->
+
             <div class="fieldWrapper">
-                {{ form.transverse_themes.errors }}
-                {{ form.transverse_themes.label_tag }}: {{ form.transverse_themes }}
-            </div>   
+                {{ form.person.errors }}
+                {{ form.person.label_tag }}: {{ form.person }}
+            </div>        
+
+
+<!-- TODO tel prefere-->
+<!-- TODO email prefere-->
+<!-- TODO site web -->
+<!-- TODO site associe -->
+<!-- TODO docs associes -->
+<!-- TODO evenements lies a cette annonce -->
             
             <div class="fieldWrapper">
                 {{ form.activity.errors }}
@@ -75,11 +85,17 @@
             </div>   
             
             <div class="fieldWrapper">
+                {{ form.transverse_themes.errors }}
+                {{ form.transverse_themes.label_tag }}: {{ form.transverse_themes }}
+            </div>   
+            
+            
+            <div class="fieldWrapper">
                 {{ form.tags.errors }}
                 {{ form.tags.label_tag }}: {{ form.tags }}
             </div>   
 
-
+<!-- TODO plus value solidaire -->
 
             {{ form.errors }}
         </div>
@@ -118,9 +134,6 @@
             yearSuffix: ''};
         $.datepicker.setDefaults($.datepicker.regional['fr']);
 
-        $('#id_date_creation').datepicker({dateFormat: 'yy-mm-dd', constrainInput: false});
-        $('#id_date_validity').datepicker({dateFormat: 'yy-mm-dd', constrainInput: false});
-        $('#id_date_start').datepicker({dateFormat: 'yy-mm-dd', constrainInput: false});
-        $('#id_date_end').datepicker({dateFormat: 'yy-mm-dd', constrainInput: false});
+        $('#id_expiration').datepicker({dateFormat: 'yy-mm-dd', constrainInput: false});
     });
 </script>

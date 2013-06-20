@@ -11,6 +11,7 @@ from coop.utils.fields import MultiSelectField
 from django.contrib.contenttypes import generic
 import datetime
 import rdflib
+from sorl.thumbnail import ImageField
 
 # if "coop_geo" in settings.INSTALLED_APPS:
 #     from coop_local.models import Area, Location
@@ -115,6 +116,8 @@ class BaseExchange(URIModel):
     transverse_themes = models.ManyToManyField('coop_local.TransverseTheme',
         verbose_name=_(u'transverse themes'), blank=True, null=True)
 
+    img = ImageField(upload_to='exchanges_img/', null=True, blank=True)        
+        
     if "coop.agenda" in settings.INSTALLED_APPS:
         dated = generic.GenericRelation('coop_local.Dated')
 

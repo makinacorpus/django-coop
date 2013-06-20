@@ -106,7 +106,7 @@ def filter_data(request, page_app, mode):
     # Get available locations for autocomplete
     available_locations = dumps([{'label':area.label, 'value':area.pk} for area in Area.objects.all().order_by('label')])
     
-    rdict = {'exchanges': exchanges, 'base_url': base_url, 'form': form, 'center': center_map, 'more_criteria': more_criteria, 'available_locations': available_locations, "search_form_template": search_form_template, "mode": mode}
+    rdict = {'exchanges': exchanges, 'base_url': base_url, 'form': form, 'center': center_map, 'more_criteria': more_criteria, 'available_locations': available_locations, "search_form_template": search_form_template, "mode": mode, 'media_path': settings.MEDIA_URL}
     
     return rdict
                        
@@ -114,7 +114,7 @@ def filter_data(request, page_app, mode):
 def detail_view(request, page_app, pk):
     e = get_object_or_404(Exchange, pk=pk)
     base_url = u'%sp/' % (page_app.get_absolute_url())
-    rdict = {'object': page_app, 'e': e, 'media_path': settings.MEDIA_URL, 'base_url': base_url}
+    rdict = {'object': page_app, 'e': e, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'media_path': settings.MEDIA_URL}
     return render_view('page_coop_exchange/detail.html',
                        rdict,
                        MEDIAS,
@@ -141,12 +141,12 @@ def add_view(request, page_app, exchange_id=None):
         
         if request.method == 'POST': # If the form has been submitted        
             #exchange = Exchange()
-            form = PartialExchangeForm(request.POST, instance = exchange)
+            form = PartialExchangeForm(request.POST, request.FILES, instance = exchange)
             
             if form.is_valid():
                 exchange = form.save()
                 base_url = u'%s' % (page_app.get_absolute_url())
-                rdict = {'base_url': base_url}
+                rdict = {'base_url': base_url, 'exchange_id': exchange.id}
                 return render_view('page_coop_exchange/add_success.html',
                                 rdict,
                                 MEDIAS,
