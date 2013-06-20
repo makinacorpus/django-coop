@@ -109,12 +109,10 @@ class BaseEvent(URIModel):
     transverse_themes = models.ManyToManyField('coop_local.TransverseTheme',
         verbose_name=_(u'transverse themes'), blank=True, null=True)
     
-    #TODO: add image galery
-    #TODO: add attached documents
+    document_set = generic.GenericRelation('coop_local.Document')
     
     #TODO attached articles
     #TODO attached exchanges
-    
     #TODO add comments
     
     person = models.ForeignKey('coop_local.Person', null=True, blank=True, verbose_name=_('author'), on_delete=models.PROTECT)

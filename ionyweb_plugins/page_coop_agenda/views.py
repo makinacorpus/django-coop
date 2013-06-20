@@ -3,7 +3,7 @@
 from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
 
-from coop_local.models import Event, EventCategory, Calendar, Occurrence
+from coop_local.models import Event, EventCategory, Calendar, Occurrence, Document
 from django.conf import settings
 
 from django.shortcuts import get_object_or_404
@@ -11,13 +11,17 @@ from django.shortcuts import get_object_or_404
 from ionyweb.website.rendering.medias import CSSMedia
 from datetime import datetime
 
-from .forms import PageApp_CoopAgendaForm, PartialEventForm, PartialOccEventForm
+from .forms import PageApp_CoopAgendaForm, PartialEventForm, PartialOccEventForm, DocumentForm
+from django.contrib.contenttypes.generic import generic_inlineformset_factory
+from django.forms.models import inlineformset_factory, formset_factory
 
 from django.db.models import Q
 
 from django.contrib.gis import geos
 from django.contrib.gis.measure import D
 from coop_local.models import Location, Area
+from coop.base_models import Located
+
 from django.utils.simplejson import dumps
 
 from math import pi
@@ -136,7 +140,9 @@ def filter_data(request, page_app, mode):
 def detail_view(request, page_app, pk):
     event = get_object_or_404(Event, pk=pk)
     base_url = u'%sp/' % (page_app.get_absolute_url())
-    rdict = {'object': page_app, 'e': event, 'media_path': settings.MEDIA_URL, 'base_url': base_url}
+    imgs = event.document_set.filter(type__name='Galerie')
+    docs = event.document_set.exclude(type__name='Galerie')
+    rdict = {'object': page_app, 'e': event, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'imgs': imgs, 'docs': docs}
     return render_view('page_coop_agenda/detail.html',
                        rdict,
                        MEDIAS,
@@ -150,6 +156,7 @@ def add_view(request, page_app, event_id=None):
     
     if request.user.is_authenticated():
         center_map = settings.COOP_MAP_DEFAULT_CENTER
+        DocFormSet = generic_inlineformset_factory(Document, form=DocumentForm, extra=1)
 
         if event_id:
             # update
@@ -167,14 +174,16 @@ def add_view(request, page_app, event_id=None):
         if request.method == 'POST':
             
             event_form = event_form_class(request.POST, request.FILES, instance = event)
+            docFormset = DocFormSet(request.POST, request.FILES, prefix='doc', instance=event)
             occ_form = occ_form_class(request.POST, instance = occ)
-            if event_form.is_valid() and occ_form.is_valid():
+            if event_form.is_valid() and occ_form.is_valid() and docFormset.is_valid():
                 event = event_form.save()
+                docFormset.save()
                 occ.event_id = event.pk
                 occ = occ_form.save(event)
                 
                 base_url = u'%s' % (page_app.get_absolute_url())
-                rdict = {'base_url': base_url}
+                rdict = {'base_url': base_url, 'event_id': event_id}
                 return render_view('page_coop_agenda/add_success.html',
                                 rdict,
                                 MEDIAS,
@@ -183,8 +192,9 @@ def add_view(request, page_app, event_id=None):
         else:
             event_form = event_form_class(instance = event)
             occ_form = occ_form_class(instance = occ)
+            docFormset = DocFormSet(prefix='doc', instance=event)
         
-        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': event_form, 'occ_form': occ_form, 'center': center_map, 'mode': mode}
+        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': event_form, 'doc_form': docFormset, 'occ_form': occ_form, 'center': center_map, 'mode': mode}
         return render_view('page_coop_agenda/add.html',
                         rdict,
                         MEDIAS,

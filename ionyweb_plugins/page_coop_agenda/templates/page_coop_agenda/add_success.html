@@ -10,7 +10,10 @@
             <h1>{% trans "Modify event" %}</h1>
             <p>{% trans "Event modified. You may now consult it in the list" %}<p>
         {% endif %}
-        <a href="{{ base_url }}">{% trans "Event list" %}</a>
+        <a href="{{ base_url }}p/{{ event_id }}" class="agenda_link">{% trans "See the detail" %}</a> - <a href="{{ base_url }}" class="agenda_link">{% trans "Event list" %}</a>
     </div>
 </div>
+
+
+
 

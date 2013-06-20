@@ -4,6 +4,14 @@
     <link rel="stylesheet" href="http://leaflet.cloudmade.com/dist/leaflet.css" />
 {% endblock %}
 
+<script type="text/javascript" src="{{ STATIC_URL }}themes/pes_auvergne/default/js/forms_utils.js"></script>
+
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/OpenLayers.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/gis/OpenStreetMap.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/MapWidget.js"></script>
+
+
 <div id="agenda_top"></div>
 <div id="coop_agenda" class="add_form">
     
@@ -42,14 +50,6 @@
                 {{ form.description.label_tag }}: {{ form.description }}
             </div>
 
-<!--            <div class="fieldWrapper">
-                {{ form.date.errors }}
-                {{ form.date.label_tag }}: {{ form.date }}
-            </div>-->
-            <!-- TODO: hours             -->
-
-
-
             <div class="fieldWrapper">
                 {{ occ_form.start_time.errors }}
                 {{ occ_form.start_time.label_tag }}: {{ occ_form.start_time }}
@@ -59,27 +59,48 @@
                 {{ occ_form.end_time.label_tag }}: {{ occ_form.end_time }}
             </div>
 
+            <h3 class="title_formset">{% trans "Locations" %}</h3>
+            <div id="label" class="fieldWrapper">
+                {{ form.label.errors }}
+                {{ form.label.label_tag }}: {{ form.label }}
+            </div>
+            <div id="address" class="fieldWrapper">
+                {{ form.address.errors }}
+                {{ form.address.label_tag }}: {{ form.address }}
+            </div>
+            <div id="city" class="fieldWrapper">
+                {{ form.city.errors }}
+                {{ form.city.label_tag }}: {{ form.city }}
+            </div>
+            <div id="zipcode" class="fieldWrapper">
+                {{ form.zipcode.errors }}
+                {{ form.zipcode.label_tag }}: {{ form.zipcode }}
+            </div>
+            <div id="point" class="fieldWrapper">
+                {{ form.point.errors }}
+                {{ form.point.label_tag }}: {{ form.point }}
+            </div>
 
-
-<!--             {{ occ_form.repeats.label_tag }} -->
-
-
-            <!-- TODO: content            -->
-
-            <!-- TODO: address            -->
-
-            <!-- TODO: town            -->
-
-            <!-- TODO: postal code            -->
 
             <div class="fieldWrapper">
                 {{ form.category.errors }}
                 {{ form.category.label_tag }}: {{ form.category }}
             </div>
 
-            <!-- TODO: doc attached           -->
+            <!-- Doc associés -->
+            <h3 class="title_formset">{% trans "Documents" %}</h3>
+            <div id="docs" class="fieldWrapper formset">
+                {{ doc_form.management_form }}
+                {% for d in doc_form.forms %}
+                    <div class='table_formset table_doc'>
+                        <table class='no_error'>
+                            {{ d.as_table }}
+                        </table>
+                    </div>
+                {% endfor %}
+                <input type="button" value="{% trans 'Add More' %}" id="add_more_doc">
+            </div>
 
-            <!-- TODO: img attached           -->
 
             <!-- TODO: partners           -->
 
@@ -168,5 +189,14 @@
         $('#id_date_validity').datepicker({dateFormat: 'yy-mm-dd', constrainInput: false});
         $('#id_date_start').datepicker({dateFormat: 'yy-mm-dd', constrainInput: false});
         $('#id_date_end').datepicker({dateFormat: 'yy-mm-dd', constrainInput: false});
+
+        $('#add_more_doc').click(function() {
+            cloneMore('div.table_doc:last', 'doc');
+        });
+
+        $('#add_more_located').click(function() {
+            cloneMore('div.table_located:last', 'located');
+        });
+
     });
 </script>
