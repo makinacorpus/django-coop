@@ -167,6 +167,8 @@ def detail_view(request, page_app, pk):
     imgs = member.document_set.filter(type__name='Galerie')
     docs = member.document_set.exclude(type__name='Galerie')
     
+    relationship_queryset = Relation.objects.filter(source=member)
+    
     # check if openings
     openings = False
     for l in member.located.all():
@@ -175,7 +177,7 @@ def detail_view(request, page_app, pk):
 
     
     return render_view('page_members/detail.html',
-                       { 'member':  member, 'imgs': imgs, 'docs': docs, 'media_path': settings.MEDIA_URL , 'base_url': base_url, 'can_edit': can_edit, 'openings': openings},
+                       { 'member':  member, 'imgs': imgs, 'docs': docs, 'media_path': settings.MEDIA_URL , 'base_url': base_url, 'can_edit': can_edit, 'openings': openings, 'relationship_queryset': relationship_queryset},
                        MEDIAS,
                        context_instance=RequestContext(request))
                        
