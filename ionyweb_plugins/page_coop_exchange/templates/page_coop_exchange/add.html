@@ -5,6 +5,7 @@
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}admintools_bootstrap/css/custom-theme/jquery-ui-1.8.16.custom.css" />
 {% endblock %}
 
+<script type="text/javascript" src="{{ STATIC_URL }}themes/pes_auvergne/default/js/forms_utils.js"></script>
 
 
 <div id="exchanges_top"></div>
@@ -49,8 +50,10 @@
                 {{ form.etype.label_tag }}: {{ form.etype }}
             </div>          
 
-
-<!-- TODO: modalites de l echange -->
+            <div class="fieldWrapper">
+                {{ form.methods.errors }}
+                {{ form.methods.label_tag }}: {{ form.methods }}
+            </div>   
 
             <div class="fieldWrapper">
                 {{ form.location.errors }}
@@ -76,7 +79,22 @@
 <!-- TODO email prefere-->
 <!-- TODO site web -->
 <!-- TODO site associe -->
-<!-- TODO docs associes -->
+
+            <!-- Doc associés -->
+            <h3 class="title_formset">{% trans "Documents" %}</h3>
+            <div id="docs" class="fieldWrapper formset">
+                {{ doc_form.management_form }}
+                {% for d in doc_form.forms %}
+                    <div class='table_formset table_doc'>
+                        <table class='no_error'>
+                            {{ d.as_table }}
+                        </table>
+                    </div>
+                {% endfor %}
+                <input type="button" value="{% trans 'Add More' %}" id="add_more_doc">
+            </div>
+
+
 <!-- TODO evenements lies a cette annonce -->
             
             <div class="fieldWrapper">
@@ -135,5 +153,9 @@
         $.datepicker.setDefaults($.datepicker.regional['fr']);
 
         $('#id_expiration').datepicker({dateFormat: 'yy-mm-dd', constrainInput: false});
+
+        $('#add_more_doc').click(function() {
+            cloneMore('div.table_doc:last', 'doc');
+        });
     });
 </script>

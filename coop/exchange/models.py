@@ -118,6 +118,8 @@ class BaseExchange(URIModel):
 
     img = ImageField(upload_to='exchanges_img/', null=True, blank=True)        
         
+    document_set = generic.GenericRelation('coop_local.Document')
+        
     if "coop.agenda" in settings.INSTALLED_APPS:
         dated = generic.GenericRelation('coop_local.Dated')
 

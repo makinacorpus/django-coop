@@ -8,10 +8,9 @@ from .models import PageApp_CoopExchange
 from coop.exchange.models import ETYPE
 from coop.exchange.models import EWAY
 from coop.exchange.admin import ExchangeForm
-from coop_local.models import Exchange
+from coop_local.models import Exchange, Document
 from coop_local.widgets import CustomCheckboxSelectMultiple
 from coop.base_models import ActivityNomenclature, TransverseTheme
-
 from extended_choices import Choices
 
 
@@ -69,4 +68,10 @@ class PartialExchangeForm(ExchangeForm):
     class Meta:
         model = Exchange
         exclude = ('products', 'sites', )
-        
+
+class DocumentForm(forms.ModelForm):
+    class Meta:
+        model = Document
+        widgets = {
+            'description': forms.Textarea(attrs={'rows': 3}),
+        }        

@@ -13,16 +13,16 @@ from django.shortcuts import get_object_or_404
 from ionyweb.website.rendering.medias import CSSMedia
 from datetime import datetime
 
-from .forms import PageApp_CoopExchangeForm, PartialExchangeForm
+from .forms import PageApp_CoopExchangeForm, PartialExchangeForm, DocumentForm
 
 from django.db.models import Q
 
 from django.contrib.gis import geos
-from coop_local.models import Location, Area
+from coop_local.models import Location, Area, Document
 from math import pi
 from django.utils.simplejson import dumps
 
-
+from django.contrib.contenttypes.generic import generic_inlineformset_factory
 from coop.exchange.admin import ExchangeForm
 
 MEDIAS = (
@@ -114,7 +114,9 @@ def filter_data(request, page_app, mode):
 def detail_view(request, page_app, pk):
     e = get_object_or_404(Exchange, pk=pk)
     base_url = u'%sp/' % (page_app.get_absolute_url())
-    rdict = {'object': page_app, 'e': e, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'media_path': settings.MEDIA_URL}
+    imgs = e.document_set.filter(type__name='Galerie')
+    docs = e.document_set.exclude(type__name='Galerie')    
+    rdict = {'object': page_app, 'e': e, 'media_path': settings.MEDIA_URL,'imgs': imgs, 'docs': docs, 'base_url': base_url, 'media_path': settings.MEDIA_URL}
     return render_view('page_coop_exchange/detail.html',
                        rdict,
                        MEDIAS,
@@ -125,6 +127,7 @@ def add_view(request, page_app, exchange_id=None):
     if request.user.is_authenticated():
         #base_url = u'%sp/exchange_add' % (page_app.get_absolute_url())
         center_map = settings.COOP_MAP_DEFAULT_CENTER
+        DocFormSet = generic_inlineformset_factory(Document, form=DocumentForm, extra=1)
 
         if exchange_id:
             # update
@@ -142,9 +145,11 @@ def add_view(request, page_app, exchange_id=None):
         if request.method == 'POST': # If the form has been submitted        
             #exchange = Exchange()
             form = PartialExchangeForm(request.POST, request.FILES, instance = exchange)
+            docFormset = DocFormSet(request.POST, request.FILES, prefix='doc', instance=exchange)
             
-            if form.is_valid():
+            if form.is_valid() and docFormset.is_valid():
                 exchange = form.save()
+                docFormset.save()
                 base_url = u'%s' % (page_app.get_absolute_url())
                 rdict = {'base_url': base_url, 'exchange_id': exchange.id}
                 return render_view('page_coop_exchange/add_success.html',
@@ -153,8 +158,9 @@ def add_view(request, page_app, exchange_id=None):
                                 context_instance=RequestContext(request))
         else:
             form = PartialExchangeForm(instance=exchange) # An empty form
+            docFormset = DocFormSet(instance=exchange, prefix='doc')
         
-        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form, 'center': center_map, 'mode': mode}
+        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form, 'doc_form': docFormset, 'center': center_map, 'mode': mode}
         return render_view('page_coop_exchange/add.html',
                         rdict,
                         MEDIAS,
