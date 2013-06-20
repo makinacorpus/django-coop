@@ -1,0 +1,12 @@
+{% load i18n %}
+
+<div id="exchanges_top"></div>
+<div id="coop_exchange" class="coop_exchange">
+    <div class="coop_exchange coop_exchange_detail">
+        <h1>{% trans "Modify exchange" %}</h1>
+        <p>{% trans "Error: reply has not been sent. Please refer to an admin. Thank you." %}<p>
+        <a href="{{ base_url }}p/{{ exchange_id }}" class="exchange_link">{% trans "Return to the detail" %}</a> - <a href="{{ base_url }}" class="exchange_link">{% trans "Exchange list" %}</a>
+    </div>
+</div>
+
+

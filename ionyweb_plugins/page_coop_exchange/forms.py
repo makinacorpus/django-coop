@@ -63,6 +63,11 @@ class PageApp_CoopExchangeForm(ModuloModelForm):
     class Meta:
         model = PageApp_CoopExchange
 
+
+class ReplyExchangeForm(forms.Form):
+    title = forms.CharField(required=True, label=_('Title'))
+    email = forms.EmailField(required=True, label=_('Email'))
+    response = forms.CharField(required=True, label=_('Response'), widget=forms.Textarea)
         
 class PartialExchangeForm(ExchangeForm):
     class Meta:

@@ -13,7 +13,7 @@ from django.shortcuts import get_object_or_404
 from ionyweb.website.rendering.medias import CSSMedia
 from datetime import datetime
 
-from .forms import PageApp_CoopExchangeForm, PartialExchangeForm, DocumentForm
+from .forms import PageApp_CoopExchangeForm, PartialExchangeForm, DocumentForm, ReplyExchangeForm
 
 from django.db.models import Q
 
@@ -24,6 +24,8 @@ from django.utils.simplejson import dumps
 
 from django.contrib.contenttypes.generic import generic_inlineformset_factory
 from coop.exchange.admin import ExchangeForm
+
+from django.core.mail import send_mail
 
 MEDIAS = (
     CSSMedia('page_coop_exchange.css'),
@@ -169,4 +171,52 @@ def add_view(request, page_app, exchange_id=None):
         return render_view('page_coop_exchange/forbidden.html')
 
 
-                       
+def reply_view(request, page_app, exchange_id=None):
+    if request.user.is_authenticated():
+        base_url = u'%sp/exchange_reply/%s' % (page_app.get_absolute_url(),exchange_id)
+        if request.method == 'POST': # If the form has been submitted        
+            form = ReplyExchangeForm(request.POST)
+            
+            if form.is_valid():
+                title = form.cleaned_data['title']
+                response = form.cleaned_data['response']
+                email = form.cleaned_data['email']
+                
+                try:
+                    exchange = Exchange.objects.get(pk=exchange_id)
+                except Area.DoesNotExist:
+                    exchange = None
+                
+                send_ok = False
+                if exchange and exchange.organization:
+                    if exchange.organization.pref_email:
+                        try :
+                            # send email
+                            send_mail(title, response, email, [exchange.organization.pref_email.content ], fail_silently=False)
+                            send_ok = True
+                        except:
+                            pass
+                
+                template = "page_coop_exchange/reply_success.html"
+                if not send_ok:
+                    template = "page_coop_exchange/reply_fail.html"
+
+                rdict = {'base_url': base_url, 'exchange_id': exchange.id}
+                return render_view(template,
+                            rdict,
+                            MEDIAS,
+                            context_instance=RequestContext(request))
+                
+        else:
+            form = ReplyExchangeForm() # An empty form
+        
+        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form}
+        return render_view('page_coop_exchange/reply.html',
+                        rdict,
+                        MEDIAS,
+                        context_instance=RequestContext(request))
+    else:
+        return render_view('page_coop_exchange/forbidden.html')
+
+
+                                              

@@ -1,0 +1,46 @@
+{% load i18n %}
+
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}admintools_bootstrap/css/custom-theme/jquery-ui-1.8.16.custom.css" />
+{% endblock %}
+
+
+<div id="exchanges_top"></div>
+<div id="result_exchanges" class="add_form">
+    
+    <h2 class="maj_title">{% trans "Reply to exchange" %}</h2>
+
+    <form action="{{ base_url }}" method="post" class="add_form" enctype="multipart/form-data">{% csrf_token %}
+
+        <div class="bg_form">
+            <div class="fieldWrapper">
+                {{ form.title.errors }}
+                {{ form.title.label_tag }}: {{ form.title }}
+            </div>          
+
+            <div class="fieldWrapper">
+                {{ form.response.errors }}
+                {{ form.response.label_tag }}: {{ form.response }}
+            </div>   
+
+            <div class="fieldWrapper">
+                {{ form.email.errors }}
+                {{ form.email.label_tag }}: {{ form.email }}
+            </div>   
+
+            {{ form.errors }}
+        </div>
+
+        <div class="new_block" id="new_submit">
+            <input type="submit" value="{% trans "Reply" %}" />                
+        </div>
+
+    </form>
+</div>
+
+
+<script type="text/javascript">
+    $(function() {
+
+    });
+</script>
