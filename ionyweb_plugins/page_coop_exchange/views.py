@@ -201,6 +201,7 @@ def reply_view(request, page_app, exchange_id=None):
                 if not send_ok:
                     template = "page_coop_exchange/reply_fail.html"
 
+                base_url = u'%s' % (page_app.get_absolute_url())
                 rdict = {'base_url': base_url, 'exchange_id': exchange.id}
                 return render_view(template,
                             rdict,
