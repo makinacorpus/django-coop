@@ -11,7 +11,7 @@ from django.shortcuts import get_object_or_404
 from ionyweb.website.rendering.medias import CSSMedia
 from datetime import datetime
 
-from .forms import PageApp_CoopAgendaForm, PartialEventForm, PartialOccEventForm, DocumentForm
+from .forms import PageApp_CoopAgendaForm, PartialEventForm, PartialOccEventForm, DocumentForm, ReplyEventForm
 from django.contrib.contenttypes.generic import generic_inlineformset_factory
 from django.forms.models import inlineformset_factory, formset_factory
 
@@ -203,4 +203,51 @@ def add_view(request, page_app, event_id=None):
         return render_view('page_coop_agenda/forbidden.html')
 
 
-                       
+def reply_view(request, page_app, event_id=None):
+    if request.user.is_authenticated():
+        base_url = u'%sp/event_reply/%s' % (page_app.get_absolute_url(),event_id)
+        if request.method == 'POST': # If the form has been submitted        
+            form = ReplyEventForm(request.POST)
+            
+            if form.is_valid():
+                title = form.cleaned_data['title']
+                response = form.cleaned_data['response']
+                email = form.cleaned_data['email']
+                
+                try:
+                    event = Event.objects.get(pk=event_id)
+                except Area.DoesNotExist:
+                    event = None
+                
+                send_ok = False
+                if event and event.organization:
+                    if event.organization.pref_email:
+                        try :
+                            # send email
+                            send_mail(title, response, email, [event.organization.pref_email.content ], fail_silently=False)
+                            send_ok = True
+                        except:
+                            pass
+                
+                template = "page_coop_agenda/reply_success.html"
+                if not send_ok:
+                    template = "page_coop_agenda/reply_fail.html"
+
+                base_url = u'%s' % (page_app.get_absolute_url())
+                rdict = {'base_url': base_url, 'event_id': event.id}
+                return render_view(template,
+                            rdict,
+                            MEDIAS,
+                            context_instance=RequestContext(request))
+                
+        else:
+            form = ReplyEventForm() # An empty form
+        
+        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form}
+        return render_view('page_coop_agenda/reply.html',
+                        rdict,
+                        MEDIAS,
+                        context_instance=RequestContext(request))
+    else:
+        return render_view('page_coop_agenda/forbidden.html')
+

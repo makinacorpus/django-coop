@@ -219,5 +219,3 @@ def reply_view(request, page_app, exchange_id=None):
     else:
         return render_view('page_coop_exchange/forbidden.html')
 
-
-                                              

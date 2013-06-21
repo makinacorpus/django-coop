@@ -96,4 +96,9 @@ class DocumentForm(forms.ModelForm):
         widgets = {
             'description': forms.Textarea(attrs={'rows': 3}),
         }     
+
+class ReplyEventForm(forms.Form):
+    title = forms.CharField(required=True, label=_('Title'))
+    email = forms.EmailField(required=True, label=_('Email'))
+    response = forms.CharField(required=True, label=_('Response'), widget=forms.Textarea)
         
