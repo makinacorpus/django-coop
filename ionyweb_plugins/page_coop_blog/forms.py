@@ -10,7 +10,7 @@ from ionyweb.widgets import DatePicker
 from .models import CoopEntry, Category, PageApp_Coop_Blog
 
 from ionyweb.widgets import DateTimePicker, SlugWidget, DatePicker, TinyMCELargeTable
-from coop.base_models import ActivityNomenclature, TransverseTheme
+from coop.base_models import ActivityNomenclature, TransverseTheme, Document 
 
 from coop_local.widgets import CustomCheckboxSelectMultiple
 from extended_choices import Choices
@@ -80,4 +80,10 @@ class PageApp_CoopBlogForm(ModuloModelForm):
     class Meta:
         model = PageApp_Coop_Blog
         exclude = ('title', )
-        
+
+class DocumentForm(forms.ModelForm):
+    class Meta:
+        model = Document
+        widgets = {
+            'description': forms.Textarea(attrs={'rows': 3}),
+        }   

@@ -10,7 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.http import Http404
 from mptt.models import MPTTModel, TreeForeignKey
 from sorl.thumbnail import ImageField
-
+from django.contrib.contenttypes import generic 
 
 
 from ionyweb.page.models import AbstractPageApp
@@ -171,6 +171,8 @@ class CoopEntry(models.Model):
         verbose_name=_(u'transverse themes'), blank=True, null=True)
     
     docs = models.FileField(upload_to='file_manager/', null=True, blank=True)
+    
+    document_set = generic.GenericRelation('coop_local.Document')
     
     slug = models.SlugField(_('slug'), max_length=255, unique_for_date='publication_date')
     author = models.ForeignKey('auth.User', verbose_name=_('author'))

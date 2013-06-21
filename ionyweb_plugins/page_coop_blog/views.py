@@ -18,6 +18,9 @@ from ionyweb.website.rendering.medias import CSSMedia
 
 from models import PageApp_Coop_Blog, Category, CoopEntry
 from forms import EntryForm, PageApp_CoopBlogForm
+from coop_local.models import Document
+from django.contrib.contenttypes.generic import generic_inlineformset_factory
+from .forms import DocumentForm
 
 try:
     from functools import wraps
@@ -117,7 +120,9 @@ def filter_data(request, page_app):
 def detail_view(request, page_app, pk):
     e = get_object_or_404(CoopEntry, pk=pk)
     base_url = u'%sp/' % (page_app.get_absolute_url())
-    rdict = {'object': page_app, 'e': e, 'media_path': settings.MEDIA_URL, 'base_url': base_url}
+    imgs = e.document_set.filter(type__name='Galerie')
+    docs = e.document_set.exclude(type__name='Galerie')
+    rdict = {'object': page_app, 'e': e, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'imgs': imgs, 'docs': docs}
     return render_view('page_coop_blog/entry_detail.html',
                        rdict,
                        MEDIAS,
@@ -126,6 +131,8 @@ def detail_view(request, page_app, pk):
     
 def add_view(request, page_app, entry_id=None):
     if request.user.is_authenticated():
+        DocFormSet = generic_inlineformset_factory(Document, form=DocumentForm, extra=1)
+        
         if entry_id:
             # update
             mode = 'update'
@@ -141,25 +148,28 @@ def add_view(request, page_app, entry_id=None):
         
         if request.method == 'POST': # If the form has been submitted        
             form = EntryForm(request.POST, request.FILES, instance = entry)
-                        
-            if form.is_valid():
+            docFormset = DocFormSet(request.POST, request.FILES, prefix='doc', instance=entry)
+            
+            if form.is_valid() and docFormset.is_valid():
             
                 if not entry_id:
                     entry.slug = slugify(entry.title)
                     
                 entry.blog_id = 1 # default blog
                 entry = form.save()
+                docFormset.save()
                 
                 base_url = u'%s' % (page_app.get_absolute_url())
-                rdict = {'base_url': base_url, 'mode': mode}
+                rdict = {'base_url': base_url, 'mode': mode, 'entry_id' : entry_id}
                 return render_view('page_coop_blog/add_success.html',
                                 rdict,
                                 MEDIAS,
                                 context_instance=RequestContext(request))
         else:
             form = EntryForm(instance=entry) # An empty form
+            docFormset = DocFormSet(prefix='doc', instance=entry)
         
-        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form, 'mode': mode}
+        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form, 'doc_form': docFormset, 'mode': mode}
         return render_view('page_coop_blog/add.html',
                         rdict,
                         MEDIAS,

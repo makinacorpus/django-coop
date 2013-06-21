@@ -1,6 +1,8 @@
 {% load i18n %}
 
 <script type="text/javascript" src="/_tinymce/compressor/"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}themes/pes_auvergne/default/js/forms_utils.js"></script>
+
 
 <div id="articles_top"></div>
 <div id="articles" class="add_form">
@@ -51,8 +53,20 @@
                 {{ form.body.label_tag }}: {{ form.body|safe }}
             </div>   
        
-            <!-- TODO: doc attached             -->
-            <!-- TODO: img attached             -->
+            <!-- Doc associés -->
+            <h3 class="title_formset">{% trans "Documents" %}</h3>
+            <div id="docs" class="fieldWrapper formset">
+                {{ doc_form.management_form }}
+                {% for d in doc_form.forms %}
+                    <div class='table_formset table_doc'>
+                        <table class='no_error'>
+                            {{ d.as_table }}
+                        </table>
+                    </div>
+                {% endfor %}
+                <input type="button" value="{% trans 'Add More' %}" id="add_more_doc">
+            </div>
+
 
             <div class="fieldWrapper">
                 {{ form.activity.errors }}
@@ -128,6 +142,8 @@
         tinyMCE.init({selector:'textarea'});
         tinyMCE_GZ.init({"themes": "advanced", "languages": "fr", "debug": false, "diskcache": true, "plugins": "table,spellchecker,filemanager,paste,searchreplace,inlinepopups"})
                         
-
+        $('#add_more_doc').click(function() {
+            cloneMore('div.table_doc:last', 'doc');
+        });
     });
 </script>
