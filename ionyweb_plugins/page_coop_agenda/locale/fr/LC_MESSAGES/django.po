@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-29 10:17+0200\n"
+"POT-Creation-Date: 2013-06-21 15:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,74 +18,119 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: forms.py:13 templates/page_coop_agenda/index.html:47
-#: templates/page_coop_agenda/search_form_agenda.html:34
-#: templates/page_coop_agenda/search_form_exchange.html:34
+#: forms.py:16 templates/page_coop_agenda/index.html:47
+#: templates/page_coop_agenda/search_form_agenda.html:49
 msgid "Location"
 msgstr "Territoire"
 
-#: forms.py:15 templates/page_coop_agenda/index.html:51
-#: templates/page_coop_agenda/search_form_agenda.html:39
-#: templates/page_coop_agenda/search_form_exchange.html:38
+#: forms.py:18 templates/page_coop_agenda/index.html:51
+#: templates/page_coop_agenda/search_form_agenda.html:54
 msgid "Location buffer"
 msgstr "Périmètre de recherche"
 
-#: forms.py:16 templates/page_coop_agenda/index.html:27
-#: templates/page_coop_agenda/search_form_agenda.html:14
-#: templates/page_coop_agenda/search_form_exchange.html:14
+#: forms.py:19 templates/page_coop_agenda/index.html:27
+#: templates/page_coop_agenda/search_form_agenda.html:29
 msgid "Free search"
 msgstr "Recherche libre"
 
-#: forms.py:17 templates/page_coop_agenda/index.html:19
-#: templates/page_coop_agenda/search_form_agenda.html:6
-#: templates/page_coop_agenda/search_form_exchange.html:6
+#: forms.py:21 forms.py:22 templates/page_coop_agenda/index.html:19
+#: templates/page_coop_agenda/search_form_agenda.html:14
 msgid "Activity"
 msgstr "Activité"
 
-#: forms.py:18 templates/page_coop_agenda/detail.html:32
+#: forms.py:24 forms.py:25
+#: templates/page_coop_agenda/search_form_agenda.html:21
+msgid "Thematic"
+msgstr "Thématique"
+
+#: forms.py:27 templates/page_coop_agenda/detail.html:32
 #: templates/page_coop_agenda/index.html:23
-#: templates/page_coop_agenda/search_form_agenda.html:10
-#: templates/page_coop_agenda/search_form_exchange.html:10
+#: templates/page_coop_agenda/search_form_agenda.html:58
 msgid "Organization"
 msgstr "Orgaisation"
 
-#: forms.py:19 templates/page_coop_agenda/index.html:37
-#: templates/page_coop_agenda/search_form_agenda.html:24
-#: templates/page_coop_agenda/search_form_exchange.html:24
+#: forms.py:28 templates/page_coop_agenda/index.html:37
+#: templates/page_coop_agenda/search_form_agenda.html:39
 msgid "Start date"
 msgstr "Date de début"
 
-#: forms.py:20 templates/page_coop_agenda/index.html:41
-#: templates/page_coop_agenda/search_form_agenda.html:28
-#: templates/page_coop_agenda/search_form_exchange.html:28
+#: forms.py:29 templates/page_coop_agenda/index.html:41
+#: templates/page_coop_agenda/search_form_agenda.html:43
 msgid "End date"
 msgstr "Date de fin"
 
-#: forms.py:21 templates/page_coop_agenda/index.html:33
-#: templates/page_coop_agenda/search_form_agenda.html:20
-#: templates/page_coop_agenda/search_form_exchange.html:20
+#: forms.py:30 templates/page_coop_agenda/index.html:33
+#: templates/page_coop_agenda/search_form_agenda.html:35
 msgid "Type"
 msgstr ""
+
+#: forms.py:37
+msgid "Label"
+msgstr ""
+
+#: forms.py:38
+msgid "Address"
+msgstr "Adresse"
+
+#: forms.py:39
+msgid "City"
+msgstr "Ville"
+
+#: forms.py:40
+msgid "Zipcode"
+msgstr "Code postal"
+
+#: forms.py:41
+msgid "Point"
+msgstr ""
+
+#: forms.py:101
+msgid "Title"
+msgstr "Titre"
+
+#: forms.py:102
+msgid "Email"
+msgstr ""
+
+#: forms.py:103
+msgid "Response"
+msgstr "Réponse"
 
 #: models.py:15
 msgid "CoopAgenda"
 msgstr ""
 
-#: templates/page_coop_agenda/add.html:11
+#: templates/page_coop_agenda/add.html:19
 #: templates/page_coop_agenda/add_success.html:7
 msgid "Add new event"
 msgstr "Ajouter un nouvel évènement"
 
-#: templates/page_coop_agenda/add.html:13
+#: templates/page_coop_agenda/add.html:21
 #: templates/page_coop_agenda/add_success.html:10
 msgid "Modify event"
 msgstr "Modifier l'évènement"
 
-#: templates/page_coop_agenda/add.html:76
+#: templates/page_coop_agenda/add.html:34
+msgid "Partners"
+msgstr "Partenaires"
+
+#: templates/page_coop_agenda/add.html:62
+msgid "Locations"
+msgstr "Lieux"
+
+#: templates/page_coop_agenda/add.html:91
+msgid "Documents"
+msgstr ""
+
+#: templates/page_coop_agenda/add.html:101
+msgid "Add More"
+msgstr "Ajouter"
+
+#: templates/page_coop_agenda/add.html:139
 msgid "Create"
 msgstr "Créer"
 
-#: templates/page_coop_agenda/add.html:78
+#: templates/page_coop_agenda/add.html:141
 msgid "Modify"
 msgstr "Modifier"
 
@@ -98,6 +143,12 @@ msgid "Event modified. You may now consult it in the list"
 msgstr "Evènement modifié. Vous pouvez à présent le consulter dans la liste"
 
 #: templates/page_coop_agenda/add_success.html:13
+msgid "See the detail"
+msgstr "Voir les détails"
+
+#: templates/page_coop_agenda/add_success.html:13
+#: templates/page_coop_agenda/reply_fail.html:8
+#: templates/page_coop_agenda/reply_success.html:8
 msgid "Event list"
 msgstr "Liste des évènements"
 
@@ -122,13 +173,11 @@ msgid "You must be logged in to view this page"
 msgstr "Vous devez être connecté pour voir cette page"
 
 #: templates/page_coop_agenda/index.html:91
-#: templates/page_coop_agenda/search_form_agenda.html:49
-#: templates/page_coop_agenda/search_form_exchange.html:48
+#: templates/page_coop_agenda/search_form_agenda.html:69
 msgid "Search"
 msgstr "Rechercher"
 
 #: templates/page_coop_agenda/index.html:92
-#: templates/page_coop_agenda/search_form_exchange.html:49
 msgid "Results"
 msgstr "Résultats"
 
@@ -152,6 +201,30 @@ msgstr "Liste"
 #: templates/page_coop_agenda/index_carto.html:60
 msgid "Read more"
 msgstr "En savoir plus"
+
+#: templates/page_coop_agenda/reply.html:11
+#: templates/page_coop_agenda/reply_fail.html:6
+#: templates/page_coop_agenda/reply_success.html:6
+msgid "Subscribe to event"
+msgstr "S'inscrire à l'évènement"
+
+#: templates/page_coop_agenda/reply.html:35
+msgid "Subscribe"
+msgstr "S'inscrire"
+
+#: templates/page_coop_agenda/reply_fail.html:7
+msgid ""
+"Error: subscription has not been sent. Please refer to an admin. Thank you."
+msgstr "Erreur: l'inscription n'a pas pu être envoyée. Merci de contacter un administrateur."
+
+#: templates/page_coop_agenda/reply_fail.html:8
+#: templates/page_coop_agenda/reply_success.html:8
+msgid "Return to the detail"
+msgstr "Retourner à la fiche"
+
+#: templates/page_coop_agenda/reply_success.html:7
+msgid "Subscription sent. Thank you."
+msgstr "Inscription envoyée. Merci."
 
 #~ msgid "Person"
 #~ msgstr "Personne"

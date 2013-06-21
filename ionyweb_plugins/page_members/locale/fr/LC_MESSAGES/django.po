@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-18 09:39+0200\n"
+"POT-Creation-Date: 2013-06-21 15:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,57 +18,60 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: forms.py:31
+#: forms.py:35
 msgid "Type"
 msgstr ""
 
-#: forms.py:33 forms.py:34 templates/page_members/index.html:19
-#: templates/page_members/index_carto.html:21
+#: forms.py:37 forms.py:38 templates/page_members/index.html:19
 #: templates/page_members/search_form_organization.html:4
 #: templates/page_members/search_form_project.html:4
 msgid "Activity"
 msgstr "Activité"
 
-#: forms.py:36 templates/page_members/detail.html:29
+#: forms.py:40 templates/page_members/detail.html:29
 #: templates/page_members/index.html:35
-#: templates/page_members/index_carto.html:40
 #: templates/page_members/search_form_organization.html:23
 #: templates/page_members/search_form_project.html:23
 msgid "Location"
 msgstr "Territoire"
 
-#: forms.py:38 templates/page_members/index.html:39
-#: templates/page_members/index_carto.html:44
+#: forms.py:42 templates/page_members/index.html:39
 #: templates/page_members/search_form_organization.html:28
 #: templates/page_members/search_form_project.html:28
 msgid "Location buffer"
 msgstr "Périmètre de recherche"
 
-#: forms.py:39 forms.py:40 templates/page_members/index.html:29
-#: templates/page_members/index_carto.html:50
+#: forms.py:43 forms.py:44 templates/page_members/index.html:29
 #: templates/page_members/search_form_organization.html:34
 #: templates/page_members/search_form_project.html:34
 msgid "Thematic"
 msgstr "Thématique"
 
-#: forms.py:44 templates/page_members/index.html:23
-#: templates/page_members/index_carto.html:28
+#: forms.py:48 templates/page_members/index.html:23
 #: templates/page_members/search_form_organization.html:11
 #: templates/page_members/search_form_project.html:11
 msgid "Free search"
 msgstr "Recherche libre"
 
-#: forms.py:59
+#: forms.py:63
+msgid "Label"
+msgstr "Titre"
+
+#: forms.py:64
 msgid "Address"
 msgstr "Adresse"
 
-#: forms.py:60
+#: forms.py:65
 msgid "City"
 msgstr "Ville"
 
-#: forms.py:61
+#: forms.py:66
 msgid "Zipcode"
 msgstr "Code postal"
+
+#: forms.py:67
+msgid "Point"
+msgstr ""
 
 #: models.py:11
 msgid "type"
@@ -78,68 +81,68 @@ msgstr ""
 msgid "Members"
 msgstr "Structures"
 
-#: templates/page_members/add.html:16
+#: templates/page_members/add.html:22
 #: templates/page_members/add_success.html:7
 msgid "Add new member"
 msgstr "Ajouter une nouvelle structure"
 
-#: templates/page_members/add.html:18
+#: templates/page_members/add.html:24
 #: templates/page_members/add_success.html:10
 msgid "Modify member"
 msgstr "Modifier la structure"
 
-#: templates/page_members/add.html:28
+#: templates/page_members/add.html:34
 msgid "Simple"
 msgstr "Simple"
 
-#: templates/page_members/add.html:29
+#: templates/page_members/add.html:35
 msgid "Detailed"
 msgstr "Détaillé"
 
-#: templates/page_members/add.html:64
+#: templates/page_members/add.html:70
 msgid "Products and services"
 msgstr "Produits et services"
 
-#: templates/page_members/add.html:74 templates/page_members/add.html.py:97
-#: templates/page_members/add.html:128 templates/page_members/add.html:190
-#: templates/page_members/add.html:219 templates/page_members/add.html:233
-#: templates/page_members/add.html:247
+#: templates/page_members/add.html:80 templates/page_members/add.html:103
+#: templates/page_members/add.html:134 templates/page_members/add.html:196
+#: templates/page_members/add.html:225 templates/page_members/add.html:239
+#: templates/page_members/add.html:253
 msgid "Add More"
 msgstr "Ajouter"
 
-#: templates/page_members/add.html:87
+#: templates/page_members/add.html:93
 msgid "Locations"
 msgstr "Territoire"
 
-#: templates/page_members/add.html:118
+#: templates/page_members/add.html:124
 msgid "Documents"
 msgstr ""
 
-#: templates/page_members/add.html:134
+#: templates/page_members/add.html:140
 msgid "Crowdfunding link"
 msgstr "Lien crowdfunding"
 
-#: templates/page_members/add.html:180
+#: templates/page_members/add.html:186
 msgid "Relationship"
 msgstr "Relations"
 
-#: templates/page_members/add.html:209
+#: templates/page_members/add.html:215
 msgid "Contact"
 msgstr ""
 
-#: templates/page_members/add.html:223
+#: templates/page_members/add.html:229
 msgid "Engagement"
 msgstr "Membres"
 
-#: templates/page_members/add.html:237
+#: templates/page_members/add.html:243
 msgid "References"
 msgstr "Références"
 
-#: templates/page_members/add.html:282
+#: templates/page_members/add.html:288
 msgid "Create"
 msgstr "Ajouter"
 
-#: templates/page_members/add.html:284
+#: templates/page_members/add.html:290
 msgid "Modify"
 msgstr "Modifier"
 
@@ -164,29 +167,27 @@ msgid "You must be logged in to view this page"
 msgstr "Vous devez être connecté pour voir cette page"
 
 #: templates/page_members/index.html:79
-#: templates/page_members/index_carto.html:63
 #: templates/page_members/search_form_organization.html:47
 #: templates/page_members/search_form_project.html:47
 msgid "Search"
 msgstr "Recherche"
 
 #: templates/page_members/index.html:80
-#: templates/page_members/index_carto.html:64
 #: templates/page_members/search_form_organization.html:48
 #: templates/page_members/search_form_project.html:48
 msgid "Results"
 msgstr "Résultats"
 
-#: templates/page_members/index_carto.html:34
+#: templates/page_members/index_carto.html:28
+#: templates/page_members/index_carto.html:29
+msgid "List"
+msgstr "Liste"
+
+#: templates/page_members/index_carto.html:57
+msgid "Read more"
+msgstr "En savoir plus"
+
 #: templates/page_members/search_form_organization.html:17
 #: templates/page_members/search_form_project.html:17
 msgid "Statut"
 msgstr "Statut"
-
-#: templates/page_members/index_carto.html:76
-msgid "List"
-msgstr "Liste"
-
-#: templates/page_members/index_carto.html:103
-msgid "Read more"
-msgstr "En savoir plus"
