@@ -8,6 +8,7 @@ from coop.agenda.forms import EventForm, MultipleOccurrenceForm, SingleOccurrenc
 
 from coop.base_models import ActivityNomenclature, TransverseTheme, Document, Located
 from coop_local.models import Event, Occurrence, Location
+from coop_local.widgets import CustomClearableFileInput
 from django.conf import settings
 
 class PageApp_CoopAgendaForm(ModuloModelForm):
@@ -43,6 +44,8 @@ class PartialEventForm(EventForm):
         model = Event
         exclude = ('calendar', 'sites', )
         #fields = ('label', 'address', 'city', 'zipcode', 'point', 'main_location')
+        widgets = {'image' : CustomClearableFileInput(),}
+
         
     def __init__(self, *args, **kwargs):
         super(PartialEventForm, self).__init__(*args, **kwargs)
