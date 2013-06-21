@@ -31,7 +31,7 @@
             </div>
             <div class="fieldWrapper">
                 {{ form.organization.errors }}
-                {{ form.organization.label_tag }}: {{ form.organization }}
+                <label>{% trans "Partners" %}</label>: {{ form.organization }}
             </div>
             <!-- TODO: poste par           -->
     
@@ -128,23 +128,6 @@
                 {{ form.active.errors }}
                 {{ form.active.label_tag }}: {{ form.active|safe }}
             </div>   
-
-<!--            <div class="fieldWrapper">
-                {{ form.location.errors }}
-                {{ form.location.label_tag }}: {{ form.location }}
-            </div>
-
-            <div class="fieldWrapper">
-                {{ form.event_type.errors }}
-                {{ form.event_type.label_tag }}: {{ form.event_type }}
-            </div>
-            <div class="fieldWrapper">
-                {{ form.calendar.errors }}
-                {{ form.calendar.label_tag }}: {{ form.calendar }}
-            </div>-->
-            
-
-    
 
 
             {{ form.errors }}
