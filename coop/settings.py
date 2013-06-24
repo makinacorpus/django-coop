@@ -6,7 +6,8 @@ SUBHUB_MAINTENANCE_AUTO = False
 
 BASE_COOP_LOCAL_MODELS = [
     ('coop_geo', [
-        u'Location', 
+        u'Location',
+        u'Located',
         u'Area',
     ]),
     ('coop.rdf', [
