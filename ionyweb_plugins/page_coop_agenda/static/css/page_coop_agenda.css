@@ -59,6 +59,11 @@ h4.coop_agenda {
     font-weight: bold;
 }
 
+
+.coop_agenda .description {
+    position: relative;
+}
+
 span.date {
     background-color: #FEFFF3;
     border: 1px solid #5D5D5D;
