@@ -3,20 +3,16 @@
 
 <script type="text/javascript">
     // We need to set a new class to content element, in order do properly display the form and the other elements
-    $('#main-content').addClass("search_form_enabled");
+    $('#main-content').addClass("search_form_enabled_article");
 </script>
 
 <div id="articles_top_search"></div>
 <div id="search_form">
     <form action="{{ base_url }}" method="post">{% csrf_token %}
         <div class="search_column" id="search_column1">
-            <div class="search_block checkbox_custom" id="date">
-                <span class="search_title">{% trans "Date" %}</span>
-                {{ form.date }}
-            </div>
-
-            <div class="search_block" id="search_submit">
-                <input type="submit" value="{% trans "Search" %}" />                
+            <div class="search_block" id="activity">
+                <span class="search_title">{% trans "Activity" %}</span>
+                {{ form.activity }}
             </div>
         </div>
         <div class="search_column" id="search_column2">
@@ -24,35 +20,24 @@
                 <span class="search_title">{% trans "Thematic" %}</span>
                 {{ form.thematic }}
             </div>
-            <div class="search_block checkbox_custom" id="thematic2">
-                {{ form.thematic2 }}
-            </div>
-            <div class="search_block checkbox_custom" id="thematic3">
-                {{ form.thematic3 }}
-            </div>
         </div>
         <div class="search_column" id="search_column3">
-            <div class="search_block" id="organization">
-                <span class="search_title">{% trans "Organization" %}</span>
-                {{ form.organization }}
+            <div class="search_block checkbox_custom" id="date">
+                <span class="search_title">{% trans "Date" %}</span>
+                {{ form.date }}
             </div>
-
+        </div>
+        <div class="search_column" id="search_column4">
             <div class="search_block" id="free_search">
                 <span class="search_title">{% trans "Free search" %}</span>
                 {{ form.free_search }}
             </div>
 
         </div>
-        <div class="search_column" id="search_column3">
-            <div class="search_block" id="activity">
-                <span class="search_title">{% trans "Activity" %}</span>
-                {{ form.activity }}
-            </div>
-            <div class="search_block" id="activity2">
-                {{ form.activity2 }}
-            </div>
-
+        <div class="search_block" id="search_submit">
+            <input type="submit" value="{% trans "Search" %}" />                
         </div>
+
     </form>
 </div>
 

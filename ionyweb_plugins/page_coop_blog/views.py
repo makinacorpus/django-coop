@@ -95,14 +95,11 @@ def filter_data(request, page_app):
             if form.cleaned_data['free_search']:
                 entries = entries.filter(Q(title__contains=form.cleaned_data['free_search']) | Q(description__contains=form.cleaned_data['free_search']))
             
-            if form.cleaned_data['organization']:
-                entries = entries.filter(Q(organization__in=form.cleaned_data['organization']))
-
-            if form.cleaned_data['thematic'] or form.cleaned_data['thematic2']:
-                entries = entries.filter(Q(transverse_themes=form.cleaned_data['thematic']) | Q(transverse_themes=form.cleaned_data['thematic2']))
+            if form.cleaned_data['thematic']:
+                entries = entries.filter(Q(transverse_themes=form.cleaned_data['thematic']))
             
-            if form.cleaned_data['activity'] or form.cleaned_data['activity2']:
-                entries = entries.filter(Q(activity=form.cleaned_data['activity']) | Q(activity=form.cleaned_data['activity2']))
+            if form.cleaned_data['activity']:
+                entries = entries.filter(Q(activity=form.cleaned_data['activity']))
                
             if form.cleaned_data['date'] != '' :
                 entries = entries.filter(Q(publication_date__gte=datetime.date(datetime.today() - timedelta(days = int(form.cleaned_data['date'])))))
