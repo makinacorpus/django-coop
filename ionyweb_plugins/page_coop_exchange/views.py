@@ -52,10 +52,12 @@ def filter_data(request, page_app, mode):
 
     exchanges = Exchange.objects.all()
     more_criteria = False
+    is_exchange = True
     
     if base_url == settings.COOP_EXCHANGE_SERVICES_URL:
         exchanges = exchanges.filter(organization__isnull=True)
         search_form_template = "page_coop_exchange/search_form_service.html"
+        is_exchange = False
     if base_url == settings.COOP_EXCHANGE_EXCHANGES_URL:
         exchanges = exchanges.filter(organization__isnull=False)
         search_form_template = "page_coop_exchange/search_form_exchange.html"
@@ -95,9 +97,6 @@ def filter_data(request, page_app, mode):
             
             #TODO : skills
             
-            #TODO : warranty
-            
-            #TODO : organization
             
     else:
         form = PageApp_CoopExchangeForm({'location_buffer': '10'}) # An empty form
@@ -108,7 +107,7 @@ def filter_data(request, page_app, mode):
     # Get available locations for autocomplete
     available_locations = dumps([{'label':area.label, 'value':area.pk} for area in Area.objects.all().order_by('label')])
     
-    rdict = {'exchanges': exchanges, 'base_url': base_url, 'form': form, 'center': center_map, 'more_criteria': more_criteria, 'available_locations': available_locations, "search_form_template": search_form_template, "mode": mode, 'media_path': settings.MEDIA_URL}
+    rdict = {'exchanges': exchanges, 'base_url': base_url, 'form': form, 'center': center_map, 'more_criteria': more_criteria, 'available_locations': available_locations, "search_form_template": search_form_template, "mode": mode, 'media_path': settings.MEDIA_URL, 'is_exchange': is_exchange}
     
     return rdict
                        
