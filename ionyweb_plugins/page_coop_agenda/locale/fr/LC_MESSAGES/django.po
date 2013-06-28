@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-28 11:44+0200\n"
+"POT-Creation-Date: 2013-06-28 15:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -114,23 +114,31 @@ msgstr "Modifier l'évènement"
 msgid "Partners"
 msgstr "Partenaires"
 
-#: templates/page_coop_agenda/add.html:62
+#: templates/page_coop_agenda/add.html:46
+msgid "This image will be the first visible"
+msgstr "Première image visible depuis le moteur de recherche (par défaut ce sera le logo de la structure)"
+
+#: templates/page_coop_agenda/add.html:63
 msgid "Locations"
 msgstr "Lieux"
 
-#: templates/page_coop_agenda/add.html:91
+#: templates/page_coop_agenda/add.html:92
 msgid "Documents"
 msgstr ""
 
-#: templates/page_coop_agenda/add.html:101
+#: templates/page_coop_agenda/add.html:102
 msgid "Add More"
 msgstr "Ajouter"
 
-#: templates/page_coop_agenda/add.html:139
+#: templates/page_coop_agenda/add.html:107
+msgid "Clic on button to add more locations"
+msgstr ""
+
+#: templates/page_coop_agenda/add.html:141
 msgid "Create"
 msgstr "Créer"
 
-#: templates/page_coop_agenda/add.html:141
+#: templates/page_coop_agenda/add.html:143
 msgid "Modify"
 msgstr "Modifier"
 
