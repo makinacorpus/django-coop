@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-21 15:00+0200\n"
+"POT-Creation-Date: 2013-06-28 11:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,7 +54,7 @@ msgstr ""
 "Flux RSS des dernies articles de la catégorie %(category)s publiés sur "
 "%(site_name)s."
 
-#: forms.py:34 models.py:176
+#: forms.py:34 models.py:178
 msgid "author"
 msgstr "auteur"
 
@@ -74,25 +74,25 @@ msgstr "Depuis une semaine"
 msgid "Since a month"
 msgstr "Depuis un mois"
 
-#: forms.py:68 forms.py:69 templates/page_coop_blog/coopentry_archive.html:48
-#: templates/page_coop_blog/entry_detail.html:42
+#: forms.py:68 forms.py:69 templates/page_coop_blog/coopentry_archive.html:14
+#: templates/page_coop_blog/entry_detail.html:52
 msgid "Activity"
 msgstr "Activité"
 
-#: forms.py:71 forms.py:72 templates/page_coop_blog/coopentry_archive.html:24
-#: templates/page_coop_blog/entry_detail.html:47
+#: forms.py:71 forms.py:72 templates/page_coop_blog/coopentry_archive.html:20
+#: templates/page_coop_blog/entry_detail.html:57
 msgid "Thematic"
 msgstr "Thématique"
 
-#: forms.py:74 templates/page_coop_blog/coopentry_archive.html:41
+#: forms.py:74 templates/page_coop_blog/coopentry_archive.html:32
 msgid "Free search"
 msgstr "Recherche libre"
 
-#: forms.py:76 templates/page_coop_blog/coopentry_archive.html:36
+#: forms.py:76
 msgid "Organization"
 msgstr "Structure"
 
-#: forms.py:78 templates/page_coop_blog/entry_detail.html:54
+#: forms.py:78 templates/page_coop_blog/entry_detail.html:64
 msgid "Keywords"
 msgstr "Mots clefs"
 
@@ -112,11 +112,11 @@ msgstr "Editer les catégories"
 msgid "Edit entries"
 msgstr "Editer les articles"
 
-#: models.py:83 models.py:191
+#: models.py:83 models.py:193
 msgid "entry"
 msgstr "article"
 
-#: models.py:85 models.py:192
+#: models.py:85 models.py:194
 msgid "entries"
 msgstr "articles"
 
@@ -124,7 +124,7 @@ msgstr "articles"
 msgid "and"
 msgstr "et"
 
-#: models.py:89 models.py:112 models.py:178
+#: models.py:89 models.py:112 models.py:180
 msgid "category"
 msgstr "catégorie"
 
@@ -136,11 +136,11 @@ msgstr "catégories"
 msgid "name"
 msgstr "nom"
 
-#: models.py:102 models.py:175
+#: models.py:102 models.py:177
 msgid "slug"
 msgstr "slug"
 
-#: models.py:104 models.py:179
+#: models.py:104 models.py:181
 msgid "creation date"
 msgstr "date de création"
 
@@ -156,7 +156,7 @@ msgstr "Hors ligne"
 msgid "Online"
 msgstr "En ligne"
 
-#: models.py:165 models.py:185
+#: models.py:165 models.py:187
 msgid "body"
 msgstr "contenu"
 
@@ -168,53 +168,61 @@ msgstr "Secteur d'activité"
 msgid "transverse themes"
 msgstr "Thèmes transversaux"
 
-#: models.py:177
+#: models.py:179
 msgid "source"
 msgstr ""
 
-#: models.py:180
+#: models.py:182
 msgid "modification date"
 msgstr "date de modification"
 
-#: models.py:181
+#: models.py:183
 msgid "publication date"
 msgstr "date de publication"
 
-#: models.py:184
+#: models.py:186
 msgid "status"
 msgstr "statut"
 
-#: models.py:199
+#: models.py:201
 msgid "Title"
 msgstr "Titre"
 
-#: models.py:203
+#: models.py:205
 msgid "Category"
 msgstr "Catégorie"
 
-#: models.py:207
+#: models.py:209
 msgid "Publication Date"
 msgstr "Date de publication"
 
-#: models.py:211
+#: models.py:213
 msgid "Status"
 msgstr "Statut"
 
-#: templates/page_coop_blog/add.html:8
+#: templates/page_coop_blog/add.html:10
 #: templates/page_coop_blog/add_success.html:7
 msgid "Add new article"
 msgstr "Ajouter un article"
 
-#: templates/page_coop_blog/add.html:10
+#: templates/page_coop_blog/add.html:12
 #: templates/page_coop_blog/add_success.html:10
 msgid "Modify article"
 msgstr "Modifier un article"
 
-#: templates/page_coop_blog/add.html:95
+#: templates/page_coop_blog/add.html:57
+msgid "Documents"
+msgstr ""
+
+#: templates/page_coop_blog/add.html:67
+msgid "Add More"
+msgstr ""
+
+#: templates/page_coop_blog/add.html:109
 msgid "Create"
 msgstr "Créer"
 
-#: templates/page_coop_blog/add.html:97
+#: templates/page_coop_blog/add.html:111
 msgid "Modify"
 msgstr "Modifier"
 
@@ -227,32 +235,47 @@ msgid "Article modified. You may now consult it in the list"
 msgstr "Article modifié. Vous pouvez à présent le consulter dans la liste"
 
 #: templates/page_coop_blog/add_success.html:13
+msgid "See the detail"
+msgstr ""
+
+#: templates/page_coop_blog/add_success.html:13
 msgid "Article list"
 msgstr "Liste des articles"
 
-#: templates/page_coop_blog/coopentry_archive.html:14
+#: templates/page_coop_blog/coopentry_archive.html:26
 msgid "Date"
 msgstr ""
 
-#: templates/page_coop_blog/coopentry_archive.html:19
+#: templates/page_coop_blog/coopentry_archive.html:38
 msgid "Search"
 msgstr "Recherche"
 
-#: templates/page_coop_blog/coopentry_archive.html:107
+#: templates/page_coop_blog/coopentry_archive.html:92
 msgid "Read more"
 msgstr "Lisez la suite"
 
-#: templates/page_coop_blog/coopentry_archive.html:109
+#: templates/page_coop_blog/coopentry_archive.html:94
+#: templates/page_coop_blog/entry_detail.html:102
 msgid "Edit"
 msgstr "Editer"
 
-#: templates/page_coop_blog/coopentry_archive.html:115
+#: templates/page_coop_blog/coopentry_archive.html:100
 msgid "No entry yet"
 msgstr "Aucun article disponible actuellement"
 
-#: templates/page_coop_blog/entry_detail.html:33
+#: templates/page_coop_blog/entry_detail.html:38
 msgid "Galery"
 msgstr "Galerie"
+
+#: templates/page_coop_blog/entry_detail.html:74
+#: templates/page_coop_blog/entry_detail.html:87
+msgid "Documents associated"
+msgstr ""
+
+#: templates/page_coop_blog/entry_detail.html:77
+#: templates/page_coop_blog/entry_detail.html:83
+msgid "Articles of the same author"
+msgstr ""
 
 #: templates/page_coop_blog/forbidden.html:3
 msgid "You must be logged in to view this page"

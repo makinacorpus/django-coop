@@ -23,12 +23,12 @@
             <div class="fieldWrapper">
                 {{ form.title.errors }}
                 {{ form.title.label_tag }}: {{ form.title }}
-                {{ form.title..help_text }}
             </div>          
 
             <div class="fieldWrapper">
                 {{ form.expiration.errors }}
                 {{ form.expiration.label_tag }}: {{ form.expiration }}
+                <div class="help_text">{% trans 'Date of expiration' %}</div>
             </div>   
 
             <div class="fieldWrapper">
@@ -39,6 +39,7 @@
             <div class="fieldWrapper">
                 {{ form.img.errors }}
                 {{ form.img.label_tag }}: <div class="img_form">{{ form.img }}</div>
+                <div class="help_text">{% trans 'First image visible' %}</div>
             </div>
 
             <div class="fieldWrapper">
@@ -93,6 +94,7 @@
                     </div>
                 {% endfor %}
                 <input type="button" value="{% trans 'Add More' %}" id="add_more_doc">
+                <div class="help_text">{% trans 'Click on the button to add other documents' %}</div>
             </div>
 
 
@@ -106,12 +108,15 @@
             <div class="fieldWrapper">
                 {{ form.transverse_themes.errors }}
                 {{ form.transverse_themes.label_tag }}: {{ form.transverse_themes }}
+                <div class="help_text">{% trans 'You may select multiple by pressing Ctrl key' %}</div>
+
             </div>   
             
             
             <div class="fieldWrapper">
                 {{ form.tags.errors }}
                 {{ form.tags.label_tag }}: {{ form.tags }}
+                <div class="help_text">{% trans 'Separate words with a comma' %}</div>
             </div>   
 
 <!-- TODO plus value solidaire -->

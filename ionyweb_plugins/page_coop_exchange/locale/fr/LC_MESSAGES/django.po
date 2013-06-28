@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-21 15:00+0200\n"
+"POT-Creation-Date: 2013-06-28 11:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,67 +18,67 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: forms.py:19
+#: forms.py:18
 msgid "Gift"
 msgstr "Don"
 
-#: forms.py:20
+#: forms.py:19
 msgid "Swap"
 msgstr "Echange"
 
-#: forms.py:21
+#: forms.py:20
 msgid "Skill"
 msgstr "Compétences"
 
-#: forms.py:22
+#: forms.py:21
 msgid "Euros"
 msgstr ""
 
-#: forms.py:23
+#: forms.py:22
 msgid "Mutualization"
 msgstr "Mutualisation"
 
-#: forms.py:27
+#: forms.py:26
 msgid "Voluntary"
 msgstr "Volontaire"
 
-#: forms.py:28
+#: forms.py:27
 msgid "Training work"
 msgstr "Stage"
 
-#: forms.py:29
+#: forms.py:28
 msgid "Job offer"
 msgstr "Offre d'emploi"
 
-#: forms.py:30
+#: forms.py:29
 msgid "Training"
 msgstr "Essai"
 
-#: forms.py:41 forms.py:42 templates/page_coop_exchange/index.html:39
+#: forms.py:40 forms.py:41 templates/page_coop_exchange/index.html:39
 #: templates/page_coop_exchange/search_form_exchange.html:25
 #: templates/page_coop_exchange/search_form_service.html:25
 msgid "Activity"
 msgstr "Activité"
 
-#: forms.py:44 templates/page_coop_exchange/index.html:49
+#: forms.py:43 templates/page_coop_exchange/index.html:49
 #: templates/page_coop_exchange/search_form_exchange.html:43
 #: templates/page_coop_exchange/search_form_service.html:43
 msgid "Location"
 msgstr "Lieu"
 
-#: forms.py:45 templates/page_coop_exchange/index.html:53
+#: forms.py:44 templates/page_coop_exchange/index.html:53
 #: templates/page_coop_exchange/search_form_exchange.html:47
 #: templates/page_coop_exchange/search_form_service.html:47
 msgid "Location buffer"
 msgstr "Lieu buffer"
 
-#: forms.py:48 forms.py:49 templates/page_coop_exchange/index.html:43
+#: forms.py:47 forms.py:48 templates/page_coop_exchange/index.html:43
 #: templates/page_coop_exchange/search_form_exchange.html:29
 #: templates/page_coop_exchange/search_form_service.html:29
 msgid "Thematic"
 msgstr "Thématique"
 
-#: forms.py:55 templates/page_coop_exchange/index.html:28
+#: forms.py:54 templates/page_coop_exchange/index.html:28
 #: templates/page_coop_exchange/search_form_exchange.html:33
 #: templates/page_coop_exchange/search_form_exchange.html:37
 #: templates/page_coop_exchange/search_form_service.html:33
@@ -86,27 +86,27 @@ msgstr "Thématique"
 msgid "Free search"
 msgstr "Recherche libre"
 
-#: forms.py:57
+#: forms.py:56
 msgid "Warranty"
 msgstr "Garantie"
 
-#: forms.py:59
+#: forms.py:58
 msgid "Organization"
 msgstr "Structure"
 
-#: forms.py:61
+#: forms.py:60
 msgid "Keywords"
 msgstr "Mots clef"
 
-#: forms.py:68
+#: forms.py:67
 msgid "Title"
 msgstr "Titre"
 
-#: forms.py:69
+#: forms.py:68
 msgid "Email"
 msgstr ""
 
-#: forms.py:70
+#: forms.py:69
 msgid "Response"
 msgstr "Réponse"
 
@@ -126,20 +126,44 @@ msgstr "Proposer une annonce"
 msgid "Modify exchange"
 msgstr "Modifier une annonce"
 
-#: templates/page_coop_exchange/add.html:84
+#: templates/page_coop_exchange/add.html:31
+msgid "Date of expiration"
+msgstr "Date à partir de laquelle l'annonce n'est plus valide (elle sera retirée du site)"
+
+#: templates/page_coop_exchange/add.html:42
+msgid "First image visible"
+msgstr "Première image visible depuis le moteur de recherche (Par défaut ce sera le logo de la structure)"
+
+#: templates/page_coop_exchange/add.html:86
 msgid "Documents"
 msgstr ""
 
-#: templates/page_coop_exchange/add.html:94
+#: templates/page_coop_exchange/add.html:96
 msgid "Add More"
 msgstr "Ajouter"
 
-#: templates/page_coop_exchange/add.html:123
+#: templates/page_coop_exchange/add.html:97
+msgid "Click on the button to add other documents"
+msgstr "Cliquez sur le bouton ajouter pour mettre plusieurs documents"
+
+#: templates/page_coop_exchange/add.html:111
+msgid "You may select multiple by pressing Ctrl key"
+msgstr "Plusieurs choix possibles en maintenant appuyé la touche CTRL"
+
+#: templates/page_coop_exchange/add.html:119
+msgid "Separate words with a comma"
+msgstr ""
+"Permet de faciliter les recherches et faire apparaître votre structure parmi "
+"les premiers résultats. Séparez les mots clés par une virgule (exemple de "
+"liste de mot clés : jardins partagé, lien social, éducation à "
+"l’environnement, auto-production)"
+
+#: templates/page_coop_exchange/add.html:129
 #: templates/page_coop_exchange/new.html:35
 msgid "Create"
 msgstr "Ajouter"
 
-#: templates/page_coop_exchange/add.html:125
+#: templates/page_coop_exchange/add.html:131
 msgid "Modify"
 msgstr "Modifier"
 
@@ -227,7 +251,9 @@ msgstr "Répondre"
 
 #: templates/page_coop_exchange/reply_fail.html:7
 msgid "Error: reply has not been sent. Please refer to an admin. Thank you."
-msgstr "Erreur: la réponse n'a pas pu être envoyée. Merci de contacter un administrateur."
+msgstr ""
+"Erreur: la réponse n'a pas pu être envoyée. Merci de contacter un "
+"administrateur."
 
 #: templates/page_coop_exchange/reply_fail.html:8
 #: templates/page_coop_exchange/reply_success.html:8

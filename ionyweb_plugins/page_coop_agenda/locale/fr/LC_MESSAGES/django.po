@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-21 15:00+0200\n"
+"POT-Creation-Date: 2013-06-28 11:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,48 +19,48 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
 #: forms.py:16 templates/page_coop_agenda/index.html:47
-#: templates/page_coop_agenda/search_form_agenda.html:49
+#: templates/page_coop_agenda/search_form_agenda.html:43
 msgid "Location"
 msgstr "Territoire"
 
 #: forms.py:18 templates/page_coop_agenda/index.html:51
-#: templates/page_coop_agenda/search_form_agenda.html:54
+#: templates/page_coop_agenda/search_form_agenda.html:48
 msgid "Location buffer"
 msgstr "Périmètre de recherche"
 
 #: forms.py:19 templates/page_coop_agenda/index.html:27
-#: templates/page_coop_agenda/search_form_agenda.html:29
+#: templates/page_coop_agenda/search_form_agenda.html:32
 msgid "Free search"
 msgstr "Recherche libre"
 
 #: forms.py:21 forms.py:22 templates/page_coop_agenda/index.html:19
-#: templates/page_coop_agenda/search_form_agenda.html:14
+#: templates/page_coop_agenda/search_form_agenda.html:25
 msgid "Activity"
 msgstr "Activité"
 
 #: forms.py:24 forms.py:25
-#: templates/page_coop_agenda/search_form_agenda.html:21
+#: templates/page_coop_agenda/search_form_agenda.html:61
 msgid "Thematic"
 msgstr "Thématique"
 
 #: forms.py:27 templates/page_coop_agenda/detail.html:32
 #: templates/page_coop_agenda/index.html:23
-#: templates/page_coop_agenda/search_form_agenda.html:58
+#: templates/page_coop_agenda/search_form_agenda.html:53
 msgid "Organization"
 msgstr "Orgaisation"
 
 #: forms.py:28 templates/page_coop_agenda/index.html:37
-#: templates/page_coop_agenda/search_form_agenda.html:39
+#: templates/page_coop_agenda/search_form_agenda.html:14
 msgid "Start date"
 msgstr "Date de début"
 
 #: forms.py:29 templates/page_coop_agenda/index.html:41
-#: templates/page_coop_agenda/search_form_agenda.html:43
+#: templates/page_coop_agenda/search_form_agenda.html:18
 msgid "End date"
 msgstr "Date de fin"
 
 #: forms.py:30 templates/page_coop_agenda/index.html:33
-#: templates/page_coop_agenda/search_form_agenda.html:35
+#: templates/page_coop_agenda/search_form_agenda.html:37
 msgid "Type"
 msgstr ""
 
@@ -173,7 +173,7 @@ msgid "You must be logged in to view this page"
 msgstr "Vous devez être connecté pour voir cette page"
 
 #: templates/page_coop_agenda/index.html:91
-#: templates/page_coop_agenda/search_form_agenda.html:69
+#: templates/page_coop_agenda/search_form_agenda.html:71
 msgid "Search"
 msgstr "Rechercher"
 
@@ -215,7 +215,9 @@ msgstr "S'inscrire"
 #: templates/page_coop_agenda/reply_fail.html:7
 msgid ""
 "Error: subscription has not been sent. Please refer to an admin. Thank you."
-msgstr "Erreur: l'inscription n'a pas pu être envoyée. Merci de contacter un administrateur."
+msgstr ""
+"Erreur: l'inscription n'a pas pu être envoyée. Merci de contacter un "
+"administrateur."
 
 #: templates/page_coop_agenda/reply_fail.html:8
 #: templates/page_coop_agenda/reply_success.html:8
@@ -225,6 +227,14 @@ msgstr "Retourner à la fiche"
 #: templates/page_coop_agenda/reply_success.html:7
 msgid "Subscription sent. Thank you."
 msgstr "Inscription envoyée. Merci."
+
+#: templates/page_coop_agenda/search_form_agenda.html:73
+msgid "Display more criteria"
+msgstr ""
+
+#: templates/page_coop_agenda/search_form_agenda.html:74
+msgid "Display less criteria"
+msgstr ""
 
 #~ msgid "Person"
 #~ msgstr "Personne"
