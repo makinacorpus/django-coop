@@ -16,6 +16,7 @@ from coop.base_models import ActivityNomenclature, TransverseTheme
 from coop_local.models import Relation, Location, Document
 from coop.base_models import Located
 from coop_geo.widgets import LocationPointWidget, ChooseLocationWidget
+from coop_local.widgets import CustomCheckboxSelectMultiple, CustomClearableFileInput
 
 from django.db.models.loading import get_model
 
@@ -57,6 +58,8 @@ class PartialMemberForm(OrganizationAdminForm):
     class Meta:
         model = Organization
         exclude = ('members', 'secteur_fse', 'sites', 'relations', 'statut', )
+        widgets = {'logo' : CustomClearableFileInput(),}
+
 
 
 class CustomLocatedForm(forms.ModelForm):

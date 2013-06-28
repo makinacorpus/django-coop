@@ -127,8 +127,8 @@ msgstr ""
 #: templates/page_members/add.html:52
 msgid "Choose if we want to display acronym or title"
 msgstr ""
-"Choisir si on préfère afficher d'abord le sigle ou la signification (garder "
-"Titre s'il n'y a pas de sigle)"
+"Choisir si on préfère afficher d'abord le sigle ou la signification"
+
 
 #: templates/page_members/add.html:58
 msgid ""

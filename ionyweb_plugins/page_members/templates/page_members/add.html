@@ -43,7 +43,6 @@
             <div class="fieldWrapper">
                 {{ form.acronym.errors  }}
                 {{ form.acronym.label_tag }}: {{ form.acronym }}
-                <div class="help_text">{% trans 'If chosen, put the meaning of the acronym in the title' %}</div>
             </div>
 
             <div class="fieldWrapper">
@@ -161,7 +160,7 @@
 
             <div class="fieldWrapper">
                 {{ form.logo.errors  }}
-                {{ form.logo.label_tag }}: {{ form.logo }}
+                {{ form.logo.label_tag }}: <div class="img_form">{{ form.logo }}</div>
             </div>
 
             <div class="fieldWrapper">
