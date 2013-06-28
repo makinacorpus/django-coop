@@ -9,10 +9,9 @@ from coop.exchange.models import ETYPE
 from coop.exchange.models import EWAY
 from coop.exchange.admin import ExchangeForm
 from coop_local.models import Exchange, Document
-from coop_local.widgets import CustomCheckboxSelectMultiple
+from coop_local.widgets import CustomCheckboxSelectMultiple, CustomClearableFileInput
 from coop.base_models import ActivityNomenclature, TransverseTheme
 from extended_choices import Choices
-
 
 
 EMODE = Choices(
@@ -73,6 +72,7 @@ class PartialExchangeForm(ExchangeForm):
     class Meta:
         model = Exchange
         exclude = ('products', 'sites', )
+        widgets = {'img' : CustomClearableFileInput(),}
 
 class DocumentForm(forms.ModelForm):
     class Meta:

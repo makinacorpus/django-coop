@@ -23,6 +23,7 @@
             <div class="fieldWrapper">
                 {{ form.title.errors }}
                 {{ form.title.label_tag }}: {{ form.title }}
+                {{ form.title..help_text }}
             </div>          
 
             <div class="fieldWrapper">
@@ -37,7 +38,7 @@
             
             <div class="fieldWrapper">
                 {{ form.img.errors }}
-                {{ form.img.label_tag }}: {{ form.img }}
+                {{ form.img.label_tag }}: <div class="img_form">{{ form.img }}</div>
             </div>
 
             <div class="fieldWrapper">
