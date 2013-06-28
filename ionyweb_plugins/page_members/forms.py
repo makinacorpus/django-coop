@@ -60,11 +60,11 @@ class PartialMemberForm(OrganizationAdminForm):
 
 
 class CustomLocatedForm(forms.ModelForm):
-    label = forms.CharField(required=False, label=_('Label'))
+    label = forms.CharField(required=False, label=_('Label'), help_text=_('Location and building name'))
     address = forms.CharField(required=False, label=_('Address'))
     city = forms.CharField(required=False, label=_('City'))
     zipcode = forms.CharField(required=False, label=_('Zipcode'))
-    point = forms.gis.PointField(required=False, label=_('Point'), widget=forms.gis.BaseOsmWidget(attrs={'map_width': 300,'map_height': 300}), null=True,srid=settings.COOP_GEO_EPSG_PROJECTION)
+    point = forms.gis.PointField(required=False, label=_('Point'), widget=forms.gis.BaseOsmWidget(attrs={'map_width': 300,'map_height': 300}), null=True,srid=settings.COOP_GEO_EPSG_PROJECTION, help_text=_('You may point manually the location of the location'))
     #point = forms.gis.PointField(label=_('Point'), widget=LocationPointWidget, null=True,srid=settings.COOP_GEO_EPSG_PROJECTION)
     #point = forms.gis.PointField(label=_('Point'), null=True,srid=settings.COOP_GEO_EPSG_PROJECTION)
     #point = forms.gis.PointField(required=False, label=_('Point'), widget=LocationPointWidget(attrs={'map_width': 300,'map_height': 300}), null=True,srid=settings.COOP_GEO_EPSG_PROJECTION)
@@ -95,6 +95,8 @@ class CustomLocatedForm(forms.ModelForm):
             self.fields['city'].initial = location.city
             self.fields['zipcode'].initial = location.zipcode
             self.fields['point'].initial = location.point
+            
+            self.fields['opening'].help_text = _('Presentation sample: Monday 9h-12h  14h-17h / Tuesday  9h-12h  14h-17h / Wed.  14h-17h')
         
     def clean(self):
         cleaned_data = self.cleaned_data

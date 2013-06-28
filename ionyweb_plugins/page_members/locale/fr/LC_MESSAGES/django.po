@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-28 11:44+0200\n"
+"POT-Creation-Date: 2013-06-28 15:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,6 +57,12 @@ msgstr "Recherche libre"
 msgid "Label"
 msgstr "Titre"
 
+#: forms.py:63
+msgid "Location and building name"
+msgstr ""
+"Pour lieu dit et nom de bâtiment (exemple : CREDIS est hébergé à la maison "
+"peuple et culture)"
+
 #: forms.py:64
 msgid "Address"
 msgstr "Adresse"
@@ -72,6 +78,18 @@ msgstr "Code postal"
 #: forms.py:67
 msgid "Point"
 msgstr ""
+
+#: forms.py:67
+msgid "You may point manually the location of the location"
+msgstr ""
+"Géolocalisation à partir de l'adresse, il est possible de pointer "
+"manuellement (bouton crayon) si la géolocalisation a mal fonctionné"
+
+#: forms.py:99
+msgid ""
+"Presentation sample: Monday 9h-12h  14h-17h / Tuesday  9h-12h  14h-17h / "
+"Wed.  14h-17h"
+msgstr "Le type « galerie » est fait pour les images qui s'afficheront sur la galerie d'images de la fiche (et non dans les documents téléchargeables)"
 
 #: models.py:11
 msgid "type"
@@ -99,50 +117,110 @@ msgstr "Simple"
 msgid "Detailed"
 msgstr "Détaillé"
 
-#: templates/page_members/add.html:70
+#: templates/page_members/add.html:46
+msgid "If chosen, put the meaning of the acronym in the title"
+msgstr ""
+"Si choisit, infique la signification du sigle dans le titre (exemple : "
+"Collectif REgional pour le Developpement des Initiatives Solidaires dans "
+"titre pour CREDIS)"
+
+#: templates/page_members/add.html:52
+msgid "Choose if we want to display acronym or title"
+msgstr ""
+"Choisir si on préfère afficher d'abord le sigle ou la signification (garder "
+"Titre s'il n'y a pas de sigle)"
+
+#: templates/page_members/add.html:58
+msgid ""
+"Si you belong to a federation or network, write the creation date of your "
+"local unity"
+msgstr ""
+"Si vous appartenez à un réseau ou une fédération, mettez la date de création "
+"de votre unité locale"
+
+#: templates/page_members/add.html:69
+msgid "Shirt description of the organization"
+msgstr ""
+"Description sommaire de la structure, doit être inférieure à 100 signes"
+
+#: templates/page_members/add.html:73
 msgid "Products and services"
 msgstr "Produits et services"
 
-#: templates/page_members/add.html:80 templates/page_members/add.html:103
-#: templates/page_members/add.html:134 templates/page_members/add.html:196
-#: templates/page_members/add.html:225 templates/page_members/add.html:239
-#: templates/page_members/add.html:253
+#: templates/page_members/add.html:83 templates/page_members/add.html:108
+#: templates/page_members/add.html:140 templates/page_members/add.html:205
+#: templates/page_members/add.html:235 templates/page_members/add.html:249
+#: templates/page_members/add.html:263
 msgid "Add More"
 msgstr "Ajouter"
 
-#: templates/page_members/add.html:93
+#: templates/page_members/add.html:89
+msgid "No more than x signes"
+msgstr "Pas plus de 30 lignes"
+
+#: templates/page_members/add.html:95
+msgid "If description does not fit"
+msgstr "Si la description ne suffit pas"
+
+#: templates/page_members/add.html:98
 msgid "Locations"
 msgstr "Territoire"
 
-#: templates/page_members/add.html:124
+#: templates/page_members/add.html:109
+msgid "Clic on button to add more locations"
+msgstr "Cliquez sur le bouton pour ajouter de nouveaux lieux"
+
+#: templates/page_members/add.html:130
 msgid "Documents"
 msgstr ""
 
-#: templates/page_members/add.html:140
+#: templates/page_members/add.html:141
+msgid "Clic on button to add more documents"
+msgstr ""
+"Apparaîtra sur la fiche (document téléchargeables). Cliquez sur le bouton "
+"ajouter pour mettre plusieurs documents"
+
+#: templates/page_members/add.html:147
 msgid "Crowdfunding link"
 msgstr "Lien crowdfunding"
 
-#: templates/page_members/add.html:186
+#: templates/page_members/add.html:158
+msgid "You can choose more than one by pressing the CTRL key"
+msgstr "Plusieurs choix possibles en appuyant sur la touche CTRL"
+
+#: templates/page_members/add.html:170
+msgid "Give more visibility to your data and makes research easier"
+msgstr ""
+"Permet de faciliter les recherches et faire apparaître votre structure parmi "
+"les premiers résultats. Séparez les mots clés par une virgule (exemple de "
+"liste de mots clés : jardins partagé, lien social, éducation à "
+"l’environnement, auto-production)"
+
+#: templates/page_members/add.html:195
 msgid "Relationship"
 msgstr "Relations"
 
-#: templates/page_members/add.html:215
+#: templates/page_members/add.html:206
+msgid "Click the button to add more relations"
+msgstr "Cliquez sur le bouton pour ajouter de nouvelles relations"
+
+#: templates/page_members/add.html:225
 msgid "Contact"
 msgstr ""
 
-#: templates/page_members/add.html:229
+#: templates/page_members/add.html:239
 msgid "Engagement"
 msgstr "Membres"
 
-#: templates/page_members/add.html:243
+#: templates/page_members/add.html:253
 msgid "References"
 msgstr "Références"
 
-#: templates/page_members/add.html:288
+#: templates/page_members/add.html:298
 msgid "Create"
 msgstr "Ajouter"
 
-#: templates/page_members/add.html:290
+#: templates/page_members/add.html:300
 msgid "Modify"
 msgstr "Modifier"
 
@@ -191,3 +269,6 @@ msgstr "En savoir plus"
 #: templates/page_members/search_form_project.html:17
 msgid "Statut"
 msgstr "Statut"
+
+#~ msgid "Click the button to add more"
+#~ msgstr "Cliquez sur le bouton pour ajouter de nouveaux lieux"
