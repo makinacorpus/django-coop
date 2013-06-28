@@ -678,6 +678,8 @@ class BaseOrganization(URIModel):
 
     is_project = models.BooleanField(_(u'project'), blank=True)
 
+    source_info = models.CharField(_(u'source'), max_length=255, blank=True, null=True)
+    
     # Management
     creation = models.DateField(_(u'creation date'), auto_now_add=True)
     modification = models.DateField(_(u'modification date'), auto_now=True)
