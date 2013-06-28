@@ -94,6 +94,7 @@ class BaseTransverseTheme(models.Model):
         verbose_name = _(u'transverse theme')
         verbose_name_plural = _(u'transverse themes')
         app_label = 'coop_local'
+        ordering = ['name']
 
 
 class BaseRoleCategory(models.Model):
