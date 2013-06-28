@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-28 11:44+0200\n"
+"POT-Creation-Date: 2013-06-28 15:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -210,19 +210,39 @@ msgstr "Ajouter un article"
 msgid "Modify article"
 msgstr "Modifier un article"
 
-#: templates/page_coop_blog/add.html:57
+#: templates/page_coop_blog/add.html:26
+msgid "This image will be the first visible"
+msgstr "Première image visible depuis le moteur de recherche (par défaut ce sera le logo de la structure)"
+
+#: templates/page_coop_blog/add.html:35
+msgid "Source site or first publication place"
+msgstr "Site source ou lieu original de la publication"
+
+#: templates/page_coop_blog/add.html:59
 msgid "Documents"
 msgstr ""
 
-#: templates/page_coop_blog/add.html:67
+#: templates/page_coop_blog/add.html:69
 msgid "Add More"
 msgstr ""
 
-#: templates/page_coop_blog/add.html:109
+#: templates/page_coop_blog/add.html:70
+msgid "Click the button to add more documents"
+msgstr "Cliquez sur le bouton pour ajouter de nouveaux documents"
+
+#: templates/page_coop_blog/add.html:81
+msgid "You may choose multiple value by pressing the CTRL key"
+msgstr "Vous pouvez choisir plusieurs valeurs en pressant la touche Ctrl"
+
+#: templates/page_coop_blog/add.html:89
+msgid "To facilitate research"
+msgstr "Permet de faciliter les recherches et faire apparaître votre structure parmi les premiers résultats. Séparez les mots clés par une virgule (exemple de liste de mots clés : jardins partagé, lien social, éducation à l’environnement, auto-production)"
+
+#: templates/page_coop_blog/add.html:114
 msgid "Create"
 msgstr "Créer"
 
-#: templates/page_coop_blog/add.html:111
+#: templates/page_coop_blog/add.html:116
 msgid "Modify"
 msgstr "Modifier"
 

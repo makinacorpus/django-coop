@@ -23,6 +23,7 @@
             <div class="fieldWrapper">
                 {{ form.image.errors }}
                 {{ form.image.label_tag }}: {{ form.image|safe }}
+                <div class="help_text">{% trans 'This image will be the first visible' %}</div>
             </div>   
             <div class="fieldWrapper">
                 {{ form.author.errors }}
@@ -31,6 +32,7 @@
             <div class="fieldWrapper">
                 {{ form.source.errors }}
                 {{ form.source.label_tag }}: {{ form.source|safe }}
+                <div class="help_text">{% trans 'Source site or first publication place' %}</div>
             </div> 
             <div class="fieldWrapper">
                 {{ form.publication_date.errors }}
@@ -65,6 +67,7 @@
                     </div>
                 {% endfor %}
                 <input type="button" value="{% trans 'Add More' %}" id="add_more_doc">
+                <div class="help_text">{% trans 'Click the button to add more documents' %}</div>
             </div>
 
 
@@ -75,6 +78,7 @@
             <div class="fieldWrapper">
                 {{ form.transverse_themes.errors }}
                 {{ form.transverse_themes.label_tag }}: {{ form.transverse_themes|safe }}
+                <div class="help_text">{% trans 'You may choose multiple value by pressing the CTRL key' %}</div>
             </div>   
 
             <!-- TODO: category ?             -->
@@ -82,6 +86,7 @@
             <div class="fieldWrapper">
                 {{ form.tags.errors }}
                 {{ form.tags.label_tag }}: {{ form.tags|safe }}
+                <div class="help_text">{% trans 'To facilitate research' %}</div>
             </div>   
 
             <!-- TODO: site synchro             -->
