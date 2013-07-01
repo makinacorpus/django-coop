@@ -9,7 +9,7 @@ from coop_local.widgets import CustomCheckboxSelectMultiple, CustomClearableFile
 from coop.base_models import ActivityNomenclature, TransverseTheme
 from extended_choices import Choices
 
-from coop_local.models import LegalStatus, Location
+from coop_local.models import LegalStatus, Location, Area
 
 CONTENT_TYPES = Choices (
     ('Exchange',    1,  _(u'Exchange')),
@@ -25,13 +25,13 @@ class PageApp_CoopTerritoryForm(ModuloModelForm):
 
     type_content = forms.MultipleChoiceField(required=False, choices=CONTENT_TYPES, widget=CustomCheckboxSelectMultiple())
 
-    departement = forms.ModelChoiceField(queryset=Location.objects.order_by('label'), required=False)
+    departement = forms.ModelChoiceField(queryset=Area.objects.filter(area_type=2).order_by('label'), required=False)
 
     country = forms.ModelChoiceField(queryset=Location.objects.order_by('label'), required=False)
     
-    epci = forms.ModelChoiceField(queryset=Location.objects.order_by('label'), required=False)
+    epci = forms.ModelChoiceField(queryset=Area.objects.filter(area_type=4).order_by('label'), required=False)
     
-    commune = forms.ModelChoiceField(queryset=Location.objects.order_by('label'), required=False)
+    commune = forms.ModelChoiceField(queryset=Area.objects.filter(area_type=3).order_by('label'), required=False)
 
     activity = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.filter(parent__isnull=True).order_by('label'),required=False, label=_('Activity'))
     activity2 = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.filter(parent__isnull=True).order_by('label'),required=False, label=_('Activity'))
