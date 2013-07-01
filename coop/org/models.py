@@ -653,7 +653,7 @@ class BaseOrganization(URIModel):
     pref_label = models.PositiveSmallIntegerField(_(u'Preferred label'),
                         choices=PREFLABEL.CHOICES, default=PREFLABEL.TITLE)
 
-    short_description = models.TextField(_(u'short description'), blank=True)
+    short_description = models.TextField(_(u'short description'), max_length=100, blank=True)
     description = models.TextField(_(u'description'), blank=True, null=True)
     testimony = models.TextField(_(u'testimony'), blank=True)
     guaranties = models.ManyToManyField('coop_local.Guaranty', verbose_name=_(u'guaranties'), blank=True, null=True)

@@ -59,6 +59,12 @@ class PartialMemberForm(OrganizationAdminForm):
         model = Organization
         exclude = ('members', 'secteur_fse', 'sites', 'relations', 'statut', )
         widgets = {'logo' : CustomClearableFileInput(),}
+        
+    def __init__(self, *args, **kwargs):
+        super(PartialMemberForm, self).__init__(*args, **kwargs)
+        self.fields['short_description'].widget.attrs['onkeypress'] = 'return textCounter(this, 100);'
+        self.fields['short_description'].widget.attrs['rows'] = '5'
+        self.fields['short_description'].widget.attrs['cols'] = '40'        
 
 
 
