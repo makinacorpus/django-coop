@@ -66,6 +66,9 @@ class PartialMemberForm(OrganizationAdminForm):
         self.fields['short_description'].widget.attrs['rows'] = '5'
         self.fields['short_description'].widget.attrs['cols'] = '40'        
 
+        self.fields['description'].widget.attrs['rows'] = '15'
+        self.fields['description'].widget.attrs['cols'] = '40'        
+
 
 
 class CustomLocatedForm(forms.ModelForm):
