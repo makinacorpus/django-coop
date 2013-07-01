@@ -12,7 +12,7 @@ from django.shortcuts import get_object_or_404
 from ionyweb.website.rendering.medias import CSSMedia
 from datetime import datetime
 
-from .forms import PageApp_CoopTerritoryForm, DocumentForm
+from .forms import PageApp_CoopTerritoryForm
 
 from django.db.models import Q
 
@@ -54,7 +54,8 @@ def filter_data(request, page_app, mode):
     #exchanges = exchanges.filter(organization__isnull=True)
     search_form_template = "page_coop_territory/search_form_territory.html"
     
-    #if request.method == 'POST':      
+    if request.method == 'POST':  
+        pass
         #form = PageApp_CoopTerritoryForm(request.POST)
         #if form.is_valid():
             #if form.cleaned_data['free_search']:
@@ -88,9 +89,9 @@ def filter_data(request, page_app, mode):
             ##TODO : mode
             
             ##TODO : skills
-    #else:
-        #form = PageApp_CoopTerritoryForm({'location_buffer': '10'}) # An empty form
-        #more_criteria = False
+    else:
+        form = PageApp_CoopTerritoryForm({'location_buffer': '10'}) # An empty form
+        more_criteria = False
     
     center_map = settings.COOP_MAP_DEFAULT_CENTER
     
@@ -98,7 +99,7 @@ def filter_data(request, page_app, mode):
     #available_locations = dumps([{'label':area.label, 'value':area.pk} for area in Area.objects.all().order_by('label')])
     
     #rdict = {'exchanges': exchanges, 'base_url': base_url, 'form': form, 'center': center_map, 'more_criteria': more_criteria, 'available_locations': available_locations, "search_form_template": search_form_template, "mode": mode, 'media_path': settings.MEDIA_URL, 'is_exchange': is_exchange}
-    rdict = {'search_form_template': search_form_template}
+    rdict = {'search_form_template': search_form_template, 'base_url': base_url, 'form': form, 'more_criteria': more_criteria}
     
     return rdict
                        
