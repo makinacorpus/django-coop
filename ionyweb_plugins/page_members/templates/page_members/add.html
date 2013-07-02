@@ -37,61 +37,34 @@
         <div id="tabs-1">
             <div class="fieldWrapper">
                 {{ form.title.errors  }}
-                {{ form.title.label_tag }}: {{ form.title }}
+                {{ form.title.label_tag }} : {{ form.title }}
             </div>
 
             <div class="fieldWrapper">
                 {{ form.acronym.errors  }}
-                {{ form.acronym.label_tag }}: {{ form.acronym }}
+                {{ form.acronym.label_tag }} : {{ form.acronym }}
             </div>
 
             <div class="fieldWrapper">
                 {{ form.pref_label.errors  }}
-                {{ form.pref_label.label_tag }}: {{ form.pref_label }}
+                {{ form.pref_label.label_tag }} : {{ form.pref_label }}
                 <div class="help_text">{% trans 'Choose if we want to display acronym or title' %}</div>
             </div>
 
             <div class="fieldWrapper">
                 {{ form.birth.errors  }}
-                {{ form.birth.label_tag }}: {{ form.birth }}
+                {{ form.birth.label_tag }} : {{ form.birth }}
                 <div class="help_text">{% trans 'Si you belong to a federation or network, write the creation date of your local unity' %}</div>
             </div>
 
             <div class="fieldWrapper">
+                {{ form.category.errors  }}
+                {{ form.category.label_tag }} : {{ form.category }}
+            </div>
+
+            <div class="fieldWrapper">
                 {{ form.legal_status.errors  }}
-                {{ form.legal_status.label_tag }}: {{ form.legal_status }}
-            </div>
-
-            <div class="fieldWrapper">
-                {{ form.short_description.errors  }}
-                {{ form.short_description.label_tag }}: {{ form.short_description }}
-                <div class="help_text">{% trans 'Shirt description of the organization' %}</div>
-            </div>
-
-            <!--  liste produits et services            -->
-            <h3 class="title_formset">{% trans "Products and services" %}</h3>
-            <div id="offer" class="fieldWrapper formset">
-                {{ offer_form.management_form }}
-                {% for d in offer_form.forms %}
-                    <div class='table_formset table_offer'>
-                        <table class='no_error'>
-                            {{ d.as_table }}
-                        </table>
-                    </div>
-                {% endfor %}
-                <input type="button" value="{% trans 'Add More' %}" id="add_more_offer">
-            </div>
-
-            <div class="fieldWrapper">
-                {{ form.description.errors  }}
-                {{ form.description.label_tag }}: {{ form.description }}
-                <div class="help_text">{% trans 'No more than x signes' %}</div>
-            </div>
-
-            <div class="fieldWrapper">
-                {{ form.description2.errors  }}
-                {{ form.description2.label_tag }}: {{ form.description2 }}
-                <div class="help_text">{% trans 'If description does not fit' %}</div>
+                {{ form.legal_status.label_tag }} : {{ form.legal_status }}
             </div>
 
             <h3 class="title_formset">{% trans "Locations" %}</h3>
@@ -104,27 +77,95 @@
                         </table>
                     </div>
                 {% endfor %}
-                <input type="button" value="{% trans 'Add More' %}" id="add_more_located">
+                <input type="button" value="{% trans 'Add More location' %}" id="add_more_located">
                 <div class="help_text">{% trans 'Clic on button to add more locations' %}</div>
             </div>
 
-            <div class="fieldWrapper">
-                {{ form.pref_address.errors  }}
-                {{ form.pref_address.label_tag }}: {{ form.pref_address }}
+            <h3 class="title_formset">{% trans "Contact" %}</h3>
+            <div id="contact" class="fieldWrapper formset">
+                {{ contact_form.management_form }}
+                {% for d in contact_form.forms %}
+                    <div class='table_formset table_contact'>
+                        <table class='no_error'>
+                            {{ d.as_table }}
+                        </table>
+                    </div>
+                {% endfor %}
+                <input type="button" value="{% trans 'Add More contact' %}" id="add_more_contact">
             </div>
 
-
-
             <div class="fieldWrapper">
-                {{ form.pref_email.errors  }}
-                {{ form.pref_email.label_tag }}: {{ form.pref_email }}
+                {{ form.short_description.errors  }}
+                {{ form.short_description.label_tag }} : {{ form.short_description }}
+                <div class="help_text">{% trans 'Shirt description of the organization' %}</div>
             </div>
 
             <div class="fieldWrapper">
                 {{ form.web.errors  }}
-                {{ form.web.label_tag }}: {{ form.web }}
+                {{ form.web.label_tag }} : {{ form.web }}
             </div>
 
+            <div class="fieldWrapper">
+                {{ form.description.errors  }}
+                {{ form.description.label_tag }} : {{ form.description }}
+                <div class="help_text">{% trans 'No more than x signes' %}</div>
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.description2.errors  }}
+                {{ form.description2.label_tag }} : {{ form.description2 }}
+                <div class="help_text">{% trans 'If description does not fit' %}</div>
+            </div>
+
+
+            <div class="fieldWrapper">
+                {{ form.pref_address.errors  }}
+                {{ form.pref_address.label_tag }} : {{ form.pref_address }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.pref_email.errors  }}
+                {{ form.pref_email.label_tag }} : {{ form.pref_email }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.pref_phone.errors  }}
+                {{ form.pref_phone.label_tag }} : {{ form.pref_phone }}
+            </div>
+
+
+            <div class="fieldWrapper">
+                {{ form.crowdfunding.errors  }}
+                <label for="id_crowdfunding">{% trans "Crowdfunding link" %}</label> : {{ form.crowdfunding }}
+            </div>
+
+            <!--<div class="fieldWrapper">
+                {{ form.activity.errors  }}
+                {{ form.activity.label_tag }} : {{ form.activity }}
+            </div>-->
+
+            <div class="fieldWrapper">
+                {{ form.transverse_themes.errors  }}
+                {{ form.transverse_themes.label_tag }} : {{ form.transverse_themes }}
+                <div class="help_text">{% trans 'You can choose more than one by pressing the CTRL key' %}</div>
+            </div>
+
+
+            <div class="fieldWrapper">
+                {{ form.logo.errors  }}
+                {{ form.logo.label_tag }} : <div class="img_form">{{ form.logo }}</div>
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.tags.errors  }}
+                {{ form.tags.label_tag }} : {{ form.tags }}
+                <div class="help_text">{% trans 'Give more visibility to your data and makes research easier' %}</div>
+            </div>
+<!--         </div> -->
+        </div>
+
+
+        <div id="tabs-2">
             <!-- Doc associés -->
             <h3 class="title_formset">{% trans "Documents" %}</h3>
             <div id="docs" class="fieldWrapper formset">
@@ -136,60 +177,15 @@
                         </table>
                     </div>
                 {% endfor %}
-                <input type="button" value="{% trans 'Add More' %}" id="add_more_doc">
+                <input type="button" value="{% trans 'Add More document' %}" id="add_more_doc">
                 <div class="help_text">{% trans 'Clic on button to add more documents' %}</div>
-            </div>
-            
-
-            <div class="fieldWrapper">
-                {{ form.crowdfunding.errors  }}
-                <label for="id_crowdfunding">{% trans "Crowdfunding link" %}</label>: {{ form.crowdfunding }}
-            </div>
-
-            <!--<div class="fieldWrapper">
-                {{ form.activity.errors  }}
-                {{ form.activity.label_tag }}: {{ form.activity }}
-            </div>-->
-
-            <div class="fieldWrapper">
-                {{ form.transverse_themes.errors  }}
-                {{ form.transverse_themes.label_tag }}: {{ form.transverse_themes }}
-                <div class="help_text">{% trans 'You can choose more than one by pressing the CTRL key' %}</div>
-            </div>
-
-
-            <div class="fieldWrapper">
-                {{ form.logo.errors  }}
-                {{ form.logo.label_tag }}: <div class="img_form">{{ form.logo }}</div>
-            </div>
-
-            <div class="fieldWrapper">
-                {{ form.tags.errors  }}
-                {{ form.tags.label_tag }}: {{ form.tags }}
-                <div class="help_text">{% trans 'Give more visibility to your data and makes research easier' %}</div>
-            </div>
-<!--         </div> -->
-        </div>
-        <div id="tabs-2">
-<!--         <div class="bg_form"> -->
-            <div class="fieldWrapper">
-                {{ form.category.errors  }}
-                {{ form.category.label_tag }}: {{ form.category }}
-            </div>
-
-            <!--  TODO: membre à contact préféré            -->
-
-            <div class="fieldWrapper">
-                {{ form.pref_phone.errors  }}
-                {{ form.pref_phone.label_tag }}: {{ form.pref_phone }}
             </div>
 
             <div class="fieldWrapper">
                 {{ form.guaranties.errors  }}
-                {{ form.guaranties.label_tag }}: {{ form.guaranties }}
+                {{ form.guaranties.label_tag }} : {{ form.guaranties }}
             </div>
 
-            <!-- TODO plus value solidaire -->
 
             <h3 class="title_formset">{% trans "Relationship" %}</h3>
             <div id="rel" class="fieldWrapper formset">
@@ -201,41 +197,53 @@
                         </table>
                     </div>
                 {% endfor %}
-                <input type="button" value="{% trans 'Add More' %}" id="add_more_rel">
+                <input type="button" value="{% trans 'Add More relation' %}" id="add_more_rel">
                 <div class="help_text">{% trans 'Click the button to add more relations' %}</div>
             </div>
 
-            <div class="fieldWrapper">
-                {{ form.annual_revenue.errors  }}
-                {{ form.annual_revenue.label_tag }}: {{ form.annual_revenue }}
-            </div>
 
-            <div class="fieldWrapper">
-                {{ form.workforce.errors  }}
-                {{ form.workforce.label_tag }}: {{ form.workforce }}
-            </div>
-
-            <!--TODO  "Pour chaque contact : 
-            medium 
-            Contenu"-->
-            <!-- Détail -->
-            <!-- Lieu associé -->
-            <!-- Affichage (liste ; choix unique) -->
-            <h3 class="title_formset">{% trans "Contact" %}</h3>
-            <div id="contact" class="fieldWrapper formset">
-                {{ contact_form.management_form }}
-                {% for d in contact_form.forms %}
-                    <div class='table_formset table_contact'>
+            <!--  liste produits et services            -->
+            <h3 class="title_formset">{% trans "Products and services" %}</h3>
+            <div id="offer" class="fieldWrapper formset">
+                {{ offer_form.management_form }}
+                {% for d in offer_form.forms %}
+                    <div class='table_formset table_offer'>
                         <table class='no_error'>
                             {{ d.as_table }}
                         </table>
                     </div>
                 {% endfor %}
-                <input type="button" value="{% trans 'Add More' %}" id="add_more_contact">
+                <input type="button" value="{% trans 'Add More offer' %}" id="add_more_offer">
             </div>
 
+
+
+            
+
+
+
+            <!--  TODO: membre à contact préféré            -->
+
+            <!-- TODO plus value solidaire -->
+
+            <div class="fieldWrapper">
+                {{ form.annual_revenue.errors  }}
+                {{ form.annual_revenue.label_tag }} : {{ form.annual_revenue }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.workforce.errors  }}
+                {{ form.workforce.label_tag }} : {{ form.workforce }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.siret.errors  }}
+                {{ form.siret.label_tag }} : {{ form.siret }}
+            </div>
+
+
             <!-- Membres             -->
-            <h3 class="title_formset">{% trans "Engagement" %}</h3>
+<!--            <h3 class="title_formset">{% trans "Engagement" %}</h3>
             <div id="eng" class="fieldWrapper formset">
                 {{ engagement_form.management_form }}
                 {% for d in engagement_form.forms %}
@@ -245,8 +253,8 @@
                         </table>
                     </div>
                 {% endfor %}
-                <input type="button" value="{% trans 'Add More' %}" id="add_more_eng">
-            </div>
+                <input type="button" value="{% trans 'Add More engagement' %}" id="add_more_eng">
+            </div>-->
 
             <!--  Standby            -->
 <!--            <h3>{% trans "References" %}</h3>
@@ -262,19 +270,15 @@
                 <input type="button" value="{% trans 'Add More' %}" id="add_more_ref">
             </div>-->
 
-            <div class="fieldWrapper">
-                {{ form.siret.errors  }}
-                {{ form.siret.label_tag }}: {{ form.siret }}
-            </div>
 
             <div class="fieldWrapper">
                 {{ form.notes.errors  }}
-                {{ form.notes.label_tag }}: {{ form.notes }}
+                {{ form.notes.label_tag }} : {{ form.notes }}
             </div>
 
 <!--            <div class="fieldWrapper">
                 {{ form.testimony.errors  }}
-                {{ form.testimony.label_tag }}: {{ form.testimony }}
+                {{ form.testimony.label_tag }} : {{ form.testimony }}
             </div>-->
 <!--         </div> -->
         </div>
@@ -284,7 +288,7 @@
 
 <!--            <div class="fieldWrapper">
                 {{ form.status.errors  }}
-                {{ form.status.label_tag }}: {{ form.status }}
+                {{ form.status.label_tag }} : {{ form.status }}
             </div>-->
 
 
@@ -332,7 +336,7 @@
         $('#id_date_start').datepicker({dateFormat: 'yy-mm-dd', constrainInput: false});
         $('#id_date_end').datepicker({dateFormat: 'yy-mm-dd', constrainInput: false});
 
-        tinyMCE.init({"spellchecker_languages": "Arabe=ar,Az\u00e9ri=az,Bulgare=bg,Bengal\u00ee=bn,Bosniaque=bs,Catalan=ca,Tch\u00e8que=cs,Gallois=cy,Dannois=da,Allemand=de,Grec=el,Anglais / Anglais britannique=en,Esperanto=eo,Espagnol / Espagnol argentin / Espagnol mexicain / Espagnol nicaraguayen=es,Estonien=et,Basque=eu,Perse=fa,Finlandais=fi,+Fran\u00e7ais=fr,Frise=fy,Irlandais=ga,Galicien=gl,H\u00e9breu=he,Hindi=hi,Croate=hr,Hongrois=hu,Indon\u00e9sien=id,Islandais=is,Italien=it,Japonais=ja,G\u00e9orgien=ka,Kazakh=kk,Khmer=km,Kannada=kn,Cor\u00e9en=ko,Lituanien=lt,Letton=lv,Mac\u00e9donien=mk,Malay\u00e2lam=ml,Mongole=mn,Norv\u00e9gien Bokmal=nb,Nepali=ne,Hollandais=nl,Norv\u00e9gien Nynorsk=nn,Penjabi=pa,Polonais=pl,Portugais / Portugais br\u00e9silien=pt,Roumain=ro,Russe=ru,Slovaque=sk,Slov\u00e8ne=sl,Albanais=sq,Serbe / Serbe latin=sr,Su\u00e9dois=sv,Swahili=sw,Tamoul=ta,T\u00e9lougou=te,Tha\u00ef=th,Turc=tr,Tatar=tt,Ukrainien=uk,Ourdou=ur,Vietnamien=vi,Chinois simplifi\u00e9 / Chinois traditionnel=zh",
+        tinyMCE.init({"spellchecker_languages": "Arabe=ar,Az\u00e9ri=az,Bulgare=bg,Bengal\u00ee=bn,Bosniaque=bs,Catalan=ca,Tch\u00e8que=cs,Gallois=cy,Dannois=da,Allemand=de,Grec=el,Anglais / Anglais britannique=en,Esperanto=eo,Espagnol / Espagnol argentin / Espagnol mexicain / Espagnol nicaraguayen=es,Estonien=et,Basque=eu,Perse=fa,Finlandais=fi,+Fran\u00e7ais=fr,Frise=fy,Irlandais=ga,Galicien=gl,H\u00e9breu=he,Hindi=hi,Croate=hr,Hongrois=hu,Indon\u00e9sien=id,Islandais=is,Italien=it,Japonais=ja,G\u00e9orgien=ka,Kazakh=kk,Khmer=km,Kannada=kn,Cor\u00e9en=ko,Lituanien=lt,Letton=lv,Mac\u00e9donien=mk,Malay\u00e2lam=ml,Mongole=mn,Norv\u00e9gien Bokmal=nb,Nepali=ne,Hollandais=nl,Norv\u00e9gien Nynorsk=nn,Penjabi=pa,Polonais=pl,Portugais / Portugais br\u00e9silien=pt,Roumain=ro,Russe=ru,Slovaque=sk,Slov\u00e8ne=sl,Albanais=sq,Serbe / Serbe latin=sr,Su\u00e9dois=sv,Swahili=sw,Tamoul=ta,T\u00e9lougou=te,Tha\u00ef=th,Turc=tr,Tatar=tt,Chinois simplifi\u00e9 / Chinois traditionnel=zh",
         "elements": "id_description2", "theme_advanced_buttons3": "", "plugins": "table,spellchecker,filemanager,paste,searchreplace,inlinepopups", "relative_urls": false, "spellchecker_rpc_url": "/_tinymce/spellchecker/", "language": "fr", 
         "theme_advanced_buttons1": "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,formatselect,fontsizeselect,|,forecolor,backcolor,|,bullist,numlist,|,outdent,indent,|,sub,sup,|,charmap,emotions,separator,forecolor,backcolor", "directionality": "ltr",
         "theme_advanced_buttons2": "pastetext,pasteword,selectall,|,undo,redo,|,link,unlink,anchor,image,filemanager,code,|,tablecontrols,|,fullscreen", "theme": "advanced", "strict_loading_mode": 1, "mode": "exact"});
