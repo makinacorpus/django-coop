@@ -13,7 +13,7 @@ from coop_local.models import Organization, LegalStatus
 from coop.org.admin import OrganizationAdminForm, RelationInline
 
 from coop.base_models import ActivityNomenclature, TransverseTheme
-from coop_local.models import Relation, Location, Document
+from coop_local.models import Relation, Location, Document, Offer
 from coop.base_models import Located
 from coop_geo.widgets import LocationPointWidget, ChooseLocationWidget
 from coop_local.widgets import CustomCheckboxSelectMultiple, CustomClearableFileInput
@@ -68,9 +68,17 @@ class PartialMemberForm(OrganizationAdminForm):
 
         self.fields['description'].widget.attrs['rows'] = '15'
         self.fields['description'].widget.attrs['cols'] = '40'        
+        
+        
+class CustomOfferForm(forms.ModelForm):        
+    class Meta:
+        model = Offer
 
-
-
+    def __init__(self, *args, **kwargs):
+        super(CustomOfferForm, self).__init__(*args, **kwargs)
+        self.fields['activity'] = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.order_by('path'))
+        
+        
 class CustomLocatedForm(forms.ModelForm):
     label = forms.CharField(required=False, label=_('Label'), help_text=_('Location and building name'))
     address = forms.CharField(required=False, label=_('Address'))
