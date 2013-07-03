@@ -7,6 +7,10 @@
 
 <script type="text/javascript" src="{{ STATIC_URL }}themes/pes_auvergne/default/js/forms_utils.js"></script>
 
+<!-- For tooltips -->
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery-ui-1.9.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.ui.tooltip.js"></script>
+
 
 <div id="exchanges_top"></div>
 <div id="result_exchanges" class="add_form">
@@ -28,7 +32,7 @@
             <div class="fieldWrapper">
                 {{ form.expiration.errors }}
                 {{ form.expiration.label_tag }}: {{ form.expiration }}
-                <div class="help_text">{% trans 'Date of expiration' %}</div>
+                <div class="help_text" title="{% trans 'Date of expiration' %}"></div>
             </div>   
 
             <div class="fieldWrapper">
@@ -39,7 +43,7 @@
             <div class="fieldWrapper">
                 {{ form.img.errors }}
                 {{ form.img.label_tag }}: <div class="img_form">{{ form.img }}</div>
-                <div class="help_text">{% trans 'First image visible' %}</div>
+                <div class="help_text" title="{% trans 'First image visible' %}"></div>
             </div>
 
             <div class="fieldWrapper">
@@ -94,7 +98,7 @@
                     </div>
                 {% endfor %}
                 <input type="button" value="{% trans 'Add More' %}" id="add_more_doc">
-                <div class="help_text">{% trans 'Click on the button to add other documents' %}</div>
+                <div class="help_text" title="{% trans 'Click on the button to add other documents' %}"></div>
             </div>
 
 
@@ -108,7 +112,7 @@
             <div class="fieldWrapper">
                 {{ form.transverse_themes.errors }}
                 {{ form.transverse_themes.label_tag }}: {{ form.transverse_themes }}
-                <div class="help_text">{% trans 'You may select multiple by pressing Ctrl key' %}</div>
+                <div class="help_text" title="{% trans 'You may select multiple by pressing Ctrl key' %}"></div>
 
             </div>   
             
@@ -116,7 +120,7 @@
             <div class="fieldWrapper">
                 {{ form.tags.errors }}
                 {{ form.tags.label_tag }}: {{ form.tags }}
-                <div class="help_text">{% trans 'Separate words with a comma' %}</div>
+                <div class="help_text" title="{% trans 'Separate words with a comma' %}"></div>
             </div>   
 
 <!-- TODO plus value solidaire -->
@@ -163,6 +167,8 @@
         $('#add_more_doc').click(function() {
             cloneMore('div.table_doc:last', 'doc');
         });
+
+        $(document).tooltip();
 
     });
 </script>
