@@ -198,7 +198,7 @@ def add_view(request, page_app, member_id=None):
         DocFormSet = generic_inlineformset_factory(Document, form=DocumentForm, extra=1)
         #ReferenceFormSet = inlineformset_factory(Organization, Reference, extra=1)
         RelationFormSet = inlineformset_factory(Organization, Relation, exclude=['reltype'], fk_name='source', form=CustomRelationForm, extra=1)
-        EngagementFormSet = inlineformset_factory(Organization, Engagement,exclude=['active','sites'], extra=1)
+        #EngagementFormSet = inlineformset_factory(Organization, Engagement,exclude=['active','sites'], extra=1)
         #MembersFormSet = inlineformset_factory(Organization, Person, extra=1)
         ContactFormSet = generic_inlineformset_factory(Contact, exclude=['active','sites'], extra=1)
         LocatedFormSet = generic_inlineformset_factory(Located, extra=1, form=CustomLocatedForm)
@@ -231,17 +231,17 @@ def add_view(request, page_app, member_id=None):
             docFormset = DocFormSet(request.POST, request.FILES, prefix='doc', instance=member)
             #referenceFormset = ReferenceFormSet(prefix='ref', instance=member)    
             relationFormset = RelationFormSet(request.POST, request.FILES, prefix='rel', instance=member)    
-            engagementFormset = EngagementFormSet(request.POST, request.FILES, prefix='eng', instance=member)
+            #engagementFormset = EngagementFormSet(request.POST, request.FILES, prefix='eng', instance=member)
             #membersFormset = MembersFormSet(request.POST, request.FILES, prefix='member', instance=member)
             contactFormset = ContactFormSet(request.POST, request.FILES, prefix='contact', instance=member)
             locatedFormset = LocatedFormSet(request.POST, request.FILES, prefix='located', instance=member)
             
-            if form.is_valid() and docFormset.is_valid() and offerFormset.is_valid() and relationFormset.is_valid() and engagementFormset.is_valid() and contactFormset.is_valid() and locatedFormset.is_valid():
+            if form.is_valid() and docFormset.is_valid() and offerFormset.is_valid() and relationFormset.is_valid() and contactFormset.is_valid() and locatedFormset.is_valid():
                 member = form.save()
                 docFormset.save()
                 offerFormset.save()
                 relationFormset.save()
-                engagementFormset.save()
+                #engagementFormset.save()
                 contactFormset.save()
                 locatedFormset.save()                
                 
@@ -257,12 +257,12 @@ def add_view(request, page_app, member_id=None):
             docFormset = DocFormSet(instance=member, prefix='doc')
             #referenceFormset = ReferenceFormSet(instance=member, prefix='ref')
             relationFormset = RelationFormSet(instance=member, prefix='rel')
-            engagementFormset = EngagementFormSet(instance=member, prefix='eng')
+            #engagementFormset = EngagementFormSet(instance=member, prefix='eng')
             #membersFormset = MembersFormSet(prefix='member')
             contactFormset = ContactFormSet(instance=member, prefix='contact')
             locatedFormset = LocatedFormSet(instance=member, prefix='located')
         
-        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form, 'offer_form': offerFormset, 'doc_form': docFormset, 'rel_form': relationFormset, 'engagement_form': engagementFormset, 'contact_form': contactFormset, 'center': center_map, 'located_form': locatedFormset, 'mode': mode, 'is_project' : is_project}
+        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form, 'offer_form': offerFormset, 'doc_form': docFormset, 'rel_form': relationFormset,  'contact_form': contactFormset, 'center': center_map, 'located_form': locatedFormset, 'mode': mode, 'is_project' : is_project}
         return render_view('page_members/add.html',
                         rdict,
                         MEDIAS,

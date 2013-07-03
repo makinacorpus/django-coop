@@ -169,7 +169,12 @@
                 {{ form.tags.label_tag }} : {{ form.tags }}
                 <div class="help_text">{% trans 'Give more visibility to your data and makes research easier' %}</div>
             </div>
-<!--         </div> -->
+
+            <div class="fieldWrapper">
+                {{ form.active.errors  }}
+                {{ form.active.label_tag }} : {{ form.active }}
+            </div>
+
         </div>
 
 
