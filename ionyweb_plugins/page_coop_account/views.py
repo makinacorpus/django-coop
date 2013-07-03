@@ -3,7 +3,7 @@
 from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
 
-from coop_local.models import Event, EventCategory, Calendar, Occurrence
+from coop_local.models import Organization, Event, EventCategory, Calendar, Occurrence
 from django.conf import settings
 
 from django.shortcuts import get_object_or_404
@@ -20,6 +20,8 @@ from django.contrib.gis.measure import D
 from coop_local.models import Location
 
 from django.contrib.auth import authenticate, login, logout
+
+from coop.org.models import get_rights as get_rights_org
 
 
 MEDIAS = (
@@ -50,7 +52,13 @@ def index_view(request, page_app):
         
         # TODO: gestion infos personnelles
         
-        # TODO: gestion mes structures
+        # My organizations
+        tab_org = []
+        organizations = Organization.objects.filter(is_project=False).order_by('title')
+        for o in organizations:
+            can_edit, can_add = get_rights_org(request, o.pk)
+            if can_edit:
+                tab_org.append(o)
         
         
         # TODO: gestion mes annonces / déposer une annonce / supprimer / valider..
@@ -61,7 +69,7 @@ def index_view(request, page_app):
         render_page = 'page_coop_account/login.html'
     
         
-    rdict = {'object': page_app, 'base_url': base_url}
+    rdict = {'object': page_app, 'base_url': base_url, 'org': tab_org}
     
     return render_view(render_page,
                        rdict,

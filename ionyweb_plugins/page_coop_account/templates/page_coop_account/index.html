@@ -7,6 +7,13 @@
 
         </div>
 
+        <h3>{% trans "My organizations" %}</h3>
+        <ul>
+        {% for o in org %}
+            <li><a href="/annuaire/p/{{ o.pk }}">{{ o.title }}</a> - <a href="/annuaire/p/member_edit/{{ o.pk }}">{% trans 'Edit' %}</a></li>
+        {% endfor %}
+        </ul>
+
         <a href="{{ base_url }}p/logout">{% trans "Logout" %}</a>
 </div>
 

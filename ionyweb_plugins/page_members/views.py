@@ -47,7 +47,7 @@ def carto_view(request, page_app):
 
 def filter_data(request, page_app, mode):
     # check rights    
-    can_edit, can_add = get_rights(request)
+    #can_edit, can_add = get_rights(request)
     
     if page_app.type != "":
         organizations = Organization.objects.filter(category__label=page_app.type)
@@ -142,7 +142,7 @@ def filter_data(request, page_app, mode):
     # Get available locations for autocomplete
     available_locations = dumps([{'label':area.label, 'value':area.pk} for area in Area.objects.all().order_by('label')])
     
-    rdict = {'object': page_app, 'members': organizations, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'direct_link': direct_link, 'search_form': search_form, 'form' : form, 'center': center_map, 'available_locations': available_locations, 'search_form_template': search_form_template, 'can_edit': can_edit, 'mode': mode}
+    rdict = {'object': page_app, 'members': organizations, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'direct_link': direct_link, 'search_form': search_form, 'form' : form, 'center': center_map, 'available_locations': available_locations, 'search_form_template': search_form_template, 'mode': mode}
 
     return rdict
 
@@ -164,7 +164,7 @@ def get_parent_activity_leve_0(activity):
     
 def detail_view(request, page_app, pk):
     # check rights    
-    can_edit, can_add = get_rights(request)
+    #can_edit, can_add = get_rights(request)
     
     base_url = u'%s' % (page_app.get_absolute_url())
     member = get_object_or_404(Organization, pk=pk)
@@ -181,13 +181,13 @@ def detail_view(request, page_app, pk):
 
     
     return render_view('page_members/detail.html',
-                       { 'member':  member, 'imgs': imgs, 'docs': docs, 'media_path': settings.MEDIA_URL , 'base_url': base_url, 'can_edit': can_edit, 'openings': openings, 'relationship_queryset': relationship_queryset},
+                       { 'member':  member, 'imgs': imgs, 'docs': docs, 'media_path': settings.MEDIA_URL , 'base_url': base_url, 'openings': openings, 'relationship_queryset': relationship_queryset},
                        MEDIAS,
                        context_instance=RequestContext(request))
                        
 def add_view(request, page_app, member_id=None):
     # check rights    
-    can_edit, can_add = get_rights(request,member_id)
+    #can_edit, can_add = get_rights(request,member_id)
 
     if page_app.get_absolute_url() == settings.COOP_MEMBER_ORGANIZATIONS_URL:
         is_project = False
@@ -271,37 +271,4 @@ def add_view(request, page_app, member_id=None):
                         context_instance=RequestContext(request))
     else:
         return render_view('page_members/forbidden.html')
-
-        
-#def get_rights(request, member_id=None): 
-    #can_edit = False
-    #can_add = False
-    
-    #if request.user.is_superuser:
-        #can_edit = True
-        #can_add = True
-    #else:
-        #if request.user.is_authenticated():
-            #try:
-                #pes_user = Person.objects.get(user=request.user)
-            #except Person.DoesNotExist:
-                #pes_user = None
-   
-            #if pes_user :
-                #if member_id:
-                    #try:
-                        #engagement = Engagement.objects.get(person_id=pes_user.pk, organization_id=member_id)
-                    #except Engagement.DoesNotExist:
-                        #engagement = None
-                #else:
-                    #try:
-                        #engagement = Engagement.objects.get(person_id=pes_user.pk)
-                    #except Engagement.DoesNotExist:
-                        #engagement = None
-
-                #if engagement and engagement.org_admin == True:
-                    #can_edit = True
-            
-    #return can_edit, can_add
-
-    
+  
