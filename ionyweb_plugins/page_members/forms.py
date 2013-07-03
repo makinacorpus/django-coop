@@ -13,7 +13,7 @@ from coop_local.models import Organization, LegalStatus
 from coop.org.admin import OrganizationAdminForm, RelationInline
 
 from coop.base_models import ActivityNomenclature, TransverseTheme
-from coop_local.models import Relation, Location, Document, Offer
+from coop_local.models import Relation, Location, Document, Offer, Area
 from coop.base_models import Located
 from coop_geo.widgets import LocationPointWidget, ChooseLocationWidget
 from coop_local.widgets import CustomCheckboxSelectMultiple, CustomClearableFileInput
@@ -77,6 +77,7 @@ class CustomOfferForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(CustomOfferForm, self).__init__(*args, **kwargs)
         self.fields['activity'] = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.order_by('path'))
+        self.fields['area'] = forms.ModelChoiceField(queryset=Area.objects.order_by('label'))
 
 class CustomRelationForm(forms.ModelForm):        
     class Meta:
