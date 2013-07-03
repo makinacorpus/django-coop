@@ -3,7 +3,7 @@
 from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
 
-from coop_local.models import Organization, Offer, Document, Reference, Relation, Engagement, Person, Contact, ActivityNomenclature
+from coop_local.models import Organization, Offer, Document, Reference, Relation, Engagement, Person, Contact, ActivityNomenclature, Location, Area
 
 from django.conf import settings
 
@@ -18,9 +18,8 @@ from django.forms.models import inlineformset_factory, formset_factory
 from django.contrib.contenttypes.generic import generic_inlineformset_factory
 
 from django.contrib.gis import geos
-from coop_local.models import Location, Area
-
 from coop.base_models import Located
+from coop.org.models import get_rights
 
 from django.utils.simplejson import dumps
 
@@ -54,7 +53,10 @@ def filter_data(request, page_app, mode):
         organizations = Organization.objects.filter(category__label=page_app.type)
     else:
         organizations = Organization.objects.all()
-            
+
+    # show only published objects
+    organizations = organizations.filter(active=True)
+        
     base_url = u'%s' % (page_app.get_absolute_url())
     
     direct_link = False
@@ -271,37 +273,35 @@ def add_view(request, page_app, member_id=None):
         return render_view('page_members/forbidden.html')
 
         
-def get_rights(request, member_id=None): 
-    can_edit = False
-    can_add = False
+#def get_rights(request, member_id=None): 
+    #can_edit = False
+    #can_add = False
     
-    if request.user.is_superuser:
-        can_edit = True
-        can_add = True
-    else:
-        if request.user.is_authenticated():
-            try:
-                pes_user = Person.objects.get(user=request.user)
-            except Person.DoesNotExist:
-                pes_user = None
+    #if request.user.is_superuser:
+        #can_edit = True
+        #can_add = True
+    #else:
+        #if request.user.is_authenticated():
+            #try:
+                #pes_user = Person.objects.get(user=request.user)
+            #except Person.DoesNotExist:
+                #pes_user = None
    
-            if pes_user :
-                if member_id:
-                    #engagement = get_object_or_404(Engagement, person_id=pes_user.pk, organization_id=member_id)
-                    try:
-                        engagement = Engagement.objects.get(person_id=pes_user.pk, organization_id=member_id)
-                    except Engagement.DoesNotExist:
-                        engagement = None
-                else:
-                    #engagement = get_object_or_404(Engagement, person_id=pes_user.pk)
-                    try:
-                        engagement = Engagement.objects.get(person_id=pes_user.pk)
-                    except Engagement.DoesNotExist:
-                        engagement = None
+            #if pes_user :
+                #if member_id:
+                    #try:
+                        #engagement = Engagement.objects.get(person_id=pes_user.pk, organization_id=member_id)
+                    #except Engagement.DoesNotExist:
+                        #engagement = None
+                #else:
+                    #try:
+                        #engagement = Engagement.objects.get(person_id=pes_user.pk)
+                    #except Engagement.DoesNotExist:
+                        #engagement = None
 
-                if engagement and engagement.org_admin == True:
-                    can_edit = True
+                #if engagement and engagement.org_admin == True:
+                    #can_edit = True
             
-    return can_edit, can_add
+    #return can_edit, can_add
 
     

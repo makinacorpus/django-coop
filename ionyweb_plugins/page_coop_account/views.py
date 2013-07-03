@@ -46,7 +46,12 @@ def index_view(request, page_app):
     
     if request.user.is_authenticated():
         render_page = 'page_coop_account/index.html'
+        
+        
         # TODO: gestion infos personnelles
+        
+        # TODO: gestion mes structures
+        
         
         # TODO: gestion mes annonces / déposer une annonce / supprimer / valider..
         

@@ -1057,6 +1057,38 @@ class BaseOrganization(URIModel):
                 ex.save()
 
 
+# Return rights about Oragnization (can_edit, can_add)
+def get_rights(request, member_id=None): 
+    can_edit = False
+    can_add = False
+    
+    if request.user.is_superuser:
+        can_edit = True
+        can_add = True
+    else:
+        if request.user.is_authenticated():
+            try:
+                pes_user = Person.objects.get(user=request.user)
+            except Person.DoesNotExist:
+                pes_user = None
+   
+            if pes_user :
+                if member_id:
+                    try:
+                        engagement = Engagement.objects.get(person_id=pes_user.pk, organization_id=member_id)
+                    except Engagement.DoesNotExist:
+                        engagement = None
+                else:
+                    try:
+                        engagement = Engagement.objects.get(person_id=pes_user.pk)
+                    except Engagement.DoesNotExist:
+                        engagement = None
+
+                if engagement and engagement.org_admin == True:
+                    can_edit = True
+            
+    return can_edit, can_add
+    
 # TODO : use django-multilingual-ng to translate the label field in multiple languages
 # Copied from OrgrelationType, goal is to use the same properties, as Project are Collaborations, a RDF subclass of project
 
