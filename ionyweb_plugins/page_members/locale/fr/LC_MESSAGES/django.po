@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-03 08:57+0200\n"
+"POT-Creation-Date: 2013-07-03 09:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -188,61 +188,67 @@ msgstr ""
 "liste de mots clés : jardins partagé, lien social, éducation à "
 "l’environnement, auto-production)"
 
-#: templates/page_members/add.html:178
+#: templates/page_members/add.html:176
+msgid ""
+"If not published, the organisation won't be visible on the website. You can "
+"access to it by going into your account"
+msgstr "Si non publiée, la strucure ne sera pas visible sur le site. Vous pourrez y accéder en allant dans la section Mon Compte"
+
+#: templates/page_members/add.html:184
 msgid "Documents"
 msgstr "Documents et galerie photos de la structure"
 
-#: templates/page_members/add.html:188
+#: templates/page_members/add.html:194
 msgid "Add More document"
 msgstr "Ajouter un nouveau document"
 
-#: templates/page_members/add.html:189
+#: templates/page_members/add.html:195
 msgid "Clic on button to add more documents"
 msgstr ""
 "Apparaîtra sur la fiche (document téléchargeables). Cliquez sur le bouton "
 "ajouter pour mettre plusieurs documents"
 
-#: templates/page_members/add.html:198
+#: templates/page_members/add.html:204
 msgid "Relationship"
 msgstr "Relations"
 
-#: templates/page_members/add.html:208
+#: templates/page_members/add.html:214
 msgid "Add More relation"
 msgstr "Ajouter une nouvelle relation"
 
-#: templates/page_members/add.html:209
+#: templates/page_members/add.html:215
 msgid "Click the button to add more relations"
 msgstr "Cliquez sur le bouton pour ajouter de nouvelles relations"
 
-#: templates/page_members/add.html:214
+#: templates/page_members/add.html:220
 msgid "Products and services"
 msgstr "Produits et services"
 
-#: templates/page_members/add.html:224
+#: templates/page_members/add.html:230
 msgid "Add More offer"
 msgstr "Ajouter une nouvelle offre"
 
-#: templates/page_members/add.html:254
+#: templates/page_members/add.html:260
 msgid "Engagement"
 msgstr "Membres"
 
-#: templates/page_members/add.html:264
+#: templates/page_members/add.html:270
 msgid "Add More engagement"
 msgstr "Ajouter un nouvel engagement"
 
-#: templates/page_members/add.html:268
+#: templates/page_members/add.html:274
 msgid "References"
 msgstr "Références"
 
-#: templates/page_members/add.html:278
+#: templates/page_members/add.html:284
 msgid "Add More"
 msgstr "Ajouter"
 
-#: templates/page_members/add.html:309
+#: templates/page_members/add.html:315
 msgid "Create"
 msgstr "Ajouter"
 
-#: templates/page_members/add.html:311
+#: templates/page_members/add.html:317
 msgid "Modify"
 msgstr "Modifier"
 
