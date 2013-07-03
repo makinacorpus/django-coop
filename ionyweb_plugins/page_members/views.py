@@ -11,7 +11,7 @@ from django.shortcuts import get_object_or_404
 
 from ionyweb.website.rendering.medias import CSSMedia
 
-from .forms import PageApp_MembersForm, PartialMemberForm, CustomLocatedForm, DocumentForm, CustomOfferForm
+from .forms import PageApp_MembersForm, PartialMemberForm, CustomLocatedForm, DocumentForm, CustomOfferForm, CustomRelationForm
 
 from django.db.models import Q
 from django.forms.models import inlineformset_factory, formset_factory
@@ -187,13 +187,17 @@ def add_view(request, page_app, member_id=None):
     # check rights    
     can_edit, can_add = get_rights(request,member_id)
 
+    if page_app.get_absolute_url() == settings.COOP_MEMBER_ORGANIZATIONS_URL:
+        is_project = False
+    if page_app.get_absolute_url() == settings.COOP_MEMBER_PROJECTS_URL:
+        is_project = True
 
     if request.user.is_authenticated():
         center_map = settings.COOP_MAP_DEFAULT_CENTER
         OfferFormSet = inlineformset_factory(Organization, Offer, exclude=['technical_means', 'workforce', 'practical_modalities'], form=CustomOfferForm, extra=1)
         DocFormSet = generic_inlineformset_factory(Document, form=DocumentForm, extra=1)
         #ReferenceFormSet = inlineformset_factory(Organization, Reference, extra=1)
-        RelationFormSet = inlineformset_factory(Organization, Relation, exclude=['reltype'], fk_name='source', extra=1)
+        RelationFormSet = inlineformset_factory(Organization, Relation, exclude=['reltype'], fk_name='source', form=CustomRelationForm, extra=1)
         EngagementFormSet = inlineformset_factory(Organization, Engagement,exclude=['active','sites'], extra=1)
         #MembersFormSet = inlineformset_factory(Organization, Person, extra=1)
         ContactFormSet = generic_inlineformset_factory(Contact, exclude=['active','sites'], extra=1)
@@ -213,10 +217,7 @@ def add_view(request, page_app, member_id=None):
         
         if request.method == 'POST': # If the form has been submitted
         
-            if page_app.get_absolute_url() == settings.COOP_MEMBER_ORGANIZATIONS_URL:
-                member.is_project = False
-            if page_app.get_absolute_url() == settings.COOP_MEMBER_PROJECTS_URL:
-                member.is_project = True
+            member.is_project = is_project
 
             # TODO: auto fill :
             #correspondence
@@ -261,7 +262,7 @@ def add_view(request, page_app, member_id=None):
             contactFormset = ContactFormSet(instance=member, prefix='contact')
             locatedFormset = LocatedFormSet(instance=member, prefix='located')
         
-        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form, 'offer_form': offerFormset, 'doc_form': docFormset, 'rel_form': relationFormset, 'engagement_form': engagementFormset, 'contact_form': contactFormset, 'center': center_map, 'located_form': locatedFormset, 'mode': mode}
+        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form, 'offer_form': offerFormset, 'doc_form': docFormset, 'rel_form': relationFormset, 'engagement_form': engagementFormset, 'contact_form': contactFormset, 'center': center_map, 'located_form': locatedFormset, 'mode': mode, 'is_project' : is_project}
         return render_view('page_members/add.html',
                         rdict,
                         MEDIAS,

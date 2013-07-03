@@ -77,6 +77,14 @@ class CustomOfferForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(CustomOfferForm, self).__init__(*args, **kwargs)
         self.fields['activity'] = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.order_by('path'))
+
+class CustomRelationForm(forms.ModelForm):        
+    class Meta:
+        model = Relation
+
+    def __init__(self, *args, **kwargs):
+        super(CustomRelationForm, self).__init__(*args, **kwargs)
+        self.fields['target'] = forms.ModelChoiceField(queryset=Organization.objects.order_by('title'))
         
         
 class CustomLocatedForm(forms.ModelForm):

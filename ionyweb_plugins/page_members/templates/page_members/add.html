@@ -18,14 +18,20 @@
 
 <div id="members_top"></div>
 <div id="members" class="add_form">
-    {% if mode = 'add' %}
-        <h2 class="maj_title">{% trans "Add new member" %}</h2>
+
+    {% if is_project %}
+        {% if mode = 'add' %}
+            <h2 class="maj_title">{% trans "Add new project" %}</h2>
+        {% else %}
+            <h2 class="maj_title">{% trans "Modify project" %}</h2>
+        {% endif %}
     {% else %}
-        <h2 class="maj_title">{% trans "Modify member" %}</h2>
+        {% if mode = 'add' %}
+            <h2 class="maj_title">{% trans "Add new member" %}</h2>
+        {% else %}
+            <h2 class="maj_title">{% trans "Modify member" %}</h2>
+        {% endif %}
     {% endif %}
-
-
-
 
     <form action="{{ base_url }}" method="post" class="add_form" enctype="multipart/form-data">{% csrf_token %}
 
@@ -133,11 +139,13 @@
                 {{ form.pref_phone.label_tag }} : {{ form.pref_phone }}
             </div>
 
-
-            <div class="fieldWrapper">
-                {{ form.crowdfunding.errors  }}
-                <label for="id_crowdfunding">{% trans "Crowdfunding link" %}</label> : {{ form.crowdfunding }}
-            </div>
+            
+            {% if is_project %}
+                <div class="fieldWrapper">
+                    {{ form.crowdfunding.errors  }}
+                    <label for="id_crowdfunding">{% trans "Crowdfunding link" %}</label> : {{ form.crowdfunding }}
+                </div>
+            {% endif %}
 
             <!--<div class="fieldWrapper">
                 {{ form.activity.errors  }}
