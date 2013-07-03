@@ -16,6 +16,14 @@
 
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}admintools_bootstrap/css/custom-theme/jquery-ui-1.8.16.custom.css" />
 
+<!-- For tooltips -->
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery-ui-1.9.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.ui.tooltip.js"></script>
+
+
+
+
+
 <div id="members_top"></div>
 <div id="members" class="add_form">
 
@@ -54,13 +62,13 @@
             <div class="fieldWrapper">
                 {{ form.pref_label.errors  }}
                 {{ form.pref_label.label_tag }} : {{ form.pref_label }}
-                <div class="help_text">{% trans 'Choose if we want to display acronym or title' %}</div>
+                <div class="help_text" title="{% trans 'Choose if we want to display acronym or title' %}"></div>
             </div>
 
             <div class="fieldWrapper">
                 {{ form.birth.errors  }}
                 {{ form.birth.label_tag }} : {{ form.birth }}
-                <div class="help_text">{% trans 'Si you belong to a federation or network, write the creation date of your local unity' %}</div>
+                <div class="help_text" title="{% trans 'Si you belong to a federation or network, write the creation date of your local unity' %}"></div>
             </div>
 
             <div class="fieldWrapper">
@@ -84,7 +92,7 @@
                     </div>
                 {% endfor %}
                 <input type="button" value="{% trans 'Add More location' %}" id="add_more_located">
-                <div class="help_text">{% trans 'Clic on button to add more locations' %}</div>
+                <div class="help_text" title="{% trans 'Clic on button to add more locations' %}"></div>
             </div>
 
             <h3 class="title_formset">{% trans "Contact" %}</h3>
@@ -103,7 +111,7 @@
             <div class="fieldWrapper">
                 {{ form.short_description.errors  }}
                 {{ form.short_description.label_tag }} : {{ form.short_description }}
-                <div class="help_text">{% trans 'Shirt description of the organization' %}</div>
+                <div class="help_text" title="{% trans 'Shirt description of the organization' %}"></div>
             </div>
 
             <div class="fieldWrapper">
@@ -113,14 +121,12 @@
 
             <div class="fieldWrapper">
                 {{ form.description.errors  }}
-                {{ form.description.label_tag }} : {{ form.description }}
-                <div class="help_text">{% trans 'No more than x signes' %}</div>
+                {{ form.description.label_tag }} : <div class="help_text" title="{% trans 'No more than x signes' %}"></div>{{ form.description }}
             </div>
 
             <div class="fieldWrapper">
                 {{ form.description2.errors  }}
-                {{ form.description2.label_tag }} : {{ form.description2 }}
-                <div class="help_text">{% trans 'If description does not fit' %}</div>
+                {{ form.description2.label_tag }} : <div class="help_text" title="{% trans 'If description does not fit' %}"></div>{{ form.description2 }}
             </div>
 
 
@@ -155,7 +161,7 @@
             <div class="fieldWrapper">
                 {{ form.transverse_themes.errors  }}
                 {{ form.transverse_themes.label_tag }} : {{ form.transverse_themes }}
-                <div class="help_text">{% trans 'You can choose more than one by pressing the CTRL key' %}</div>
+                <div class="help_text" title="{% trans 'You can choose more than one by pressing the CTRL key' %}"></div>
             </div>
 
 
@@ -167,13 +173,13 @@
             <div class="fieldWrapper">
                 {{ form.tags.errors  }}
                 {{ form.tags.label_tag }} : {{ form.tags }}
-                <div class="help_text">{% trans 'Give more visibility to your data and makes research easier' %}</div>
+                <div class="help_text" title="{% trans 'Give more visibility to your data and makes research easier' %}"></div>
             </div>
 
             <div class="fieldWrapper">
                 {{ form.active.errors  }}
                 {{ form.active.label_tag }} : {{ form.active }}
-                <div class="help_text">{% trans "If not published, the organisation won't be visible on the website. You can access to it by going into your account" %}</div>
+                <div class="help_text" title="{% trans "If not published, the organisation won't be visible on the website. You can access to it by going into your account" %}"></div>
             </div>
 
         </div>
@@ -192,7 +198,7 @@
                     </div>
                 {% endfor %}
                 <input type="button" value="{% trans 'Add More document' %}" id="add_more_doc">
-                <div class="help_text">{% trans 'Clic on button to add more documents' %}</div>
+                <div class="help_text" title="{% trans 'Clic on button to add more documents' %}"></div>
             </div>
 
             <div class="fieldWrapper">
@@ -212,7 +218,7 @@
                     </div>
                 {% endfor %}
                 <input type="button" value="{% trans 'Add More relation' %}" id="add_more_rel">
-                <div class="help_text">{% trans 'Click the button to add more relations' %}</div>
+                <div class="help_text" title="{% trans 'Click the button to add more relations' %}"></div>
             </div>
 
 
@@ -325,6 +331,7 @@
 
 <script type="text/javascript">
     $(function() {
+
         $.datepicker.regional['fr'] = {
             closeText: 'Fermer',
             prevText: '&#x3c;Préc',
@@ -382,6 +389,12 @@
         });
 
         $( "#tabs" ).tabs();
+
+//         $('#id_title').tipsy({gravity: 'n'});
+        $(document).tooltip();
+        
+
+
 
 
 //         $("#id_tags").autoSuggest(data);
