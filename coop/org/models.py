@@ -840,6 +840,13 @@ class BaseOrganization(URIModel):
         else:
             return None
 
+    def is_offer_labels(self):
+        labels = "".join([o.title for o in self.offer_set.all()])
+        if len(labels) == 0:
+            return False
+        else:
+            return True
+            
     def offer_activities(self):
         return " - ".join([o.activity.label for o in self.offer_set.all()])
 
