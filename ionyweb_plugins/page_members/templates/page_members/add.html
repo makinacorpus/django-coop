@@ -155,6 +155,10 @@
                 <div class="help_text" title="{% trans 'Give more visibility to your data and makes research easier' %}"></div>
             </div>
 
+            <div class="fieldWrapper">
+                {{ form.source_info.errors  }}
+                {{ form.source_info.label_tag }} : {{ form.source_info }}
+            </div>
 
 
             <h3 class="title_formset">{% trans "Preferences" %}</h3>
