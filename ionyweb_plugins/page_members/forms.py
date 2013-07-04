@@ -77,7 +77,7 @@ class CustomOfferForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(CustomOfferForm, self).__init__(*args, **kwargs)
         self.fields['activity'] = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.order_by('path'))
-        self.fields['area'] = forms.ModelChoiceField(queryset=Area.objects.order_by('label'))
+        #self.fields['area'] = forms.ModelChoiceField(queryset=Area.objects.order_by('label'))
 
 class CustomRelationForm(forms.ModelForm):        
     class Meta:

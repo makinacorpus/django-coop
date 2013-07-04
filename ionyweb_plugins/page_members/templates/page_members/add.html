@@ -7,21 +7,16 @@
 
 <link href="{{ STATIC_URL }}css/openlayers.css" type="text/css" media="all" rel="stylesheet" />
 
-
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/OpenLayers.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/gis/OpenStreetMap.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/MapWidget.js"></script>
-
 
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}admintools_bootstrap/css/custom-theme/jquery-ui-1.8.16.custom.css" />
 
 <!-- For tooltips -->
 <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-ui-1.9.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.ui.tooltip.js"></script>
-
-
-
 
 
 <div id="members_top"></div>
@@ -130,22 +125,6 @@
             </div>
 
 
-            <div class="fieldWrapper">
-                {{ form.pref_address.errors  }}
-                {{ form.pref_address.label_tag }} : {{ form.pref_address }}
-            </div>
-
-            <div class="fieldWrapper">
-                {{ form.pref_email.errors  }}
-                {{ form.pref_email.label_tag }} : {{ form.pref_email }}
-            </div>
-
-            <div class="fieldWrapper">
-                {{ form.pref_phone.errors  }}
-                {{ form.pref_phone.label_tag }} : {{ form.pref_phone }}
-            </div>
-
-            
             {% if is_project %}
                 <div class="fieldWrapper">
                     {{ form.crowdfunding.errors  }}
@@ -176,11 +155,34 @@
                 <div class="help_text" title="{% trans 'Give more visibility to your data and makes research easier' %}"></div>
             </div>
 
-            <div class="fieldWrapper">
-                {{ form.active.errors  }}
-                {{ form.active.label_tag }} : {{ form.active }}
-                <div class="help_text" title="{% trans "If not published, the organisation won't be visible on the website. You can access to it by going into your account" %}"></div>
+
+
+            <h3 class="title_formset">{% trans "Preferences" %}</h3>
+            <div id="preferences" class="fieldWrapper formset">
+                <div class="fieldWrapper">
+                    {{ form.pref_address.errors  }}
+                    {{ form.pref_address.label_tag }} : {{ form.pref_address }}
+                </div>
+
+                <div class="fieldWrapper">
+                    {{ form.pref_email.errors  }}
+                    {{ form.pref_email.label_tag }} : {{ form.pref_email }}
+                </div>
+
+                <div class="fieldWrapper">
+                    {{ form.pref_phone.errors  }}
+                    {{ form.pref_phone.label_tag }} : {{ form.pref_phone }}
+                </div>
+
+                <div class="fieldWrapper">
+                    {{ form.active.errors  }}
+                    {{ form.active.label_tag }} : {{ form.active }}
+                    <div class="help_text" title="{% trans "If not published, the organisation won't be visible on the website. You can access to it by going into your account" %}"></div>
+                </div>
+                
+
             </div>
+
 
         </div>
 

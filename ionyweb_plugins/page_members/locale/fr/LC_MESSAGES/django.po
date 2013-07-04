@@ -192,7 +192,7 @@ msgstr ""
 msgid ""
 "If not published, the organisation won't be visible on the website. You can "
 "access to it by going into your account"
-msgstr "Si non publiée, la strucure ne sera pas visible sur le site. Vous pourrez y accéder en allant dans la section Mon Compte"
+msgstr "Si non publiée, la structure ne sera pas visible sur le site. Vous pourrez y accéder en allant dans la section Mon Compte"
 
 #: templates/page_members/add.html:184
 msgid "Documents"

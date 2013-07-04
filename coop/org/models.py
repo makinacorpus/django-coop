@@ -841,7 +841,7 @@ class BaseOrganization(URIModel):
             return None
 
     def offer_activities(self):
-        return ", ".join([o.activity.label for o in self.offer_set.all()])
+        return " - ".join([o.activity.label for o in self.offer_set.all()])
 
     def offer_zone(self):
         tab_zone = []
