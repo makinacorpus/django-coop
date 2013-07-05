@@ -4,19 +4,18 @@
 <div id="coop_account">
 <div id="login_form">
     <form action="{{ base_url }}" method="post">{% csrf_token %}
-            <div class="" id="activity">
-                <span class="login">{% trans "Login" %}</span>
+            <div class="add_form" id="login">
+                <label class="login">{% trans "Login" %} : </label>
                 <input type="text" id="username" name="username">
             </div>
-            <div class="" id="organization">
-                <span class="login">{% trans "Password" %}</span>
+            <div class="add_form" id="password">
+                <label class="login">{% trans "Password" %} : </label>
                 <input type="password" id="password" name="password">
             </div>
 
-            <div class="" id="login_submit">
-                <input type="submit" value="{% trans "Login" %}" />
+            <div class="new_block" id="new_submit">
+                <input type="submit" value="{% trans "Login" %}" />                
             </div>
-
     </form>
 </div>
 </div>

@@ -45,7 +45,7 @@ def index_view(request, page_app):
         # Return an 'invalid login' error message.
         
     
-    
+    tab_org = []
     if request.user.is_authenticated():
         render_page = 'page_coop_account/index.html'
         
@@ -53,7 +53,6 @@ def index_view(request, page_app):
         # TODO: gestion infos personnelles
         
         # My organizations
-        tab_org = []
         organizations = Organization.objects.filter(is_project=False).order_by('title')
         for o in organizations:
             can_edit, can_add = get_rights_org(request, o.pk)
