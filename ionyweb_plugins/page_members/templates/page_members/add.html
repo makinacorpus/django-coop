@@ -253,23 +253,30 @@
             <!--  TODO: membre à contact préféré            -->
 
             <!-- TODO plus value solidaire -->
+            <h3 class="title_formset">{% trans "Complementary informations" %}</h3>
+            <div id="offer" class="fieldWrapper formset">
 
-            <div class="fieldWrapper">
-                {{ form.annual_revenue.errors  }}
-                <div class="labelWrapper">{{ form.annual_revenue.label_tag }} : </div>{{ form.annual_revenue }}
+                <div class="fieldWrapper">
+                    {{ form.annual_revenue.errors  }}
+                    <div class="labelWrapper">{{ form.annual_revenue.label_tag }} : </div>{{ form.annual_revenue }}
+                </div>
+
+                <div class="fieldWrapper">
+                    {{ form.workforce.errors  }}
+                    <div class="labelWrapper">{{ form.workforce.label_tag }} : </div>{{ form.workforce }}
+                </div>
+
+                <div class="fieldWrapper">
+                    {{ form.siret.errors  }}
+                    <div class="labelWrapper">{{ form.siret.label_tag }} : </div>{{ form.siret }}
+                </div>
+
+                <div class="fieldWrapper">
+                    {{ form.notes.errors  }}
+                    <div class="labelWrapper">{{ form.notes.label_tag }} : </div>{{ form.notes }}
+                </div>
             </div>
-
-            <div class="fieldWrapper">
-                {{ form.workforce.errors  }}
-                <div class="labelWrapper">{{ form.workforce.label_tag }} : </div>{{ form.workforce }}
-            </div>
-
-            <div class="fieldWrapper">
-                {{ form.siret.errors  }}
-                <div class="labelWrapper">{{ form.siret.label_tag }} : </div>{{ form.siret }}
-            </div>
-
-
+            
             <!-- Membres             -->
 <!--            <h3 class="title_formset">{% trans "Engagement" %}</h3>
             <div id="eng" class="fieldWrapper formset">
@@ -298,11 +305,6 @@
                 <input type="button" value="{% trans 'Add More' %}" id="add_more_ref">
             </div>-->
 
-
-            <div class="fieldWrapper">
-                {{ form.notes.errors  }}
-                <div class="labelWrapper">{{ form.notes.label_tag }} : </div>{{ form.notes }}
-            </div>
 
 <!--            <div class="fieldWrapper">
                 {{ form.testimony.errors  }}

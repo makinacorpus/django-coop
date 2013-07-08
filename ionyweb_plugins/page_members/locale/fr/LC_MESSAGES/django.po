@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-08 13:35+0200\n"
+"POT-Creation-Date: 2013-07-08 13:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -233,31 +233,35 @@ msgstr "Cliquez sur le bouton pour ajouter de nouvelles relations"
 msgid "Add More offer"
 msgstr "Ajouter une nouvelle offre"
 
-#: templates/page_members/add.html:274
+#: templates/page_members/add.html:256
+msgid "Complementary informations"
+msgstr "Informations complémentaires"
+
+#: templates/page_members/add.html:281
 msgid "Engagement"
 msgstr "Membres"
 
-#: templates/page_members/add.html:284
+#: templates/page_members/add.html:291
 msgid "Add More engagement"
 msgstr "Ajouter un nouvel engagement"
 
-#: templates/page_members/add.html:288
+#: templates/page_members/add.html:295
 msgid "References"
 msgstr "Références"
 
-#: templates/page_members/add.html:298
+#: templates/page_members/add.html:305
 msgid "Add More"
 msgstr "Ajouter"
 
-#: templates/page_members/add.html:314
+#: templates/page_members/add.html:316
 msgid "Soon"
 msgstr "A venir"
 
-#: templates/page_members/add.html:326
+#: templates/page_members/add.html:328
 msgid "Create"
 msgstr "Ajouter"
 
-#: templates/page_members/add.html:328
+#: templates/page_members/add.html:330
 msgid "Modify"
 msgstr "Modifier"
 
