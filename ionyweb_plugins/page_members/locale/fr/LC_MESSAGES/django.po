@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-08 13:50+0200\n"
+"POT-Creation-Date: 2013-07-08 14:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,39 +53,41 @@ msgstr "Thématique"
 msgid "Free search"
 msgstr "Recherche libre"
 
-#: forms.py:92
+#: forms.py:72
+msgid "Show on public site"
+msgstr "Publier sur le site"
+
+#: forms.py:94
 msgid "Label"
 msgstr "Titre"
 
-#: forms.py:92
+#: forms.py:94
 msgid "Location and building name"
-msgstr ""
-"Lieu dit ou nom de bâtiment (ex: Maison peuple "
-"et culture)"
+msgstr "Lieu dit ou nom de bâtiment (ex: Maison peuple et culture)"
 
-#: forms.py:93
+#: forms.py:95
 msgid "Address"
 msgstr "Adresse"
 
-#: forms.py:94
+#: forms.py:96
 msgid "City"
 msgstr "Ville"
 
-#: forms.py:95
+#: forms.py:97
 msgid "Zipcode"
 msgstr "Code postal"
 
-#: forms.py:96
+#: forms.py:98
 msgid "Point"
 msgstr ""
 
-#: forms.py:96
+#: forms.py:98
 msgid "You may point manually the location of the location"
 msgstr ""
 "Géolocalisation à partir de l'adresse, il est possible de pointer "
 "manuellement (bouton crayon) si la géolocalisation a mal fonctionné"
 
-#: forms.py:128
+#: forms.py:130
 msgid ""
 "Presentation sample: Monday 9h-12h  14h-17h / Tuesday  9h-12h  14h-17h / "
 "Wed.  14h-17h"
@@ -262,11 +264,11 @@ msgstr "A venir"
 
 #: templates/page_members/add.html:328
 msgid "Create"
-msgstr "Ajouter"
+msgstr "Enregistrer"
 
 #: templates/page_members/add.html:330
 msgid "Modify"
-msgstr "Modifier"
+msgstr "Enregistrer"
 
 #: templates/page_members/add_success.html:7
 msgid "Member added"

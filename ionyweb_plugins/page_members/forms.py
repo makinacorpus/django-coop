@@ -67,7 +67,9 @@ class PartialMemberForm(OrganizationAdminForm):
         self.fields['short_description'].widget.attrs['cols'] = '40'        
 
         self.fields['description'].widget.attrs['rows'] = '15'
-        self.fields['description'].widget.attrs['cols'] = '40'        
+        self.fields['description'].widget.attrs['cols'] = '40'    
+        
+        self.fields['active'].label = _('Show on public site')
         
         
 class CustomOfferForm(forms.ModelForm):        
