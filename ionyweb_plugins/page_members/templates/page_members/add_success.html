@@ -4,13 +4,13 @@
 <div id="members">
     <div class="member member_detail">
         {% if mode = 'add' %}
-            <h1>{% trans "Add new member" %}</h1>
+            <h1>{% trans "Member added" %}</h1>
             <p>{% trans "Member added. You may now consult it in the list" %}<p>
         {% else %}
-            <h1>{% trans "Modify member" %}</h1>
+            <h1>{% trans "Member modified" %}</h1>
             <p>{% trans "Member modified. You may now consult it in the list" %}<p>
         {% endif %}
-        <a href="{{ base_url }}p/{{ member_id }}" class="member_link">{% trans "See the detail" %}</a> - <a href="{{ base_url }}" class="member_link">{% trans "Member list" %}</a>
+        <a href="{{ base_url }}p/member_edit/{{ member_id }}" class="member_link">{% trans "Back to form" %}</a> - <a href="{{ base_url }}p/{{ member_id }}" class="member_link">{% trans "See the detail" %}</a> - <a href="{{ base_url }}" class="member_link">{% trans "Member list" %}</a>
     </div>
 </div>
 

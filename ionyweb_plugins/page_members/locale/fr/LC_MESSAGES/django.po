@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-04 09:41+0200\n"
+"POT-Creation-Date: 2013-07-08 13:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: forms.py:38 forms.py:39 templates/page_members/add.html:233
+#: forms.py:38 forms.py:39 templates/page_members/add.html:234
 #: templates/page_members/index.html:19
 #: templates/page_members/search_form_organization.html:4
 #: templates/page_members/search_form_project.html:4
@@ -111,12 +111,10 @@ msgid "Modify project"
 msgstr "Modifier le projet"
 
 #: templates/page_members/add.html:33
-#: templates/page_members/add_success.html:7
 msgid "Add new member"
 msgstr "Ajouter une nouvelle structure"
 
 #: templates/page_members/add.html:35
-#: templates/page_members/add_success.html:10
 msgid "Modify member"
 msgstr "Modifier la structure"
 
@@ -181,7 +179,7 @@ msgstr "Si la description ne suffit pas"
 msgid "Crowdfunding link"
 msgstr "Lien crowdfunding"
 
-#: templates/page_members/add.html:144
+#: templates/page_members/add.html:144 templates/page_members/add.html:214
 msgid "You can choose more than one by pressing the CTRL key"
 msgstr "Plusieurs choix possibles en appuyant sur la touche CTRL"
 
@@ -219,57 +217,69 @@ msgstr ""
 "Apparaîtra sur la fiche (document téléchargeables). Cliquez sur le bouton "
 "ajouter pour mettre plusieurs documents"
 
-#: templates/page_members/add.html:217
+#: templates/page_members/add.html:218
 msgid "Relationship"
 msgstr "Relations"
 
-#: templates/page_members/add.html:227
+#: templates/page_members/add.html:228
 msgid "Add More relation"
 msgstr "Ajouter une nouvelle relation"
 
-#: templates/page_members/add.html:228
+#: templates/page_members/add.html:229
 msgid "Click the button to add more relations"
 msgstr "Cliquez sur le bouton pour ajouter de nouvelles relations"
 
-#: templates/page_members/add.html:243
+#: templates/page_members/add.html:244
 msgid "Add More offer"
 msgstr "Ajouter une nouvelle offre"
 
-#: templates/page_members/add.html:273
+#: templates/page_members/add.html:274
 msgid "Engagement"
 msgstr "Membres"
 
-#: templates/page_members/add.html:283
+#: templates/page_members/add.html:284
 msgid "Add More engagement"
 msgstr "Ajouter un nouvel engagement"
 
-#: templates/page_members/add.html:287
+#: templates/page_members/add.html:288
 msgid "References"
 msgstr "Références"
 
-#: templates/page_members/add.html:297
+#: templates/page_members/add.html:298
 msgid "Add More"
 msgstr "Ajouter"
 
-#: templates/page_members/add.html:313
+#: templates/page_members/add.html:314
 msgid "Soon"
 msgstr "A venir"
 
-#: templates/page_members/add.html:325
+#: templates/page_members/add.html:326
 msgid "Create"
 msgstr "Ajouter"
 
-#: templates/page_members/add.html:327
+#: templates/page_members/add.html:328
 msgid "Modify"
 msgstr "Modifier"
+
+#: templates/page_members/add_success.html:7
+msgid "Member added"
+msgstr "Structure ajoutée"
 
 #: templates/page_members/add_success.html:8
 msgid "Member added. You may now consult it in the list"
 msgstr "Structure ajoutée. Vous pouvez à présent la consulter dans la liste"
 
+#: templates/page_members/add_success.html:10
+msgid "Member modified"
+msgstr "Structure modifiée"
+
 #: templates/page_members/add_success.html:11
 msgid "Member modified. You may now consult it in the list"
 msgstr "Structure modifiée. Vous pouvez à présent la consulter dans la liste"
+
+#: templates/page_members/add_success.html:13
+msgid "Back to form"
+msgstr "Retourner sur le formulaire"
 
 #: templates/page_members/add_success.html:13
 msgid "See the detail"
