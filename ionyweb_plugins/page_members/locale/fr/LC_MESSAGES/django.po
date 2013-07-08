@@ -60,7 +60,7 @@ msgstr "Titre"
 #: forms.py:92
 msgid "Location and building name"
 msgstr ""
-"Lieu dit ou nom de bâtiment (exemple : CREDIS est hébergé à la maison peuple "
+"Lieu dit ou nom de bâtiment (ex: Maison peuple "
 "et culture)"
 
 #: forms.py:93
