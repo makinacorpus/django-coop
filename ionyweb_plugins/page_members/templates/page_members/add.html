@@ -47,34 +47,34 @@
         <div id="tabs-1">
             <div class="fieldWrapper">
                 {{ form.title.errors  }}
-                {{ form.title.label_tag }} : {{ form.title }}
+                <div class="labelWrapper">{{ form.title.label_tag }} : </div>{{ form.title }}
             </div>
 
             <div class="fieldWrapper">
                 {{ form.acronym.errors  }}
-                {{ form.acronym.label_tag }} : {{ form.acronym }}
+                <div class="labelWrapper">{{ form.acronym.label_tag }} : </div>{{ form.acronym }}
             </div>
 
             <div class="fieldWrapper">
                 {{ form.pref_label.errors  }}
-                {{ form.pref_label.label_tag }} : {{ form.pref_label }}
+                <div class="labelWrapper">{{ form.pref_label.label_tag }} : </div>{{ form.pref_label }}
                 <div class="help_text" title="{% trans 'Choose if we want to display acronym or title' %}"></div>
             </div>
 
             <div class="fieldWrapper">
                 {{ form.birth.errors  }}
-                {{ form.birth.label_tag }} : {{ form.birth }}
+                <div class="labelWrapper">{{ form.birth.label_tag }} : </div>{{ form.birth }}
                 <div class="help_text" title="{% trans 'Si you belong to a federation or network, write the creation date of your local unity' %}"></div>
             </div>
 
             <div class="fieldWrapper">
                 {{ form.category.errors  }}
-                {{ form.category.label_tag }} : {{ form.category }}
+                <div class="labelWrapper">{{ form.category.label_tag }} : </div>{{ form.category }}
             </div>
 
             <div class="fieldWrapper">
                 {{ form.legal_status.errors  }}
-                {{ form.legal_status.label_tag }} : {{ form.legal_status }}
+                <div class="labelWrapper">{{ form.legal_status.label_tag }} : </div>{{ form.legal_status }}
             </div>
 
             <h3 class="title_formset">{% trans "Locations" %}</h3>
@@ -106,13 +106,13 @@
 
             <div class="fieldWrapper">
                 {{ form.short_description.errors  }}
-                {{ form.short_description.label_tag }} : {{ form.short_description }}
+                <div class="labelWrapper">{{ form.short_description.label_tag }} : </div>{{ form.short_description }}
                 <div class="help_text" title="{% trans 'Shirt description of the organization' %}"></div>
             </div>
 
             <div class="fieldWrapper">
                 {{ form.web.errors  }}
-                {{ form.web.label_tag }} : {{ form.web }}
+                <div class="labelWrapper">{{ form.web.label_tag }} : </div>{{ form.web }}
             </div>
 
             <div class="fieldWrapper">
@@ -129,7 +129,7 @@
             {% if is_project %}
                 <div class="fieldWrapper">
                     {{ form.crowdfunding.errors  }}
-                    <label for="id_crowdfunding">{% trans "Crowdfunding link" %}</label> : {{ form.crowdfunding }}
+                    <div class="labelWrapper"><label for="id_crowdfunding">{% trans "Crowdfunding link" %}</label> : </div>{{ form.crowdfunding }}
                 </div>
             {% endif %}
 
@@ -140,25 +140,25 @@
 
             <div class="fieldWrapper">
                 {{ form.transverse_themes.errors  }}
-                {{ form.transverse_themes.label_tag }} : {{ form.transverse_themes }}
+                <div class="labelWrapper">{{ form.transverse_themes.label_tag }} :</div>{{ form.transverse_themes }}
                 <div class="help_text" title="{% trans 'You can choose more than one by pressing the CTRL key' %}"></div>
             </div>
 
 
             <div class="fieldWrapper">
                 {{ form.logo.errors  }}
-                {{ form.logo.label_tag }} : <div class="img_form">{{ form.logo }}</div>
+                <div class="labelWrapper">{{ form.logo.label_tag }} :</div> <div class="img_form">{{ form.logo }}</div>
             </div>
 
             <div class="fieldWrapper">
                 {{ form.tags.errors  }}
-                {{ form.tags.label_tag }} : {{ form.tags }}
+                <div class="labelWrapper">{{ form.tags.label_tag }} :</div> {{ form.tags }}
                 <div class="help_text" title="{% trans 'Give more visibility to your data and makes research easier' %}"></div>
             </div>
 
             <div class="fieldWrapper">
                 {{ form.source_info.errors  }}
-                {{ form.source_info.label_tag }} : {{ form.source_info }}
+                <div class="labelWrapper">{{ form.source_info.label_tag }} : </div>{{ form.source_info }}
             </div>
 
 
@@ -166,22 +166,22 @@
             <div id="preferences" class="fieldWrapper formset">
                 <div class="fieldWrapper">
                     {{ form.pref_address.errors  }}
-                    {{ form.pref_address.label_tag }} : {{ form.pref_address }}
+                    <div class="labelWrapper">{{ form.pref_address.label_tag }} : </div>{{ form.pref_address }}
                 </div>
 
                 <div class="fieldWrapper">
                     {{ form.pref_email.errors  }}
-                    {{ form.pref_email.label_tag }} : {{ form.pref_email }}
+                    <div class="labelWrapper">{{ form.pref_email.label_tag }} : </div>{{ form.pref_email }}
                 </div>
 
                 <div class="fieldWrapper">
                     {{ form.pref_phone.errors  }}
-                    {{ form.pref_phone.label_tag }} : {{ form.pref_phone }}
+                    <div class="labelWrapper">{{ form.pref_phone.label_tag }} : </div>{{ form.pref_phone }}
                 </div>
 
                 <div class="fieldWrapper">
                     {{ form.active.errors  }}
-                    {{ form.active.label_tag }} : {{ form.active }}
+                    <div class="labelWrapper">{{ form.active.label_tag }} : </div>{{ form.active }}
                     <div class="help_text" title="{% trans "If not published, the organisation won't be visible on the website. You can access to it by going into your account" %}"></div>
                 </div>
                 
@@ -210,7 +210,7 @@
 
             <div class="fieldWrapper">
                 {{ form.guaranties.errors  }}
-                {{ form.guaranties.label_tag }} : {{ form.guaranties }}
+                <div class="labelWrapper">{{ form.guaranties.label_tag }} : </div>{{ form.guaranties }}
             </div>
 
 
@@ -255,17 +255,17 @@
 
             <div class="fieldWrapper">
                 {{ form.annual_revenue.errors  }}
-                {{ form.annual_revenue.label_tag }} : {{ form.annual_revenue }}
+                <div class="labelWrapper">{{ form.annual_revenue.label_tag }} : </div>{{ form.annual_revenue }}
             </div>
 
             <div class="fieldWrapper">
                 {{ form.workforce.errors  }}
-                {{ form.workforce.label_tag }} : {{ form.workforce }}
+                <div class="labelWrapper">{{ form.workforce.label_tag }} : </div>{{ form.workforce }}
             </div>
 
             <div class="fieldWrapper">
                 {{ form.siret.errors  }}
-                {{ form.siret.label_tag }} : {{ form.siret }}
+                <div class="labelWrapper">{{ form.siret.label_tag }} : </div>{{ form.siret }}
             </div>
 
 
@@ -300,7 +300,7 @@
 
             <div class="fieldWrapper">
                 {{ form.notes.errors  }}
-                {{ form.notes.label_tag }} : {{ form.notes }}
+                <div class="labelWrapper">{{ form.notes.label_tag }} : </div>{{ form.notes }}
             </div>
 
 <!--            <div class="fieldWrapper">
