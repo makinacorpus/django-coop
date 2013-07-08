@@ -198,12 +198,12 @@ def add_view(request, page_app, member_id=None):
         center_map = settings.COOP_MAP_DEFAULT_CENTER
         OfferFormSet = inlineformset_factory(Organization, Offer, exclude=['technical_means', 'workforce', 'practical_modalities'], form=CustomOfferForm, extra=1)
         DocFormSet = generic_inlineformset_factory(Document, form=DocumentForm, extra=1)
-        #ReferenceFormSet = inlineformset_factory(Organization, Reference, extra=1)
         RelationFormSet = inlineformset_factory(Organization, Relation, exclude=['reltype'], fk_name='source', form=CustomRelationForm, extra=1)
-        #EngagementFormSet = inlineformset_factory(Organization, Engagement,exclude=['active','sites'], extra=1)
-        #MembersFormSet = inlineformset_factory(Organization, Person, extra=1)
         ContactFormSet = generic_inlineformset_factory(Contact, exclude=['active','sites'], extra=1)
         LocatedFormSet = generic_inlineformset_factory(Located, extra=1, form=CustomLocatedForm)
+        #ReferenceFormSet = inlineformset_factory(Organization, Reference, extra=1)
+        #EngagementFormSet = inlineformset_factory(Organization, Engagement,exclude=['active','sites'], extra=1)
+        #MembersFormSet = inlineformset_factory(Organization, Person, extra=1)
 
         if member_id:
             # update
@@ -257,12 +257,12 @@ def add_view(request, page_app, member_id=None):
             form = PartialMemberForm(instance=member) # An empty form
             offerFormset = OfferFormSet(instance=member, prefix='offer')
             docFormset = DocFormSet(instance=member, prefix='doc')
-            #referenceFormset = ReferenceFormSet(instance=member, prefix='ref')
             relationFormset = RelationFormSet(instance=member, prefix='rel')
-            #engagementFormset = EngagementFormSet(instance=member, prefix='eng')
-            #membersFormset = MembersFormSet(prefix='member')
             contactFormset = ContactFormSet(instance=member, prefix='contact')
             locatedFormset = LocatedFormSet(instance=member, prefix='located')
+            #referenceFormset = ReferenceFormSet(instance=member, prefix='ref')
+            #engagementFormset = EngagementFormSet(instance=member, prefix='eng')
+            #membersFormset = MembersFormSet(prefix='member')
         
         rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form, 'offer_form': offerFormset, 'doc_form': docFormset, 'rel_form': relationFormset,  'contact_form': contactFormset, 'center': center_map, 'located_form': locatedFormset, 'mode': mode, 'is_project' : is_project}
         return render_view('page_members/add.html',

@@ -104,7 +104,7 @@ msgstr "Structures"
 
 #: templates/page_members/add.html:27
 msgid "Add new project"
-msgstr "Ajouter un nouveau projet"
+msgstr "Ajouter un autre projet"
 
 #: templates/page_members/add.html:29
 msgid "Modify project"
@@ -150,7 +150,7 @@ msgstr "Territoire"
 
 #: templates/page_members/add.html:90
 msgid "Add More location"
-msgstr "Ajouter un nouveau lieu"
+msgstr "Ajouter un autre lieu"
 
 #: templates/page_members/add.html:91
 msgid "Clic on button to add more locations"
@@ -162,7 +162,7 @@ msgstr ""
 
 #: templates/page_members/add.html:104
 msgid "Add More contact"
-msgstr "Ajouter un nouveau contact"
+msgstr "Ajouter un autre contact"
 
 #: templates/page_members/add.html:110
 msgid "Shirt description of the organization"
@@ -211,7 +211,7 @@ msgstr "Documents et galerie photos de la structure"
 
 #: templates/page_members/add.html:207
 msgid "Add More document"
-msgstr "Ajouter un nouveau document"
+msgstr "Ajouter un autre document"
 
 #: templates/page_members/add.html:208
 msgid "Clic on button to add more documents"
