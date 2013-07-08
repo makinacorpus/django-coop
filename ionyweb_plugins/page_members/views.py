@@ -55,7 +55,7 @@ def filter_data(request, page_app, mode):
         organizations = Organization.objects.all()
 
     # show only published objects
-    organizations = organizations.filter(active=True)
+    organizations = organizations.filter(active=True).order_by("title")
         
     base_url = u'%s' % (page_app.get_absolute_url())
     
