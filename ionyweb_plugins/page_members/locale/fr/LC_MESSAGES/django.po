@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-08 13:46+0200\n"
+"POT-Creation-Date: 2013-07-08 13:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,8 +22,7 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: forms.py:38 forms.py:39 templates/page_members/add.html:234
-#: templates/page_members/index.html:19
+#: forms.py:38 forms.py:39 templates/page_members/index.html:19
 #: templates/page_members/search_form_organization.html:4
 #: templates/page_members/search_form_project.html:4
 msgid "Activity"
@@ -228,6 +227,10 @@ msgstr "Ajouter une nouvelle relation"
 #: templates/page_members/add.html:229
 msgid "Click the button to add more relations"
 msgstr "Cliquez sur le bouton pour ajouter de nouvelles relations"
+
+#: templates/page_members/add.html:234
+msgid "Activity detail"
+msgstr "Activités détaillées de la structure: offres de biens et services"
 
 #: templates/page_members/add.html:244
 msgid "Add More offer"
