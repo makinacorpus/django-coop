@@ -845,8 +845,11 @@ class BaseOrganization(URIModel):
             for l in self.located.all():
                 if l.main_location :
                     return "%s (%s)" % (l.location.city, l.location.zipcode)
-                    
-            return "%s (%s)" % (self.located.all()[0].location.city, self.located.all()[0].location.zipcode) 
+
+            for l in self.located.all():
+                if l.location:
+                    if l.location.city :
+                        return "%s (%s)" % (l.location.city, l.location.zipcode) 
         else:
             return None
 
