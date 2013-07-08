@@ -840,6 +840,16 @@ class BaseOrganization(URIModel):
         else:
             return None
 
+    def main_location_label(self):
+        if self.located.all().exists():
+            for l in self.located.all():
+                if l.main_location :
+                    return "%s (%s)" % (l.location.city, l.location.zipcode)
+                    
+            return "%s (%s)" % (self.located.all()[0].location.city, self.located.all()[0].location.zipcode) 
+        else:
+            return None
+
     def is_offer_labels(self):
         labels = "".join([o.title for o in self.offer_set.all()])
         if len(labels) == 0:
