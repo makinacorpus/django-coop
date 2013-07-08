@@ -844,7 +844,8 @@ class BaseOrganization(URIModel):
         if self.located.all().exists():
             for l in self.located.all():
                 if l.main_location :
-                    return "%s (%s)" % (l.location.city, l.location.zipcode)
+                    if l.location.city:
+                        return "%s (%s)" % (l.location.city, l.location.zipcode)
 
             for l in self.located.all():
                 if l.location:
