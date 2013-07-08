@@ -88,6 +88,7 @@ class CustomRelationForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(CustomRelationForm, self).__init__(*args, **kwargs)
         self.fields['target'] = forms.ModelChoiceField(queryset=Organization.objects.order_by('title'))
+        self.fields['target'].label = _("Target structure")
         
         
 class CustomLocatedForm(forms.ModelForm):
