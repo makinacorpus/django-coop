@@ -141,7 +141,7 @@ def filter_data(request, page_app, mode):
     
 
     
-    paginator = Paginator(organizations, 50)
+    paginator = Paginator(organizations, 100)
     page = request.GET.get('page')
     try:
         orgs_page = paginator.page(page)
