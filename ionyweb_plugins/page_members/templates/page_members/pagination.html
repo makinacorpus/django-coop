@@ -1,10 +1,29 @@
+{% load pager %}
+
 Page&nbsp;:&nbsp;
-{% for p in members.paginator.page_range %}
-    <a href="?{{ get_params }}&page={{ p }}" class="page-link{% if p == members.number %} current{% endif %}">{{ p }}</a>
-{% endfor %}
-<span class="step-links">
-    <a href="?{{ get_params }}&page={{ members.previous_page_number }}" class="prev-link" disabled="{{ members.has_previous|yesno:"true,false" }}">&nbsp;</a>
-    <a href="?{{ get_params }}&page={{ members.next_page_number }}" class="next-link" disabled="{{ members.has_next|yesno:"true,false" }}">Page suivante</a>
-</span>
 
+{% if members.paginator.num_pages > 1 %}
+  {% if members.number > 1 %}
+    <span class="step-links">
+    </span>
+  {% endif %}
 
+  {% for p in members.paginator.num_pages|pick_pages:members.number %}
+    {% if p == members.number %}
+      <span class="page-link page-number current">{{p}}</span>
+    {% else %}
+        {% if p == 0 %}
+            <span class="page-number ellipse">&hellip;</span>
+        {% else %}
+            <a href="?{{ get_params }}&page={{ p }}" class="page-link{% if p == members.number %} current{% endif %}">{{ p }}</a>
+        {% endif %}
+    {% endif %}
+  {% endfor %}
+
+  {% if members.number < members.paginator.num_pages %}
+    <span class="step-links">
+        <a href="?{{ get_params }}&page={{ members.previous_page_number }}" class="prev-link" disabled="{{ members.has_previous|yesno:"true,false" }}">&nbsp;</a>
+        <a href="?{{ get_params }}&page={{ members.next_page_number }}" class="next-link member_link" disabled="{{ members.has_next|yesno:"true,false" }}">Page suivante</a>
+    </span>
+  {% endif %}
+{% endif %}
