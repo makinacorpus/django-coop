@@ -1089,29 +1089,24 @@ def get_rights(request, member_id=None):
     else:
         if request.user.is_authenticated():
             try:
-                #pes_user = Person.objects.get(user=request.user)
                 pes_user = models.get_model('coop_local', 'person').objects.filter(user=request.user)
-            #except Person.DoesNotExist:
             except:
                 pes_user = None
    
             if pes_user :
                 if member_id:
                     try:
-                        #engagement = Engagement.objects.get(person_id=pes_user.pk, organization_id=member_id)
-                        engagement = models.get_model('coop_local', 'engagement').objects.filter(person_id=pes_user.pk, organization_id=member_id)
-                    #except Engagement.DoesNotExist:
+                        engagement = models.get_model('coop_local', 'engagement').objects.filter(person=pes_user, organization_id=member_id)
+                        print engagement
                     except:
                         engagement = None
                 else:
                     try:
-                        #engagement = Engagement.objects.get(person_id=pes_user.pk)
-                        engagement = models.get_model('coop_local', 'engagement').objects.filter(person_id=pes_user.pk)
-                    #except Engagement.DoesNotExist:
+                        engagement = models.get_model('coop_local', 'engagement').objects.filter(person=pes_user)
                     except:
                         engagement = None
 
-                if engagement and engagement.org_admin == True:
+                if engagement and engagement[0].org_admin == True:
                     can_edit = True
             
     return can_edit, can_add

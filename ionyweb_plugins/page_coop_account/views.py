@@ -55,6 +55,7 @@ def index_view(request, page_app):
         # My organizations
         organizations = Organization.objects.filter(is_project=False).order_by('title')
         for o in organizations:
+            print o.pk
             can_edit, can_add = get_rights_org(request, o.pk)
             if can_edit:
                 tab_org.append(o)
