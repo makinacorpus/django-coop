@@ -1098,13 +1098,17 @@ def get_rights(request, member_id=None):
             if pes_user :
                 if member_id:
                     try:
-                        engagement = Engagement.objects.get(person_id=pes_user.pk, organization_id=member_id)
-                    except Engagement.DoesNotExist:
+                        #engagement = Engagement.objects.get(person_id=pes_user.pk, organization_id=member_id)
+                        engagement = models.get_model('coop_local', 'engagement').objects.filter(person_id=pes_user.pk, organization_id=member_id)
+                    #except Engagement.DoesNotExist:
+                    except:
                         engagement = None
                 else:
                     try:
-                        engagement = Engagement.objects.get(person_id=pes_user.pk)
-                    except Engagement.DoesNotExist:
+                        #engagement = Engagement.objects.get(person_id=pes_user.pk)
+                        engagement = models.get_model('coop_local', 'engagement').objects.filter(person_id=pes_user.pk)
+                    #except Engagement.DoesNotExist:
+                    except:
                         engagement = None
 
                 if engagement and engagement.org_admin == True:
