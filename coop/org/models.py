@@ -1078,7 +1078,7 @@ class BaseOrganization(URIModel):
                 ex.save()
 
 
-# Return rights about Oragnization (can_edit, can_add)
+# Return rights about Organization (can_edit, can_add)
 def get_rights(request, member_id=None): 
     can_edit = False
     can_add = False
@@ -1089,8 +1089,10 @@ def get_rights(request, member_id=None):
     else:
         if request.user.is_authenticated():
             try:
-                pes_user = Person.objects.get(user=request.user)
-            except Person.DoesNotExist:
+                #pes_user = Person.objects.get(user=request.user)
+                pes_user = models.get_model('coop_local', 'person').objects.filter(user=request.user)
+            #except Person.DoesNotExist:
+            except:
                 pes_user = None
    
             if pes_user :
