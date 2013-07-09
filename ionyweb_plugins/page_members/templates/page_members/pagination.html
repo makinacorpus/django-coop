@@ -1,0 +1,10 @@
+Page&nbsp;:&nbsp;
+{% for p in members.paginator.page_range %}
+    <a href="?{{ get_params }}&page={{ p }}" class="page-link{% if p == members.number %} current{% endif %}">{{ p }}</a>
+{% endfor %}
+<span class="step-links">
+    <a href="?{{ get_params }}&page={{ members.previous_page_number }}" class="prev-link" disabled="{{ members.has_previous|yesno:"true,false" }}">&nbsp;</a>
+    <a href="?{{ get_params }}&page={{ members.next_page_number }}" class="next-link" disabled="{{ members.has_next|yesno:"true,false" }}">Page suivante</a>
+</span>
+
+

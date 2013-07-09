@@ -16,6 +16,7 @@ from .forms import PageApp_MembersForm, PartialMemberForm, CustomLocatedForm, Do
 from django.db.models import Q
 from django.forms.models import inlineformset_factory, formset_factory
 from django.contrib.contenttypes.generic import generic_inlineformset_factory
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 from django.contrib.gis import geos
 from coop.base_models import Located
@@ -138,11 +139,25 @@ def filter_data(request, page_app, mode):
     else:
         form = PageApp_MembersForm(initial={'location_buffer': '10'}) # An empty form
     
+
+    
+    paginator = Paginator(organizations, 50)
+    page = request.GET.get('page')
+    try:
+        orgs_page = paginator.page(page)
+    except PageNotAnInteger:
+        orgs_page = paginator.page(1)
+    except EmptyPage:
+        orgs_page = paginator.page(paginator.num_pages)
+    get_params = request.GET.copy()
+    if 'page' in get_params:
+        del get_params['page']    
     
     # Get available locations for autocomplete
     available_locations = dumps([{'label':area.label, 'value':area.pk} for area in Area.objects.all().order_by('label')])
     
-    rdict = {'object': page_app, 'members': organizations, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'direct_link': direct_link, 'search_form': search_form, 'form' : form, 'center': center_map, 'available_locations': available_locations, 'search_form_template': search_form_template, 'mode': mode}
+    #rdict = {'object': page_app, 'members': organizations, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'direct_link': direct_link, 'search_form': search_form, 'form' : form, 'center': center_map, 'available_locations': available_locations, 'search_form_template': search_form_template, 'mode': mode}
+    rdict = {'object': page_app, 'members': orgs_page, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'direct_link': direct_link, 'search_form': search_form, 'form' : form, 'center': center_map, 'available_locations': available_locations, 'search_form_template': search_form_template, 'mode': mode, 'get_params': get_params.urlencode()}
 
     return rdict
 

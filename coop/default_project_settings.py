@@ -79,7 +79,7 @@ MIDDLEWARE_CLASSES = [
     #'django_webid.auth.middleware.WEBIDAuthMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'coop.utils.middleware.CORSMiddleware',
-#    'pagination.middleware.PaginationMiddleware',
+    #'pagination.middleware.PaginationMiddleware',
     'ionyweb.website.middleware.ProvideWebSiteMiddleware',
     'ionyweb.website.middleware.PreamptiveWebSiteMiddleware',      
 ]
@@ -212,7 +212,7 @@ INSTALLED_APPS = [
     #'coop_cms.apps.rss_sync',
     #'colorbox',
     #'coop_bar',
-#    'pagination',
+    #'pagination',
 
     #ionyweb
     'ionyweb',
