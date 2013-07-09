@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-18 15:46+0100\n"
+"POT-Creation-Date: 2013-07-09 19:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,40 +19,57 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
 #: models.py:15
-msgid "CoopAgenda"
+msgid "CoopAccount"
 msgstr ""
 
-#: templates/page_coop_agenda/detail.html:30
-msgid "Description"
-msgstr "Description"
+#: templates/page_coop_account/index.html:5
+msgid "Account"
+msgstr "Mon compte"
 
-#: templates/page_coop_agenda/detail.html:32
-msgid "Organization"
-msgstr "Orgaisation"
+#: templates/page_coop_account/index.html:10
+msgid "My organizations"
+msgstr "Mes structures"
 
-#: templates/page_coop_agenda/detail.html:34
-msgid "Place"
-msgstr "Lieu"
+#: templates/page_coop_account/index.html:13
+msgid "Edit"
+msgstr "Editer"
 
-#: templates/page_coop_agenda/detail.html:36
-msgid "Type event"
-msgstr "Type évènement"
+#: templates/page_coop_account/index.html:17
+msgid "Logout"
+msgstr "Se déconnecter"
 
-#: templates/page_coop_agenda/detail.html:54
-msgid "Dates"
-msgstr "Dates"
+#: templates/page_coop_account/login.html:8
+#: templates/page_coop_account/login.html:17
+#: templates/page_coop_account/post_exchange.html:8
+#: templates/page_coop_account/post_exchange.html:17
+msgid "Login"
+msgstr ""
 
-#: templates/page_coop_agenda/index.html:5
-msgid "Agenda"
-msgstr "Agenda"
+#: templates/page_coop_account/login.html:12
+#: templates/page_coop_account/post_exchange.html:12
+msgid "Password"
+msgstr "Mot de passe"
 
-#: templates/page_coop_agenda/index.html:17
-msgid "to"
-msgstr "au"
+#~ msgid "Description"
+#~ msgstr "Description"
 
-#: templates/page_coop_agenda/index.html:30
-msgid "in"
-msgstr "à"
+#~ msgid "Place"
+#~ msgstr "Lieu"
+
+#~ msgid "Type event"
+#~ msgstr "Type évènement"
+
+#~ msgid "Dates"
+#~ msgstr "Dates"
+
+#~ msgid "Agenda"
+#~ msgstr "Agenda"
+
+#~ msgid "to"
+#~ msgstr "au"
+
+#~ msgid "in"
+#~ msgstr "à"
 
 #~ msgid "Person"
 #~ msgstr "Personne"
