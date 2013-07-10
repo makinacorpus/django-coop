@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-10 23:29+0200\n"
+"POT-Creation-Date: 2013-07-11 00:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -164,7 +164,7 @@ msgid "Clic on button to add more locations"
 msgstr "Cliquez sur le bouton pour ajouter de nouveaux lieux"
 
 #: templates/page_members/add.html:99
-msgid "Contact"
+msgid "Contacts"
 msgstr ""
 
 #: templates/page_members/add.html:109
