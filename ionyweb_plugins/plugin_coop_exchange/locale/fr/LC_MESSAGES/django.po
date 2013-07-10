@@ -48,7 +48,7 @@ msgstr "Coop échanges"
 
 #: templates/plugin_coop_exchange/index.html:3
 msgid "Exchanges"
-msgstr "Echanges"
+msgstr "Annonces"
 
 #: templates/plugin_coop_exchange/index.html:15
 msgid "See all exchanges..."
