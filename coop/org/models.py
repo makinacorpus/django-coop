@@ -700,6 +700,7 @@ class BaseOrganization(URIModel):
         framed = generic.GenericRelation('coop_geo.AreaLink')  # , related_name='framed_org')
 
     birth = models.DateField(_(u'creation date'), null=True, blank=True)
+ 
     email = models.EmailField(_(u'global email'), blank=True, null=True)
     email_sha1 = models.CharField(_(u'email checksum'),
             max_length=250, blank=True, null=True)  # TODO : do this in Postgre

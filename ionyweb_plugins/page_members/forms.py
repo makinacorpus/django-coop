@@ -16,7 +16,7 @@ from coop.base_models import ActivityNomenclature, TransverseTheme
 from coop_local.models import Relation, Location, Document, Offer, Area
 from coop.base_models import Located
 from coop_geo.widgets import LocationPointWidget, ChooseLocationWidget
-from coop_local.widgets import CustomCheckboxSelectMultiple, CustomClearableFileInput
+from coop_local.widgets import CustomCheckboxSelectMultiple, CustomClearableFileInput, YearWidget
 
 from django.db.models.loading import get_model
 
@@ -29,6 +29,7 @@ import models
 
 from django.conf import settings
 
+from django.forms.extras.widgets import SelectDateWidget
 
 
 class PageApp_MembersForm(ModelForm):
@@ -70,6 +71,10 @@ class PartialMemberForm(OrganizationAdminForm):
         self.fields['description'].widget.attrs['cols'] = '40'    
         
         self.fields['active'].label = _('Show on public site')
+
+        self.fields['birth'].widget = YearWidget(years=[y for y in range(1900,2050)])
+        
+        
         
         
 class CustomOfferForm(forms.ModelForm):        
