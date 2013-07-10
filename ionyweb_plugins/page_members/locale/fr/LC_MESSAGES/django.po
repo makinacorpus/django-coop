@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-10 22:07+0200\n"
+"POT-Creation-Date: 2013-07-10 23:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -274,13 +274,21 @@ msgstr "Ajouter"
 msgid "Soon"
 msgstr "A venir"
 
-#: templates/page_members/add.html:338
+#: templates/page_members/add.html:339
 msgid "Create"
 msgstr "Enregistrer"
 
-#: templates/page_members/add.html:340
+#: templates/page_members/add.html:343
 msgid "Modify"
 msgstr "Enregistrer"
+
+#: templates/page_members/add.html:344
+msgid "Delete"
+msgstr "Supprimer"
+
+#: templates/page_members/add.html:344
+msgid "Are you sure you want to delete this structure ?"
+msgstr "Êtes vous sûr de vouloir supprimer cette structure ?"
 
 #: templates/page_members/add_success.html:7
 msgid "Member added"
@@ -307,8 +315,14 @@ msgid "See the detail"
 msgstr "Voir la fiche détaillée"
 
 #: templates/page_members/add_success.html:13
+#: templates/page_members/delete_success.html:8
 msgid "Member list"
 msgstr "Liste des structures"
+
+#: templates/page_members/delete_success.html:6
+#: templates/page_members/delete_success.html:7
+msgid "Member deleted"
+msgstr "Structure supprimée"
 
 #: templates/page_members/forbidden.html:3
 msgid "You must be logged in to view this page"

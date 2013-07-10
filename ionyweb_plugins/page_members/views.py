@@ -229,6 +229,7 @@ def add_view(request, page_app, member_id=None):
             mode = 'update'
             member = get_object_or_404(Organization, pk=member_id)
             base_url = u'%sp/member_edit/%s' % (page_app.get_absolute_url(),member_id)
+            delete_url = u'%sp/member_delete/%s' % (page_app.get_absolute_url(),member_id)
 
         else :
             # new
@@ -283,7 +284,7 @@ def add_view(request, page_app, member_id=None):
             #engagementFormset = EngagementFormSet(instance=member, prefix='eng')
             #membersFormset = MembersFormSet(prefix='member')
         
-        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form, 'offer_form': offerFormset, 'doc_form': docFormset, 'rel_form': relationFormset,  'contact_form': contactFormset, 'center': center_map, 'located_form': locatedFormset, 'mode': mode, 'is_project' : is_project}
+        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'delete_url': delete_url, 'form': form, 'offer_form': offerFormset, 'doc_form': docFormset, 'rel_form': relationFormset,  'contact_form': contactFormset, 'center': center_map, 'located_form': locatedFormset, 'mode': mode, 'is_project' : is_project}
         return render_view('page_members/add.html',
                         rdict,
                         MEDIAS,
@@ -291,3 +292,17 @@ def add_view(request, page_app, member_id=None):
     else:
         return render_view('page_members/forbidden.html')
   
+
+def delete_view(request, page_app, member_id):
+    # check rights    
+    can_edit, can_add = get_rights(request, member_id)
+    if can_edit :
+        u = Organization.objects.get(pk=member_id).delete()
+        base_url = u'%s' % (page_app.get_absolute_url())
+        rdict = {'base_url': base_url}
+        return render_view('page_members/delete_success.html',
+                        rdict,
+                        MEDIAS,
+                        context_instance=RequestContext(request))
+    else:
+        return render_view('page_members/forbidden.html')
