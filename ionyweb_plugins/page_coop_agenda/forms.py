@@ -7,7 +7,7 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 from coop.agenda.forms import EventForm, MultipleOccurrenceForm, SingleOccurrenceForm
 
 from coop.base_models import ActivityNomenclature, TransverseTheme, Document, Located
-from coop_local.models import Event, Occurrence, Location
+from coop_local.models import Event, Occurrence, Location, Organization
 from coop_local.widgets import CustomClearableFileInput
 from coop_geo.widgets import LocationPointWidgetInline
 from django.conf import settings
@@ -65,6 +65,12 @@ class PartialEventForm(EventForm):
             self.fields['point'].initial = location.point
         
         self.fields['activity'] = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.order_by('path'))
+        self.fields['activity'].label = _('Activity')
+        self.fields['active'].label = _('Show on public site')
+        self.fields['organization'].label = _('Organizator')
+        
+        self.fields['organization'] = forms.ModelChoiceField(queryset=Organization.objects.order_by('title'))
+        self.fields['organizations'] = forms.ModelMultipleChoiceField(queryset=Organization.objects.order_by('title'))
         
     def save(self, commit=True):
         event = super(PartialEventForm, self).save(commit=False)
@@ -93,6 +99,12 @@ class PartialOccEventForm(SingleOccurrenceForm):
     class Meta:
         model = Occurrence
         #exclude = ('',)
+        
+    def __init__(self, *args, **kwargs):
+        super(PartialOccEventForm, self).__init__(*args, **kwargs)        
+        
+        self.fields['start_time'].label = _('Start date')
+        self.fields['end_time'].label = _('End date')
         
 class DocumentForm(forms.ModelForm):
     class Meta:
