@@ -2,7 +2,7 @@
 
 {% block extra_head %}
     <link rel="stylesheet" href="http://leaflet.cloudmade.com/dist/leaflet.css" />
-{% endblock %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}admintools_bootstrap/css/custom-theme/jquery-ui-1.8.16.custom.css" />
 
 <script type="text/javascript" src="{{ STATIC_URL }}themes/pes_auvergne/default/js/forms_utils.js"></script>
 
@@ -16,6 +16,10 @@
 <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.ui.tooltip.js"></script>
 
 
+{% endblock %}
+
+
+
 <div id="agenda_top"></div>
 <div id="coop_agenda" class="add_form">
     
@@ -27,7 +31,7 @@
 
     <form action="{{ base_url }}" method="post" class="add_form" enctype="multipart/form-data">{% csrf_token %}
 
-        <div class="bg_form">
+<!--         <div class="bg_form"> -->
 
             <div class="fieldWrapper">
                 {{ form.title.errors }}
@@ -46,8 +50,9 @@
 
             <div class="fieldWrapper">
                 {{ form.image.errors }}
-                {{ form.image.label_tag }}: <div class="img_form">{{ form.image }}</div>
-                <div class="help_text" title="{% trans 'This image will be the first visible' %}"></div>
+                {{ form.image.label_tag }}: <div class="help_text" title="{% trans 'This image will be the first visible' %}"></div>
+                <div class="img_form">{{ form.image }}</div>
+                
             </div>
 
             <div class="fieldWrapper">
@@ -154,7 +159,7 @@
 
             {{ form.errors }}
             {{ occ_form.errors }}
-        </div>
+<!--         </div> -->
 
         <div class="new_block" id="new_submit">
             {% if mode = 'add' %}
