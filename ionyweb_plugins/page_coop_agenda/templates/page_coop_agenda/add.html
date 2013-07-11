@@ -35,38 +35,38 @@
 
             <div class="fieldWrapper">
                 {{ form.title.errors }}
-                {{ form.title.label_tag }}: {{ form.title }}
+                <div class="labelWrapper">{{ form.title.label_tag }} : </div>{{ form.title }}
             </div>
             <div class="fieldWrapper">
                 {{ form.organization.errors }}
-                <label>{% trans "Partners" %}</label>: {{ form.organization }}
+                <div class="labelWrapper"><label>{% trans "Partners" %}</label> : </div>{{ form.organization }}
             </div>
             <!-- TODO: poste par           -->
     
             <div class="fieldWrapper">
                 {{ form.organizations.errors }}
-                {{ form.organizations.label_tag }}: {{ form.organizations }}
+                <div class="labelWrapper">{{ form.organizations.label_tag }} : </div>{{ form.organizations }}
             </div>
 
             <div class="fieldWrapper">
                 {{ form.image.errors }}
-                {{ form.image.label_tag }}: <div class="help_text" title="{% trans 'This image will be the first visible' %}"></div>
+                <div class="labelWrapper">{{ form.image.label_tag }} : </div><div class="help_text" title="{% trans 'This image will be the first visible' %}"></div>
                 <div class="img_form">{{ form.image }}</div>
                 
             </div>
 
             <div class="fieldWrapper">
                 {{ form.description.errors }}
-                {{ form.description.label_tag }}: {{ form.description }}
+                <div class="labelWrapper">{{ form.description.label_tag }} : </div>{{ form.description }}
             </div>
 
             <div class="fieldWrapper">
                 {{ occ_form.start_time.errors }}
-                {{ occ_form.start_time.label_tag }}: {{ occ_form.start_time }}
+                <div class="labelWrapper">{{ occ_form.start_time.label_tag }} : </div>{{ occ_form.start_time }}
             </div>
             <div class="fieldWrapper">
                 {{ occ_form.end_time.errors }}
-                {{ occ_form.end_time.label_tag }}: {{ occ_form.end_time }}
+                <div class="labelWrapper">{{ occ_form.end_time.label_tag }} : </div>{{ occ_form.end_time }}
             </div>
 
             <!-- Occurences -->
@@ -88,29 +88,29 @@
             <div id="location" class="fieldWrapper formset">
                 <div id="label" class="fieldWrapper">
                     {{ form.label.errors }}
-                    {{ form.label.label_tag }}: {{ form.label }}
+                    <div class="labelWrapper">{{ form.label.label_tag }} : </div>{{ form.label }}
                 </div>
                 <div id="address" class="fieldWrapper">
                     {{ form.address.errors }}
-                    {{ form.address.label_tag }}: {{ form.address }}
+                    <div class="labelWrapper">{{ form.address.label_tag }} : </div>{{ form.address }}
                 </div>
                 <div id="city" class="fieldWrapper">
                     {{ form.city.errors }}
-                    {{ form.city.label_tag }}: {{ form.city }}
+                    <div class="labelWrapper">{{ form.city.label_tag }} : </div>{{ form.city }}
                 </div>
                 <div id="zipcode" class="fieldWrapper">
                     {{ form.zipcode.errors }}
-                    {{ form.zipcode.label_tag }}: {{ form.zipcode }}
+                    <div class="labelWrapper">{{ form.zipcode.label_tag }} : </div>{{ form.zipcode }}
                 </div>
                 <div id="point" class="fieldWrapper">
                     {{ form.point.errors }}
-                    {{ form.point.label_tag }}: <div id="point_carto">{{ form.point }}</div>
+                    <div class="labelWrapper">{{ form.point.label_tag }} : </div> <div id="point_carto">{{ form.point }}</div>
                 </div>
             </div>
 
             <div class="fieldWrapper">
                 {{ form.category.errors }}
-                {{ form.category.label_tag }}: {{ form.category }}
+                <div class="labelWrapper">{{ form.category.label_tag }} : </div> {{ form.category }}
             </div>
 
             <!-- Doc associés -->
@@ -133,11 +133,11 @@
 
             <div class="fieldWrapper">
                 {{ form.activity.errors }}
-                {{ form.activity.label_tag }}: {{ form.activity|safe }}
+                <div class="labelWrapper">{{ form.activity.label_tag }} : </div> {{ form.activity|safe }}
             </div>   
             <div class="fieldWrapper">
                 {{ form.transverse_themes.errors }}
-                {{ form.transverse_themes.label_tag }}: {{ form.transverse_themes|safe }}
+                <div class="labelWrapper">{{ form.transverse_themes.label_tag }} : </div>{{ form.transverse_themes|safe }}
             </div>   
 
             <!-- TODO: articles associated             -->
@@ -146,14 +146,15 @@
 
             <div class="fieldWrapper">
                 {{ form.tags.errors }}
-                {{ form.tags.label_tag }}: {{ form.tags|safe }}
+                <div class="labelWrapper">{{ form.tags.label_tag }} : </div>{{ form.tags|safe }}
             </div>   
 
             <!-- TODO: comments             -->
 
             <div class="fieldWrapper">
-                {{ form.active.errors }}
-                {{ form.active.label_tag }}: {{ form.active|safe }}
+                {{ form.active.errors  }}
+                <div class="labelWrapper">{{ form.active.label_tag }} : </div>{{ form.active }}
+                <div class="help_text" title="{% trans "If not published, the organisation won't be visible on the website. You can access to it by going into your account" %}"></div>
             </div>   
 
 
