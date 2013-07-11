@@ -15,7 +15,7 @@ from coop.org.admin import OrganizationAdminForm, RelationInline
 from coop.base_models import ActivityNomenclature, TransverseTheme
 from coop_local.models import Relation, Location, Document, Offer, Area
 from coop.base_models import Located
-from coop_geo.widgets import LocationPointWidget, ChooseLocationWidget
+from coop_geo.widgets import LocationPointWidget, ChooseLocationWidget, LocationPointWidgetInline
 from coop_local.widgets import CustomCheckboxSelectMultiple, CustomClearableFileInput, YearWidget
 
 from django.db.models.loading import get_model
@@ -101,7 +101,9 @@ class CustomLocatedForm(forms.ModelForm):
     address = forms.CharField(required=False, label=_('Address'))
     city = forms.CharField(required=False, label=_('City'))
     zipcode = forms.CharField(required=False, label=_('Zipcode'))
-    point = forms.gis.PointField(required=False, label=_('Point'), widget=forms.gis.BaseOsmWidget(attrs={'map_width': 300,'map_height': 300}), null=True,srid=settings.COOP_GEO_EPSG_PROJECTION, help_text=_('You may point manually the location of the location'))
+    #point = forms.gis.PointField(required=False, label=_('Point'), widget=forms.gis.BaseOsmWidget(attrs={'map_width': 300,'map_height': 300}), null=True,srid=settings.COOP_GEO_EPSG_PROJECTION, help_text=_('You may point manually the location of the location'))
+    point = forms.gis.PointField(required=False, label=_('Point'), widget=LocationPointWidgetInline(attrs={'map_width': 300,'map_height': 300, 'result_height': 100}), null=True,srid=settings.COOP_GEO_EPSG_PROJECTION, help_text=_('You may point manually the location of the location'))
+    
     #point = forms.gis.PointField(label=_('Point'), widget=LocationPointWidget, null=True,srid=settings.COOP_GEO_EPSG_PROJECTION)
     #point = forms.gis.PointField(label=_('Point'), null=True,srid=settings.COOP_GEO_EPSG_PROJECTION)
     #point = forms.gis.PointField(required=False, label=_('Point'), widget=LocationPointWidget(attrs={'map_width': 300,'map_height': 300}), null=True,srid=settings.COOP_GEO_EPSG_PROJECTION)
@@ -113,9 +115,10 @@ class CustomLocatedForm(forms.ModelForm):
 
         fields = ('label', 'address', 'city', 'zipcode', 'point', 'opening', 'main_location')
 
-        #widgets = {
-            #'point': ChooseLocationWidget(),
-        #}
+        widgets = {
+            #'point': ChooseLocationWidget(forms.gis.PointWidget(), forms.gis.BaseOsmWidget(attrs={'map_width': 300,'map_height': 300})),
+            #'point': LocationPointWidget(attrs={'map_width': 300,'map_height': 300})
+        }
         
         
     def __init__(self, *args, **kwargs):
