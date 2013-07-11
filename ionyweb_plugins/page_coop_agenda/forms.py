@@ -33,6 +33,7 @@ class PageApp_CoopAgendaForm(ModuloModelForm):
     class Meta:
         model = PageApp_CoopAgenda
 
+
 class PartialEventForm(EventForm):
     
     label = forms.CharField(required=False, label=_('Label'))
@@ -62,6 +63,8 @@ class PartialEventForm(EventForm):
             self.fields['city'].initial = location.city
             self.fields['zipcode'].initial = location.zipcode
             self.fields['point'].initial = location.point
+        
+        self.fields['activity'] = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.order_by('path'))
         
     def save(self, commit=True):
         event = super(PartialEventForm, self).save(commit=False)
