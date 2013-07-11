@@ -96,8 +96,8 @@ msgid ""
 "Presentation sample: Monday 9h-12h  14h-17h / Tuesday  9h-12h  14h-17h / "
 "Wed.  14h-17h"
 msgstr ""
-"Le type « galerie » est fait pour les images qui s'afficheront sur la "
-"galerie d'images de la fiche (et non dans les documents téléchargeables)"
+"Exemple : Lundu 9h-12h  14h-17h / Mardi  9h-12h  14h-17h / "
+"Mercredi  14h-17h"
 
 #: models.py:11
 msgid "type"
