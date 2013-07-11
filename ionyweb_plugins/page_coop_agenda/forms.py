@@ -9,6 +9,7 @@ from coop.agenda.forms import EventForm, MultipleOccurrenceForm, SingleOccurrenc
 from coop.base_models import ActivityNomenclature, TransverseTheme, Document, Located
 from coop_local.models import Event, Occurrence, Location
 from coop_local.widgets import CustomClearableFileInput
+from coop_geo.widgets import LocationPointWidgetInline
 from django.conf import settings
 
 class PageApp_CoopAgendaForm(ModuloModelForm):
@@ -38,7 +39,7 @@ class PartialEventForm(EventForm):
     address = forms.CharField(required=False, label=_('Address'))
     city = forms.CharField(required=False, label=_('City'))
     zipcode = forms.CharField(required=False, label=_('Zipcode'))
-    point = forms.gis.PointField(required=False, label=_('Point'), widget=forms.gis.BaseOsmWidget(attrs={'map_width': 300,'map_height': 300}), null=True,srid=settings.COOP_GEO_EPSG_PROJECTION)
+    point = forms.gis.PointField(required=False, label=_('Point'), widget=LocationPointWidgetInline(attrs={'map_width': 300,'map_height': 300, 'result_height': 100}), null=True,srid=settings.COOP_GEO_EPSG_PROJECTION, help_text=_('You may point manually the location of the location'))    
     
     class Meta:
         model = Event

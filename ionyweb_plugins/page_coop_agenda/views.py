@@ -70,6 +70,7 @@ def filter_data(request, page_app, mode):
                             event__calendar=agenda,
                             event__category=cat
                             ).order_by("start_time")
+        print cat
         if occ.exists():
             categories[cat] = occ
             occs_count += occ.count()
@@ -81,6 +82,7 @@ def filter_data(request, page_app, mode):
             categories = {}
             form = PageApp_CoopAgendaForm(request.POST)
             if form.is_valid():
+
                 for cat in EventCategory.objects.all():
                     occ = Occurrence.objects.filter(
                                         #end_time__gt=datetime.now(),
@@ -88,7 +90,6 @@ def filter_data(request, page_app, mode):
                                         event__calendar=agenda,
                                         event__category=cat
                                         ).order_by("start_time")
-                    print occ
                     if occ.exists() and form.cleaned_data['free_search']:
                         occ = occ.filter(Q(event__title__contains=form.cleaned_data['free_search']) | Q(event__description__contains=form.cleaned_data['free_search']))
 
@@ -170,6 +171,7 @@ def add_view(request, page_app, event_id=None):
     if request.user.is_authenticated():
         center_map = settings.COOP_MAP_DEFAULT_CENTER
         DocFormSet = generic_inlineformset_factory(Document, form=DocumentForm, extra=1)
+        #OccFormSet = inlineformset_factory(Event, Occurrence, form=PartialOccEventForm, extra=1)
 
         if event_id:
             # update
@@ -189,14 +191,18 @@ def add_view(request, page_app, event_id=None):
             event_form = event_form_class(request.POST, request.FILES, instance = event)
             docFormset = DocFormSet(request.POST, request.FILES, prefix='doc', instance=event)
             occ_form = occ_form_class(request.POST, instance = occ)
+            #occFormset = OccFormSet(request.POST, request.FILES, prefix='occ', instance=event)
+            
             if event_form.is_valid() and occ_form.is_valid() and docFormset.is_valid():
                 event = event_form.save()
+                event_form.save_m2m()
                 docFormset.save()
                 occ.event_id = event.pk
                 occ = occ_form.save(event)
                 
+                                
                 base_url = u'%s' % (page_app.get_absolute_url())
-                rdict = {'base_url': base_url, 'event_id': event_id}
+                rdict = {'base_url': base_url, 'event_id': occ.event_id}
                 return render_view('page_coop_agenda/add_success.html',
                                 rdict,
                                 MEDIAS,
@@ -206,6 +212,7 @@ def add_view(request, page_app, event_id=None):
             event_form = event_form_class(instance = event)
             occ_form = occ_form_class(instance = occ)
             docFormset = DocFormSet(prefix='doc', instance=event)
+            #occFormset = OccFormSet(prefix='occ', instance=event)
         
         rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': event_form, 'doc_form': docFormset, 'occ_form': occ_form, 'center': center_map, 'mode': mode}
         return render_view('page_coop_agenda/add.html',

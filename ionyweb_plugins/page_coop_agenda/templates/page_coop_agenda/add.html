@@ -64,28 +64,44 @@
                 {{ occ_form.end_time.label_tag }}: {{ occ_form.end_time }}
             </div>
 
-            <h3 class="title_formset">{% trans "Locations" %}</h3>
-            <div id="label" class="fieldWrapper">
-                {{ form.label.errors }}
-                {{ form.label.label_tag }}: {{ form.label }}
-            </div>
-            <div id="address" class="fieldWrapper">
-                {{ form.address.errors }}
-                {{ form.address.label_tag }}: {{ form.address }}
-            </div>
-            <div id="city" class="fieldWrapper">
-                {{ form.city.errors }}
-                {{ form.city.label_tag }}: {{ form.city }}
-            </div>
-            <div id="zipcode" class="fieldWrapper">
-                {{ form.zipcode.errors }}
-                {{ form.zipcode.label_tag }}: {{ form.zipcode }}
-            </div>
-            <div id="point" class="fieldWrapper">
-                {{ form.point.errors }}
-                {{ form.point.label_tag }}: {{ form.point }}
-            </div>
+            <!-- Occurences -->
+<!--            <h3 class="title_formset">{% trans "Occurences" %}</h3>
+            <div id="occ" class="fieldWrapper formset">
+                {{ occ_form.management_form }}
+                {% for o in occ_form.forms %}
+                    <div class='table_formset table_occ'>
+                        <table class='no_error'>
+                            {{ o.as_table }}
+                        </table>
+                    </div>
+                {% endfor %}
+                <input type="button" value="{% trans 'Add More' %}" id="add_more_occ">
+            </div>-->
 
+
+            <h3 class="title_formset">{% trans "Locations" %}</h3>
+            <div id="location" class="fieldWrapper formset">
+                <div id="label" class="fieldWrapper">
+                    {{ form.label.errors }}
+                    {{ form.label.label_tag }}: {{ form.label }}
+                </div>
+                <div id="address" class="fieldWrapper">
+                    {{ form.address.errors }}
+                    {{ form.address.label_tag }}: {{ form.address }}
+                </div>
+                <div id="city" class="fieldWrapper">
+                    {{ form.city.errors }}
+                    {{ form.city.label_tag }}: {{ form.city }}
+                </div>
+                <div id="zipcode" class="fieldWrapper">
+                    {{ form.zipcode.errors }}
+                    {{ form.zipcode.label_tag }}: {{ form.zipcode }}
+                </div>
+                <div id="point" class="fieldWrapper">
+                    {{ form.point.errors }}
+                    {{ form.point.label_tag }}: <div id="point_carto">{{ form.point }}</div>
+                </div>
+            </div>
 
             <div class="fieldWrapper">
                 {{ form.category.errors }}
