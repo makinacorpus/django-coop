@@ -21,6 +21,7 @@ from django.contrib.gis import geos
 from coop_local.models import Location, Area, Document
 from math import pi
 from django.utils.simplejson import dumps
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 from django.contrib.contenttypes.generic import generic_inlineformset_factory
 from coop.exchange.admin import ExchangeForm

@@ -10,6 +10,7 @@ from django.shortcuts import get_object_or_404
 from django.template.defaultfilters import slugify
 from datetime import datetime, timedelta
 from django.db.models import Q
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 from ionyweb.website.rendering import HTMLRendering
 from ionyweb.website.rendering.medias import JSAdminMedia, RSSMedia
@@ -21,7 +22,7 @@ from forms import EntryForm, PageApp_CoopBlogForm
 from coop_local.models import Document
 from django.contrib.contenttypes.generic import generic_inlineformset_factory
 from .forms import DocumentForm
-
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 try:
     from functools import wraps
 except ImportError:

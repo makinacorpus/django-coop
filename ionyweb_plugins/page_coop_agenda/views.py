@@ -14,6 +14,7 @@ from datetime import datetime
 from .forms import PageApp_CoopAgendaForm, PartialEventForm, PartialOccEventForm, DocumentForm, ReplyEventForm
 from django.contrib.contenttypes.generic import generic_inlineformset_factory
 from django.forms.models import inlineformset_factory, formset_factory
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 from django.db.models import Q
 
@@ -87,7 +88,7 @@ def filter_data(request, page_app, mode):
                                         event__calendar=agenda,
                                         event__category=cat
                                         ).order_by("start_time")
-
+                    print occ
                     if occ.exists() and form.cleaned_data['free_search']:
                         occ = occ.filter(Q(event__title__contains=form.cleaned_data['free_search']) | Q(event__description__contains=form.cleaned_data['free_search']))
 
@@ -128,6 +129,18 @@ def filter_data(request, page_app, mode):
                         occs_count += occ.count()
         else:
             form = PageApp_CoopAgendaForm(initial={'location_buffer': '10'}) # An empty form
+    
+    #paginator = Paginator(organizations, 10)
+    #page = request.GET.get('page')
+    #try:
+        #orgs_page = paginator.page(page)
+    #except PageNotAnInteger:
+        #orgs_page = paginator.page(1)
+    #except EmptyPage:
+        #orgs_page = paginator.page(paginator.num_pages)
+    #get_params = request.GET.copy()
+    #if 'page' in get_params:
+        #del get_params['page']      
     
     # Get available locations for autocomplete
     available_locations = dumps([{'label':area.label, 'value':area.pk} for area in Area.objects.all().order_by('label')])

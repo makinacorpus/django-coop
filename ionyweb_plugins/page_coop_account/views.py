@@ -63,7 +63,9 @@ def index_view(request, page_app):
         
         # TODO: gestion mes annonces / déposer une annonce / supprimer / valider..
         
+        
         # TODO: gestion mes évènements / déposer ...
+        # My events
         
     else:
         render_page = 'page_coop_account/login.html'
