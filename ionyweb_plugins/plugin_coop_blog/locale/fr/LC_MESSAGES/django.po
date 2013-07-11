@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-18 09:33+0100\n"
+"POT-Creation-Date: 2013-07-11 13:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,37 +19,40 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
 #: __init__.py:5
-msgid "Coop agenda"
+msgid "Coop blog"
 msgstr ""
 
 #: __init__.py:8
-msgid "Display the lastest events from django-coop agenda"
-msgstr "Affiche les derniers évènement depuis l'agenda Django-coop"
+msgid "Display the lastest news from django-coop blog"
+msgstr "Affiche les dernières actualités depuis le blog Django-coop"
 
 #: __init__.py:9
 msgid ""
-"Display the lastest events from django-coop agenda. This plugin requires the "
-"App coop_agenda to be installed."
+"Display the lastest news from django-coop blog. This plugin requires the App "
+"coop_blog to be installed."
 msgstr ""
-"Affiche les derniers évènement depuis l'agenda Django-coop. Ce plugin "
-"requiert l'application coop_agenda"
+"Affiche les dernières actualités depuis le blog Django-coop. Ce plugin "
+"requiert l'application coop_blog"
 
 #: models.py:10
 msgid "Agenda url"
 msgstr "Url de l'agenda"
 
 #: models.py:12
-msgid "Category"
-msgstr "Catégorie"
+msgid "nb_events"
+msgstr ""
 
 #: models.py:18
-msgid "CoopAgenda"
+msgid "CoopBlog"
 msgstr ""
 
-#: templates/plugin_coop_agenda/index.html:3
-msgid "Agenda"
-msgstr ""
+#: templates/plugin_coop_blog/index.html:3
+msgid "News"
+msgstr "Actualités"
 
-#: templates/plugin_coop_agenda/index.html:33
-msgid "See all events..."
-msgstr "Voir tous les évènements..."
+#: templates/plugin_coop_blog/index.html:19
+msgid "See all news..."
+msgstr "Voir toutes les actualités..."
+
+#~ msgid "Category"
+#~ msgstr "Catégorie"
