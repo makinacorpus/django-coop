@@ -274,6 +274,25 @@ def add_view(request, page_app, member_id=None):
                                 MEDIAS,
                                 context_instance=RequestContext(request))
         else:
+            if member_id:
+                # no extra formset if already some objects
+                if member.offer_set.all().count() > 0:
+                    OfferFormSet.extra = 0
+                if member.document_set.all().count() > 0:
+                    DocFormSet.extra = 0
+                if member.relations.all().count() > 0:
+                    RelationFormSet.extra = 0
+                if member.contacts.all().count() > 0:
+                    ContactFormSet.extra = 0
+                if member.located.all().count() > 0:                    
+                    LocatedFormSet.extra = 0
+            else:
+                OfferFormSet.extra = 1
+                DocFormSet.extra = 1
+                RelationFormSet.extra = 1
+                ContactFormSet.extra = 1
+                LocatedFormSet.extra = 1
+                
             form = PartialMemberForm(instance=member) # An empty form
             offerFormset = OfferFormSet(instance=member, prefix='offer')
             docFormset = DocFormSet(instance=member, prefix='doc')
