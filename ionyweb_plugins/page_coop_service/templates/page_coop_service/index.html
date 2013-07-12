@@ -1,0 +1,71 @@
+{% load i18n %}
+
+
+<script type="text/javascript">
+    $('#main-content').addClass("search_form_enabled_service");
+</script>
+
+<div id="service_top_search"></div>
+<div id="search_form">
+    {% include search_form_template %}
+</div>
+
+
+<div id="service_top"></div>
+<div id="result_service">
+
+<div class="service_pagination_top pagination_top">
+    <div class="pages">{% trans "Page:" %}</div>
+    <div class="carto"><a href="javascript:submitForm('{{ base_url }}p/carto')">{% trans "Cartography" %}</a></div>
+</div>
+<!--{% for e in exchanges %}
+    <div class="coop_service">
+        <div class="bloc_title">
+            {% if e.img  %}
+                <div class="logo"><a class="member_link" href="{{ base_url }}p/{{ e.pk }}"><img src="{{ media_path }}{{ e.img }}" alt="{{ e.title }}"></a></div>
+            {% else %}
+                <div class="logo logo_pes"></div>
+            {% endif %}
+
+            <div class="resume">
+                {% if e.location == None %} {% else %} <span class="location">{{ e.location|truncatechars:20 }}</span> {% endif %}
+                <div class="exchange_type">{% trans "Type" %} : {{ e.get_eway_display }}</div>
+                <a href="{{ base_url }}p/{{ e.pk }}"><h3 class="exchange_title resume_title">{{ e.title }}</h3></a>
+                <div class="exchange_desc">{{ e.description|safe|truncatechars:150 }}</div>
+                <span class="readmore"><a class="exchange_link" href="{{ base_url }}p/{{ e.pk }}">{% trans "Read more" %}</a></span>
+                {% if request.user.is_superuser %}
+                    <span class="edit"><a class="" href="{{ base_url }}p/exchange_edit/{{ e.pk }}">{% trans "Edit" %}</a></span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endfor %}-->
+
+<div class="service_pagination_bottom pagination_bottom">{% trans "Page:" %}</div>
+</div>
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+//         $("#id_location").autocomplete({
+//             source: {{ available_locations|safe }},
+//             select: function(e, ui) {
+//                 e.preventDefault() // <--- Prevent the value from being inserted.
+//                 $("#id_location_id").val(ui.item.value);
+// 
+//                 $(this).val(ui.item.label);
+//             }
+//         });
+    });
+
+    function submitForm(url) {
+        document.forms["search-form"].action = url;
+        document.forms["search-form"].submit();
+    }
+
+</script>
+
+
+
