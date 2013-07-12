@@ -11,39 +11,35 @@ from extended_choices import Choices
 
 from coop_local.models import LegalStatus, Location, Area
 
-CONTENT_TYPES = Choices (
-    ('Exchange',    1,  _(u'Exchange')),
-    ('Event',   2,  _(u'Event')),
-    ('Organization',   3,  _(u'Organization')),
-    ('Project',    4,  _(u'Project')),
-    ('Service',      5,  _(u'Service')),
+
+EMODE = Choices(
+    ('GIFT',    1,  _(u'Gift')),
+    ('SWAP',   2,  _(u'Swap')),
+    ('SKILL',   3,  _(u'Skill')),
+    ('EUROS',    4,  _(u'Euros')),
+    ('MUTUALIZATION',      5,  _(u'Mutualization')),
 )
 
 
 
 class PageApp_CoopServiceForm(ModuloModelForm):
 
-    type_content = forms.MultipleChoiceField(required=False, choices=CONTENT_TYPES, widget=CustomCheckboxSelectMultiple())
-
-    departement = forms.ModelChoiceField(queryset=Area.objects.filter(area_type=2).order_by('label'), required=False)
-
-    country = forms.ModelChoiceField(queryset=Location.objects.order_by('label'), required=False)
-    
-    epci = forms.ModelChoiceField(queryset=Area.objects.filter(area_type=4).order_by('label'), required=False)
-    
-    commune = forms.ModelChoiceField(queryset=Area.objects.filter(area_type=3).order_by('label'), required=False)
-
     activity = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.filter(parent__isnull=True).order_by('label'),required=False, label=_('Activity'))
     activity2 = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.filter(parent__isnull=True).order_by('label'),required=False, label=_('Activity'))
-    
+
+    location = forms.CharField(required=False, label=_('Location'))
+    location_buffer = forms.IntegerField(required=False, label=_('Location buffer'))
+    location_id = forms.IntegerField(required=False)
+
     thematic = forms.ModelChoiceField(queryset=TransverseTheme.objects.all(), required=False, label=_('Thematic'))
     thematic2 = forms.ModelChoiceField(queryset=TransverseTheme.objects.all(), required=False, label=_('Thematic'))
-    
-    statut = forms.ModelChoiceField(queryset=LegalStatus.objects.all(), required=False)
-    statut2 = forms.ModelChoiceField(queryset=LegalStatus.objects.all(), required=False)
-    
+
+    mode = forms.MultipleChoiceField(required=False, choices=EMODE, widget=CustomCheckboxSelectMultiple())
+
     free_search = forms.CharField(required=False, label=_('Free search'))
+
     
     class Meta:
         model = PageApp_CoopService
+   
    
