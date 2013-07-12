@@ -109,6 +109,8 @@ class BaseEvent(URIModel):
     transverse_themes = models.ManyToManyField('coop_local.TransverseTheme',
         verbose_name=_(u'transverse themes'), blank=True, null=True)
     
+    source_info = models.CharField(_(u'source'), max_length=255, blank=True, null=True)
+    
     document_set = generic.GenericRelation('coop_local.Document')
     
     #TODO attached articles
