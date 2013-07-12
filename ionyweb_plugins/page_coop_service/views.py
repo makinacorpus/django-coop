@@ -55,50 +55,47 @@ def filter_data(request, page_app, mode):
     exchanges = Exchange.objects.filter(active=True, organization__isnull=False).order_by("title")
     
     # List all offer and services proposed by structures
-    offers = []
-    organizations = Organization.objects.filter(active=True).order_by("title")
-    for org in organizations:
-        for o in org.offer_set.all(): 
-            offers.append(o)
+    #offers = []
+    #organizations = Organization.objects.filter(active=True).order_by("title")
+    offers = Offer.objects.filter(provider__active=True).order_by("title")
+    #for org in organizations:
+        #for o in org.offer_set.all(): 
+            #offers.append(o)
 
     search_form_template = "page_coop_service/search_form_service.html"
     
     if request.method == 'POST':  
         form = PageApp_CoopServiceForm(request.POST)
         more_criteria = False
-        #if form.is_valid():
-            #if form.cleaned_data['free_search']:
-                #exchanges = exchanges.filter(Q(title__contains=form.cleaned_data['free_search']) | Q(description__contains=form.cleaned_data['free_search']))
-            
-            #if form.cleaned_data['type_exchange']:
-                #exchanges = exchanges.filter(Q(eway__in=form.cleaned_data['type_exchange']))
+        if form.is_valid():
+            if form.cleaned_data['activity'] or form.cleaned_data['activity2']:
+                exchanges = exchanges.filter(Q(activity=form.cleaned_data['activity']) | Q(activity=form.cleaned_data['activity2']))
+                offers = offers.filter(Q(activity=form.cleaned_data['activity']) | Q(activity=form.cleaned_data['activity2']))
 
-            #if form.cleaned_data['type']:
-                #exchanges = exchanges.filter(Q(etype__in=form.cleaned_data['type']))
-
-            #if form.cleaned_data['thematic'] or form.cleaned_data['thematic2']:
-                #exchanges = exchanges.filter(Q(transverse_themes=form.cleaned_data['thematic']) | Q(transverse_themes=form.cleaned_data['thematic2']))
-            
-            #if form.cleaned_data['activity'] or form.cleaned_data['activity2']:
-                #exchanges = exchanges.filter(Q(activity=form.cleaned_data['activity']) | Q(activity=form.cleaned_data['activity2']))
+            if form.cleaned_data['location']:
+                label = form.cleaned_data['location']
+                pk = form.cleaned_data['location_id']
+                area = get_object_or_404(Area, pk=pk)
+                radius = form.cleaned_data['location_buffer']
+                distance_degrees = (360 * radius) / (pi * 6378)
+                zone = area.polygon.buffer(distance_degrees)
+                ## Get the possible location in the buffer...
+                possible_locations = Location.objects.filter(point__intersects=zone)
+                # ...and filter organization according to these locations
+                exchanges = exchanges.filter(Q(location__in=possible_locations))
+                offers = offers.filter(Q(provider__location__in=possible_locations))
                 
+            if form.cleaned_data['thematic'] or form.cleaned_data['thematic2']:
+                exchanges = exchanges.filter(Q(transverse_themes=form.cleaned_data['thematic']) | Q(transverse_themes=form.cleaned_data['thematic2']))
+                offers = offers.filter(Q(provider__transverse_themes=form.cleaned_data['thematic']) | Q(provider__transverse_themes=form.cleaned_data['thematic2']))
                 
-            #if form.cleaned_data['location']:
-                #label = form.cleaned_data['location']
-                #pk = form.cleaned_data['location_id']
-                #area = get_object_or_404(Area, pk=pk)
-                #radius = form.cleaned_data['location_buffer']
-                #distance_degrees = (360 * radius) / (pi * 6378)
-                #zone = area.polygon.buffer(distance_degrees)
-                 ## Get the possible location in the buffer...
-                #possible_locations = Location.objects.filter(point__intersects=zone)
-                ## ...and filter organization according to these locations
-                #exchanges = exchanges.filter(Q(location__in=possible_locations))
+            if form.cleaned_data['free_search']:
+                exchanges = exchanges.filter(Q(title__contains=form.cleaned_data['free_search']) | Q(description__contains=form.cleaned_data['free_search']))
+                offers = offers.filter(Q(title__contains=form.cleaned_data['free_search']) | Q(description__contains=form.cleaned_data['free_search']))
             
-            ##TODO : mode
-            
-            ##TODO : skills
-        
+            if form.cleaned_data['mode']:
+                exchanges = exchanges.filter(Q(mode__in=form.cleaned_data['mode']))
+                offers = [] # offers are not concern by mode, so we remove them from the selection
     else:
         form = PageApp_CoopServiceForm({'location_buffer': '10'}) # An empty form
         more_criteria = False
