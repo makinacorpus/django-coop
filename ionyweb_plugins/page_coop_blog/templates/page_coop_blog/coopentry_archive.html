@@ -82,7 +82,7 @@
             {% endif %}
 
             <h3><a href="{{ base_url }}p/{{ entry.pk }}">{{ entry.title }}</a></h3>
-            <span class="location">{{ entry.author }}</span>
+            <div class="author articles_link">{{ entry.author }}</div>
             <p class="entry-meta">
                 {{ entry.publication_date|date:"d/m/Y @ H:i" }}
             </p>
