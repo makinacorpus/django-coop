@@ -14,36 +14,51 @@
 <div id="service_top"></div>
 <div id="result_service">
 
-<div class="service_pagination_top pagination_top">
-    <div class="pages">{% trans "Page:" %}</div>
+
+<div class="service_pagination_top pagination_top pagination">
+    {% include "page_coop_service/pagination.html" %}
     <div class="carto"><a href="javascript:submitForm('{{ base_url }}p/carto')">{% trans "Cartography" %}</a></div>
 </div>
-<!--{% for e in exchanges %}
-    <div class="coop_service">
-        <div class="bloc_title">
-            {% if e.img  %}
-                <div class="logo"><a class="member_link" href="{{ base_url }}p/{{ e.pk }}"><img src="{{ media_path }}{{ e.img }}" alt="{{ e.title }}"></a></div>
-            {% else %}
-                <div class="logo logo_pes"></div>
-            {% endif %}
 
-            <div class="resume">
-                {% if e.location == None %} {% else %} <span class="location">{{ e.location|truncatechars:20 }}</span> {% endif %}
-                <div class="exchange_type">{% trans "Type" %} : {{ e.get_eway_display }}</div>
-                <a href="{{ base_url }}p/{{ e.pk }}"><h3 class="exchange_title resume_title">{{ e.title }}</h3></a>
-                <div class="exchange_desc">{{ e.description|safe|truncatechars:150 }}</div>
-                <span class="readmore"><a class="exchange_link" href="{{ base_url }}p/{{ e.pk }}">{% trans "Read more" %}</a></span>
-                {% if request.user.is_superuser %}
-                    <span class="edit"><a class="" href="{{ base_url }}p/exchange_edit/{{ e.pk }}">{% trans "Edit" %}</a></span>
+
+{% for item in items %}
+
+    {% if item.type == 'exchange' %}
+        <div class="coop_exchange">
+            <div class="bloc_title">
+                {% if item.obj.img  %}
+                    <div class="logo"><a class="exchange_link" href="{{ base_url }}p/{{ item.obj.pk }}"><img src="{{ media_path }}{{ item.obj.img }}" alt="{{ item.obj.title }}"></a></div>
+                {% else %}
+                    <div class="logo logo_pes"></div>
                 {% endif %}
+
+                <div class="resume">
+                    {% if item.obj.location == None %} {% else %} <span class="location">{{ item.obj.location|truncatechars:20 }}</span> {% endif %}
+                    <div class="exchange_type">{% trans "Type" %} : {{ item.obj.get_eway_display }}</div>
+                    <a href="{{ exchanges_url }}p/{{ item.obj.pk }}"><h3 class="exchange_title resume_title">{{ item.obj.title }}</h3></a>
+                    <div class="exchange_desc">{{ item.obj.description|safe|truncatechars:150 }}</div>
+                    <span class="readmore"><a class="exchange_link" href="{{ exchanges_url }}p/{{ item.obj.pk }}">{% trans "Read more" %}</a></span>
+                </div>
             </div>
         </div>
-    </div>
-{% endfor %}-->
+    {% else %}
+        <div class="coop_service">
+            <div class="bloc_title">
+                <div class="logo logo_pes"></div>
+                <div class="resume">
+                    <a href="{{ organizations_url }}p/{{ item.obj.provider.pk }}"><h3 class="service_title resume_title">{{ item.obj.title }}</h3></a>
+                    <div class="service_desc">{{ item.obj.description|safe|truncatechars:150 }}</div>
+                    <span class="readmore"><a class="service_link" href="{{ organizations_url }}p/{{ item.obj.provider.pk }}">{% trans "Read more" %}</a></span>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 
-<div class="service_pagination_bottom pagination_bottom">{% trans "Page:" %}</div>
+{% endfor %}
+
+<div class="service_pagination_bottom pagination_bottom pagination">
+    {% include "page_coop_service/pagination.html" %}
 </div>
-
 
 
 
@@ -53,9 +68,9 @@
 //             source: {{ available_locations|safe }},
 //             select: function(e, ui) {
 //                 e.preventDefault() // <--- Prevent the value from being inserted.
-//                 $("#id_location_id").val(ui.item.value);
+//                 $("#id_location_id").val(ui.item.obj.value);
 // 
-//                 $(this).val(ui.item.label);
+//                 $(this).val(ui.item.obj.label);
 //             }
 //         });
     });

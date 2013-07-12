@@ -17,7 +17,7 @@ from .forms import PageApp_CoopServiceForm
 from django.db.models import Q
 
 from django.contrib.gis import geos
-from coop_local.models import Location, Area, Document
+from coop_local.models import Organization, Offer, Exchange
 from math import pi
 from django.utils.simplejson import dumps
 
@@ -49,15 +49,23 @@ def carto_view(request, page_app):
 def filter_data(request, page_app, mode):
     base_url = u'%s' % (page_app.get_absolute_url())
 
-    #exchanges = Exchange.objects.all()
-    #more_criteria = False
+    items = []
     
-    #exchanges = exchanges.filter(organization__isnull=True)
+    # List all exchanges linked to a structure
+    exchanges = Exchange.objects.filter(active=True, organization__isnull=False).order_by("title")
+    
+    # List all offer and services proposed by structures
+    offers = []
+    organizations = Organization.objects.filter(active=True).order_by("title")
+    for org in organizations:
+        for o in org.offer_set.all(): 
+            offers.append(o)
+
     search_form_template = "page_coop_service/search_form_service.html"
     
     if request.method == 'POST':  
-        pass
-        #form = PageApp_CoopTerritoryForm(request.POST)
+        form = PageApp_CoopServiceForm(request.POST)
+        more_criteria = False
         #if form.is_valid():
             #if form.cleaned_data['free_search']:
                 #exchanges = exchanges.filter(Q(title__contains=form.cleaned_data['free_search']) | Q(description__contains=form.cleaned_data['free_search']))
@@ -90,6 +98,7 @@ def filter_data(request, page_app, mode):
             ##TODO : mode
             
             ##TODO : skills
+        
     else:
         form = PageApp_CoopServiceForm({'location_buffer': '10'}) # An empty form
         more_criteria = False
@@ -98,9 +107,30 @@ def filter_data(request, page_app, mode):
     
     # Get available locations for autocomplete
     #available_locations = dumps([{'label':area.label, 'value':area.pk} for area in Area.objects.all().order_by('label')])
+
     
+    # Put all objects ina a common tab for pagination
+    for e in exchanges :
+        items.append({'type':'exchange', 'obj': e})
+
+    for o in offers :
+        items.append({'type':'offer', 'obj': o})
+
+    paginator = Paginator(items, 10)
+    page = request.GET.get('page')
+    try:
+        items_page = paginator.page(page)
+    except PageNotAnInteger:
+        items_page = paginator.page(1)
+    except EmptyPage:
+        items_page = paginator.page(paginator.num_pages)
+    get_params = request.GET.copy()
+    if 'page' in get_params:
+        del get_params['page']    
+    
+    rdict = {'items': items_page, 'search_form_template': search_form_template, 'base_url': base_url, 'exchanges_url': page_app.exchanges_url, 'organizations_url': page_app.organizations_url,'form': form, 'more_criteria': more_criteria}
     #rdict = {'exchanges': exchanges, 'base_url': base_url, 'form': form, 'center': center_map, 'more_criteria': more_criteria, 'available_locations': available_locations, "search_form_template": search_form_template, "mode": mode, 'media_path': settings.MEDIA_URL, 'is_exchange': is_exchange}
-    rdict = {'search_form_template': search_form_template, 'base_url': base_url, 'form': form, 'more_criteria': more_criteria}
+
     
     return rdict
                        
