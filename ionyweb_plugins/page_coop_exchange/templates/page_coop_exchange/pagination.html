@@ -1,0 +1,29 @@
+{% load pager %}
+
+{% if exchanges.paginator.num_pages > 1 %}
+Page&nbsp;:&nbsp;
+
+  {% if exchanges.number > 1 %}
+    <span class="step-links">
+    </span>
+  {% endif %}
+
+  {% for p in exchanges.paginator.num_pages|pick_pages:exchanges.number %}
+    {% if p == exchanges.number %}
+      <span class="page-link page-number current">{{p}}</span>
+    {% else %}
+        {% if p == 0 %}
+            <span class="page-number ellipse">&hellip;</span>
+        {% else %}
+            <a href="?{{ get_params }}&page={{ p }}" class="page-link{% if p == exchanges.number %} current{% endif %}">{{ p }}</a>
+        {% endif %}
+    {% endif %}
+  {% endfor %}
+
+  {% if exchanges.number < exchanges.paginator.num_pages %}
+    <span class="step-links">
+        <a href="?{{ get_params }}&page={{ exchanges.previous_page_number }}" class="prev-link" disabled="{{ exchanges.has_previous|yesno:"true,false" }}">&nbsp;</a>
+        <a href="?{{ get_params }}&page={{ exchanges.next_page_number }}" class="next-link exchange_link" disabled="{{ exchanges.has_next|yesno:"true,false" }}">Page suivante</a>
+    </span>
+  {% endif %}
+{% endif %}

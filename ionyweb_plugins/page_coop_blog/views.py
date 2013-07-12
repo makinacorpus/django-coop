@@ -109,8 +109,19 @@ def filter_data(request, page_app):
         form = PageApp_CoopBlogForm() # An empty form
         more_criteria = False
     
+    paginator = Paginator(entries, 10)
+    page = request.GET.get('page')
+    try:
+        entries_page = paginator.page(page)
+    except PageNotAnInteger:
+        entries_page = paginator.page(1)
+    except EmptyPage:
+        entries_page = paginator.page(paginator.num_pages)
+    get_params = request.GET.copy()
+    if 'page' in get_params:
+        del get_params['page']    
     
-    rdict = {'entries': entries, 'base_url': base_url, 'form': form, 'media_path': settings.MEDIA_URL}
+    rdict = {'entries': entries_page, 'base_url': base_url, 'form': form, 'media_path': settings.MEDIA_URL}
     
     return rdict
 

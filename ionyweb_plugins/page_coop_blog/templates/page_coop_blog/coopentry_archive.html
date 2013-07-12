@@ -71,6 +71,11 @@
 
 <div id="articles_top"></div>
 <div id="articles">
+
+<div class="articles_pagination_top pagination_top pagination top-pagination">
+    {% include "page_coop_blog/pagination.html" %}
+</div>
+
 {% if entries %}
     {% for entry in entries %}
     <div class="entry">
@@ -99,4 +104,9 @@
 {% else %}
     <p><strong>{% trans "No entry yet" %}.</strong></p>
 {% endif %}
+
+<div class="articles_pagination_bottom pagination_bottom pagination bottom-pagination">
+    {% include "page_coop_blog/pagination.html" %}
+</div>
+
 </div>

@@ -1,0 +1,29 @@
+{% load pager %}
+
+{% if occs.paginator.num_pages > 1 %}
+Page&nbsp;:&nbsp;
+
+  {% if occs.number > 1 %}
+    <span class="step-links">
+    </span>
+  {% endif %}
+
+  {% for p in occs.paginator.num_pages|pick_pages:occs.number %}
+    {% if p == occs.number %}
+      <span class="page-link page-number current">{{p}}</span>
+    {% else %}
+        {% if p == 0 %}
+            <span class="page-number ellipse">&hellip;</span>
+        {% else %}
+            <a href="?{{ get_params }}&page={{ p }}" class="page-link{% if p == occs.number %} current{% endif %}">{{ p }}</a>
+        {% endif %}
+    {% endif %}
+  {% endfor %}
+
+  {% if occs.number < occs.paginator.num_pages %}
+    <span class="step-links">
+        <a href="?{{ get_params }}&page={{ occs.previous_page_number }}" class="prev-link" disabled="{{ occs.has_previous|yesno:"true,false" }}">&nbsp;</a>
+        <a href="?{{ get_params }}&page={{ occs.next_page_number }}" class="next-link agenda_link" disabled="{{ occs.has_next|yesno:"true,false" }}">Page suivante</a>
+    </span>
+  {% endif %}
+{% endif %}

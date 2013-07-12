@@ -1,8 +1,8 @@
 {% load pager %}
 
+{% if members.paginator.num_pages > 1 %}
 Page&nbsp;:&nbsp;
 
-{% if members.paginator.num_pages > 1 %}
   {% if members.number > 1 %}
     <span class="step-links">
     </span>

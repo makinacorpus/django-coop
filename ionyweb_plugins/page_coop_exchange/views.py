@@ -55,13 +55,14 @@ def filter_data(request, page_app, mode):
     more_criteria = False
     is_exchange = True
     
-    if base_url == settings.COOP_EXCHANGE_SERVICES_URL:
-        exchanges = exchanges.filter(organization__isnull=True)
-        search_form_template = "page_coop_exchange/search_form_service.html"
-        is_exchange = False
-    if base_url == settings.COOP_EXCHANGE_EXCHANGES_URL:
-        exchanges = exchanges.filter(organization__isnull=False)
-        search_form_template = "page_coop_exchange/search_form_exchange.html"
+    #if base_url == settings.COOP_EXCHANGE_SERVICES_URL:
+        #exchanges = exchanges.filter(organization__isnull=True)
+        #search_form_template = "page_coop_exchange/search_form_service.html"
+        #is_exchange = False
+    #if base_url == settings.COOP_EXCHANGE_EXCHANGES_URL:
+        #exchanges = exchanges.filter(organization__isnull=False)
+        #search_form_template = "page_coop_exchange/search_form_exchange.html"
+    search_form_template = "page_coop_exchange/search_form_exchange.html"
     
     if request.method == 'POST': # If the form has been submitted        
         form = PageApp_CoopExchangeForm(request.POST)
@@ -107,8 +108,21 @@ def filter_data(request, page_app, mode):
     
     # Get available locations for autocomplete
     available_locations = dumps([{'label':area.label, 'value':area.pk} for area in Area.objects.all().order_by('label')])
+
+    paginator = Paginator(exchanges, 10)
+    page = request.GET.get('page')
+    try:
+        exchanges_page = paginator.page(page)
+    except PageNotAnInteger:
+        exchanges_page = paginator.page(1)
+    except EmptyPage:
+        exchanges_page = paginator.page(paginator.num_pages)
+    get_params = request.GET.copy()
+    if 'page' in get_params:
+        del get_params['page']    
     
-    rdict = {'exchanges': exchanges, 'base_url': base_url, 'form': form, 'center': center_map, 'more_criteria': more_criteria, 'available_locations': available_locations, "search_form_template": search_form_template, "mode": mode, 'media_path': settings.MEDIA_URL, 'is_exchange': is_exchange}
+    
+    rdict = {'exchanges': exchanges_page, 'base_url': base_url, 'form': form, 'center': center_map, 'more_criteria': more_criteria, 'available_locations': available_locations, "search_form_template": search_form_template, "mode": mode, 'media_path': settings.MEDIA_URL, 'is_exchange': is_exchange}
     
     return rdict
                        
