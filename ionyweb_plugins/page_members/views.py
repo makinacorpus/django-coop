@@ -81,8 +81,10 @@ def filter_data(request, page_app, mode):
         search_form_template = "page_members/search_form_project.html"
     
     
-    if request.method == 'POST': # If the form has been submitted
-        form = PageApp_MembersForm(request.POST)
+    #if request.method == 'POST': # If the form has been submitted
+        #form = PageApp_MembersForm(request.POST)
+    if request.method == 'GET': # If the form has been submitted
+        form = PageApp_MembersForm(request.GET)
         if form.is_valid():
             if form.cleaned_data['free_search']:
                 organizations = organizations.filter(Q(title__icontains=form.cleaned_data['free_search']) | Q(description__icontains=form.cleaned_data['free_search']))
@@ -140,7 +142,6 @@ def filter_data(request, page_app, mode):
                 
     else:
         form = PageApp_MembersForm(initial={'location_buffer': '10'}) # An empty form
-    
 
     
     paginator = Paginator(organizations, 10)
@@ -270,7 +271,7 @@ def add_view(request, page_app, member_id=None):
                 locatedFormset.save()                
                 
                 base_url = u'%s' % (page_app.get_absolute_url())
-                rdict = {'base_url': base_url, 'member_id': member.pk}
+                rdict = {'base_url': base_url, 'member_id': member.pk, 'is_project': is_project, 'mode': mode}
                 return render_view('page_members/add_success.html',
                                 rdict,
                                 MEDIAS,

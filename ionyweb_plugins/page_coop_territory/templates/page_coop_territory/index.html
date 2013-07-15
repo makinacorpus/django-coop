@@ -14,10 +14,12 @@
 <div id="territory_top"></div>
 <div id="result_territory">
 
-<div class="territory_pagination_top pagination_top">
-    <div class="pages">{% trans "Page:" %}</div>
+<div class="territory_pagination_top pagination_top pagination">
+    {% include "page_coop_territory/pagination.html" %}
     <div class="carto"><a href="javascript:submitForm('{{ base_url }}p/carto')">{% trans "Cartography" %}</a></div>
 </div>
+
+
 <!--{% for e in exchanges %}
     <div class="coop_territory">
         <div class="bloc_title">
@@ -41,10 +43,10 @@
     </div>
 {% endfor %}-->
 
-<div class="territory_pagination_bottom pagination_bottom">{% trans "Page:" %}</div>
+<div class="territory_pagination_bottom pagination_bottom pagination">
+    {% include "page_coop_service/pagination.html" %}
 </div>
-
-
+</div>
 
 
 <script type="text/javascript">

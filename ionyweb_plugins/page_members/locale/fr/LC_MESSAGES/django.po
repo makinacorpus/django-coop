@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-11 00:30+0200\n"
+"POT-Creation-Date: 2013-07-15 16:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -81,23 +81,22 @@ msgstr "Ville"
 msgid "Zipcode"
 msgstr "Code postal"
 
-#: forms.py:104
+#: forms.py:105
 msgid "Point"
 msgstr ""
 
-#: forms.py:104
+#: forms.py:105
 msgid "You may point manually the location of the location"
 msgstr ""
 "Géolocalisation à partir de l'adresse, il est possible de pointer "
 "manuellement (bouton crayon) si la géolocalisation a mal fonctionné"
 
-#: forms.py:136
+#: forms.py:139
 msgid ""
 "Presentation sample: Monday 9h-12h  14h-17h / Tuesday  9h-12h  14h-17h / "
 "Wed.  14h-17h"
 msgstr ""
-"Exemple : Lundu 9h-12h  14h-17h / Mardi  9h-12h  14h-17h / "
-"Mercredi  14h-17h"
+"Exemple : Lundu 9h-12h  14h-17h / Mardi  9h-12h  14h-17h / Mercredi  14h-17h"
 
 #: models.py:11
 msgid "type"
@@ -290,31 +289,51 @@ msgstr "Supprimer"
 msgid "Are you sure you want to delete this structure ?"
 msgstr "Êtes vous sûr de vouloir supprimer cette structure ?"
 
-#: templates/page_members/add_success.html:7
+#: templates/page_members/add_success.html:8
+msgid "Project added"
+msgstr "Projet ajouté"
+
+#: templates/page_members/add_success.html:9
+msgid "Project added. You may now consult it in the list"
+msgstr "Projet ajouté. Vous pouvez à présent le consulter dans la liste"
+
+#: templates/page_members/add_success.html:11
+msgid "Project modified"
+msgstr "Projet modifié"
+
+#: templates/page_members/add_success.html:12
+msgid "Project modified. You may now consult it in the list"
+msgstr "Projet modifié. Vous pouvez à présent le consulter dans la liste"
+
+#: templates/page_members/add_success.html:16
 msgid "Member added"
 msgstr "Structure ajoutée"
 
-#: templates/page_members/add_success.html:8
+#: templates/page_members/add_success.html:17
 msgid "Member added. You may now consult it in the list"
 msgstr "Structure ajoutée. Vous pouvez à présent la consulter dans la liste"
 
-#: templates/page_members/add_success.html:10
+#: templates/page_members/add_success.html:19
 msgid "Member modified"
 msgstr "Structure modifiée"
 
-#: templates/page_members/add_success.html:11
+#: templates/page_members/add_success.html:20
 msgid "Member modified. You may now consult it in the list"
 msgstr "Structure modifiée. Vous pouvez à présent la consulter dans la liste"
 
-#: templates/page_members/add_success.html:13
+#: templates/page_members/add_success.html:23
 msgid "Back to form"
 msgstr "Retourner sur le formulaire"
 
-#: templates/page_members/add_success.html:13
+#: templates/page_members/add_success.html:23
 msgid "See the detail"
 msgstr "Voir la fiche détaillée"
 
-#: templates/page_members/add_success.html:13
+#: templates/page_members/add_success.html:23
+msgid "Project list"
+msgstr "Liste des projets"
+
+#: templates/page_members/add_success.html:23
 #: templates/page_members/delete_success.html:8
 msgid "Member list"
 msgstr "Liste des structures"

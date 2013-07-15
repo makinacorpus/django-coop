@@ -8,7 +8,7 @@
 
 <div id="articles_top_search"></div>
 <div id="search_form">
-    <form action="{{ base_url }}" method="post">{% csrf_token %}
+    <form action="{{ base_url }}" method="get">{% csrf_token %}
         <div class="search_column" id="search_column1">
             <div class="search_block" id="activity">
                 <span class="search_title">{% trans "Activity" %}</span>

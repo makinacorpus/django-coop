@@ -90,8 +90,8 @@ def filter_data(request, page_app):
     entries = CoopEntry.objects.filter(status=1)
     more_criteria = False
     
-    if request.method == 'POST': # If the form has been submitted        
-        form = PageApp_CoopBlogForm(request.POST)
+    if request.method == 'GET': # If the form has been submitted        
+        form = PageApp_CoopBlogForm(request.GET)
         if form.is_valid():
             if form.cleaned_data['free_search']:
                 entries = entries.filter(Q(title__contains=form.cleaned_data['free_search']) | Q(description__contains=form.cleaned_data['free_search']))

@@ -68,8 +68,8 @@ def filter_data(request, page_app, mode):
                         ).order_by("start_time")
  
     if search_form:
-        if request.method == 'POST': # If the form has been submitted
-            form = PageApp_CoopAgendaForm(request.POST)
+        if request.method == 'GET': # If the form has been submitted
+            form = PageApp_CoopAgendaForm(request.GET)
             if form.is_valid():
 
                 occ = Occurrence.objects.filter(

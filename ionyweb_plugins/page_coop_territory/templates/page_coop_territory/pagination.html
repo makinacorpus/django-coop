@@ -1,0 +1,29 @@
+{% load pager %}
+
+{% if items.paginator.num_pages > 1 %}
+Page&nbsp;:&nbsp;
+
+  {% if items.number > 1 %}
+    <span class="step-links">
+    </span>
+  {% endif %}
+
+  {% for p in items.paginator.num_pages|pick_pages:items.number %}
+    {% if p == items.number %}
+      <span class="page-link page-number current">{{p}}</span>
+    {% else %}
+        {% if p == 0 %}
+            <span class="page-number ellipse">&hellip;</span>
+        {% else %}
+            <a href="?{{ get_params }}&page={{ p }}" class="page-link{% if p == items.number %} current{% endif %}">{{ p }}</a>
+        {% endif %}
+    {% endif %}
+  {% endfor %}
+
+  {% if items.number < items.paginator.num_pages %}
+    <span class="step-links">
+        <a href="?{{ get_params }}&page={{ items.previous_page_number }}" class="prev-link" disabled="{{ items.has_previous|yesno:"true,false" }}">&nbsp;</a>
+        <a href="?{{ get_params }}&page={{ items.next_page_number }}" class="next-link territory_link" disabled="{{ items.has_next|yesno:"true,false" }}">Page suivante</a>
+    </span>
+  {% endif %}
+{% endif %}

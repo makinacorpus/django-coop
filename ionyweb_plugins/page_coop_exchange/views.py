@@ -64,8 +64,8 @@ def filter_data(request, page_app, mode):
         #search_form_template = "page_coop_exchange/search_form_exchange.html"
     search_form_template = "page_coop_exchange/search_form_exchange.html"
     
-    if request.method == 'POST': # If the form has been submitted        
-        form = PageApp_CoopExchangeForm(request.POST)
+    if request.method == 'GET': # If the form has been submitted        
+        form = PageApp_CoopExchangeForm(request.GET)
         if form.is_valid():
             if form.cleaned_data['free_search']:
                 exchanges = exchanges.filter(Q(title__contains=form.cleaned_data['free_search']) | Q(description__contains=form.cleaned_data['free_search']))

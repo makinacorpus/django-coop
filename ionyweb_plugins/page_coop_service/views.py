@@ -64,8 +64,8 @@ def filter_data(request, page_app, mode):
 
     search_form_template = "page_coop_service/search_form_service.html"
     
-    if request.method == 'POST':  
-        form = PageApp_CoopServiceForm(request.POST)
+    if request.method == 'GET':  
+        form = PageApp_CoopServiceForm(request.GET)
         more_criteria = False
         if form.is_valid():
             if form.cleaned_data['activity'] or form.cleaned_data['activity2']:

@@ -52,12 +52,13 @@ def filter_data(request, page_app, mode):
     #exchanges = Exchange.objects.all()
     #more_criteria = False
     
+    items = []
+    
     #exchanges = exchanges.filter(organization__isnull=True)
     search_form_template = "page_coop_territory/search_form_territory.html"
     
-    if request.method == 'POST':  
-        pass
-        #form = PageApp_CoopTerritoryForm(request.POST)
+    if request.method == 'GET':  
+        form = PageApp_CoopTerritoryForm(request.GET)
         #if form.is_valid():
             #if form.cleaned_data['free_search']:
                 #exchanges = exchanges.filter(Q(title__contains=form.cleaned_data['free_search']) | Q(description__contains=form.cleaned_data['free_search']))
@@ -96,11 +97,23 @@ def filter_data(request, page_app, mode):
     
     center_map = settings.COOP_MAP_DEFAULT_CENTER
     
+    paginator = Paginator(items, 10)
+    page = request.GET.get('page')
+    try:
+        items_page = paginator.page(page)
+    except PageNotAnInteger:
+        items_page = paginator.page(1)
+    except EmptyPage:
+        items_page = paginator.page(paginator.num_pages)
+    get_params = request.GET.copy()
+    if 'page' in get_params:
+        del get_params['page']   
+        
     # Get available locations for autocomplete
     #available_locations = dumps([{'label':area.label, 'value':area.pk} for area in Area.objects.all().order_by('label')])
     
     #rdict = {'exchanges': exchanges, 'base_url': base_url, 'form': form, 'center': center_map, 'more_criteria': more_criteria, 'available_locations': available_locations, "search_form_template": search_form_template, "mode": mode, 'media_path': settings.MEDIA_URL, 'is_exchange': is_exchange}
-    rdict = {'search_form_template': search_form_template, 'base_url': base_url, 'form': form, 'more_criteria': more_criteria}
+    rdict = {'items': items_page, 'search_form_template': search_form_template, 'base_url': base_url, 'form': form}
     
     return rdict
                        
