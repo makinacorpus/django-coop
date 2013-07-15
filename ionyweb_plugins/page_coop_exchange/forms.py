@@ -67,12 +67,18 @@ class ReplyExchangeForm(forms.Form):
     title = forms.CharField(required=True, label=_('Title'))
     email = forms.EmailField(required=True, label=_('Email'))
     response = forms.CharField(required=True, label=_('Response'), widget=forms.Textarea)
+    
         
 class PartialExchangeForm(ExchangeForm):
     class Meta:
         model = Exchange
         exclude = ('products', 'sites', )
         widgets = {'img' : CustomClearableFileInput(),}
+
+    def __init__(self, *args, **kwargs):
+        super(PartialExchangeForm, self).__init__(*args, **kwargs)
+        self.fields['activity'] = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.order_by('path'))
+    
 
 class DocumentForm(forms.ModelForm):
     class Meta:
