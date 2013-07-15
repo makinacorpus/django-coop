@@ -161,7 +161,7 @@ def filter_data(request, page_app, mode):
     available_orgs = dumps([{'label':o.title, 'value':o.pk} for o in available_orgs.filter(active=True).order_by("title")])
 
     #rdict = {'object': page_app, 'members': organizations, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'direct_link': direct_link, 'search_form': search_form, 'form' : form, 'center': center_map, 'available_locations': available_locations, 'search_form_template': search_form_template, 'mode': mode}
-    rdict = {'object': page_app, 'members': orgs_page, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'direct_link': direct_link, 'search_form': search_form, 'form' : form, 'center': center_map, 'available_locations': available_locations, 'available_orgs': available_orgs, 'search_form_template': search_form_template, 'mode': mode, 'get_params': get_params.urlencode()}
+    rdict = {'object': page_app, 'members': orgs_page, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'direct_link': direct_link, 'search_form': search_form, 'form' : form, 'center': center_map, 'available_locations': available_locations, 'available_orgs': available_orgs, 'search_form_template': search_form_template, 'mode': mode, 'get_params': get_params.urlencode(), 'is_project': is_project}
 
     return rdict
 
@@ -190,6 +190,8 @@ def detail_view(request, page_app, pk):
     imgs = member.document_set.filter(type__name='Galerie')
     docs = member.document_set.exclude(type__name='Galerie')
     
+    is_project = is_obj_project(page_app)
+    
     relationship_queryset = Relation.objects.filter(source=member)
     
     # check if openings
@@ -200,7 +202,7 @@ def detail_view(request, page_app, pk):
 
     
     return render_view('page_members/detail.html',
-                       { 'member':  member, 'imgs': imgs, 'docs': docs, 'media_path': settings.MEDIA_URL , 'base_url': base_url, 'openings': openings, 'relationship_queryset': relationship_queryset},
+                       { 'member':  member, 'imgs': imgs, 'docs': docs, 'media_path': settings.MEDIA_URL , 'base_url': base_url, 'openings': openings, 'relationship_queryset': relationship_queryset, 'is_project': is_project},
                        MEDIAS,
                        context_instance=RequestContext(request))
                        
@@ -208,11 +210,8 @@ def add_view(request, page_app, member_id=None):
     # check rights    
     #can_edit, can_add = get_rights(request,member_id)
 
-    if page_app.get_absolute_url() == settings.COOP_MEMBER_ORGANIZATIONS_URL:
-        is_project = False
-    if page_app.get_absolute_url() == settings.COOP_MEMBER_PROJECTS_URL:
-        is_project = True
-
+    is_project = is_obj_project(page_app)
+    
     if request.user.is_authenticated():
         center_map = settings.COOP_MAP_DEFAULT_CENTER
         OfferFormSet = inlineformset_factory(Organization, Offer, exclude=['technical_means', 'workforce', 'practical_modalities'], form=CustomOfferForm, extra=1)
@@ -326,3 +325,9 @@ def delete_view(request, page_app, member_id):
                         context_instance=RequestContext(request))
     else:
         return render_view('page_members/forbidden.html')
+
+def is_obj_project(page_app):
+    if page_app.get_absolute_url() == settings.COOP_MEMBER_ORGANIZATIONS_URL:
+        return False
+    if page_app.get_absolute_url() == settings.COOP_MEMBER_PROJECTS_URL:
+        return True
