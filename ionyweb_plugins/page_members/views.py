@@ -49,6 +49,8 @@ def carto_view(request, page_app):
 def filter_data(request, page_app, mode):
     # check rights    
     #can_edit, can_add = get_rights(request)
+
+    is_project = is_obj_project(page_app)
     
     if page_app.type != "":
         organizations = Organization.objects.filter(category__label=page_app.type)
