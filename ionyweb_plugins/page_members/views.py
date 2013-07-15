@@ -235,12 +235,11 @@ def add_view(request, page_app, member_id=None):
             # new
             mode = 'add'
             base_url = u'%sp/member_add' % (page_app.get_absolute_url())
+            delete_url = ""
             member = Organization()        
         
         if request.method == 'POST': # If the form has been submitted
         
-            member.is_project = is_project
-
             # TODO: auto fill :
             #correspondence
             #transmission
@@ -260,6 +259,8 @@ def add_view(request, page_app, member_id=None):
             
             if form.is_valid() and docFormset.is_valid() and offerFormset.is_valid() and relationFormset.is_valid() and contactFormset.is_valid() and locatedFormset.is_valid():
                 member = form.save()
+                member.is_project = is_project
+                member.save()
                 docFormset.save()
                 offerFormset.save()
                 relationFormset.save()
