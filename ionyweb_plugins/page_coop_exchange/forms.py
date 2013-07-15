@@ -8,7 +8,7 @@ from .models import PageApp_CoopExchange
 from coop.exchange.models import ETYPE
 from coop.exchange.models import EWAY
 from coop.exchange.admin import ExchangeForm
-from coop_local.models import Exchange, Document
+from coop_local.models import Exchange, Document, Person
 from coop_local.widgets import CustomCheckboxSelectMultiple, CustomClearableFileInput
 from coop.base_models import ActivityNomenclature, TransverseTheme
 from extended_choices import Choices
@@ -73,12 +73,18 @@ class PartialExchangeForm(ExchangeForm):
     class Meta:
         model = Exchange
         exclude = ('products', 'sites', )
-        widgets = {'img' : CustomClearableFileInput(),}
+        widgets = {
+                'img' : CustomClearableFileInput(),
+              }
+        
 
     def __init__(self, *args, **kwargs):
         super(PartialExchangeForm, self).__init__(*args, **kwargs)
         self.fields['activity'] = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.order_by('path'))
-    
+        self.fields['person'] = forms.ModelChoiceField(queryset=Person.objects.order_by('first_name'))
+        
+        self.fields['description'].widget.attrs['rows'] = '15'
+        self.fields['description'].widget.attrs['cols'] = '40' 
 
 class DocumentForm(forms.ModelForm):
     class Meta:

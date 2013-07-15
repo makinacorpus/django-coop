@@ -26,58 +26,60 @@
         <div class="bg_form">
             <div class="fieldWrapper">
                 {{ form.title.errors }}
-                {{ form.title.label_tag }}: {{ form.title }}
+                <div class="labelWrapper">{{ form.title.label_tag }} : </div>{{ form.title }}
             </div>          
 
             <div class="fieldWrapper">
                 {{ form.expiration.errors }}
-                {{ form.expiration.label_tag }}: {{ form.expiration }}
+                <div class="labelWrapper">{{ form.expiration.label_tag }} : </div>{{ form.expiration }}
                 <div class="help_text" title="{% trans 'Date of expiration' %}"></div>
             </div>   
 
             <div class="fieldWrapper">
                 {{ form.organization.errors }}
-                {{ form.organization.label_tag }}: {{ form.organization }}
+                <div class="labelWrapper">{{ form.organization.label_tag }} : </div>{{ form.organization }}
             </div>        
             
             <div class="fieldWrapper">
                 {{ form.img.errors }}
-                {{ form.img.label_tag }}: <div class="img_form">{{ form.img }}</div>
+                <div class="labelWrapper">{{ form.img.label_tag }} : </div>
                 <div class="help_text" title="{% trans 'First image visible' %}"></div>
+                <div class="img_form">{{ form.img }}</div>
+                
             </div>
 
             <div class="fieldWrapper">
                 {{ form.eway.errors }}
-                {{ form.eway.label_tag }}: {{ form.eway }}
+                <div class="labelWrapper">{{ form.eway.label_tag }} : </div>{{ form.eway }}
             </div>
 
             <div class="fieldWrapper">
                 {{ form.etype.errors }}
-                {{ form.etype.label_tag }}: {{ form.etype }}
+                <div class="labelWrapper">{{ form.etype.label_tag }} : </div>{{ form.etype }}
             </div>          
 
             <div class="fieldWrapper">
                 {{ form.methods.errors }}
-                {{ form.methods.label_tag }}: {{ form.methods }}
+                <div class="labelWrapper">{{ form.methods.label_tag }} : </div>{{ form.methods }}
             </div>   
 
             <div class="fieldWrapper">
                 {{ form.location.errors }}
-                {{ form.location.label_tag }}: {{ form.location }}
+                <div class="labelWrapper">{{ form.location.label_tag }} : </div>{{ form.location }}
             </div>   
 
 <!-- TODO: email de reponse a l annonce -->
 
             <div class="fieldWrapper">
                 {{ form.description.errors }}
-                {{ form.description.label_tag }}: {{ form.description }}
+                <div class="labelWrapper">{{ form.description.label_tag }} : </div>{{ form.description }}
             </div>   
 
 <!-- TODO: adresse preferee, code postal, ville -->
 
             <div class="fieldWrapper">
                 {{ form.person.errors }}
-                {{ form.person.label_tag }}: {{ form.person }}
+                <div class="labelWrapper">{{ form.person.label_tag }} : </div>{{ form.person }}
             </div>        
 
 
@@ -106,12 +108,12 @@
             
             <div class="fieldWrapper">
                 {{ form.activity.errors }}
-                {{ form.activity.label_tag }}: {{ form.activity }}
+                <div class="labelWrapper">{{ form.activity.label_tag }} : </div>{{ form.activity }}
             </div>   
             
             <div class="fieldWrapper">
                 {{ form.transverse_themes.errors }}
-                {{ form.transverse_themes.label_tag }}: {{ form.transverse_themes }}
+                <div class="labelWrapper">{{ form.transverse_themes.label_tag }} : </div>{{ form.transverse_themes }}
                 <div class="help_text" title="{% trans 'You may select multiple by pressing Ctrl key' %}"></div>
 
             </div>   
@@ -119,7 +121,7 @@
             
             <div class="fieldWrapper">
                 {{ form.tags.errors }}
-                {{ form.tags.label_tag }}: {{ form.tags }}
+                <div class="labelWrapper">{{ form.tags.label_tag }} : </div>{{ form.tags }}
                 <div class="help_text" title="{% trans 'Separate words with a comma' %}"></div>
             </div>   
 
