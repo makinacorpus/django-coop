@@ -85,6 +85,9 @@ class PartialExchangeForm(ExchangeForm):
         
         self.fields['description'].widget.attrs['rows'] = '15'
         self.fields['description'].widget.attrs['cols'] = '40' 
+        
+        self.fields['activity'].label = _("Activity")
+        self.fields['person'].label = _("Person")
 
 class DocumentForm(forms.ModelForm):
     class Meta:
