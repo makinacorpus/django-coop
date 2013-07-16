@@ -97,6 +97,7 @@ class BaseExchange(URIModel):
 
     permanent = models.BooleanField(_(u'permanent'), default=True)
     expiration = models.DateField(_(u'expiration'), blank=True, null=True)
+    start = models.DateField(_(u'start'), blank=True, null=True)
     slug = exfields.AutoSlugField(populate_from='title', overwrite=True)
     products = models.ManyToManyField('coop_local.Product', verbose_name=_(u'linked products'))
 
