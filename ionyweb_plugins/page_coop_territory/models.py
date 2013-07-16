@@ -10,6 +10,7 @@ class PageApp_CoopTerritory(AbstractPageApp):
     exchanges_url = models.CharField(_('Exchanges url'), blank=True, max_length=250)
     agenda_url = models.CharField(_('Agenda url'), blank=True, max_length=250)
     blog_url = models.CharField(_('Blog url'), blank=True, max_length=250)
+    projects_url = models.CharField(_('Project url'), blank=True, max_length=250)
     
     def __unicode__(self):
         return u'CoopTerritory #%d' % (self.pk)

@@ -12,7 +12,7 @@ from django.shortcuts import get_object_or_404
 from ionyweb.website.rendering.medias import CSSMedia
 from datetime import datetime
 
-from .forms import PageApp_CoopTerritoryForm
+from .forms import PageApp_CoopTerritoryForm, CONTENT_TYPES
 
 from django.db.models import Q
 
@@ -63,11 +63,15 @@ def filter_data(request, page_app, mode):
                         event__calendar=agenda,
                         ).order_by("start_time")
     
-    # List all news
-    news = CoopEntry.objects.filter(status=1)
+    # List all services
+    services = Offer.objects.filter(provider__active=True).order_by("title")
     
     # List all organizations
-    organizations = Organization.objects.filter(active=True).order_by("title")
+    organizations = Organization.objects.filter(active=True, is_project=False).order_by("title")
+    
+    # List all projects
+    projects = Organization.objects.filter(active=True, is_project=True).order_by("title")
+
     
     
     search_form_template = "page_coop_territory/search_form_territory.html"
@@ -77,13 +81,29 @@ def filter_data(request, page_app, mode):
         more_criteria = False
         if form.is_valid():
             
-            # TODO contentype => exchanges only
+            reset_exchanges = False
+            reset_occ = False
+            reset_services = False
+            reset_organizations = False
+            reset_projects = False
             
-            # TODO departement, country, epci, commune
-            
-            if form.cleaned_data['activity'] or form.cleaned_data['activity2']:
-                exchanges = exchanges.filter(Q(activity=form.cleaned_data['activity']) | Q(activity=form.cleaned_data['activity2']))
-                
+            if form.cleaned_data['type_content']:
+                reset_exchanges = True
+                reset_occ = True
+                reset_services = True
+                reset_organizations = True
+                reset_projects = True
+                for c in form.cleaned_data['type_content']:
+                    if c == '1':
+                        reset_exchanges = False
+                    if c == '2':
+                        reset_occ = False
+                    if c == '3':
+                        reset_organizations = False
+                    if c == '4':
+                        reset_projects = False
+                    if c == '5':
+                        reset_services = False
 
             if form.cleaned_data['location']:
                 label = form.cleaned_data['location']
@@ -94,19 +114,71 @@ def filter_data(request, page_app, mode):
                 zone = area.polygon.buffer(distance_degrees)
                 ### Get the possible location in the buffer...
                 possible_locations = Location.objects.filter(point__intersects=zone)
-                ## ...and filter organization according to these locations
+                ## ...and filter according to these locations
                 exchanges = exchanges.filter(Q(location__in=possible_locations))
+                occ = occ.filter(Q(event__location__in=possible_locations))
+                # TODO services = 
+                organizations = organizations.filter(Q(located__location__in=possible_locations))
+                projects = projects.filter(Q(located__location__in=possible_locations))
+
                 
+            #if form.cleaned_data['activity'] or form.cleaned_data['activity2']:
+                #exchanges = exchanges.filter(Q(activity=form.cleaned_data['activity']) | Q(activity=form.cleaned_data['activity2']))
+            if form.cleaned_data['activity'] and form.cleaned_data['activity2']:
+                activity = form.cleaned_data['activity']
+                activity2 = form.cleaned_data['activity2']
+                
+                tab_keep = get_list_org_to_keep(organizations, activity)
+                tab_keep2 = get_list_org_to_keep(organizations, activity2)
+                organizations = organizations.filter(Q(pk__in=tab_keep) | Q(pk__in=tab_keep2) )
+                #TODO occ
+                #TODO exchanges
+                #TODO services
+                #TODO projects
+            else:
+                if form.cleaned_data['activity']:
+                    activity = form.cleaned_data['activity']                    
+                    tab_keep = get_list_org_to_keep(organizations, activity)
+                    organizations = organizations.filter(pk__in=tab_keep)
+                else:
+                    if form.cleaned_data['activity2']:
+                        activity = form.cleaned_data['activity2']                    
+                        tab_keep = get_list_org_to_keep(organizations, activity)
+                        organizations = organizations.filter(pk__in=tab_keep)                
                 
             if form.cleaned_data['thematic'] or form.cleaned_data['thematic2']:
                 exchanges = exchanges.filter(Q(transverse_themes=form.cleaned_data['thematic']) | Q(transverse_themes=form.cleaned_data['thematic2']))
+                organizations = organizations.filter(Q(transverse_themes=form.cleaned_data['thematic']) | Q(transverse_themes=form.cleaned_data['thematic2']))
+                projects = projects.filter(Q(transverse_themes=form.cleaned_data['thematic']) | Q(transverse_themes=form.cleaned_data['thematic2']))
+                #TODO occ
+                #TODO services
                 
                 
             if form.cleaned_data['free_search']:
                 exchanges = exchanges.filter(Q(title__contains=form.cleaned_data['free_search']) | Q(description__contains=form.cleaned_data['free_search']))
-                
+                #TODO occ
+                #TODO services
+                #TODO organization
+                #TODO projects
+
+
+            if form.cleaned_data['statut'] or form.cleaned_data['statut2']:
+                # we clear all except organizations
+                exchanges = None
+                occ = None
+                services = None
+            if form.cleaned_data['statut'] and form.cleaned_data['statut2']:
+                organizations = organizations.filter(Q(legal_status=form.cleaned_data['statut']) | Q(legal_status=form.cleaned_data['statut2']))
+                projects = projects.filter(Q(legal_status=form.cleaned_data['statut']) | Q(legal_status=form.cleaned_data['statut2']))
+            else:
+                if form.cleaned_data['statut']:
+                    organizations = organizations.filter(Q(legal_status=form.cleaned_data['statut']))
+                    projects = projects.filter(Q(legal_status=form.cleaned_data['statut']))
+                else:
+                    if form.cleaned_data['statut2']:
+                        organizations = organizations.filter(Q(legal_status=form.cleaned_data['statut2']))
+                        projects = projects.filter(Q(legal_status=form.cleaned_data['statut2']))
             
-            # TODO statut, statut2
             
     else:
         form = PageApp_CoopTerritoryForm({'location_buffer': '10'}) # An empty form
@@ -115,19 +187,38 @@ def filter_data(request, page_app, mode):
     center_map = settings.COOP_MAP_DEFAULT_CENTER
     
     # Get available locations for autocomplete
-    #available_locations = dumps([{'label':area.label, 'value':area.pk} for area in Area.objects.all().order_by('label')])
+    available_locations = dumps([{'label':area.label, 'value':area.pk} for area in Area.objects.all().order_by('label')])
 
+
+    # If a filter on content_type has been set, reset
+    if reset_exchanges:
+        exchanges = None
+    if reset_occ:
+        occ = None
+    if reset_services:
+        services = None
+    if reset_organizations:
+        organizations = None
+    if reset_projects:
+        projects = None
     
     # Put all objects ina a common tab for pagination
-    for e in exchanges :
-        items.append({'type':'exchange', 'obj': e})
-    for o in occ :
-        items.append({'type':'occ', 'obj': o})
-    for n in news :
-        items.append({'type':'news', 'obj': n})
-    for o in organizations :
-        items.append({'type':'organization', 'obj': o})
-
+    if exchanges:
+        for e in exchanges :
+            items.append({'type':'exchange', 'obj': e})
+    if occ:
+        for o in occ :
+            items.append({'type':'occ', 'obj': o})
+    if services:
+        for s in services :
+            items.append({'type':'service', 'obj': s})
+    if organizations:
+        for o in organizations :
+            items.append({'type':'organization', 'obj': o})
+    if projects:
+        for o in projects :
+            items.append({'type':'project', 'obj': o})
+        
     paginator = Paginator(items, 10)
     page = request.GET.get('page')
     try:
@@ -140,15 +231,6 @@ def filter_data(request, page_app, mode):
     if 'page' in get_params:
         del get_params['page']    
     
-    rdict = {'items': items_page, 'search_form_template': search_form_template, 'base_url': base_url, 'exchanges_url': page_app.exchanges_url, 'organizations_url': page_app.organizations_url, 'agenda_url': page_app.agenda_url, 'blog_url': page_app.blog_url, 'form': form, 'more_criteria': more_criteria}
-    #rdict = {'exchanges': exchanges, 'base_url': base_url, 'form': form, 'center': center_map, 'more_criteria': more_criteria, 'available_locations': available_locations, "search_form_template": search_form_template, "mode": mode, 'media_path': settings.MEDIA_URL, 'is_exchange': is_exchange}
-
+    rdict = {'items': items_page, 'search_form_template': search_form_template, 'base_url': base_url, 'exchanges_url': page_app.exchanges_url, 'organizations_url': page_app.organizations_url, 'projects_url': page_app.projects_url, 'agenda_url': page_app.agenda_url, 'blog_url': page_app.blog_url, 'form': form, 'more_criteria': more_criteria, 'available_locations': available_locations}
     
     return rdict
-                       
-                       
-                       
-                       
-                       
-
-
