@@ -96,6 +96,7 @@ class PartialExchangeForm(ExchangeForm):
         
         self.fields['activity'].label = _("Activity")
         self.fields['person'].label = _("Person")
+        self.fields['start'].label = _("Date of publication")
         
         try:
             location = self.instance.location
