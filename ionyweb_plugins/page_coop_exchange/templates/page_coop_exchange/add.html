@@ -35,6 +35,12 @@
             </div>          
 
             <div class="fieldWrapper">
+                {{ form.start.errors }}
+                <div class="labelWrapper">{{ form.start.label_tag }} : </div>{{ form.start }}
+                <div class="help_text" title="{% trans 'Date of start' %}"></div>
+            </div>   
+
+            <div class="fieldWrapper">
                 {{ form.expiration.errors }}
                 <div class="labelWrapper">{{ form.expiration.label_tag }} : </div>{{ form.expiration }}
                 <div class="help_text" title="{% trans 'Date of expiration' %}"></div>
@@ -194,7 +200,9 @@
             yearSuffix: ''};
         $.datepicker.setDefaults($.datepicker.regional['fr']);
 
-        $('#id_expiration').datepicker({dateFormat: 'yy-mm-dd', constrainInput: false});
+        $('#id_start').datepicker({dateFormat: 'dd/mm/yy', constrainInput: false});
+        $('#id_expiration').datepicker({dateFormat: 'dd/mm/yy', constrainInput: false});
+        
 
         $('#add_more_doc').click(function() {
             cloneMore('div.table_doc:last', 'doc');

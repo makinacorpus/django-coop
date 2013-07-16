@@ -51,7 +51,8 @@ def carto_view(request, page_app):
 def filter_data(request, page_app, mode):
     base_url = u'%s' % (page_app.get_absolute_url())
 
-    exchanges = Exchange.objects.all()
+    
+    exchanges = Exchange.objects.filter(Q(start__lte=datetime.today()) | Q(start__isnull=True))    
     more_criteria = False
     is_exchange = True
     
