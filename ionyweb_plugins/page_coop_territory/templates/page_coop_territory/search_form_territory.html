@@ -9,7 +9,17 @@
             </div>
         </div>
         <div class="search_column" id="search_column2">
-            <div class="search_block checkbox_custom" id="type">
+            <div class="search_block" id="location">
+                <span class="search_title">{% trans "Location" %}</span>
+                {{ form.location }}
+                {{ form.location_id.as_hidden }}
+            </div>
+            <div class="search_block" id="location_buffer">
+                <span class="search_title">{% trans "Location buffer" %}</span>
+                {{ form.location_buffer }}
+            </div>
+
+<!--            <div class="search_block checkbox_custom" id="type">
                 <span class="search_title">{% trans "Departement" %}</span>
                 {{ form.departement }}
             </div>
@@ -27,7 +37,7 @@
             <div class="search_block checkbox_custom" id="type">
                 <span class="search_title">{% trans "commune" %}</span>
                 {{ form.commune }}
-            </div>
+            </div>-->
 
         </div>
         <div class="search_column" id="search_column3">
@@ -93,10 +103,10 @@
             $('#more_criteria').addClass("search_form_hide");
 
             $("#search_form").animate({
-                height: '+=0px'
+                height: '+=45px'
             }, 500);
             $("#column2").animate({
-                'margin-top': '+=0px'
+                'margin-top': '+=45px'
             }, 500);
 
     }
@@ -111,10 +121,10 @@
 
             if(animate) {
                 $("#search_form").animate({
-                    height: '-=0px'
+                    height: '-=45px'
                 }, 500);
                 $("#column2").animate({
-                    'margin-top': '-=0px'
+                    'margin-top': '-=45px'
                 }, 500);
             }
     }

@@ -20,31 +20,96 @@
 </div>
 
 
-<!--{% for e in exchanges %}
-    <div class="coop_territory">
-        <div class="bloc_title">
-            {% if e.img  %}
-                <div class="logo"><a class="member_link" href="{{ base_url }}p/{{ e.pk }}"><img src="{{ media_path }}{{ e.img }}" alt="{{ e.title }}"></a></div>
-            {% else %}
-                <div class="logo logo_pes"></div>
-            {% endif %}
+{% for item in items %}
 
-            <div class="resume">
-                {% if e.location == None %} {% else %} <span class="location">{{ e.location|truncatechars:20 }}</span> {% endif %}
-                <div class="exchange_type">{% trans "Type" %} : {{ e.get_eway_display }}</div>
-                <a href="{{ base_url }}p/{{ e.pk }}"><h3 class="exchange_title resume_title">{{ e.title }}</h3></a>
-                <div class="exchange_desc">{{ e.description|safe|truncatechars:150 }}</div>
-                <span class="readmore"><a class="exchange_link" href="{{ base_url }}p/{{ e.pk }}">{% trans "Read more" %}</a></span>
-                {% if request.user.is_superuser %}
-                    <span class="edit"><a class="" href="{{ base_url }}p/exchange_edit/{{ e.pk }}">{% trans "Edit" %}</a></span>
+    {% if item.type == 'exchange' %}
+        <div class="coop_territory">
+            <div class="bloc_title">
+                {% if item.obj.img  %}
+                    <div class="logo"><a class="territory_link" href="{{ base_url }}p/{{ item.obj.pk }}"><img src="{{ media_path }}{{ item.obj.img }}" alt="{{ item.obj.title }}"></a></div>
+                {% else %}
+                    <div class="logo logo_pes"></div>
                 {% endif %}
+
+                <div class="resume">
+                    {% if item.obj.location == None %} {% else %} <span class="location">{{ item.obj.location|truncatechars:20 }}</span> {% endif %}
+                    <div class="exchange_type">{% trans "Type" %} : {{ item.obj.get_eway_display }}</div>
+                    <a href="{{ exchanges_url }}p/{{ item.obj.pk }}"><h3 class="exchange_title resume_title">{{ item.obj.title }}</h3></a>
+                    <div class="exchange_desc">{{ item.obj.description|safe|truncatechars:150 }}</div>
+                    <span class="readmore"><a class="territory_link" href="{{ exchanges_url }}p/{{ item.obj.pk }}">{% trans "Read more" %}</a></span>
+                </div>
             </div>
         </div>
-    </div>
-{% endfor %}-->
+    {% endif %}
+
+    {% if item.type == 'occ' %}
+        <div class="coop_territory">
+            <div class="bloc_title">
+                {% if item.obj.img  %}
+                    <div class="logo"><a class="territory_link" href="{{ base_url }}p/{{ item.obj.pk }}"><img src="{{ media_path }}{{ item.obj.img }}" alt="{{ item.obj.title }}"></a></div>
+                {% else %}
+                    <div class="logo logo_pes"></div>
+                {% endif %}
+
+                <div class="resume">
+                    {% if item.obj.location == None %} {% else %} <span class="location">{{ item.obj.location|truncatechars:20 }}</span> {% endif %}
+                    <div class="exchange_type">{% trans "Type" %} : {{ item.obj.get_eway_display }}</div>
+                    <a href="{{ agenda_url }}p/{{ item.obj.pk }}"><h3 class="exchange_title resume_title">{{ item.obj.title }}</h3></a>
+                    <div class="exchange_desc">{{ item.obj.description|safe|truncatechars:150 }}</div>
+                    <span class="readmore"><a class="territory_link" href="{{ agenda_url }}p/{{ item.obj.pk }}">{% trans "Read more" %}</a></span>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+
+    {% if item.type == 'news' %}
+        <div class="coop_territory">
+            <div class="bloc_title">
+                {% if item.obj.img  %}
+                    <div class="logo"><a class="territory_link" href="{{ base_url }}p/{{ item.obj.pk }}"><img src="{{ media_path }}{{ item.obj.img }}" alt="{{ item.obj.title }}"></a></div>
+                {% else %}
+                    <div class="logo logo_pes"></div>
+                {% endif %}
+
+                <div class="resume">
+                    {% if item.obj.location == None %} {% else %} <span class="location">{{ item.obj.location|truncatechars:20 }}</span> {% endif %}
+                    <div class="exchange_type">{% trans "Type" %} : {{ item.obj.get_eway_display }}</div>
+                    <a href="{{ blog_url }}p/{{ item.obj.pk }}"><h3 class="exchange_title resume_title">{{ item.obj.title }}</h3></a>
+                    <div class="exchange_desc">{{ item.obj.description|safe|truncatechars:150 }}</div>
+                    <span class="readmore"><a class="territory_link" href="{{ blog_url }}p/{{ item.obj.pk }}">{% trans "Read more" %}</a></span>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if item.type == 'organization' %}
+        <div class="coop_territory">
+            <div class="bloc_title">
+                {% if item.obj.img  %}
+                    <div class="logo"><a class="territory_link" href="{{ base_url }}p/{{ item.obj.pk }}"><img src="{{ media_path }}{{ item.obj.img }}" alt="{{ item.obj.title }}"></a></div>
+                {% else %}
+                    <div class="logo logo_pes"></div>
+                {% endif %}
+
+                <div class="resume">
+                    {% if item.obj.location == None %} {% else %} <span class="location">{{ item.obj.location|truncatechars:20 }}</span> {% endif %}
+                    <div class="exchange_type">{% trans "Type" %} : {{ item.obj.get_eway_display }}</div>
+                    <a href="{{ organizations_url }}p/{{ item.obj.pk }}"><h3 class="exchange_title resume_title">{{ item.obj.title }}</h3></a>
+                    <div class="exchange_desc">{{ item.obj.description|safe|truncatechars:150 }}</div>
+                    <span class="readmore"><a class="territory_link" href="{{ organizations_url }}p/{{ item.obj.pk }}">{% trans "Read more" %}</a></span>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+
+
+{% endfor %}
+
 
 <div class="territory_pagination_bottom pagination_bottom pagination">
-    {% include "page_coop_service/pagination.html" %}
+    {% include "page_coop_territory/pagination.html" %}
 </div>
 </div>
 
