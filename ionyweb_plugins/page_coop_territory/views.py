@@ -75,17 +75,16 @@ def filter_data(request, page_app, mode):
     
     
     search_form_template = "page_coop_territory/search_form_territory.html"
-    
+    reset_exchanges = False
+    reset_occ = False
+    reset_services = False
+    reset_organizations = False
+    reset_projects = False
+        
     if request.method == 'GET':  
         form = PageApp_CoopTerritoryForm(request.GET)
         more_criteria = False
         if form.is_valid():
-            
-            reset_exchanges = False
-            reset_occ = False
-            reset_services = False
-            reset_organizations = False
-            reset_projects = False
             
             if form.cleaned_data['type_content']:
                 reset_exchanges = True
