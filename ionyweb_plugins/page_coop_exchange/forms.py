@@ -8,11 +8,12 @@ from .models import PageApp_CoopExchange
 from coop.exchange.models import ETYPE
 from coop.exchange.models import EWAY
 from coop.exchange.admin import ExchangeForm
-from coop_local.models import Exchange, Document, Person
+from coop_local.models import Exchange, Document, Person, Location
 from coop_local.widgets import CustomCheckboxSelectMultiple, CustomClearableFileInput
 from coop.base_models import ActivityNomenclature, TransverseTheme
 from extended_choices import Choices
-
+from coop_geo.widgets import LocationPointWidgetInline
+from django.conf import settings
 
 EMODE = Choices(
     ('GIFT',    1,  _(u'Gift')),
@@ -70,6 +71,13 @@ class ReplyExchangeForm(forms.Form):
     
         
 class PartialExchangeForm(ExchangeForm):
+    
+    label = forms.CharField(required=False, label=_('Label'))
+    address = forms.CharField(required=False, label=_('Address'))
+    city = forms.CharField(required=False, label=_('City'))
+    zipcode = forms.CharField(required=False, label=_('Zipcode'))
+    point = forms.gis.PointField(required=False, label=_('Point'), widget=LocationPointWidgetInline(attrs={'map_width': 300,'map_height': 300, 'result_height': 100}), null=True,srid=settings.COOP_GEO_EPSG_PROJECTION, help_text=_('You may point manually the location of the location'))    
+        
     class Meta:
         model = Exchange
         exclude = ('products', 'sites', )
@@ -88,6 +96,41 @@ class PartialExchangeForm(ExchangeForm):
         
         self.fields['activity'].label = _("Activity")
         self.fields['person'].label = _("Person")
+        
+        try:
+            location = self.instance.location
+        except Location.DoesNotExist:
+            location = None
+
+        if location :
+            self.fields['label'].initial = location.label
+            self.fields['address'].initial = location.adr1
+            self.fields['city'].initial = location.city
+            self.fields['zipcode'].initial = location.zipcode
+            self.fields['point'].initial = location.point
+
+    def save(self, commit=True):
+        exchange = super(PartialExchangeForm, self).save(commit=False)
+        
+        if self.cleaned_data:
+            location = self.instance.location
+            if location == None:
+                location = Location()
+
+            location.label = self.cleaned_data['label']
+            location.adr1 = self.cleaned_data['address']
+            location.zipcode = self.cleaned_data['zipcode']
+            location.city = self.cleaned_data['city']
+            location.point = self.cleaned_data['point']
+            if commit:
+                location.save()
+      
+            exchange.location = location            
+      
+        if commit:
+            exchange.save()
+        return exchange        
+
 
 class DocumentForm(forms.ModelForm):
     class Meta:

@@ -233,3 +233,19 @@ def filter_data(request, page_app, mode):
     rdict = {'items': items_page, 'search_form_template': search_form_template, 'base_url': base_url, 'exchanges_url': page_app.exchanges_url, 'organizations_url': page_app.organizations_url, 'projects_url': page_app.projects_url, 'agenda_url': page_app.agenda_url, 'blog_url': page_app.blog_url, 'form': form, 'more_criteria': more_criteria, 'available_locations': available_locations}
     
     return rdict
+
+    
+def get_list_org_to_keep(organizations, activity):    
+    tab_keep = []
+    for org in organizations:
+        for o in org.offer_set.all():
+            parent = get_parent_activity_leve_0(o.activity)
+            if parent == activity.label:
+                tab_keep.append(org.pk)
+    return tab_keep
+    
+def get_parent_activity_leve_0(activity):
+    if activity.parent:
+        return get_parent_activity_leve_0(activity.parent)
+    else:
+        return activity.label   
