@@ -45,7 +45,9 @@
     
             <div class="fieldWrapper">
                 {{ form.organizations.errors }}
-                <div class="labelWrapper"><label>{% trans "Partners" %}</label> : </div>{{ form.organizations }}
+                <div class="labelWrapper"><label>{% trans "Partners" %}</label> : </div>
+                {{ form.organizations }}
+                <div class="help_text" title="{% trans 'Patners participating without being the organizator' %}"></div>
             </div>
 
             <div class="fieldWrapper">

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-11 22:25+0200\n"
+"POT-Creation-Date: 2013-07-17 16:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,12 +50,12 @@ msgstr "Thématique"
 msgid "Organization"
 msgstr "Organisation"
 
-#: forms.py:29 forms.py:103 templates/page_coop_agenda/index.html:37
+#: forms.py:29 forms.py:106 templates/page_coop_agenda/index.html:37
 #: templates/page_coop_agenda/search_form_agenda.html:14
 msgid "Start date"
 msgstr "Date de début"
 
-#: forms.py:30 forms.py:104 templates/page_coop_agenda/index.html:41
+#: forms.py:30 forms.py:107 templates/page_coop_agenda/index.html:41
 #: templates/page_coop_agenda/search_form_agenda.html:18
 msgid "End date"
 msgstr "Date de fin"
@@ -93,19 +93,19 @@ msgstr ""
 msgid "Show on public site"
 msgstr "Publier sur le site"
 
-#: forms.py:70
+#: forms.py:70 templates/page_coop_agenda/add.html:42
 msgid "Organizator"
 msgstr "Organisateurs"
 
-#: forms.py:114
+#: forms.py:117
 msgid "Title"
 msgstr "Titre"
 
-#: forms.py:115
+#: forms.py:118
 msgid "Email"
 msgstr ""
 
-#: forms.py:116
+#: forms.py:119
 msgid "Response"
 msgstr "Réponse"
 
@@ -123,38 +123,42 @@ msgstr "Ajouter un nouvel évènement"
 msgid "Modify event"
 msgstr "Modifier l'évènement"
 
-#: templates/page_coop_agenda/add.html:42
+#: templates/page_coop_agenda/add.html:48
 msgid "Partners"
 msgstr "Partenaires"
 
-#: templates/page_coop_agenda/add.html:53
+#: templates/page_coop_agenda/add.html:49
+msgid "Patners participating without being the organizator"
+msgstr "Financeurs ou organisations et groupe informel qui participent à l'événement sans en être organisateur"
+
+#: templates/page_coop_agenda/add.html:55
 msgid "This image will be the first visible"
 msgstr ""
 "Première image visible depuis le moteur de recherche (par défaut ce sera le "
 "logo de la structure)"
 
-#: templates/page_coop_agenda/add.html:73
+#: templates/page_coop_agenda/add.html:75
 msgid "Occurences"
 msgstr ""
 
-#: templates/page_coop_agenda/add.html:83
-#: templates/page_coop_agenda/add.html:127
+#: templates/page_coop_agenda/add.html:85
+#: templates/page_coop_agenda/add.html:129
 msgid "Add More"
 msgstr "Ajouter"
 
-#: templates/page_coop_agenda/add.html:87
+#: templates/page_coop_agenda/add.html:89
 msgid "Locations"
 msgstr "Lieux"
 
-#: templates/page_coop_agenda/add.html:117
+#: templates/page_coop_agenda/add.html:119
 msgid "Documents"
 msgstr ""
 
-#: templates/page_coop_agenda/add.html:132
+#: templates/page_coop_agenda/add.html:134
 msgid "Clic on button to add more locations"
 msgstr ""
 
-#: templates/page_coop_agenda/add.html:157
+#: templates/page_coop_agenda/add.html:165
 msgid ""
 "If not published, the organisation won't be visible on the website. You can "
 "access to it by going into your account"
@@ -162,11 +166,11 @@ msgstr ""
 "Si non publié, l'évènement ne sera pas visible sur le site. Vous pouvez y "
 "accéder en allant dans Mon Compte."
 
-#: templates/page_coop_agenda/add.html:167
+#: templates/page_coop_agenda/add.html:175
 msgid "Create"
 msgstr "Créer"
 
-#: templates/page_coop_agenda/add.html:169
+#: templates/page_coop_agenda/add.html:177
 msgid "Modify"
 msgstr "Modifier"
 
@@ -213,7 +217,7 @@ msgid "You must be logged in to view this page"
 msgstr "Vous devez être connecté pour voir cette page"
 
 #: templates/page_coop_agenda/index.html:91
-#: templates/page_coop_agenda/search_form_agenda.html:71
+#: templates/page_coop_agenda/search_form_agenda.html:73
 msgid "Search"
 msgstr "Rechercher"
 
@@ -268,11 +272,11 @@ msgstr "Retourner à la fiche"
 msgid "Subscription sent. Thank you."
 msgstr "Inscription envoyée. Merci."
 
-#: templates/page_coop_agenda/search_form_agenda.html:73
+#: templates/page_coop_agenda/search_form_agenda.html:75
 msgid "Display more criteria"
 msgstr ""
 
-#: templates/page_coop_agenda/search_form_agenda.html:74
+#: templates/page_coop_agenda/search_form_agenda.html:76
 msgid "Display less criteria"
 msgstr ""
 

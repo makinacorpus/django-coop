@@ -69,8 +69,8 @@ class PartialEventForm(EventForm):
         self.fields['active'].label = _('Show on public site')
         self.fields['organization'].label = _('Organizator')
         
-        self.fields['organization'] = forms.ModelChoiceField(queryset=Organization.objects.order_by('title'))
-        self.fields['organizations'] = forms.ModelMultipleChoiceField(queryset=Organization.objects.order_by('title'))
+        self.fields['organization'] = forms.ModelChoiceField(queryset=Organization.objects.filter(active=True, is_project=False).order_by('title'))
+        self.fields['organizations'] = forms.ModelMultipleChoiceField(required=False, queryset=Organization.objects.filter(active=True, is_project=False).order_by('title'))
         
     def save(self, commit=True):
         event = super(PartialEventForm, self).save(commit=False)
