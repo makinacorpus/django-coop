@@ -5,10 +5,9 @@ import floppyforms as forms
 from ionyweb.forms import ModuloModelForm
 from .models import PageApp_CoopExchange
 
-from coop.exchange.models import ETYPE
-from coop.exchange.models import EWAY
+from coop.exchange.models import ETYPE, EWAY
 from coop.exchange.admin import ExchangeForm
-from coop_local.models import Exchange, Document, Person, Location
+from coop_local.models import Exchange, Document, Person, Location, ExchangeMethod
 from coop_local.widgets import CustomCheckboxSelectMultiple, CustomClearableFileInput
 from coop.base_models import ActivityNomenclature, TransverseTheme
 from extended_choices import Choices
@@ -48,9 +47,11 @@ class PageApp_CoopExchangeForm(ModuloModelForm):
     thematic = forms.ModelChoiceField(queryset=TransverseTheme.objects.all(), required=False, label=_('Thematic'))
     thematic2 = forms.ModelChoiceField(queryset=TransverseTheme.objects.all(), required=False, label=_('Thematic'))
     
-    mode = forms.MultipleChoiceField(required=False, choices=EMODE, widget=CustomCheckboxSelectMultiple())
+    #mode = forms.MultipleChoiceField(required=False, choices=EMODE, widget=CustomCheckboxSelectMultiple())
+    method = forms.ModelMultipleChoiceField(queryset=ExchangeMethod.objects.exclude(etypes__contains=3), required=False, widget=CustomCheckboxSelectMultiple())
     
-    skills = forms.MultipleChoiceField(required=False, choices=ESKILLS, widget=CustomCheckboxSelectMultiple())
+    #skills = forms.MultipleChoiceField(required=False, choices=ESKILLS, widget=CustomCheckboxSelectMultiple())
+    skills = forms.ModelMultipleChoiceField(queryset=ExchangeMethod.objects.filter(etypes__contains=3), required=False, widget=CustomCheckboxSelectMultiple())
     
     free_search = forms.CharField(required=False, label=_('Free search'))
     

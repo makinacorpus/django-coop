@@ -96,11 +96,12 @@ def filter_data(request, page_app, mode):
                 # ...and filter organization according to these locations
                 exchanges = exchanges.filter(Q(location__in=possible_locations))
             
-            #TODO : mode
+            if form.cleaned_data['method']:
+                exchanges = exchanges.filter(Q(methods__in=form.cleaned_data['method']))
             
-            #TODO : skills
-            
-            
+            if form.cleaned_data['skills']:
+                exchanges = exchanges.filter(Q(methods__in=form.cleaned_data['skills']))
+
     else:
         form = PageApp_CoopExchangeForm({'location_buffer': '10'}) # An empty form
         more_criteria = False
@@ -166,7 +167,10 @@ def add_view(request, page_app, exchange_id=None):
             
             if form.is_valid() and docFormset.is_valid():
                 exchange = form.save()
+                form.save_m2m()
                 docFormset.save()
+                
+                
                 base_url = u'%s' % (page_app.get_absolute_url())
                 rdict = {'base_url': base_url, 'exchange_id': exchange.id}
                 return render_view('page_coop_exchange/add_success.html',
