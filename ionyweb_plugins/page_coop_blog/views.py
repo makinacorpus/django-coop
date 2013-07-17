@@ -100,8 +100,10 @@ def filter_data(request, page_app):
                 entries = entries.filter(Q(transverse_themes=form.cleaned_data['thematic']))
             
             if form.cleaned_data['activity']:
-                entries = entries.filter(Q(activity=form.cleaned_data['activity']))
-               
+                activity = form.cleaned_data['activity']                    
+                tab_keep = get_list_entrie_to_keep(entries, activity)
+                entries = entries.filter(pk__in=tab_keep)
+                
             if form.cleaned_data['date'] != '' :
                 entries = entries.filter(Q(publication_date__gte=datetime.date(datetime.today() - timedelta(days = int(form.cleaned_data['date'])))))
             
@@ -125,7 +127,23 @@ def filter_data(request, page_app):
     
     return rdict
 
-    
+
+def get_list_entrie_to_keep(entries, activity):    
+    tab_keep = []
+    for e in entries:
+        if e.activity:
+            parent = get_parent_activity_leve_0(e.activity)
+            if parent == activity.label:
+                tab_keep.append(e.pk)
+    return tab_keep
+
+def get_parent_activity_leve_0(activity):
+    if activity.parent:
+        return get_parent_activity_leve_0(activity.parent)
+    else:
+        return activity.label
+        
+        
 def detail_view(request, page_app, pk):
     e = get_object_or_404(CoopEntry, pk=pk)
     base_url = u'%sp/' % (page_app.get_absolute_url())

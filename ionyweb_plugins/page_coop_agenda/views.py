@@ -104,12 +104,33 @@ def filter_data(request, page_app, mode):
                 if occ.exists() and form.cleaned_data['end_date']:
                     occ = occ.filter(Q(end_time__lt=form.cleaned_data['end_date']))
                     
-                # TODO filter activity
                 if form.cleaned_data['thematic'] or form.cleaned_data['thematic2']:
-                    occ = occ.filter(Q(event__transverse_themes=form.cleaned_data['thematic']) | Q(event__transverse_themes=form.cleaned_data['thematic2']))
+                    arg = Q()
+                    if form.cleaned_data['thematic']: 
+                        arg = Q(event__transverse_themes=form.cleaned_data['thematic'])
+                    if form.cleaned_data['thematic2']: 
+                        arg = arg | Q(event__transverse_themes=form.cleaned_data['thematic2'])
+                    occ = occ.filter(arg)
                 
-                if form.cleaned_data['activity'] or form.cleaned_data['activity2']:
-                    occ = occ.filter(Q(event__activity=form.cleaned_data['activity']) | Q(event__activity=form.cleaned_data['activity2']))
+                    
+                if form.cleaned_data['activity'] and form.cleaned_data['activity2']:
+                    activity = form.cleaned_data['activity']
+                    activity2 = form.cleaned_data['activity2']
+                    
+                    tab_keep = get_list_event_to_keep(occ, activity)
+                    tab_keep2 = get_list_event_to_keep(occ, activity2)
+                    occ = occ.filter(Q(pk__in=tab_keep) | Q(pk__in=tab_keep2) )
+
+                else:
+                    if form.cleaned_data['activity']:
+                        activity = form.cleaned_data['activity']                    
+                        tab_keep = get_list_event_to_keep(occ, activity)
+                        occ = occ.filter(pk__in=tab_keep)
+                    else:
+                        if form.cleaned_data['activity2']:
+                            activity = form.cleaned_data['activity2']                    
+                            tab_keep = get_list_event_to_keep(occ, activity)
+                            occ = occ.filter(pk__in=tab_keep)                    
 
         else:
             form = PageApp_CoopAgendaForm(initial={'location_buffer': '10'}) # An empty form
@@ -133,7 +154,24 @@ def filter_data(request, page_app, mode):
     
     return rdict
 
+
     
+def get_list_event_to_keep(occs, activity):    
+    tab_keep = []
+    for o in occs:
+        if o.event.activity:
+            parent = get_parent_activity_leve_0(o.event.activity)
+            if parent == activity.label:
+                tab_keep.append(o.pk)
+    return tab_keep
+
+def get_parent_activity_leve_0(activity):
+    if activity.parent:
+        return get_parent_activity_leve_0(activity.parent)
+    else:
+        return activity.label
+        
+        
 # this function is for promess84 compatibility :
 """
 def filter_data_with_cat (request, page_app, mode):

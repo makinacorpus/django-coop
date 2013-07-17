@@ -55,12 +55,7 @@ def filter_data(request, page_app, mode):
     exchanges = Exchange.objects.filter(active=True, organization__isnull=False).order_by("title")
 
     # List all offer and services proposed by structures
-    #offers = []
-    #organizations = Organization.objects.filter(active=True).order_by("title")
     offers = Offer.objects.filter(provider__active=True).order_by("title")
-    #for org in organizations:
-        #for o in org.offer_set.all(): 
-            #offers.append(o)
 
     search_form_template = "page_coop_service/search_form_service.html"
     
@@ -68,10 +63,35 @@ def filter_data(request, page_app, mode):
         form = PageApp_CoopServiceForm(request.GET)
         more_criteria = False
         if form.is_valid():
-            if form.cleaned_data['activity'] or form.cleaned_data['activity2']:
-                exchanges = exchanges.filter(Q(activity=form.cleaned_data['activity']) | Q(activity=form.cleaned_data['activity2']))
-                offers = offers.filter(Q(activity=form.cleaned_data['activity']) | Q(activity=form.cleaned_data['activity2']))
 
+            if form.cleaned_data['activity'] and form.cleaned_data['activity2']:
+                activity = form.cleaned_data['activity']
+                activity2 = form.cleaned_data['activity2']
+                
+                tab_keep = get_list_exch_to_keep(exchanges, activity)
+                tab_keep2 = get_list_exch_to_keep(exchanges, activity2)
+                exchanges = exchanges.filter(Q(pk__in=tab_keep) | Q(pk__in=tab_keep2) )
+
+                tab_keep = get_list_off_to_keep(offers, activity)
+                tab_keep2 = get_list_off_to_keep(offers, activity2)
+                offers = offers.filter(Q(pk__in=tab_keep) | Q(pk__in=tab_keep2) )
+
+            else:
+                if form.cleaned_data['activity']:
+                    activity = form.cleaned_data['activity']                    
+                    tab_keep = get_list_exch_to_keep(exchanges, activity)
+                    exchanges = exchanges.filter(pk__in=tab_keep)
+                    tab_keep = get_list_off_to_keep(offers, activity)
+                    offers = offers.filter(Q(pk__in=tab_keep))
+                else:
+                    if form.cleaned_data['activity2']:
+                        activity = form.cleaned_data['activity2']                    
+                        tab_keep = get_list_exch_to_keep(exchanges, activity)
+                        exchanges = exchanges.filter(pk__in=tab_keep)
+                        tab_keep = get_list_off_to_keep(offers, activity)
+                        offers = offers.filter(Q(pk__in=tab_keep))
+                
+                
             if form.cleaned_data['location']:
                 label = form.cleaned_data['location']
                 pk = form.cleaned_data['location_id']
@@ -86,15 +106,24 @@ def filter_data(request, page_app, mode):
                 offers = offers.filter(Q(provider__location__in=possible_locations))
                 
             if form.cleaned_data['thematic'] or form.cleaned_data['thematic2']:
-                exchanges = exchanges.filter(Q(transverse_themes=form.cleaned_data['thematic']) | Q(transverse_themes=form.cleaned_data['thematic2']))
-                offers = offers.filter(Q(provider__transverse_themes=form.cleaned_data['thematic']) | Q(provider__transverse_themes=form.cleaned_data['thematic2']))
+                arg = Q()
+                arg_off = Q()
+                if form.cleaned_data['thematic']: 
+                    arg = Q(transverse_themes=form.cleaned_data['thematic'])
+                    arg_off = Q(provider__transverse_themes=form.cleaned_data['thematic'])
+                if form.cleaned_data['thematic2']: 
+                    arg = arg | Q(transverse_themes=form.cleaned_data['thematic2'])
+                    arg_off = arg | Q(provider__transverse_themes=form.cleaned_data['thematic'])
+                exchanges = exchanges.filter(arg)
+                offers = offers.filter(arg_off)
+
+                
                 
             if form.cleaned_data['free_search']:
                 exchanges = exchanges.filter(Q(title__contains=form.cleaned_data['free_search']) | Q(description__contains=form.cleaned_data['free_search']))
                 offers = offers.filter(Q(title__contains=form.cleaned_data['free_search']) | Q(description__contains=form.cleaned_data['free_search']))
             
             if form.cleaned_data['method']:
-                print exchanges
                 exchanges = exchanges.filter(Q(methods__in=form.cleaned_data['method']))
                 offers = [] # offers are not concern by mode, so we remove them from the selection
                 
@@ -106,7 +135,6 @@ def filter_data(request, page_app, mode):
     
     # Get available locations for autocomplete
     #available_locations = dumps([{'label':area.label, 'value':area.pk} for area in Area.objects.all().order_by('label')])
-
     
     # Put all objects ina a common tab for pagination
     for e in exchanges :
@@ -128,11 +156,31 @@ def filter_data(request, page_app, mode):
         del get_params['page']    
     
     rdict = {'items': items_page, 'search_form_template': search_form_template, 'base_url': base_url, 'exchanges_url': page_app.exchanges_url, 'organizations_url': page_app.organizations_url,'form': form, 'more_criteria': more_criteria}
-    #rdict = {'exchanges': exchanges, 'base_url': base_url, 'form': form, 'center': center_map, 'more_criteria': more_criteria, 'available_locations': available_locations, "search_form_template": search_form_template, "mode": mode, 'media_path': settings.MEDIA_URL, 'is_exchange': is_exchange}
-
     
     return rdict
                        
 
+    
+def get_list_exch_to_keep(exchanges, activity):    
+    tab_keep = []
+    for e in exchanges:
+        if e.activity:
+            parent = get_parent_activity_leve_0(e.activity)
+            if parent == activity.label:
+                tab_keep.append(e.pk)
+    return tab_keep
 
+def get_list_off_to_keep(offers, activity):    
+    tab_keep = []
+    for o in offers:
+        parent = get_parent_activity_leve_0(o.activity)
+        if parent == activity.label:
+            tab_keep.append(o.pk)
+    return tab_keep    
+    
+def get_parent_activity_leve_0(activity):
+    if activity.parent:
+        return get_parent_activity_leve_0(activity.parent)
+    else:
+        return activity.label
 

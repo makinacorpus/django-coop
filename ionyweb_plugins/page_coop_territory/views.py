@@ -72,8 +72,6 @@ def filter_data(request, page_app, mode):
     # List all projects
     projects = Organization.objects.filter(active=True, is_project=True).order_by("title")
 
-    
-    
     search_form_template = "page_coop_territory/search_form_territory.html"
     reset_exchanges = False
     reset_occ = False
@@ -146,9 +144,14 @@ def filter_data(request, page_app, mode):
                         organizations = organizations.filter(pk__in=tab_keep)                
                 
             if form.cleaned_data['thematic'] or form.cleaned_data['thematic2']:
-                exchanges = exchanges.filter(Q(transverse_themes=form.cleaned_data['thematic']) | Q(transverse_themes=form.cleaned_data['thematic2']))
-                organizations = organizations.filter(Q(transverse_themes=form.cleaned_data['thematic']) | Q(transverse_themes=form.cleaned_data['thematic2']))
-                projects = projects.filter(Q(transverse_themes=form.cleaned_data['thematic']) | Q(transverse_themes=form.cleaned_data['thematic2']))
+                arg = Q()
+                if form.cleaned_data['thematic']: 
+                    arg = Q(transverse_themes=form.cleaned_data['thematic'])
+                if form.cleaned_data['thematic2']: 
+                    arg = arg | Q(transverse_themes=form.cleaned_data['thematic2'])
+                exchanges = exchanges.filter(arg)
+                organizations = organizations.filter(arg)
+                projects = projects.filter(arg)
                 #TODO occ
                 #TODO services
                 
@@ -166,18 +169,14 @@ def filter_data(request, page_app, mode):
                 exchanges = None
                 occ = None
                 services = None
-            if form.cleaned_data['statut'] and form.cleaned_data['statut2']:
-                organizations = organizations.filter(Q(legal_status=form.cleaned_data['statut']) | Q(legal_status=form.cleaned_data['statut2']))
-                projects = projects.filter(Q(legal_status=form.cleaned_data['statut']) | Q(legal_status=form.cleaned_data['statut2']))
-            else:
+                
+                arg = Q()
                 if form.cleaned_data['statut']:
-                    organizations = organizations.filter(Q(legal_status=form.cleaned_data['statut']))
-                    projects = projects.filter(Q(legal_status=form.cleaned_data['statut']))
-                else:
-                    if form.cleaned_data['statut2']:
-                        organizations = organizations.filter(Q(legal_status=form.cleaned_data['statut2']))
-                        projects = projects.filter(Q(legal_status=form.cleaned_data['statut2']))
-            
+                    arg = Q(legal_status=form.cleaned_data['statut'])
+                if form.cleaned_data['statut2']:
+                    arg = arg | Q(legal_status=form.cleaned_data['statut2'])
+                organizations = organizations.filter(arg)
+                projects = projects.filter(arg)            
             
     else:
         form = PageApp_CoopTerritoryForm({'location_buffer': '10'}) # An empty form

@@ -79,10 +79,31 @@ def filter_data(request, page_app, mode):
                 exchanges = exchanges.filter(Q(etype__in=form.cleaned_data['type']))
 
             if form.cleaned_data['thematic'] or form.cleaned_data['thematic2']:
-                exchanges = exchanges.filter(Q(transverse_themes=form.cleaned_data['thematic']) | Q(transverse_themes=form.cleaned_data['thematic2']))
+                arg = Q()
+                if form.cleaned_data['thematic']: 
+                    arg = Q(transverse_themes=form.cleaned_data['thematic'])
+                if form.cleaned_data['thematic2']: 
+                    arg = arg | Q(transverse_themes=form.cleaned_data['thematic2'])
+                exchanges = exchanges.filter(arg)
             
-            if form.cleaned_data['activity'] or form.cleaned_data['activity2']:
-                exchanges = exchanges.filter(Q(activity=form.cleaned_data['activity']) | Q(activity=form.cleaned_data['activity2']))
+            if form.cleaned_data['activity'] and form.cleaned_data['activity2']:
+                activity = form.cleaned_data['activity']
+                activity2 = form.cleaned_data['activity2']
+                
+                tab_keep = get_list_exch_to_keep(exchanges, activity)
+                tab_keep2 = get_list_exch_to_keep(exchanges, activity2)
+                exchanges = exchanges.filter(Q(pk__in=tab_keep) | Q(pk__in=tab_keep2) )
+
+            else:
+                if form.cleaned_data['activity']:
+                    activity = form.cleaned_data['activity']                    
+                    tab_keep = get_list_exch_to_keep(exchanges, activity)
+                    exchanges = exchanges.filter(pk__in=tab_keep)
+                else:
+                    if form.cleaned_data['activity2']:
+                        activity = form.cleaned_data['activity2']                    
+                        tab_keep = get_list_exch_to_keep(exchanges, activity)
+                        exchanges = exchanges.filter(pk__in=tab_keep)
                 
                 
             if form.cleaned_data['location']:
@@ -128,8 +149,24 @@ def filter_data(request, page_app, mode):
     rdict = {'exchanges': exchanges_page, 'base_url': base_url, 'form': form, 'center': center_map, 'more_criteria': more_criteria, 'available_locations': available_locations, "search_form_template": search_form_template, "mode": mode, 'media_path': settings.MEDIA_URL, 'is_exchange': is_exchange}
     
     return rdict
-                       
-                       
+
+
+def get_list_exch_to_keep(exchanges, activity):    
+    tab_keep = []
+    for e in exchanges:
+        if e.activity:
+            parent = get_parent_activity_leve_0(e.activity)
+            if parent == activity.label:
+                tab_keep.append(e.pk)
+    return tab_keep
+
+def get_parent_activity_leve_0(activity):
+    if activity.parent:
+        return get_parent_activity_leve_0(activity.parent)
+    else:
+        return activity.label
+
+        
 def detail_view(request, page_app, pk):
     e = get_object_or_404(Exchange, pk=pk)
     base_url = u'%sp/' % (page_app.get_absolute_url())
