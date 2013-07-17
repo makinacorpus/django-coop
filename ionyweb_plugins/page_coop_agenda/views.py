@@ -67,6 +67,8 @@ def filter_data(request, page_app, mode):
                         event__calendar=agenda,
                         ).order_by("start_time")
  
+    more_criteria = False
+    
     if search_form:
         if request.method == 'GET': # If the form has been submitted
             form = PageApp_CoopAgendaForm(request.GET)
@@ -132,8 +134,14 @@ def filter_data(request, page_app, mode):
                             tab_keep = get_list_event_to_keep(occ, activity)
                             occ = occ.filter(pk__in=tab_keep)                    
 
+                if request.GET.get('more_criteria_status'):
+                    if request.GET['more_criteria_status'] == 'True':
+                        more_criteria = True
+
+                            
         else:
             form = PageApp_CoopAgendaForm(initial={'location_buffer': '10'}) # An empty form
+            more_criteria = False
     
     paginator = Paginator(occ, 10)
     page = request.GET.get('page')
@@ -150,7 +158,7 @@ def filter_data(request, page_app, mode):
     # Get available locations for autocomplete
     available_locations = dumps([{'label':area.label, 'value':area.pk} for area in Area.objects.all().order_by('label')])
  
-    rdict = {'media_path': settings.MEDIA_URL,'agenda': agenda, 'occs': occ_page, 'object': page_app, 'base_url': base_url, 'search_form': search_form, 'form': form, 'center': center_map, 'available_locations': available_locations, 'search_form_template': search_form_template, "mode": mode}
+    rdict = {'media_path': settings.MEDIA_URL,'agenda': agenda, 'occs': occ_page, 'object': page_app, 'base_url': base_url, 'search_form': search_form, 'form': form, 'center': center_map, 'available_locations': available_locations, 'search_form_template': search_form_template, "mode": mode, 'more_criteria' : more_criteria}
     
     return rdict
 

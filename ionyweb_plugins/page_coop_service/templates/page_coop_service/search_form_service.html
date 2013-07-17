@@ -42,14 +42,9 @@
                 <span class="search_title">{% trans "Free search" %}</span>
                 {{ form.free_search }}
             </div>
-<!--            <div class="search_block" id="warranty">
-                <span class="search_title">{% trans "Warranty" %}</span>
-                {{ form.warranty }}
-            </div>
-            <div class="search_block" id="organization">
-                <span class="search_title">{% trans "Organization" %}</span>
-                {{ form.organization }}
-            </div>-->
+
+            <input type="hidden" name="more_criteria_status" id="more_criteria_status" value="">
+
         </div>
 
         <div class="search_block" id="search_submit">
@@ -65,9 +60,12 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        {% if mode_criteria == False %}
+        {% if more_criteria %}
+            more_criteria();
+        {% else %}
             less_criteria(false);
         {% endif %}
+
     });
 
     function more_criteria() {
@@ -78,6 +76,8 @@
             $('#less_criteria').removeClass("search_form_hide");
 
             $('#more_criteria').addClass("search_form_hide");
+
+            $('#more_criteria_status').val("True");
 
             $("#search_form").animate({
                 height: '+=40px'
@@ -95,6 +95,8 @@
             $('#less_criteria').addClass("search_form_hide");
 
             $('#more_criteria').removeClass("search_form_hide");
+
+            $('#more_criteria_status').val("False");
 
             if(animate) {
                 $("#search_form").animate({

@@ -126,7 +126,11 @@ def filter_data(request, page_app, mode):
             if form.cleaned_data['method']:
                 exchanges = exchanges.filter(Q(methods__in=form.cleaned_data['method']))
                 offers = [] # offers are not concern by mode, so we remove them from the selection
-                
+        
+            if request.GET.get('more_criteria_status'):
+                if request.GET['more_criteria_status'] == 'True':
+                    more_criteria = True
+
     else:
         form = PageApp_CoopServiceForm({'location_buffer': '10'}) # An empty form
         more_criteria = False

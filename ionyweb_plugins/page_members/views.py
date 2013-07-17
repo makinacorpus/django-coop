@@ -80,7 +80,7 @@ def filter_data(request, page_app, mode):
         organizations = organizations.filter(is_project=True)
         search_form_template = "page_members/search_form_project.html"
     
-    
+    more_criteria = False
     #if request.method == 'POST': # If the form has been submitted
         #form = PageApp_MembersForm(request.POST)
     if request.method == 'GET': # If the form has been submitted
@@ -142,9 +142,13 @@ def filter_data(request, page_app, mode):
                 arg = arg | Q(legal_status=form.cleaned_data['statut2'])
             organizations = organizations.filter(arg)
             
-                
+            if request.GET.get('more_criteria_status'):
+                if request.GET['more_criteria_status'] == 'True':
+                    more_criteria = True
+            
     else:
         form = PageApp_MembersForm(initial={'location_buffer': '10'}) # An empty form
+        more_criteria = False
 
     
     paginator = Paginator(organizations, 10)
@@ -167,7 +171,7 @@ def filter_data(request, page_app, mode):
     available_orgs = dumps([{'label':o.title, 'value':o.pk} for o in available_orgs.filter(active=True).order_by("title")])
 
     #rdict = {'object': page_app, 'members': organizations, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'direct_link': direct_link, 'search_form': search_form, 'form' : form, 'center': center_map, 'available_locations': available_locations, 'search_form_template': search_form_template, 'mode': mode}
-    rdict = {'object': page_app, 'members': orgs_page, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'direct_link': direct_link, 'search_form': search_form, 'form' : form, 'center': center_map, 'available_locations': available_locations, 'available_orgs': available_orgs, 'search_form_template': search_form_template, 'mode': mode, 'get_params': get_params.urlencode(), 'is_project': is_project}
+    rdict = {'object': page_app, 'members': orgs_page, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'direct_link': direct_link, 'search_form': search_form, 'form' : form, 'center': center_map, 'available_locations': available_locations, 'available_orgs': available_orgs, 'search_form_template': search_form_template, 'mode': mode, 'get_params': get_params.urlencode(), 'is_project': is_project, 'more_criteria': more_criteria}
 
     return rdict
 

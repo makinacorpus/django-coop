@@ -177,7 +177,11 @@ def filter_data(request, page_app, mode):
                     arg = arg | Q(legal_status=form.cleaned_data['statut2'])
                 organizations = organizations.filter(arg)
                 projects = projects.filter(arg)            
-            
+
+            if request.GET.get('more_criteria_status'):
+                if request.GET['more_criteria_status'] == 'True':
+                    more_criteria = True
+                
     else:
         form = PageApp_CoopTerritoryForm({'location_buffer': '10'}) # An empty form
         more_criteria = False
