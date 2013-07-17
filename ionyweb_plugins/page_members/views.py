@@ -110,9 +110,13 @@ def filter_data(request, page_app, mode):
                     organizations = organizations.filter(Q(located__location__in=possible_locations))
                 
 
-            if form.cleaned_data['thematic'] or form.cleaned_data['thematic2']:
-                organizations = organizations.filter(Q(transverse_themes=form.cleaned_data['thematic']) | Q(transverse_themes=form.cleaned_data['thematic2']))
-
+            arg = Q()
+            if form.cleaned_data['thematic']: 
+                arg = Q(transverse_themes=form.cleaned_data['thematic'])
+            if form.cleaned_data['thematic2']: 
+                arg = arg | Q(transverse_themes=form.cleaned_data['thematic2'])
+            organizations = organizations.filter(arg)
+                
             if form.cleaned_data['activity'] and form.cleaned_data['activity2']:
                 activity = form.cleaned_data['activity']
                 activity2 = form.cleaned_data['activity2']
@@ -131,14 +135,13 @@ def filter_data(request, page_app, mode):
                         tab_keep = get_list_org_to_keep(organizations, activity)
                         organizations = organizations.filter(pk__in=tab_keep)
 
-            if form.cleaned_data['statut'] and form.cleaned_data['statut2']:
-                organizations = organizations.filter(Q(legal_status=form.cleaned_data['statut']) | Q(legal_status=form.cleaned_data['statut2']))
-            else:
-                if form.cleaned_data['statut']:
-                    organizations = organizations.filter(Q(legal_status=form.cleaned_data['statut']))
-                else:
-                    if form.cleaned_data['statut2']:
-                        organizations = organizations.filter(Q(legal_status=form.cleaned_data['statut2']))
+            arg = Q()
+            if form.cleaned_data['statut']:
+                arg = Q(legal_status=form.cleaned_data['statut'])
+            if form.cleaned_data['statut2']:
+                arg = arg | Q(legal_status=form.cleaned_data['statut2'])
+            organizations = organizations.filter(arg)
+            
                 
     else:
         form = PageApp_MembersForm(initial={'location_buffer': '10'}) # An empty form
