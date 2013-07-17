@@ -72,6 +72,9 @@ def filter_data(request, page_app, mode):
     # List all projects
     projects = Organization.objects.filter(active=True, is_project=True).order_by("title")
 
+    # List all offers
+    offers = Offer.objects.filter(provider__active=True).order_by("title")
+    
     search_form_template = "page_coop_territory/search_form_territory.html"
     reset_exchanges = False
     reset_occ = False
@@ -114,13 +117,12 @@ def filter_data(request, page_app, mode):
                 ## ...and filter according to these locations
                 exchanges = exchanges.filter(Q(location__in=possible_locations))
                 occ = occ.filter(Q(event__location__in=possible_locations))
-                # TODO services = 
+                offers = offers.filter(Q(provider__location__in=possible_locations))
                 organizations = organizations.filter(Q(located__location__in=possible_locations))
                 projects = projects.filter(Q(located__location__in=possible_locations))
 
-                
-            #if form.cleaned_data['activity'] or form.cleaned_data['activity2']:
-                #exchanges = exchanges.filter(Q(activity=form.cleaned_data['activity']) | Q(activity=form.cleaned_data['activity2']))
+            # Activity is more complicated to filter due to the fact that search field porpopose only first level activities
+            # So we have to recursively get the parents activity of each objects to see if it is concerned
             if form.cleaned_data['activity'] and form.cleaned_data['activity2']:
                 activity = form.cleaned_data['activity']
                 activity2 = form.cleaned_data['activity2']
@@ -128,40 +130,83 @@ def filter_data(request, page_app, mode):
                 tab_keep = get_list_org_to_keep(organizations, activity)
                 tab_keep2 = get_list_org_to_keep(organizations, activity2)
                 organizations = organizations.filter(Q(pk__in=tab_keep) | Q(pk__in=tab_keep2) )
-                #TODO occ
-                #TODO exchanges
-                #TODO services
-                #TODO projects
+                
+                tab_keep = get_list_event_to_keep(occ, activity)
+                tab_keep2 = get_list_event_to_keep(occ, activity2)
+                occ = occ.filter(Q(pk__in=tab_keep) | Q(pk__in=tab_keep2) )
+
+                tab_keep = get_list_exch_to_keep(exchanges, activity)
+                tab_keep2 = get_list_exch_to_keep(exchanges, activity2)
+                exchanges = exchanges.filter(Q(pk__in=tab_keep) | Q(pk__in=tab_keep2) )
+                
+                tab_keep = get_list_off_to_keep(offers, activity)
+                tab_keep2 = get_list_off_to_keep(offers, activity2)
+                offers = offers.filter(Q(pk__in=tab_keep) | Q(pk__in=tab_keep2) )
+                
+                tab_keep = get_list_org_to_keep(projects, activity)
+                tab_keep2 = get_list_org_to_keep(projects, activity2)
+                projects = projects.filter(Q(pk__in=tab_keep) | Q(pk__in=tab_keep2) )
+
             else:
                 if form.cleaned_data['activity']:
                     activity = form.cleaned_data['activity']                    
                     tab_keep = get_list_org_to_keep(organizations, activity)
                     organizations = organizations.filter(pk__in=tab_keep)
+
+                    tab_keep = get_list_event_to_keep(occ, activity)
+                    occ = occ.filter(pk__in=tab_keep)
+                    
+                    tab_keep = get_list_exch_to_keep(exchanges, activity)
+                    exchanges = exchanges.filter(pk__in=tab_keep)
+                    
+                    tab_keep = get_list_off_to_keep(offers, activity)
+                    offers = offers.filter(Q(pk__in=tab_keep))
+
+                    tab_keep = get_list_org_to_keep(projects, activity)
+                    projects = projects.filter(pk__in=tab_keep)
                 else:
                     if form.cleaned_data['activity2']:
                         activity = form.cleaned_data['activity2']                    
                         tab_keep = get_list_org_to_keep(organizations, activity)
                         organizations = organizations.filter(pk__in=tab_keep)                
-                
+                        
+                        tab_keep = get_list_event_to_keep(occ, activity)
+                        occ = occ.filter(pk__in=tab_keep)   
+
+                        tab_keep = get_list_exch_to_keep(exchanges, activity)
+                        exchanges = exchanges.filter(pk__in=tab_keep)                        
+                            
+                        tab_keep = get_list_off_to_keep(offers, activity)
+                        offers = offers.filter(Q(pk__in=tab_keep))                        
+                        
+                        tab_keep = get_list_org_to_keep(projects, activity)
+                        projects = projects.filter(pk__in=tab_keep)                
+                        
+                        
             if form.cleaned_data['thematic'] or form.cleaned_data['thematic2']:
                 arg = Q()
+                arg_occ = Q()
+                arg_off = Q()
                 if form.cleaned_data['thematic']: 
                     arg = Q(transverse_themes=form.cleaned_data['thematic'])
+                    arg_occ = Q(event__transverse_themes=form.cleaned_data['thematic'])
+                    arg_off = Q(provider__transverse_themes=form.cleaned_data['thematic'])
                 if form.cleaned_data['thematic2']: 
                     arg = arg | Q(transverse_themes=form.cleaned_data['thematic2'])
+                    arg_occ = arg_occ | Q(event__transverse_themes=form.cleaned_data['thematic2'])
+                    arg_off = arg_off | Q(provider__transverse_themes=form.cleaned_data['thematic'])
                 exchanges = exchanges.filter(arg)
                 organizations = organizations.filter(arg)
                 projects = projects.filter(arg)
-                #TODO occ
-                #TODO services
-                
+                occ = occ.filter(arg)
+                offers = offers.filter(arg_off)
                 
             if form.cleaned_data['free_search']:
                 exchanges = exchanges.filter(Q(title__contains=form.cleaned_data['free_search']) | Q(description__contains=form.cleaned_data['free_search']))
-                #TODO occ
-                #TODO services
-                #TODO organization
-                #TODO projects
+                occ = occ.filter(Q(event__title__contains=form.cleaned_data['free_search']) | Q(event__description__contains=form.cleaned_data['free_search']))
+                offers = offers.filter(Q(title__contains=form.cleaned_data['free_search']) | Q(description__contains=form.cleaned_data['free_search']))
+                organizations = organizations.filter(Q(title__icontains=form.cleaned_data['free_search']) | Q(description__icontains=form.cleaned_data['free_search']))
+                projects = projects.filter(Q(title__icontains=form.cleaned_data['free_search']) | Q(description__icontains=form.cleaned_data['free_search']))
 
 
             if form.cleaned_data['statut'] or form.cleaned_data['statut2']:
@@ -246,6 +291,32 @@ def get_list_org_to_keep(organizations, activity):
             if parent == activity.label:
                 tab_keep.append(org.pk)
     return tab_keep
+    
+def get_list_event_to_keep(occs, activity):    
+    tab_keep = []
+    for o in occs:
+        if o.event.activity:
+            parent = get_parent_activity_leve_0(o.event.activity)
+            if parent == activity.label:
+                tab_keep.append(o.pk)
+    return tab_keep
+
+def get_list_exch_to_keep(exchanges, activity):    
+    tab_keep = []
+    for e in exchanges:
+        if e.activity:
+            parent = get_parent_activity_leve_0(e.activity)
+            if parent == activity.label:
+                tab_keep.append(e.pk)
+    return tab_keep
+
+def get_list_off_to_keep(offers, activity):    
+    tab_keep = []
+    for o in offers:
+        parent = get_parent_activity_leve_0(o.activity)
+        if parent == activity.label:
+            tab_keep.append(o.pk)
+    return tab_keep    
     
 def get_parent_activity_leve_0(activity):
     if activity.parent:

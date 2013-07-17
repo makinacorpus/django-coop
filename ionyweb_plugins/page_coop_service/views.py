@@ -113,7 +113,7 @@ def filter_data(request, page_app, mode):
                     arg_off = Q(provider__transverse_themes=form.cleaned_data['thematic'])
                 if form.cleaned_data['thematic2']: 
                     arg = arg | Q(transverse_themes=form.cleaned_data['thematic2'])
-                    arg_off = arg | Q(provider__transverse_themes=form.cleaned_data['thematic'])
+                    arg_off = arg_off | Q(provider__transverse_themes=form.cleaned_data['thematic'])
                 exchanges = exchanges.filter(arg)
                 offers = offers.filter(arg_off)
 
