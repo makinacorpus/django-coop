@@ -161,6 +161,12 @@
                 <div class="help_text" title="{% trans 'Separate words with a comma' %}"></div>
             </div>   
 
+
+            <div class="fieldWrapper">
+                {{ form.active.errors }}
+                <div class="labelWrapper">{{ form.active.label_tag }} : </div>{{ form.active }}
+            </div>   
+
 <!-- TODO plus value solidaire -->
 
             {{ form.errors }}

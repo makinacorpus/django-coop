@@ -53,7 +53,7 @@ def filter_data(request, page_app, mode):
     
     # List all exchanges linked to a structure
     exchanges = Exchange.objects.filter(active=True, organization__isnull=False).order_by("title")
-    
+
     # List all offer and services proposed by structures
     #offers = []
     #organizations = Organization.objects.filter(active=True).order_by("title")
@@ -93,9 +93,11 @@ def filter_data(request, page_app, mode):
                 exchanges = exchanges.filter(Q(title__contains=form.cleaned_data['free_search']) | Q(description__contains=form.cleaned_data['free_search']))
                 offers = offers.filter(Q(title__contains=form.cleaned_data['free_search']) | Q(description__contains=form.cleaned_data['free_search']))
             
-            if form.cleaned_data['mode']:
-                exchanges = exchanges.filter(Q(mode__in=form.cleaned_data['mode']))
+            if form.cleaned_data['method']:
+                print exchanges
+                exchanges = exchanges.filter(Q(methods__in=form.cleaned_data['method']))
                 offers = [] # offers are not concern by mode, so we remove them from the selection
+                
     else:
         form = PageApp_CoopServiceForm({'location_buffer': '10'}) # An empty form
         more_criteria = False

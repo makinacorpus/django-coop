@@ -9,17 +9,7 @@ from coop_local.widgets import CustomCheckboxSelectMultiple, CustomClearableFile
 from coop.base_models import ActivityNomenclature, TransverseTheme
 from extended_choices import Choices
 
-from coop_local.models import LegalStatus, Location, Area
-
-
-EMODE = Choices(
-    ('GIFT',    1,  _(u'Gift')),
-    ('SWAP',   2,  _(u'Swap')),
-    ('SKILL',   3,  _(u'Skill')),
-    ('EUROS',    4,  _(u'Euros')),
-    ('MUTUALIZATION',      5,  _(u'Mutualization')),
-)
-
+from coop_local.models import LegalStatus, Location, Area, ExchangeMethod
 
 
 class PageApp_CoopServiceForm(ModuloModelForm):
@@ -34,7 +24,7 @@ class PageApp_CoopServiceForm(ModuloModelForm):
     thematic = forms.ModelChoiceField(queryset=TransverseTheme.objects.all(), required=False, label=_('Thematic'))
     thematic2 = forms.ModelChoiceField(queryset=TransverseTheme.objects.all(), required=False, label=_('Thematic'))
 
-    mode = forms.MultipleChoiceField(required=False, choices=EMODE, widget=CustomCheckboxSelectMultiple())
+    method = forms.ModelMultipleChoiceField(queryset=ExchangeMethod.objects.exclude(etypes__contains=3), required=False, widget=CustomCheckboxSelectMultiple())
 
     free_search = forms.CharField(required=False, label=_('Free search'))
 
