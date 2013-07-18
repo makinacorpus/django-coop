@@ -1,51 +1,84 @@
 {% load i18n %}
 
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}admintools_bootstrap/css/custom-theme/jquery-ui-1.8.16.custom.css" />
+
+    <script type="text/javascript" src="{{ STATIC_URL }}themes/pes_auvergne/default/js/jquery.carouFredSel-6.2.1-packed.js"></script>
+
+    <script type="text/javascript" language="javascript" src="{{ STATIC_URL }}themes/pes_auvergne/default/js/helper-plugins/jquery.mousewheel.min.js"></script>
+    <script type="text/javascript" language="javascript" src="{{ STATIC_URL }}themes/pes_auvergne/default/js/helper-plugins/jquery.touchSwipe.min.js"></script>
+    <script type="text/javascript" language="javascript" src="{{ STATIC_URL }}themes/pes_auvergne/default/js/helper-plugins/jquery.transit.min.js"></script>
+    <script type="text/javascript" language="javascript" src="{{ STATIC_URL }}themes/pes_auvergne/default/js/helper-plugins/jquery.ba-throttle-debounce.min.js"></script>
+
+{% endblock %}
+
 <div id="articles_top"></div>
 <div id="articles">
     <div class="bloc_title">
         {% if e.image != '' %}
             <div class="logo logo_pes"><img src="{{ media_path }}{{ e.image }}" alt=""></div>
         {% else %}
-            <div class="logo"></div>
+            <div class="logo logo_pes"></div>
         {% endif %}
 
         <div class="header">
-            <h3 class="article_title">{{ e.title }}</h3>
-            <p>{{ e.resume }}</p>
-            <span class="article_by">{{ e.author }}</span><br/>
-            <span class="article_date">{{ e.publication_date|date:"d/m/Y @ H:i" }}</span><br/>
-            <span class="article_source">{{ e.source }}</span><br/>
+            <div id="column1">
+                <h3 class="article_title">{{ e.title }}</h3>
+                <p>{{ e.resume }}</p>
 
-            <div id="links">
-                <a class="facebook" href=""></a>
-                <a class="twitter" href=""></a>
-                <a class="google_plus" href=""></a>
-                <a class="plus" href=""></a>
-                <a class="links" href=""></a>
-                <a class="print" href=""></a>
+                <div id="links">
+                    <a class="facebook" target="_blank" href="http://www.facebook.com/sharer/sharer.php?u=#{{ request.build_absolute_uri }}"></a>
+                    <a class="twitter" href="https://twitter.com/share?url={{ request.build_absolute_uri }}" target="_blank"></a>
+                    <a class="google_plus"  target="_blank" href="https://plus.google.com/share?url={{ request.build_absolute_uri }}"></a>
+                    <a class="plus" href=""></a>
+                    <a class="links" href=""></a>
+                    <a class="print" href=""></a>
+                </div>
+
             </div>
+            <div id="column2">
+                <br/>
+                {% trans 'Publish by' %} : <span class="article_by">{{ e.author }}</span><br/>
+                {% trans 'Initial publication' %} : <span class="article_date">{{ e.publication_date|date:"d/m/Y @ H:i" }}</span><br/>
+                <span class="articles_link">{% trans 'Source' %}</span> : <span class="article_source">{{ e.source }}</span><br/>
+            </div>
+
         </div>
 
         <span class="article_modification">{{ e.modification|date:"d/m/Y @ H:i" }}</span><br/>
 
-    
+    <br/><br/>
+    </div>
+
     <div class="bloc_content">
         {{ e.body|safe }}
+        <div id="description_short">{{ e.body|safe|truncatewords_html:150 }}</div>
+        <div id="description_full">
+                {{ e.body|safe }}
+        </div>
+        <span class="readmore"><a class="articles_link" href="javascript:read_more();" id="read_more">{% trans "Read more" %}</a></span>
     </div>
     
     {% if imgs %}
         <div class="bloc_content bloc_content_border">
             <h3>{% trans "Galery" %}</h3>
-            
-            {% for d in imgs %}
-                <div class="fake_img">
-                    <img src="{{ media_path }}{{ d.attachment }}" alt='{{ d.name }}' />
-                </div>
-            {% endfor %}
-        </div>
-    {% endif %}
 
-    
+                <div class="list_carousel">
+                    <ul id="carousel">
+                        {% for d in imgs %}
+                            <li>
+                                <a href="{{ media_path }}{{ d.attachment }}"><img src="{{ media_path }}{{ d.attachment }}" alt='{{ d.name }}' height="100px" /></a>
+                            </li>
+                        {% endfor %}
+
+                    </ul>
+                    <div class="clearfix"></div>
+                    <a id="prev2" class="prev" href="#"></a>
+                    <a id="next2" class="next" href="#"></a>
+                    <div id="pager2" class="pager"></div>
+                </div>
+        </div>
+    {% endif %}    
 
     <div class="bloc_content bloc_content_borderless">
         <div class="article_content_activity content_border_grey">
@@ -60,10 +93,13 @@
             {% endfor %}
         </div>
 
-        <div class="article_content_keywords content_border_grey">
-            <h3 class="article_link">{% trans "Keywords" %}</h3>
-            {{ e.tags.all|join:", " }}
-        </div>
+        {% if e.tags.all %}
+            <div class="article_content_keywords content_border_grey">
+                <h3 class="">{% trans "Keywords" %}<a href="javascript:keywords_show_complement()" class="articles_link">+</a></h3>
+                <div id="keywords_short">{{ e.tags.all|join:", "|truncatechars:100 }}</div>
+                <div id="keywords_long">{{ e.tags.all|join:", " }}</div>
+            </div>
+        {% endif %}
 
     </div>
 
@@ -71,11 +107,13 @@
     <div class="bloc_content bloc_content_borderless">
         <div class="bloc_content_col1">
             {% if docs %}
-                <h3><a href="javascript:show_infos('#documents');">{% trans "Documents associated" %}</a></h3>
+                <h3 id="menu_documents"><a href="javascript:show_infos('documents');">{% trans "Documents associated" %}<div class="menu_selected_arrow"></div></a></h3>
             {% endif %}
+
             {% if e.linked_articles.exists %}
-                <h3><a href="javascript:show_infos('#articles_associated');">{% trans "Articles of the same author" %}</a></h3>
+                <h3 id="menu_articles"><a href="javascript:show_infos('articles_associated');">{% trans "Articles of the same author" %}<div class="menu_selected_arrow"></div></a></h3>
             {% endif %}
+
         </div>
         <div class="bloc_content_col2">
 
@@ -96,7 +134,7 @@
         
     </div>
 
-</div>
+
 
     {% if request.user.is_superuser %}
         <span class="edit edit_inline"><a class="" href="{{ base_url }}entry_edit/{{ e.pk }}">{% trans "Edit" %}</a></span>
@@ -108,18 +146,56 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-
+        keywords_hide_complement();
         hide_complement();
+        $('#description_full').addClass("detail_form_hide");
+
+        $('#carousel').carouFredSel({
+            items: 2,
+            auto: false,
+            prev: '#prev2',
+            next: '#next2',
+            pagination: "#pager2",
+            mousewheel: true,
+            swipe: {
+                onMouse: true,
+                onTouch: true
+            }
+        });
+
+        $('#carousel a').fancybox({ 'hideOnContentClick': false,'zoomSpeedIn': 300, 'zoomSpeedOut': 300, 'overlayShow': true });
+
+
+        show_infos('documents');
     });
+
+    function read_more() {
+        $('#description_full').removeClass("detail_form_hide");
+        $('#description_short').addClass("detail_form_hide");
+        $('#read_more').addClass("detail_form_hide");        
+    }
+
+    function keywords_hide_complement() {
+        $('#keywords_long').addClass("detail_form_hide");
+    }
+
+    function keywords_show_complement() {
+        $('#keywords_long').removeClass("detail_form_hide");
+        $('#keywords_short').addClass("detail_form_hide");
+    }
 
     function hide_complement() {
          $('#articles_associated').addClass("detail_form_hide");
          $('#documents').addClass("detail_form_hide");
+
+        $('#menu_documents').removeClass("menu_selected");
+        $('#menu_articles').removeClass("menu_selected");
     }
 
    function show_infos(id_div) {
         hide_complement();
-        $(id_div).removeClass("detail_form_hide");
+        $("#" + id_div).removeClass("detail_form_hide");
+        $("#menu_" + id_div).addClass("menu_selected");
    }
 
 

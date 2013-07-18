@@ -10,7 +10,9 @@
             <h1>{% trans "Modify article" %}</h1>
             <p>{% trans "Article modified. You may now consult it in the list" %}<p>
         {% endif %}
-        <a href="{{ base_url }}p/{{ entry_id }}" class="blog_link">{% trans "See the detail" %}</a> - <a href="{{ base_url }}" class="blog_link">{% trans "Article list" %}</a>
+        <a href="{{ base_url }}p/entry_edit/{{ entry_id }}" class="articles_link">{% trans "Back to form" %}</a> - <a href="{{ base_url }}p/{{ entry_id }}" class="articles_link">{% trans "See the detail" %}</a> - <a href="{{ base_url }}" class="articles_link">{% trans "Article list" %}</a>
+
+
     </div>
 </div>
 
