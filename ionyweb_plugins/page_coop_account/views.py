@@ -85,7 +85,8 @@ def index_view(request, page_app):
                 can_edit = True
                 can_add = True
             else:
-                can_edit, can_add = get_rights_org(request, o.pk)
+                if e.organization:
+                    can_edit, can_add = get_rights_org(request, e.organization.pk)
             if can_edit:
                 tab_exchanges.append(e)
         
@@ -96,7 +97,8 @@ def index_view(request, page_app):
                 can_edit = True
                 can_add = True
             else:
-                can_edit, can_add = get_rights_org(request, o.event.pk)
+                if o.event.organization:
+                    can_edit, can_add = get_rights_org(request, o.event.organization.pk)
             if can_edit:
                 tab_events.append(o)
 
