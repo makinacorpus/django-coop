@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-28 15:20+0200\n"
+"POT-Creation-Date: 2013-07-18 13:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -75,12 +75,12 @@ msgid "Since a month"
 msgstr "Depuis un mois"
 
 #: forms.py:68 forms.py:69 templates/page_coop_blog/coopentry_archive.html:14
-#: templates/page_coop_blog/entry_detail.html:52
+#: templates/page_coop_blog/entry_detail.html:88
 msgid "Activity"
 msgstr "Activité"
 
 #: forms.py:71 forms.py:72 templates/page_coop_blog/coopentry_archive.html:20
-#: templates/page_coop_blog/entry_detail.html:57
+#: templates/page_coop_blog/entry_detail.html:93
 msgid "Thematic"
 msgstr "Thématique"
 
@@ -92,7 +92,7 @@ msgstr "Recherche libre"
 msgid "Organization"
 msgstr "Structure"
 
-#: forms.py:78 templates/page_coop_blog/entry_detail.html:64
+#: forms.py:78 templates/page_coop_blog/entry_detail.html:101
 msgid "Keywords"
 msgstr "Mots clefs"
 
@@ -200,43 +200,49 @@ msgstr "Date de publication"
 msgid "Status"
 msgstr "Statut"
 
-#: templates/page_coop_blog/add.html:10
+#: templates/page_coop_blog/add.html:15
 #: templates/page_coop_blog/add_success.html:7
 msgid "Add new article"
 msgstr "Ajouter un article"
 
-#: templates/page_coop_blog/add.html:12
+#: templates/page_coop_blog/add.html:17
 #: templates/page_coop_blog/add_success.html:10
 msgid "Modify article"
 msgstr "Modifier un article"
 
-#: templates/page_coop_blog/add.html:26
+#: templates/page_coop_blog/add.html:31
 msgid "This image will be the first visible"
-msgstr "Première image visible depuis le moteur de recherche (par défaut ce sera le logo de la structure)"
+msgstr ""
+"Première image visible depuis le moteur de recherche (par défaut ce sera le "
+"logo de la structure)"
 
-#: templates/page_coop_blog/add.html:35
+#: templates/page_coop_blog/add.html:40
 msgid "Source site or first publication place"
 msgstr "Site source ou lieu original de la publication"
 
-#: templates/page_coop_blog/add.html:59
+#: templates/page_coop_blog/add.html:64
 msgid "Documents"
 msgstr ""
 
-#: templates/page_coop_blog/add.html:69
+#: templates/page_coop_blog/add.html:74
 msgid "Add More"
-msgstr ""
+msgstr "Ajouter"
 
-#: templates/page_coop_blog/add.html:70
+#: templates/page_coop_blog/add.html:75
 msgid "Click the button to add more documents"
 msgstr "Cliquez sur le bouton pour ajouter de nouveaux documents"
 
-#: templates/page_coop_blog/add.html:81
+#: templates/page_coop_blog/add.html:86
 msgid "You may choose multiple value by pressing the CTRL key"
 msgstr "Vous pouvez choisir plusieurs valeurs en pressant la touche Ctrl"
 
-#: templates/page_coop_blog/add.html:89
+#: templates/page_coop_blog/add.html:94
 msgid "To facilitate research"
-msgstr "Permet de faciliter les recherches et faire apparaître votre structure parmi les premiers résultats. Séparez les mots clés par une virgule (exemple de liste de mots clés : jardins partagé, lien social, éducation à l’environnement, auto-production)"
+msgstr ""
+"Permet de faciliter les recherches et faire apparaître votre structure parmi "
+"les premiers résultats. Séparez les mots clés par une virgule (exemple de "
+"liste de mots clés : jardins partagé, lien social, éducation à "
+"l’environnement, auto-production)"
 
 #: templates/page_coop_blog/add.html:114
 msgid "Create"
@@ -255,8 +261,12 @@ msgid "Article modified. You may now consult it in the list"
 msgstr "Article modifié. Vous pouvez à présent le consulter dans la liste"
 
 #: templates/page_coop_blog/add_success.html:13
+msgid "Back to form"
+msgstr "Revenir au formulaire"
+
+#: templates/page_coop_blog/add_success.html:13
 msgid "See the detail"
-msgstr ""
+msgstr "Voir la fiche détaillée"
 
 #: templates/page_coop_blog/add_success.html:13
 msgid "Article list"
@@ -270,32 +280,49 @@ msgstr ""
 msgid "Search"
 msgstr "Recherche"
 
-#: templates/page_coop_blog/coopentry_archive.html:92
+#: templates/page_coop_blog/coopentry_archive.html:97
+#: templates/page_coop_blog/entry_detail.html:62
 msgid "Read more"
 msgstr "Lisez la suite"
 
-#: templates/page_coop_blog/coopentry_archive.html:94
-#: templates/page_coop_blog/entry_detail.html:102
+#: templates/page_coop_blog/coopentry_archive.html:99
+#: templates/page_coop_blog/entry_detail.html:143
 msgid "Edit"
 msgstr "Editer"
 
-#: templates/page_coop_blog/coopentry_archive.html:100
+#: templates/page_coop_blog/coopentry_archive.html:105
 msgid "No entry yet"
 msgstr "Aucun article disponible actuellement"
 
-#: templates/page_coop_blog/entry_detail.html:38
+#: templates/page_coop_blog/entry_detail.html:41
+msgid "Publish by"
+msgstr "Publié par"
+
+#: templates/page_coop_blog/entry_detail.html:42
+msgid "Initial publication"
+msgstr "Publication initiale"
+
+#: templates/page_coop_blog/entry_detail.html:43
+msgid "Source"
+msgstr ""
+
+#: templates/page_coop_blog/entry_detail.html:45
+msgid "Last modification"
+msgstr "Dernière mise à jour"
+
+#: templates/page_coop_blog/entry_detail.html:67
 msgid "Galery"
 msgstr "Galerie"
 
-#: templates/page_coop_blog/entry_detail.html:74
-#: templates/page_coop_blog/entry_detail.html:87
+#: templates/page_coop_blog/entry_detail.html:113
+#: templates/page_coop_blog/entry_detail.html:128
 msgid "Documents associated"
-msgstr ""
+msgstr "Documents associés"
 
-#: templates/page_coop_blog/entry_detail.html:77
-#: templates/page_coop_blog/entry_detail.html:83
+#: templates/page_coop_blog/entry_detail.html:117
+#: templates/page_coop_blog/entry_detail.html:124
 msgid "Articles of the same author"
-msgstr ""
+msgstr "Articles du même auteur"
 
 #: templates/page_coop_blog/forbidden.html:3
 msgid "You must be logged in to view this page"

@@ -41,6 +41,11 @@
                 {% trans 'Publish by' %} : <span class="article_by">{{ e.author }}</span><br/>
                 {% trans 'Initial publication' %} : <span class="article_date">{{ e.publication_date|date:"d/m/Y @ H:i" }}</span><br/>
                 <span class="articles_link">{% trans 'Source' %}</span> : <span class="article_source">{{ e.source }}</span><br/>
+                <br/>
+                <div id="last_modification">
+                    {% trans 'Last modification' %} : <br/><span class="article_date">{{ e.modification_date|date:"d/m/Y @ H:i" }}</span><br/>
+                </div>
+
             </div>
 
         </div>

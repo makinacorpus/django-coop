@@ -46,7 +46,7 @@ class EntryForm(ModuloModelForm):
 
     class Meta:
         model = CoopEntry
-        exclude = ('blog','category','slug', )
+        exclude = ('blog','category','slug','docs', )
         widgets = {
             'publication_date': DateTimePicker,
             'body': TinyMCELargeTable(attrs={'cols': 80, 'rows': 15,}),
