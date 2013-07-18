@@ -1,19 +1,74 @@
 {% load i18n thumbnail %}
 
+
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}admintools_bootstrap/css/custom-theme/jquery-ui-1.8.16.custom.css" />
+
+
 <div id="account_top"></div>
 <div id="coop_account">
     <h2 class="title">{% trans "Account" %}</h2>
-        <div class="coop_account">
 
-        </div>
+    <div class="account_disconnect"><a class="account_link" href="{{ base_url }}p/logout">{% trans "Logout" %}</a></div>
 
-        <h3>{% trans "My organizations" %} :</h3>
+
+    <div id="tabs">
         <ul>
-        {% for o in org %}
-            <li><a href="/annuaire/p/{{ o.pk }}">{{ o.title }}</a> - <a class="account_link" href="/annuaire/p/member_edit/{{ o.pk }}">{% trans 'Edit' %}</a></li>
-        {% endfor %}
+            <li><a href="#tabs-organizations">{% trans "My organizations" %}</a></li>
+            <li><a href="#tabs-exchanges">{% trans "My exchanges" %}</a></li>
+            <li><a href="#tabs-articles">{% trans "My articles" %}</a></li>
+            <li><a href="#tabs-events">{% trans "My events" %}</a></li>
+            <li><a href="#tabs-projects">{% trans "My projects" %}</a></li>
+            <li><a href="#tabs-infos">{% trans "Personal informations" %}</a></li>
         </ul>
 
-        <a class="account_link" href="{{ base_url }}p/logout">{% trans "Logout" %}</a>
+        <div id="tabs-organizations">
+            <ul>
+            {% for o in org %}
+                <li><a href="/annuaire/p/{{ o.pk }}">{{ o.title }}</a> - <a class="account_link" href="/annuaire/p/member_edit/{{ o.pk }}">{% trans 'Edit' %}</a></li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div id="tabs-exchanges">
+            <ul>
+            {% for e in exchanges %}
+                <li><a href="/annonces/p/{{ e.pk }}">{{ e.title }}</a> - <a class="account_link" href="/annonces/p/exchange_edit/{{ e.pk }}">{% trans 'Edit' %}</a></li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div id="tabs-articles">
+            <ul>
+            {% for e in entries %}
+                <li><a href="/actualites/p/{{ e.pk }}">{{ e.title }}</a> - <a class="account_link" href="/actualites/p/entry_edit/{{ e.pk }}">{% trans 'Edit' %}</a></li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div id="tabs-events">
+            <ul>
+            {% for o in occs %}
+                <li><a href="/agenda/p/{{ o.pk }}">{{ o.title }}</a> - <a class="account_link" href="/agenda/p/event_edit/{{ o.pk }}">{% trans 'Edit' %}</a></li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div id="tabs-projects">
+            <ul>
+            {% for p in projects %}
+                <li><a href="/projects/p/{{ p.pk }}">{{ p.title }}</a> - <a class="account_link" href="/projects/p/member_edit/{{ p.pk }}">{% trans 'Edit' %}</a></li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div id="tabs-infos">
+            <p>{% trans 'Personnal informations of' %} : {{ request.user.first_name}} {{ request.user.last_name}}</p>
+            <p>{% trans 'Email' %} : {{ request.user.email }}</p>
+            <p>{% trans 'Last connection' %} : {{ request.user.last_login }}</p>
+        </div>
+
+    </div>
+     
 </div>
 
+
+<script type="text/javascript">
+    $(function() {
+        $( "#tabs" ).tabs();
+    });
+</script>

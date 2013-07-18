@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-09 19:11+0200\n"
+"POT-Creation-Date: 2013-07-18 14:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,21 +22,57 @@ msgstr ""
 msgid "CoopAccount"
 msgstr ""
 
-#: templates/page_coop_account/index.html:5
+#: templates/page_coop_account/index.html:9
 msgid "Account"
 msgstr "Mon compte"
 
-#: templates/page_coop_account/index.html:10
+#: templates/page_coop_account/index.html:11
+msgid "Logout"
+msgstr "Se déconnecter"
+
+#: templates/page_coop_account/index.html:16
 msgid "My organizations"
 msgstr "Mes structures"
 
-#: templates/page_coop_account/index.html:13
+#: templates/page_coop_account/index.html:17
+msgid "My exchanges"
+msgstr "Mes annonces"
+
+#: templates/page_coop_account/index.html:18
+msgid "My articles"
+msgstr "Mes articles"
+
+#: templates/page_coop_account/index.html:19
+msgid "My events"
+msgstr "Mes évènements"
+
+#: templates/page_coop_account/index.html:20
+msgid "My projects"
+msgstr "Mes projets"
+
+#: templates/page_coop_account/index.html:21
+msgid "Personal informations"
+msgstr "Mes infos personnelles"
+
+#: templates/page_coop_account/index.html:27
+#: templates/page_coop_account/index.html:34
+#: templates/page_coop_account/index.html:41
+#: templates/page_coop_account/index.html:48
+#: templates/page_coop_account/index.html:55
 msgid "Edit"
 msgstr "Editer"
 
-#: templates/page_coop_account/index.html:17
-msgid "Logout"
-msgstr "Se déconnecter"
+#: templates/page_coop_account/index.html:60
+msgid "Personnal informations of"
+msgstr "Informations personnelles de"
+
+#: templates/page_coop_account/index.html:61
+msgid "Email"
+msgstr ""
+
+#: templates/page_coop_account/index.html:62
+msgid "Last connection"
+msgstr "Dernière connexion"
 
 #: templates/page_coop_account/login.html:8
 #: templates/page_coop_account/login.html:17
@@ -55,9 +91,6 @@ msgstr "Mot de passe"
 
 #~ msgid "Place"
 #~ msgstr "Lieu"
-
-#~ msgid "Type event"
-#~ msgstr "Type évènement"
 
 #~ msgid "Dates"
 #~ msgstr "Dates"
