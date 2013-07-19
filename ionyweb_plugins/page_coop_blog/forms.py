@@ -52,7 +52,11 @@ class EntryForm(ModuloModelForm):
             'body': TinyMCELargeTable(attrs={'cols': 80, 'rows': 15,}),
             'slug': SlugWidget('title'),
         }
-
+        
+    def __init__(self, *args, **kwargs):
+        super(EntryForm, self).__init__(*args, **kwargs)
+        self.fields['resume'].label = _("Resume")
+        
         
 EDATE = Choices(
     ('',    '',  _(u'-----')),

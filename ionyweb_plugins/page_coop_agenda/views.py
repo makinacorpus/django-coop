@@ -10,6 +10,7 @@ from django.shortcuts import get_object_or_404
 
 from ionyweb.website.rendering.medias import CSSMedia
 from datetime import datetime
+from coop.org.models import get_rights
 
 from .forms import PageApp_CoopAgendaForm, PartialEventForm, PartialOccEventForm, DocumentForm, ReplyEventForm
 from django.contrib.contenttypes.generic import generic_inlineformset_factory
@@ -302,10 +303,12 @@ def add_view(request, page_app, event_id=None):
             event = get_object_or_404(Event, pk=event_id)
             occ = get_object_or_404(Occurrence, event__pk = event_id)
             base_url = u'%sp/event_edit/%s' % (page_app.get_absolute_url(),event_id)
+            delete_url = u'%sp/event_delete/%s' % (page_app.get_absolute_url(),event_id)
         else :
             # new
             mode = 'add'
             base_url = u'%sp/event_add' % (page_app.get_absolute_url())
+            delete_url = ''
             event = Event(calendar=agenda)
             occ = Occurrence(event=event)
 
@@ -337,7 +340,7 @@ def add_view(request, page_app, event_id=None):
             docFormset = DocFormSet(prefix='doc', instance=event)
             #occFormset = OccFormSet(prefix='occ', instance=event)
         
-        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': event_form, 'doc_form': docFormset, 'occ_form': occ_form, 'center': center_map, 'mode': mode}
+        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'delete_url': delete_url, 'form': event_form, 'doc_form': docFormset, 'occ_form': occ_form, 'center': center_map, 'mode': mode}
         return render_view('page_coop_agenda/add.html',
                         rdict,
                         MEDIAS,
@@ -394,3 +397,19 @@ def reply_view(request, page_app, event_id=None):
     else:
         return render_view('page_coop_agenda/forbidden.html')
 
+
+def delete_view(request, page_app, event_id):
+    # check rights    
+    can_edit, can_add = get_rights(request, Event.objects.get(pk=event_id).organization.pk)
+    if can_edit :
+        u = Event.objects.get(pk=event_id).delete()
+        base_url = u'%s' % (page_app.get_absolute_url())
+        rdict = {'base_url': base_url}
+        return render_view('page_coop_agenda/delete_success.html',
+                        rdict,
+                        MEDIAS,
+                        context_instance=RequestContext(request))
+    else:
+        return render_view('page_coop_agenda/forbidden.html')
+        
+        

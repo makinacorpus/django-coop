@@ -6,7 +6,7 @@ from django.conf.urls import patterns, url
 
 import django.views.generic
 import django.views.generic.list_detail
-from views import entries_queryset_view_to_app, categories_queryset_view_to_app, add_view, index_view, detail_view
+from views import entries_queryset_view_to_app, categories_queryset_view_to_app, add_view, index_view, detail_view, delete_view
 from feeds import RssEntries, RssCategory
 
 
@@ -14,7 +14,8 @@ urlpatterns = patterns('',
     url(r'^$', index_view),
     #url(r'^carto/$', carto_view),
     url(r'^entry_add/$', add_view),
-    url(r'^entry_edit/(?P<entry_id>\d+)/$', add_view),        
+    url(r'^entry_delete/(?P<entry_id>\d+)/$', delete_view),
+    url(r'^entry_edit/(?P<entry_id>\d+)/$', add_view),  
     url(r'^(?P<pk>[\w-]+)/$', detail_view),
 
     

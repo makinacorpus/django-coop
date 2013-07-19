@@ -87,7 +87,7 @@ def categories_queryset_view_to_app(view_func):
 def filter_data(request, page_app):
     base_url = u'%s' % (page_app.get_absolute_url())
 
-    entries = CoopEntry.objects.filter(status=1)
+    entries = CoopEntry.objects.filter(status=1).order_by('-modification_date')
     more_criteria = False
     
     if request.method == 'GET': # If the form has been submitted        
@@ -165,12 +165,14 @@ def add_view(request, page_app, entry_id=None):
             mode = 'update'
             entry = get_object_or_404(CoopEntry, pk=entry_id)
             base_url = u'%sp/entry_edit/%s' % (page_app.get_absolute_url(),entry_id)
+            delete_url = u'%sp/entry_delete/%s' % (page_app.get_absolute_url(),entry_id)
             #if entry.owner != request.user and not Right.objects.has_right(request.user, entry, WRITE):
                 #raise Http404
         else :
             # new
             mode = 'add'
             base_url = u'%sp/entry_add' % (page_app.get_absolute_url())
+            delete_url = ''
             entry = CoopEntry()
         
         if request.method == 'POST': # If the form has been submitted        
@@ -196,7 +198,7 @@ def add_view(request, page_app, entry_id=None):
             form = EntryForm(instance=entry) # An empty form
             docFormset = DocFormSet(prefix='doc', instance=entry)
         
-        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form, 'doc_form': docFormset, 'mode': mode}
+        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'delete_url': delete_url, 'form': form, 'doc_form': docFormset, 'mode': mode}
         return render_view('page_coop_blog/add.html',
                         rdict,
                         MEDIAS,
@@ -205,4 +207,20 @@ def add_view(request, page_app, entry_id=None):
         return render_view('page_coop_blog/forbidden.html')
 
 
-                       
+def delete_view(request, page_app, entry_id):
+    # check rights    
+    can_edit = False
+    if CoopEntry.objects.get(pk=entry_id).author == request.user or request.user.is_superuser:
+        can_edit = True
+    
+    if can_edit :
+        u = CoopEntry.objects.get(pk=entry_id).delete()
+        base_url = u'%s' % (page_app.get_absolute_url())
+        rdict = {'base_url': base_url}
+        return render_view('page_coop_blog/delete_success.html',
+                        rdict,
+                        MEDIAS,
+                        context_instance=RequestContext(request))
+    else:
+        return render_view('page_coop_blog/forbidden.html')     
+       

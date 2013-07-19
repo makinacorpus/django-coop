@@ -55,7 +55,8 @@ def filter_data(request, page_app, mode):
     exchanges = Exchange.objects.filter(active=True, organization__isnull=False).order_by("title")
 
     # List all offer and services proposed by structures
-    offers = Offer.objects.filter(provider__active=True).order_by("title")
+    offers = Offer.objects.filter(provider__active=True).order_by('-provider__modified','title')
+    print offers
 
     search_form_template = "page_coop_service/search_form_service.html"
     

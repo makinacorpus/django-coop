@@ -172,13 +172,17 @@
             {{ form.errors }}
         </div>
 
-        <div class="new_block" id="new_submit">
-            {% if mode = 'add' %}
+        {% if mode = 'add' %}
+            <div class="new_block" id="new_submit">
                 <input type="submit" value="{% trans "Create" %}" />                
-            {% else %}
+            </div>
+        {% else %}
+            <div class="new_block" id="modify_submit">
                 <input type="submit" value="{% trans "Modify" %}" />                
-            {% endif %}          
-        </div>
+                <input type="button" value="{% trans "Delete" %}" onclick="delete_object('{% trans 'Are you sure you want to delete this exchange ?' %}', '{{ delete_url }}')" />                
+            </div>
+        {% endif %}          
+
 
     </form>
 </div>

@@ -19,6 +19,8 @@ from django.db.models import Q
 
 from django.contrib.gis import geos
 from coop_local.models import Location, Area, Document
+from coop.org.models import get_rights
+
 from math import pi
 from django.utils.simplejson import dumps
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -195,11 +197,13 @@ def add_view(request, page_app, exchange_id=None):
             mode = 'update'
             exchange = get_object_or_404(Exchange, pk=exchange_id)
             base_url = u'%sp/exchange_edit/%s' % (page_app.get_absolute_url(),exchange_id)
+            delete_url = u'%sp/exchange_delete/%s' % (page_app.get_absolute_url(),exchange_id)
 
         else :
             # new
             mode = 'add'
             base_url = u'%sp/exchange_add' % (page_app.get_absolute_url())
+            delete_url = ''
             exchange = Exchange()
         
         
@@ -224,7 +228,7 @@ def add_view(request, page_app, exchange_id=None):
             form = PartialExchangeForm(instance=exchange) # An empty form
             docFormset = DocFormSet(instance=exchange, prefix='doc')
         
-        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form, 'doc_form': docFormset, 'center': center_map, 'mode': mode}
+        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'delete_url': delete_url, 'form': form, 'doc_form': docFormset, 'center': center_map, 'mode': mode}
         return render_view('page_coop_exchange/add.html',
                         rdict,
                         MEDIAS,
@@ -281,3 +285,18 @@ def reply_view(request, page_app, exchange_id=None):
     else:
         return render_view('page_coop_exchange/forbidden.html')
 
+
+def delete_view(request, page_app, exchange_id):
+    # check rights    
+    can_edit, can_add = get_rights(request, Exchange.objects.get(pk=exchange_id).organization.pk)
+    if can_edit :
+        u = Exchange.objects.get(pk=exchange_id).delete()
+        base_url = u'%s' % (page_app.get_absolute_url())
+        rdict = {'base_url': base_url}
+        return render_view('page_coop_exchange/delete_success.html',
+                        rdict,
+                        MEDIAS,
+                        context_instance=RequestContext(request))
+    else:
+        return render_view('page_coop_exchange/forbidden.html')
+        

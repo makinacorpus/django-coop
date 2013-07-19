@@ -53,12 +53,12 @@ def filter_data(request, page_app, mode):
     is_project = is_obj_project(page_app)
     
     if page_app.type != "":
-        organizations = Organization.objects.filter(category__label=page_app.type)
+        organizations = Organization.objects.filter(category__label=page_app.type).order_by('-modified')
     else:
-        organizations = Organization.objects.all()
+        organizations = Organization.objects.all().order_by('-modified')
 
     # show only published objects
-    organizations = organizations.filter(active=True).order_by("title")
+    organizations = organizations.filter(active=True)
         
     base_url = u'%s' % (page_app.get_absolute_url())
     

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-17 16:59+0200\n"
+"POT-Creation-Date: 2013-07-19 10:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -87,7 +87,7 @@ msgstr ""
 
 #: forms.py:43
 msgid "You may point manually the location of the location"
-msgstr ""
+msgstr "Vous pouvez pointer manuellement le lieu"
 
 #: forms.py:69
 msgid "Show on public site"
@@ -127,9 +127,11 @@ msgstr "Modifier l'évènement"
 msgid "Partners"
 msgstr "Partenaires"
 
-#: templates/page_coop_agenda/add.html:49
+#: templates/page_coop_agenda/add.html:50
 msgid "Patners participating without being the organizator"
-msgstr "Financeurs ou organisations et groupe informel qui participent à l'événement sans en être organisateur"
+msgstr ""
+"Financeurs ou organisations et groupe informel qui participent à l'événement "
+"sans en être organisateur"
 
 #: templates/page_coop_agenda/add.html:55
 msgid "This image will be the first visible"
@@ -156,7 +158,7 @@ msgstr ""
 
 #: templates/page_coop_agenda/add.html:134
 msgid "Clic on button to add more locations"
-msgstr ""
+msgstr "Cliquer pour ajouter d'autres lieux"
 
 #: templates/page_coop_agenda/add.html:165
 msgid ""
@@ -170,9 +172,17 @@ msgstr ""
 msgid "Create"
 msgstr "Créer"
 
-#: templates/page_coop_agenda/add.html:177
+#: templates/page_coop_agenda/add.html:179
 msgid "Modify"
 msgstr "Modifier"
+
+#: templates/page_coop_agenda/add.html:180
+msgid "Delete"
+msgstr "Supprimer"
+
+#: templates/page_coop_agenda/add.html:180
+msgid "Are you sure you want to delete this event ?"
+msgstr "Êtes vous sûr de vouloir supprimer cet évènement ?"
 
 #: templates/page_coop_agenda/add_success.html:8
 msgid "Event added. You may now consult it in the list"
@@ -191,10 +201,16 @@ msgid "See the detail"
 msgstr "Voir les détails"
 
 #: templates/page_coop_agenda/add_success.html:13
+#: templates/page_coop_agenda/delete_success.html:8
 #: templates/page_coop_agenda/reply_fail.html:8
 #: templates/page_coop_agenda/reply_success.html:8
 msgid "Event list"
 msgstr "Liste des évènements"
+
+#: templates/page_coop_agenda/delete_success.html:6
+#: templates/page_coop_agenda/delete_success.html:7
+msgid "Event deleted"
+msgstr "Evènement supprimé"
 
 #: templates/page_coop_agenda/detail.html:30
 msgid "Description"

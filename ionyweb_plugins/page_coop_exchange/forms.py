@@ -13,6 +13,7 @@ from coop.base_models import ActivityNomenclature, TransverseTheme
 from extended_choices import Choices
 from coop_geo.widgets import LocationPointWidgetInline
 from django.conf import settings
+from ionyweb.widgets import TinyMCELargeTable
 
 EMODE = Choices(
     ('GIFT',    1,  _(u'Gift')),
@@ -93,7 +94,7 @@ class PartialExchangeForm(ExchangeForm):
         self.fields['person'] = forms.ModelChoiceField(queryset=Person.objects.order_by('first_name'))
         
         self.fields['description'].widget.attrs['rows'] = '15'
-        self.fields['description'].widget.attrs['cols'] = '40' 
+        self.fields['description'].widget.attrs['cols'] = '55' 
         
         self.fields['activity'].label = _("Activity")
         self.fields['person'].label = _("Person")

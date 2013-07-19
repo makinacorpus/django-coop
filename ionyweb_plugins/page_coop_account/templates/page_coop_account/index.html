@@ -57,9 +57,9 @@
             </ul>
         </div>
         <div id="tabs-infos">
-            <p>{% trans 'Personnal informations of' %} : {{ request.user.first_name}} {{ request.user.last_name}}</p>
-            <p>{% trans 'Email' %} : {{ request.user.email }}</p>
-            <p>{% trans 'Last connection' %} : {{ request.user.last_login }}</p>
+            <p>{% trans 'Personnal informations of' %} : <strong>{{ request.user.first_name}} {{ request.user.last_name}}</strong></p>
+            <p>{% trans 'Email' %} : <strong>{{ request.user.email }}</strong></p>
+            <p>{% trans 'Last connection' %} : <strong>{{ request.user.last_login }}</strong></p>
         </div>
 
     </div>
