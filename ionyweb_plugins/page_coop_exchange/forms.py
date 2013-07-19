@@ -107,6 +107,7 @@ class PartialExchangeForm(ExchangeForm):
         self.fields['tags'].label = _("Tags")
         self.fields['active'].label = _("Active")
         self.fields['contact'].label = _("Email contact")
+        self.fields['phone'].label = _("Phone")
         
         try:
             location = self.instance.location
