@@ -151,18 +151,22 @@ def filter_data(request, page_app, mode):
         more_criteria = False
 
     
-    paginator = Paginator(organizations, 10)
-    page = request.GET.get('page')
-    try:
-        orgs_page = paginator.page(page)
-    except PageNotAnInteger:
-        orgs_page = paginator.page(1)
-    except EmptyPage:
-        orgs_page = paginator.page(paginator.num_pages)
-    get_params = request.GET.copy()
-    if 'page' in get_params:
-        del get_params['page']    
-    
+    if mode == 'list':
+        paginator = Paginator(organizations, 10)
+        page = request.GET.get('page')
+        try:
+            orgs_page = paginator.page(page)
+        except PageNotAnInteger:
+            orgs_page = paginator.page(1)
+        except EmptyPage:
+            orgs_page = paginator.page(paginator.num_pages)
+        get_params = request.GET.copy()
+        if 'page' in get_params:
+            del get_params['page']    
+    else:
+        orgs_page = organizations
+        get_params = request.GET.copy()
+        
     # Get available locations for autocomplete
     available_locations = dumps([{'label':area.label, 'value':area.pk} for area in Area.objects.all().order_by('label')])
 
@@ -170,7 +174,6 @@ def filter_data(request, page_app, mode):
     available_orgs = Organization.objects.all()
     available_orgs = dumps([{'label':o.title, 'value':o.pk} for o in available_orgs.filter(active=True).order_by("title")])
 
-    #rdict = {'object': page_app, 'members': organizations, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'direct_link': direct_link, 'search_form': search_form, 'form' : form, 'center': center_map, 'available_locations': available_locations, 'search_form_template': search_form_template, 'mode': mode}
     rdict = {'object': page_app, 'members': orgs_page, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'direct_link': direct_link, 'search_form': search_form, 'form' : form, 'center': center_map, 'available_locations': available_locations, 'available_orgs': available_orgs, 'search_form_template': search_form_template, 'mode': mode, 'get_params': get_params.urlencode(), 'is_project': is_project, 'more_criteria': more_criteria}
 
     return rdict

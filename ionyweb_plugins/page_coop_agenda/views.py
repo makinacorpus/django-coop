@@ -144,17 +144,23 @@ def filter_data(request, page_app, mode):
             form = PageApp_CoopAgendaForm(initial={'location_buffer': '10'}) # An empty form
             more_criteria = False
     
-    paginator = Paginator(occ, 10)
-    page = request.GET.get('page')
-    try:
-        occ_page = paginator.page(page)
-    except PageNotAnInteger:
-        occ_page = paginator.page(1)
-    except EmptyPage:
-        occ_page = paginator.page(paginator.num_pages)
-    get_params = request.GET.copy()
-    if 'page' in get_params:
-        del get_params['page']      
+    
+    if mode == 'list':
+        paginator = Paginator(occ, 10)
+        page = request.GET.get('page')
+        try:
+            occ_page = paginator.page(page)
+        except PageNotAnInteger:
+            occ_page = paginator.page(1)
+        except EmptyPage:
+            occ_page = paginator.page(paginator.num_pages)
+        get_params = request.GET.copy()
+        if 'page' in get_params:
+            del get_params['page']      
+    else:
+        occ_page = occ
+        get_params = request.GET.copy()    
+        
     
     # Get available locations for autocomplete
     available_locations = dumps([{'label':area.label, 'value':area.pk} for area in Area.objects.all().order_by('label')])

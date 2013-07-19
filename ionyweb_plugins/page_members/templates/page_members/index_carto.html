@@ -46,9 +46,8 @@
 
         // Add markers         
         var tab_markers = new Array();
-        
         {% for m in members %}
-            {% if m.located %}
+            {% if m.located %}                
                 {% for l in m.located.all %}
                     {% if l.location %}
                         {% if l.location.point %}

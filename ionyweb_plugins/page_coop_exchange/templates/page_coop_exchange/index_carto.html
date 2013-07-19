@@ -46,10 +46,12 @@
         
         {% for e in exchanges %}
             {% if e.location %}
-                tab_markers.push(new L.LatLng({{ e.location.point.y|unlocalize }}, {{ e.location.point.x|unlocalize }}))
-                L.marker([{{ e.location.point.y|unlocalize }}, {{ e.location.point.x|unlocalize }}]).addTo(map)
-                        .bindPopup("{{ e.title|safe }}<br/><a href=\"{{ base_url }}p/{{ e.pk }}\">{% trans "Read more" %}</a>")
-                        .openPopup();
+                {% if e.location.point %}
+                    tab_markers.push(new L.LatLng({{ e.location.point.y|unlocalize }}, {{ e.location.point.x|unlocalize }}))
+                    L.marker([{{ e.location.point.y|unlocalize }}, {{ e.location.point.x|unlocalize }}]).addTo(map)
+                            .bindPopup("{{ e.title|safe }}<br/><a href=\"{{ base_url }}p/{{ e.pk }}\">{% trans "Read more" %}</a>")
+                            .openPopup();
+                {% endif %}
             {% endif %}
         {% endfor %}
 

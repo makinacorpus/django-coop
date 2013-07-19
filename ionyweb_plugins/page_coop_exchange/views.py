@@ -140,17 +140,22 @@ def filter_data(request, page_app, mode):
     # Get available locations for autocomplete
     available_locations = dumps([{'label':area.label, 'value':area.pk} for area in Area.objects.all().order_by('label')])
 
-    paginator = Paginator(exchanges, 10)
-    page = request.GET.get('page')
-    try:
-        exchanges_page = paginator.page(page)
-    except PageNotAnInteger:
-        exchanges_page = paginator.page(1)
-    except EmptyPage:
-        exchanges_page = paginator.page(paginator.num_pages)
-    get_params = request.GET.copy()
-    if 'page' in get_params:
-        del get_params['page']    
+   
+    if mode == 'list':
+        paginator = Paginator(exchanges, 10)
+        page = request.GET.get('page')
+        try:
+            exchanges_page = paginator.page(page)
+        except PageNotAnInteger:
+            exchanges_page = paginator.page(1)
+        except EmptyPage:
+            exchanges_page = paginator.page(paginator.num_pages)
+        get_params = request.GET.copy()
+        if 'page' in get_params:
+            del get_params['page'] 
+    else:
+        exchanges_page = exchanges
+        get_params = request.GET.copy()    
     
     
     rdict = {'exchanges': exchanges_page, 'base_url': base_url, 'form': form, 'center': center_map, 'more_criteria': more_criteria, 'available_locations': available_locations, "search_form_template": search_form_template, "mode": mode, 'media_path': settings.MEDIA_URL, 'is_exchange': is_exchange}
