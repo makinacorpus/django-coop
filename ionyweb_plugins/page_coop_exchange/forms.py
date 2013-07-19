@@ -7,7 +7,7 @@ from .models import PageApp_CoopExchange
 
 from coop.exchange.models import ETYPE, EWAY
 from coop.exchange.admin import ExchangeForm
-from coop_local.models import Exchange, Document, Person, Location, ExchangeMethod
+from coop_local.models import Exchange, Document, Person, Location, ExchangeMethod, Organization
 from coop_local.widgets import CustomCheckboxSelectMultiple, CustomClearableFileInput
 from coop.base_models import ActivityNomenclature, TransverseTheme
 from extended_choices import Choices
@@ -99,6 +99,8 @@ class PartialExchangeForm(ExchangeForm):
         self.fields['activity'].label = _("Activity")
         self.fields['person'].label = _("Person")
         self.fields['start'].label = _("Date of publication")
+        
+        self.fields['organization'] = forms.ModelChoiceField(queryset=Organization.objects.filter(active=True, is_project=False).order_by('title'))
         
         try:
             location = self.instance.location
