@@ -121,6 +121,8 @@ class BaseExchange(URIModel):
         
     document_set = generic.GenericRelation('coop_local.Document')
         
+    contact = models.EmailField(_(u'contact'), null=True, blank=True)
+        
     if "coop.agenda" in settings.INSTALLED_APPS:
         dated = generic.GenericRelation('coop_local.Dated')
 

@@ -101,6 +101,12 @@ class PartialExchangeForm(ExchangeForm):
         self.fields['start'].label = _("Date of publication")
         
         self.fields['organization'] = forms.ModelChoiceField(queryset=Organization.objects.filter(active=True, is_project=False).order_by('title'))
+        self.fields['organization'].label = _("Organization")
+        
+        self.fields['img'].label = _("Image")
+        self.fields['tags'].label = _("Tags")
+        self.fields['active'].label = _("Active")
+        self.fields['contact'].label = _("Email contact")
         
         try:
             location = self.instance.location

@@ -267,6 +267,14 @@ def reply_view(request, page_app, exchange_id=None):
                             send_ok = True
                         except:
                             pass
+                    else:
+                        if exchange.contact:
+                            try :
+                                # send email
+                                send_mail(title, response, email, [contact ], fail_silently=False)
+                                send_ok = True
+                            except:
+                                pass
                 
                 template = "page_coop_exchange/reply_success.html"
                 if not send_ok:
