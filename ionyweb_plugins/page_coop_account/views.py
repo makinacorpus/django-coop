@@ -144,10 +144,8 @@ def detail_view(request, page_app, pk):
 
 def mailing_view(request, page_app):    
     if request.user.is_superuser:
-        dest_file = csv.DictReader(open("/tmp/emails_test.csv", 'rb'), delimiter=';', quotechar='"')
-
+        dest_file = csv.DictReader(open("/tmp/emails_test.csv", 'rb'), delimiter=';', quotechar='"')        
         for line, _row in enumerate(dest_file):
-
             row = {}
             for k, v in _row.iteritems():
                 row[k.decode('utf8')] = v.decode('utf8')
@@ -172,12 +170,16 @@ def mailing_view(request, page_app):
             
             handle1 = open('/tmp/res_emailing.txt','a+')
             try:
-                msg.send()                
-                handle1.write("Sent : %s" % (dest))
+                res = msg.send()                
+                handle1.write("Sent : %s\n" % (dest))
                 
             except:   
-                handle1.write("NOT Sent : %s" % (dest))
+                handle1.write("NOT Sent : %s\n" % (dest))
                 print "No email sent"
             handle1.close();
-                       
-                       
+    
+        rdict = {'object': page_app}
+        return render_view('page_coop_account/mailing_end.html',
+                    rdict,
+                    MEDIAS,
+                    context_instance=RequestContext(request))                
