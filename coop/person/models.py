@@ -112,6 +112,11 @@ class BasePerson(URIModel):
             if Person.objects.filter(username=newname).exists():
                 offset = Person.objects.filter(username=newname).count()
                 newname = newname + '_' + str(offset + 1)
+                
+            if Person.objects.filter(username=newname).exists():
+                offset = Person.objects.filter(username=newname).count()
+                newname = newname + '_' + str(offset + 1)
+                
             self.username = newname
 
         # synchronize fields with django User model
