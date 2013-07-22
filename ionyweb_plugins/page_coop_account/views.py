@@ -170,6 +170,10 @@ def mailing_view(request, page_app):
 
             msg = EmailMultiAlternatives(title, text_content, sender, [dest])
             msg.attach_alternative(html_content, "text/html")
-            msg.send()
+            try:
+                msg.send()
+            except:   
+                print "No email sent"
+             
                        
                        
