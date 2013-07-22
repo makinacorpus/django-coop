@@ -164,16 +164,20 @@ def mailing_view(request, page_app):
 
             d = Context({ 'login': login , 'password': password})
 
-            subject, from_email, to = 'hello', 'from@example.com', 'to@example.com'
             text_content = plaintext.render(d)
             html_content = htmly.render(d)
 
             msg = EmailMultiAlternatives(title, text_content, sender, [dest])
             msg.attach_alternative(html_content, "text/html")
+            
+            handle1 = open('/tmp/res_emailing.txt','w+')
             try:
-                msg.send()
+                msg.send()                
+                handle1.write("Sent : %s" % (dest))
+                
             except:   
+                handle1.write("NOT Sent : %s" % (dest))
                 print "No email sent"
-             
+            handle1.close();
                        
                        
