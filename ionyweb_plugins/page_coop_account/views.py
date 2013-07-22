@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 
+from django.utils.http import urlquote
+import csv
+from django.template.loader import get_template
+from django.template import Context
+from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
+
 from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
 
@@ -135,3 +142,34 @@ def detail_view(request, page_app, pk):
                        context_instance=RequestContext(request))                
 
 
+def mailing_view(request, page_app):    
+    if request.user.is_superuser:
+        dest_file = csv.DictReader(open("/tmp/emails_test.csv", 'rb'), delimiter=';', quotechar='"')
+
+        for line, _row in enumerate(dest_file):
+
+            row = {}
+            for k, v in _row.iteritems():
+                row[k.decode('utf8')] = v.decode('utf8')
+
+            title = "Rejoindre la plate-forme d'échanges solidaires en Auvergne"
+            sender = "contact@echanges-solidaires-auvergne.fr"
+            dest = row[u'email'].strip()
+            
+            login = row[u'username'].strip()
+            password = row[u'password'].strip()
+            
+            plaintext = get_template('page_coop_account/mailing_pes.txt')
+            htmly     = get_template('page_coop_account/mailing_pes.html')
+
+            d = Context({ 'login': login , 'password': password})
+
+            subject, from_email, to = 'hello', 'from@example.com', 'to@example.com'
+            text_content = plaintext.render(d)
+            html_content = htmly.render(d)
+
+            msg = EmailMultiAlternatives(title, text_content, sender, [dest])
+            msg.attach_alternative(html_content, "text/html")
+            msg.send()
+                       
+                       
