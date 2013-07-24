@@ -1,0 +1,10 @@
+{{ first_name }} {{ last_name }}
+est inscrit sur la plate-forme d'échanges solidaires Auvergne (PES Auvergne) et vous propose de venir la découvrir.
+Son but est de valoriser les initiatives de développement durable et local et de favoriser les échanges sociaux et économiques dans ce champ d'activité.
+Cliquez ici : www.echanges-solidaires-auvergne.fr
+
+{% if msg %}
+Message : {{ msg }}
+{% endif %}
+
+La PES Auvergne a été financée par le Fonds Social Européen et le Conseil Régional Auvergne

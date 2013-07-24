@@ -1,0 +1,27 @@
+{% load i18n thumbnail %}
+
+<h2>{% trans "Promote" %}</h2>
+    <div class="plugin_coop_promote">
+
+    {%if request.user.is_authenticated %}
+
+        <form action="" method="get" class="plugin_form" enctype="multipart/form-data">{% csrf_token %}
+
+            <div class="fieldWrapper">
+                <div class="labelWrapper">{{ form.dest.label_tag }}</div> : {{ form.dest }}
+            </div>
+            <div class="fieldWrapper">
+                <div class="labelWrapper">{{ form.msg.label_tag }}</div> : {{ form.msg }}
+            </div>
+
+            <div class="new_block" id="new_submit">
+                <input type="submit" value="{% trans "Invite" %}" />                
+            </div>
+
+        </form>
+    {% else %}
+        <p>{% trans 'Connect to send invitation' %}</p>
+    {% endif%}
+
+    </div>
+
