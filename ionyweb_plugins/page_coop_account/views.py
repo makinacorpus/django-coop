@@ -150,7 +150,7 @@ def mailing_view(request, page_app):
             for k, v in _row.iteritems():
                 row[k.decode('utf8')] = v.decode('utf8')
 
-            title = "Rejoindre la plate-forme d'échanges solidaires en Auvergne"
+            title = "ERRATUM - Rejoindre la plate-forme d'échanges solidaires en Auvergne"
             sender = "contact@echanges-solidaires-auvergne.fr"
             dest = row[u'email'].strip()
             

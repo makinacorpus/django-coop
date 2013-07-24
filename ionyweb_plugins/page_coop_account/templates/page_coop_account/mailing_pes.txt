@@ -19,6 +19,7 @@ Grâce aux codes ci-après, vous avez accès à la fiche de votre structure et v
 Login : {{ login }}         Mot de passe : {{ password }}
 
 
+Utilisez ces codes d'accès sur la plateforme: http://preprod-pes-auvergne.makina-corpus.net/
 (Menu "Mon compte" ou "Ma PES" pour voir vos structures)
 
 La gouvernance étant participative si vous souhaitez faire partie des cercles de validation des nouvelles structures accueillies sur la plate-forme, merci de vous signaler à l'instance de coordination sur contact@echanges-solidaires-auvergne.fr.
