@@ -157,6 +157,10 @@ def mailing_view(request, page_app):
             login = row[u'username'].strip()
             password = row[u'password'].strip()
             
+            if login.endswith(".") and len(login) > 1:
+                before = login
+                login = before[:-1]
+            
             plaintext = get_template('page_coop_account/mailing_pes.txt')
             htmly     = get_template('page_coop_account/mailing_pes.html')
 
