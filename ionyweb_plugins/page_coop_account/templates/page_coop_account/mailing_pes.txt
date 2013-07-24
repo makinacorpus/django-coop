@@ -19,6 +19,8 @@ Grâce aux codes ci-après, vous avez accès à la fiche de votre structure et v
 Login : {{ login }}         Mot de passe : {{ password }}
 
 
+(Menu "Mon compte" ou "Ma PES" pour voir vos structures)
+
 La gouvernance étant participative si vous souhaitez faire partie des cercles de validation des nouvelles structures accueillies sur la plate-forme, merci de vous signaler à l'instance de coordination sur contact@echanges-solidaires-auvergne.fr.
 
 Nous restons à votre entière disposition pour toute information et pour vous aider à communiquer sur cette plate-forme.
