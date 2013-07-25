@@ -185,11 +185,12 @@ def add_view(request, page_app, entry_id=None):
                     entry.slug = slugify(entry.title)
                     
                 entry.blog_id = 1 # default blog
+                entry.author = request.user
                 entry = form.save()
                 docFormset.save()
                 
                 base_url = u'%s' % (page_app.get_absolute_url())
-                rdict = {'base_url': base_url, 'mode': mode, 'entry_id' : entry_id}
+                rdict = {'base_url': base_url, 'mode': mode, 'entry_id' : entry.pk}
                 return render_view('page_coop_blog/add_success.html',
                                 rdict,
                                 MEDIAS,

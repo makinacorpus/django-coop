@@ -31,9 +31,9 @@ class CategoryForm(ModuloModelForm):
         }
 
 class EntryForm(ModuloModelForm):
-    author = forms.ModelChoiceField(label=_('author'),
-                                    queryset=User.objects.all(), 
-                                    empty_label=None)
+    #author = forms.ModelChoiceField(label=_('author'),
+                                    #queryset=User.objects.all(), 
+                                    #empty_label=None)
 
     #def __init__(self, authors_choices, categories_set, *args, **kwargs):
         #super(EntryForm, self).__init__(*args, **kwargs)
@@ -46,7 +46,7 @@ class EntryForm(ModuloModelForm):
 
     class Meta:
         model = CoopEntry
-        exclude = ('blog','category','slug','docs', )
+        exclude = ('blog','category','slug','docs','author', )
         widgets = {
             'publication_date': DateTimePicker,
             'body': TinyMCELargeTable(attrs={'cols': 80, 'rows': 15,}),
