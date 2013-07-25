@@ -119,8 +119,8 @@
                 <h3 id="menu_documents"><a href="javascript:show_infos('documents');">{% trans "Documents associated" %}<div class="menu_selected_arrow"></div></a></h3>
             {% endif %}
 
-            {% if e.linked_articles.exists %}
-                <h3 id="menu_articles"><a href="javascript:show_infos('articles_associated');">{% trans "Articles of the same author" %}<div class="menu_selected_arrow"></div></a></h3>
+            {% if more_articles %}
+                <h3 id="menu_articles_associated"><a href="javascript:show_infos('articles_associated');">{% trans "Articles of the same author" %}<div class="menu_selected_arrow"></div></a></h3>
             {% endif %}
 
         </div>
@@ -128,6 +128,11 @@
 
             <div id="articles_associated">
                 <h3>{% trans "Articles of the same author" %}</h3>
+                <ul>
+                {% for m in more_articles %}
+                    <li><a href="{{ base_url }}{{ m.pk }}" class="articles_link">{{ m.title }}</a></li>
+                {% endfor %}
+                </ul>
             </div>
 
             <div id="documents">
@@ -199,7 +204,7 @@
          $('#documents').addClass("detail_form_hide");
 
         $('#menu_documents').removeClass("menu_selected");
-        $('#menu_articles').removeClass("menu_selected");
+        $('#menu_articles_associated').removeClass("menu_selected");
     }
 
    function show_infos(id_div) {

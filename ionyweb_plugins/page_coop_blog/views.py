@@ -149,7 +149,10 @@ def detail_view(request, page_app, pk):
     base_url = u'%sp/' % (page_app.get_absolute_url())
     imgs = e.document_set.filter(type__name='Galerie')
     docs = e.document_set.exclude(type__name='Galerie')
-    rdict = {'object': page_app, 'e': e, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'imgs': imgs, 'docs': docs}
+    
+    more_articles = CoopEntry.objects.filter(author=e.author)
+    
+    rdict = {'object': page_app, 'e': e, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'imgs': imgs, 'docs': docs, 'more_articles': more_articles}
     return render_view('page_coop_blog/entry_detail.html',
                        rdict,
                        MEDIAS,
