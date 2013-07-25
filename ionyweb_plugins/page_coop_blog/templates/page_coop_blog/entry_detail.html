@@ -86,17 +86,21 @@
     {% endif %}    
 
     <div class="bloc_content bloc_content_borderless">
-        <div class="article_content_activity content_border_grey">
-            <h3>{% trans "Activity" %}</h3>
-            {{ e.activity }}
-        </div>
+        {% if e.activity %}
+            <div class="article_content_activity content_border_grey">
+                <h3>{% trans "Activity" %}</h3>
+                {{ e.activity }}
+            </div>
+        {% endif %}
             
-        <div class="article_content_thematic content_border_grey">
-            <h3>{% trans "Thematic" %}</h3>
-            {% for t in e.transverse_themes.all %}
-                {{ t }} <br/>
-            {% endfor %}
-        </div>
+        {% if e.transverse_themes.all %}
+            <div class="article_content_thematic content_border_grey">
+                <h3>{% trans "Thematic" %}</h3>
+                {% for t in e.transverse_themes.all %}
+                    {{ t }} <br/>
+                {% endfor %}
+            </div>
+        {% endif %}
 
         {% if e.tags.all %}
             <div class="article_content_keywords content_border_grey">
@@ -170,8 +174,9 @@
 
         $('#carousel a').fancybox({ 'hideOnContentClick': false,'zoomSpeedIn': 300, 'zoomSpeedOut': 300, 'overlayShow': true });
 
-
-        show_infos('documents');
+        {% if docs %}
+            show_infos('documents');
+        {% endif %}
     });
 
     function read_more() {
