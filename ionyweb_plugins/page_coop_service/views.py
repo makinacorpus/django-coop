@@ -30,6 +30,7 @@ MEDIAS = (
     CSSMedia('page_coop_service.css'),
 )
 
+
 def index_view(request, page_app):
     rdict = filter_data(request, page_app, "list")
     return render_view('page_coop_service/index.html',
@@ -174,6 +175,7 @@ def get_list_exch_to_keep(exchanges, activity):
                 tab_keep.append(e.pk)
     return tab_keep
 
+    
 def get_list_off_to_keep(offers, activity):    
     tab_keep = []
     for o in offers:
@@ -181,7 +183,8 @@ def get_list_off_to_keep(offers, activity):
         if parent == activity.label:
             tab_keep.append(o.pk)
     return tab_keep    
-    
+
+
 def get_parent_activity_leve_0(activity):
     if activity.parent:
         return get_parent_activity_leve_0(activity.parent)
