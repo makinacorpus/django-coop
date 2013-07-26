@@ -53,8 +53,19 @@ class PageApp_MembersForm(ModelForm):
     
     class Meta:
         model = PageApp_Members
-        
-        
+
+
+class PageApp_MembersSortForm(forms.Form):
+   CRITERIA = (
+       ("", _("---")),
+       ("location", _("Location")),
+       ("alpha", _("Alpha")),
+       ("creation", _("Date of creation")), 
+       #(4, _("Solidarity")), 
+   )
+   sort = forms.ChoiceField(choices=CRITERIA)
+
+   
 class PartialMemberForm(OrganizationAdminForm):
     class Meta:
         model = Organization

@@ -53,7 +53,7 @@ def filter_data(request, page_app, mode):
     items = []
     
     # List all exchanges
-    exchanges = Exchange.objects.filter(active=True).order_by("title")
+    exchanges = Exchange.objects.filter(active=True).order_by("-modified")
     
     # List all events
     agenda = get_object_or_404(Calendar, sites__id=settings.SITE_ID)
@@ -67,13 +67,13 @@ def filter_data(request, page_app, mode):
     services = Offer.objects.filter(provider__active=True).order_by("title")
     
     # List all organizations
-    organizations = Organization.objects.filter(active=True, is_project=False).order_by("title")
+    organizations = Organization.objects.filter(active=True, is_project=False).order_by("-modified")
     
     # List all projects
-    projects = Organization.objects.filter(active=True, is_project=True).order_by("title")
+    projects = Organization.objects.filter(active=True, is_project=True).order_by("-modified")
 
     # List all offers
-    offers = Offer.objects.filter(provider__active=True).order_by("title")
+    offers = Offer.objects.filter(provider__active=True).order_by("-modified")
     
     search_form_template = "page_coop_territory/search_form_territory.html"
     reset_exchanges = False

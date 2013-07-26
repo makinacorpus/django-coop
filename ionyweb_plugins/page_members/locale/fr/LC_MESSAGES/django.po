@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-19 10:18+0200\n"
+"POT-Creation-Date: 2013-07-26 15:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,7 +28,7 @@ msgstr ""
 msgid "Activity"
 msgstr "Activité"
 
-#: forms.py:42 templates/page_members/detail.html:29
+#: forms.py:42 forms.py:61 templates/page_members/detail.html:29
 #: templates/page_members/index.html:35
 #: templates/page_members/search_form_organization.html:23
 #: templates/page_members/search_form_project.html:23
@@ -53,45 +53,57 @@ msgstr "Thématique"
 msgid "Free search"
 msgstr "Recherche libre"
 
-#: forms.py:73
+#: forms.py:60
+msgid "---"
+msgstr ""
+
+#: forms.py:62
+msgid "Alpha"
+msgstr "Alphabétique"
+
+#: forms.py:63
+msgid "Date of creation"
+msgstr "Date de création"
+
+#: forms.py:84
 msgid "Show on public site"
 msgstr "Publier sur le site"
 
-#: forms.py:96
+#: forms.py:107
 msgid "Target structure"
 msgstr "Structure cible"
 
-#: forms.py:100
+#: forms.py:111
 msgid "Label"
 msgstr "Titre"
 
-#: forms.py:100
+#: forms.py:111
 msgid "Location and building name"
 msgstr "Lieu dit ou nom de bâtiment (ex: Maison peuple et culture)"
 
-#: forms.py:101
+#: forms.py:112
 msgid "Address"
 msgstr "Adresse"
 
-#: forms.py:102
+#: forms.py:113
 msgid "City"
 msgstr "Ville"
 
-#: forms.py:103
+#: forms.py:114
 msgid "Zipcode"
 msgstr "Code postal"
 
-#: forms.py:105
+#: forms.py:116
 msgid "Point"
 msgstr ""
 
-#: forms.py:105
+#: forms.py:116
 msgid "You may point manually the location of the location"
 msgstr ""
 "Géolocalisation à partir de l'adresse, il est possible de pointer "
 "manuellement (bouton crayon) si la géolocalisation a mal fonctionné"
 
-#: forms.py:139
+#: forms.py:150
 msgid ""
 "Presentation sample: Monday 9h-12h  14h-17h / Tuesday  9h-12h  14h-17h / "
 "Wed.  14h-17h"
@@ -364,7 +376,7 @@ msgstr "Résultats"
 msgid "List"
 msgstr "Liste"
 
-#: templates/page_members/index_carto.html:57
+#: templates/page_members/index_carto.html:56
 msgid "Read more"
 msgstr "En savoir plus"
 

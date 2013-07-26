@@ -11,7 +11,7 @@ from django.shortcuts import get_object_or_404
 
 from ionyweb.website.rendering.medias import CSSMedia
 
-from .forms import PageApp_MembersForm, PartialMemberForm, CustomLocatedForm, DocumentForm, CustomOfferForm, CustomRelationForm
+from .forms import PageApp_MembersForm, PartialMemberForm, CustomLocatedForm, DocumentForm, CustomOfferForm, CustomRelationForm, PageApp_MembersSortForm
 
 from django.db.models import Q
 from django.forms.models import inlineformset_factory, formset_factory
@@ -52,10 +52,25 @@ def filter_data(request, page_app, mode):
 
     is_project = is_obj_project(page_app)
     
+    # Sorting data
+    sort_by = "-modified"
+    sort_form = PageApp_MembersSortForm()
+    if request.method == 'GET': # If the form has been submitted
+        sort_form = PageApp_MembersSortForm(request.GET)
+        if sort_form.is_valid():
+            # alpha, location, creation
+            criteria = sort_form.cleaned_data['sort']
+            if criteria == "alpha":
+                sort_by = "title"
+            if criteria == "location":
+                pass
+            if criteria == "creation":
+                sort_by = "-created"
+    
     if page_app.type != "":
-        organizations = Organization.objects.filter(category__label=page_app.type).order_by('-modified')
+        organizations = Organization.objects.filter(category__label=page_app.type).order_by(sort_by)
     else:
-        organizations = Organization.objects.all().order_by('-modified')
+        organizations = Organization.objects.all().order_by(sort_by)
 
     # show only published objects
     organizations = organizations.filter(active=True)
@@ -174,7 +189,7 @@ def filter_data(request, page_app, mode):
     available_orgs = Organization.objects.all()
     available_orgs = dumps([{'label':o.title, 'value':o.pk} for o in available_orgs.filter(active=True).order_by("title")])
 
-    rdict = {'object': page_app, 'members': orgs_page, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'direct_link': direct_link, 'search_form': search_form, 'form' : form, 'center': center_map, 'available_locations': available_locations, 'available_orgs': available_orgs, 'search_form_template': search_form_template, 'mode': mode, 'get_params': get_params.urlencode(), 'is_project': is_project, 'more_criteria': more_criteria}
+    rdict = {'object': page_app, 'members': orgs_page, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'direct_link': direct_link, 'search_form': search_form, 'form' : form, 'sort_form': sort_form, 'center': center_map, 'available_locations': available_locations, 'available_orgs': available_orgs, 'search_form_template': search_form_template, 'mode': mode, 'get_params': get_params.urlencode(), 'is_project': is_project, 'more_criteria': more_criteria}
 
     return rdict
 
