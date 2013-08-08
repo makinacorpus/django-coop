@@ -215,4 +215,4 @@ class ActivityNomenclatureAdmin(MPTTModelAdmin, FkAutocompleteAdmin):
     mptt_indent_field = 'label'
     mptt_level_indent = 50
     list_display = ('label', )
-
+    search_fields = ('label', )
