@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coop.organization\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-07 18:37+0200\n"
+"POT-Creation-Date: 2013-08-08 15:36+0200\n"
 "PO-Revision-Date: 2013-01-11 11:30+0100\n"
 "Last-Translator: Quinode <contact@quinode.fr>\n"
 "Language-Team: Quinode <contact@quinode.fr>\n"
@@ -42,7 +42,7 @@ msgstr "Engagement"
 msgid "Engagements"
 msgstr "Engagements"
 
-#: admin.py:127
+#: admin.py:130
 #, python-format
 msgid "Add to the \"%s\" category"
 msgstr "Classer dans \"%s\""
@@ -433,9 +433,9 @@ msgstr "adresse postale préférée"
 msgid "notes"
 msgstr "notes"
 
-#: models.py:518
-msgid "activity sector"
-msgstr "secteur d'activité"
+#: models.py:519
+msgid "activity sectors"
+msgstr "secteurs d'activité"
 
 #: models.py:526
 msgid "Organization"

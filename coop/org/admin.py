@@ -91,8 +91,12 @@ class OrganizationAdminForm(forms.ModelForm):
 
     class Meta:
         model = get_model('coop_local', 'Organization')
-        widgets = {'category': chosenwidgets.ChosenSelectMultiple(),
-                    'sites': chosenwidgets.ChosenSelectMultiple()}
+        widgets = {
+            'category': chosenwidgets.ChosenSelectMultiple(),
+            'sites': chosenwidgets.ChosenSelectMultiple(),
+            'activities': chosenwidgets.ChosenSelectMultiple(),
+            'transverse_themes': forms.CheckboxSelectMultiple(),
+        }
 
     def __init__(self, *args, **kwargs):
         super(OrganizationAdminForm, self).__init__(*args, **kwargs)
@@ -108,7 +112,6 @@ class OrganizationAdminForm(forms.ModelForm):
         self.fields['category'].help_text = None
         if 'sites' in self.fields:
             self.fields['sites'].help_text = None
-
 
         member_locations_id = [m.location.id for m in
             Person.objects.filter(id__in=members_id).exclude(location=None)]  # limit SQL to location field
@@ -145,7 +148,6 @@ class OrganizationAdmin(AdminImageMixin, FkAutocompleteAdmin):
     related_search_fields = {'activity': ('path',), }
     formfield_overrides = {
         URLField: {'widget': URLFieldWidget},
-        ManyToManyField: {'widget': forms.CheckboxSelectMultiple}
     }
 
     if "coop.exchange" in settings.INSTALLED_APPS:
@@ -182,7 +184,7 @@ class OrganizationAdmin(AdminImageMixin, FkAutocompleteAdmin):
                         'web']
             }),
         ('Description', {
-            'fields': ['description', 'category', 'activity', 'transverse_themes']  # 'tags', ]
+            'fields': ['description', 'category', 'activities', 'transverse_themes']  # 'tags', ]
             }),
 
         ('Préférences', {

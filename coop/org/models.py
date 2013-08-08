@@ -515,8 +515,8 @@ class BaseOrganization(URIModel):
     if "coop.agenda" in settings.INSTALLED_APPS:
         dated = generic.GenericRelation('coop_local.Dated')
 
-    activity = models.ForeignKey('ActivityNomenclature', verbose_name=_(u'activity sector'),
-                                 blank=True, null=True)
+    activities = models.ManyToManyField('ActivityNomenclature', blank=True, null=True,
+                                        verbose_name=_(u'activity sectors'))
     transverse_themes = models.ManyToManyField('TransverseTheme',
         verbose_name=_(u'transverse themes'), blank=True, null=True)
 
