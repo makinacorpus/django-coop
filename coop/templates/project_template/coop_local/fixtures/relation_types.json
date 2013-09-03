@@ -14,22 +14,11 @@
         "pk": 2,
         "model": "coop_local.orgrelationtype",
         "fields": {
-            "key_name": "REG_SUPPLIER",
+            "key_name": "SUPPLIER",
             "org_to_org": true,
-            "uri": "http://ns.economie-solidaire.fr/ess#hasRegularSupplier",
+            "uri": "http://ns.economie-solidaire.fr/ess#hasSupplier",
             "org_to_project": false,
-            "label": " fournisseur r\u00e9gulier "
-        }
-    },
-    {
-        "pk": 3,
-        "model": "coop_local.orgrelationtype",
-        "fields": {
-            "key_name": "OCC_SUPPLIER",
-            "org_to_org": true,
-            "uri": "http://ns.economie-solidaire.fr/ess#hasCasualSupplier",
-            "org_to_project": true,
-            "label": " fournisseur occasionnel "
+            "label": " fournisseur "
         }
     },
     {
