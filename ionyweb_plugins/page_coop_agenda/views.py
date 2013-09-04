@@ -70,6 +70,7 @@ def filter_data(request, page_app, mode):
  
     more_criteria = False
     
+    form = None
     if search_form:
         if request.method == 'GET': # If the form has been submitted
             form = PageApp_CoopAgendaForm(request.GET)
