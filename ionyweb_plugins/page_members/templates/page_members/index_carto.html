@@ -33,6 +33,7 @@
     <div id="leaflet_map"></div>
    
     <script src="{{ STATIC_URL }}themes/pes_auvergne/default/js/leaflet/leaflet.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/leaflet-pip.min.js"></script>
 
     <script type="text/javascript">
 
@@ -44,17 +45,40 @@
         var map = new L.Map('leaflet_map');
         map.setView(centre, 8).addLayer(cloudmade);
 
-        // Add markers         
+        // Add markers
+        // Be carreful, if a zone has been calculated for filtering, we must only display location inside that zone
+        // (some member may have multiple locations, and some may be outside the zone)
+        {% if zone %}
+            // Display the zone in the map
+            var map_style = {
+                "color": "#aaaaaa",
+                "weight": 1,
+                "opacity": 0.65
+            };
+            var zone = L.geoJson({{ zone|safe }}, {style: map_style});
+            zone.addTo(map);
+        {% endif %}
+
         var tab_markers = new Array();
         {% for m in members %}
             {% if m.located %}                
                 {% for l in m.located.all %}
                     {% if l.location %}
                         {% if l.location.point %}
-                            tab_markers.push(new L.LatLng({{ l.location.point.y|unlocalize }}, {{ l.location.point.x|unlocalize }}))
-                            L.marker([{{ l.location.point.y|unlocalize }}, {{ l.location.point.x|unlocalize }}]).addTo(map)
-                                    .bindPopup('{{ m.title }}<br/><a href=\"{{ base_url }}p/{{ m.pk }}\">{% trans "Read more" %}</a>')
-                                    .openPopup();
+                            // 
+                            var in_zone = true;
+                            {% if zone %}
+                                var results = leafletPip.pointInLayer([{{ l.location.point.x|unlocalize }}, {{ l.location.point.y|unlocalize }}], zone);
+                                if(results.length == 0)
+                                    in_zone = false;
+                            {% endif %}
+                            //                 
+                            if(in_zone) {
+                                tab_markers.push(new L.LatLng({{ l.location.point.y|unlocalize }}, {{ l.location.point.x|unlocalize }}))
+                                L.marker([{{ l.location.point.y|unlocalize }}, {{ l.location.point.x|unlocalize }}]).addTo(map)
+                                        .bindPopup('{{ m.title }}<br/><a href=\"{{ base_url }}p/{{ m.pk }}\">{% trans "Read more" %}</a>')
+                                        .openPopup();
+                            }
                         {% endif %}
                     {% endif %}
                 {% endfor %}
