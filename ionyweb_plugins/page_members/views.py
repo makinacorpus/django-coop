@@ -133,7 +133,11 @@ def filter_data(request, page_app, mode):
             if form.cleaned_data['thematic2']: 
                 arg = arg | Q(transverse_themes=form.cleaned_data['thematic2'])
             organizations = organizations.filter(arg)
-                
+
+            if form.cleaned_data['category']: 
+                arg = Q(category=form.cleaned_data['category'])
+                organizations = organizations.filter(arg)
+
             if form.cleaned_data['activity'] and form.cleaned_data['activity2']:
                 activity = form.cleaned_data['activity']
                 activity2 = form.cleaned_data['activity2']

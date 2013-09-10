@@ -12,7 +12,7 @@ from extended_choices import Choices
 from coop_local.models import Organization, LegalStatus
 from coop.org.admin import OrganizationAdminForm, RelationInline
 
-from coop.base_models import ActivityNomenclature, TransverseTheme
+from coop.base_models import ActivityNomenclature, TransverseTheme, OrganizationCategory
 from coop_local.models import Relation, Location, Document, Offer, Area
 from coop.base_models import Located
 from coop_geo.widgets import LocationPointWidget, ChooseLocationWidget, LocationPointWidgetInline
@@ -46,6 +46,8 @@ class PageApp_MembersForm(ModelForm):
     thematic2 = forms.ModelChoiceField(queryset=TransverseTheme.objects.all(), required=False, label=_('Thematic'))
     statut = forms.ModelChoiceField(queryset=LegalStatus.objects.all(), required=False)
     statut2 = forms.ModelChoiceField(queryset=LegalStatus.objects.all(), required=False)
+    
+    category = forms.ModelChoiceField(queryset=OrganizationCategory.objects.all().order_by('label'),required=False, label=_('Category'))
     
     free_search = forms.CharField(required=False, label=_('Free search'))
     
