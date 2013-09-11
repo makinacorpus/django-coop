@@ -228,7 +228,6 @@ def detail_view(request, page_app, pk):
         if l.opening:
             openings = True
 
-    
     return render_view('page_members/detail.html',
                        { 'member':  member, 'imgs': imgs, 'docs': docs, 'media_path': settings.MEDIA_URL , 'base_url': base_url, 'openings': openings, 'relationship_queryset': relationship_queryset, 'is_project': is_project},
                        MEDIAS,
