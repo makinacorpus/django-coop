@@ -9,7 +9,7 @@ from django.conf import settings
 
 from django.shortcuts import get_object_or_404
 
-from ionyweb.website.rendering.medias import CSSMedia
+from ionyweb.website.rendering.medias import CSSMedia, JSMedia
 
 from .forms import PageApp_MembersForm, PartialMemberForm, CustomLocatedForm, DocumentForm, CustomOfferForm, CustomRelationForm, PageApp_MembersSortForm
 
@@ -29,8 +29,8 @@ from math import pi
 
 MEDIAS = (
     CSSMedia('page_members.css'),
-    )
-
+    )    
+    
 def index_view(request, page_app):    
     rdict = filter_data(request, page_app, "list")
     return render_view('page_members/index.html',
@@ -96,6 +96,7 @@ def filter_data(request, page_app, mode):
         search_form_template = "page_members/search_form_project.html"
     
     more_criteria = False
+    zone_json = None
     #if request.method == 'POST': # If the form has been submitted
         #form = PageApp_MembersForm(request.POST)
     if request.method == 'GET': # If the form has been submitted
@@ -119,6 +120,7 @@ def filter_data(request, page_app, mode):
                         radius = 0
                     distance_degrees = (360 * radius) / (pi * 6378)
                     zone = area.polygon.buffer(distance_degrees)
+                    zone_json = zone.json
                     # Get the possible location in the buffer...
                     possible_locations = Location.objects.filter(point__intersects=zone)
                     # ...and filter organization according to these locations
@@ -131,7 +133,11 @@ def filter_data(request, page_app, mode):
             if form.cleaned_data['thematic2']: 
                 arg = arg | Q(transverse_themes=form.cleaned_data['thematic2'])
             organizations = organizations.filter(arg)
-                
+
+            if form.cleaned_data['category']: 
+                arg = Q(category=form.cleaned_data['category'])
+                organizations = organizations.filter(arg)
+
             if form.cleaned_data['activity'] and form.cleaned_data['activity2']:
                 activity = form.cleaned_data['activity']
                 activity2 = form.cleaned_data['activity2']
@@ -189,7 +195,7 @@ def filter_data(request, page_app, mode):
     available_orgs = Organization.objects.all()
     available_orgs = dumps([{'label':o.title, 'value':o.pk} for o in available_orgs.filter(active=True).order_by("title")])
 
-    rdict = {'object': page_app, 'members': orgs_page, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'direct_link': direct_link, 'search_form': search_form, 'form' : form, 'sort_form': sort_form, 'center': center_map, 'available_locations': available_locations, 'available_orgs': available_orgs, 'search_form_template': search_form_template, 'mode': mode, 'get_params': get_params.urlencode(), 'is_project': is_project, 'more_criteria': more_criteria}
+    rdict = {'object': page_app, 'members': orgs_page, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'direct_link': direct_link, 'search_form': search_form, 'form' : form, 'sort_form': sort_form, 'center': center_map, 'available_locations': available_locations, 'available_orgs': available_orgs, 'search_form_template': search_form_template, 'mode': mode, 'get_params': get_params.urlencode(), 'is_project': is_project, 'more_criteria': more_criteria, 'zone': zone_json}
 
     return rdict
 
