@@ -17,7 +17,7 @@ from ionyweb.website.rendering.medias import JSAdminMedia, RSSMedia
 from ionyweb.website.rendering.utils import render_view
 from ionyweb.website.rendering.medias import CSSMedia
 
-from models import PageApp_Coop_Blog, Category, CoopEntry
+from models import PageApp_CoopBlog, Category, CoopEntry
 from forms import EntryForm, PageApp_CoopBlogForm
 from coop_local.models import Document
 from django.contrib.contenttypes.generic import generic_inlineformset_factory
@@ -30,11 +30,12 @@ except ImportError:
 
 
 ACTIONS_MEDIAS = [
-    JSAdminMedia('page_coop_blog_actions.js'),
+    #JSAdminMedia('page_coop_blog_actions.js'),
 ]
 
 MEDIAS = (
     CSSMedia('page_coop_blog.css'),
+    JSAdminMedia('page_coop_blog_actions.js'),
     )
 
 
@@ -87,7 +88,7 @@ def categories_queryset_view_to_app(view_func):
 def filter_data(request, page_app):
     base_url = u'%s' % (page_app.get_absolute_url())
 
-    entries = CoopEntry.objects.filter(status=1).order_by('-modification_date')
+    entries = CoopEntry.objects.filter(status=1, blog=page_app).order_by('-modification_date')
     more_criteria = False
     
     if request.method == 'GET': # If the form has been submitted        
@@ -186,8 +187,9 @@ def add_view(request, page_app, entry_id=None):
             
                 if not entry_id:
                     entry.slug = slugify(entry.title)
-                    
-                entry.blog_id = 1 # default blog
+                
+                
+                entry.blog = page_app # default blog
                 entry.author = request.user
                 entry = form.save()
                 docFormset.save()

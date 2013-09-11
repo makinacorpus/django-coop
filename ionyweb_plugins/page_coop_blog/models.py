@@ -20,7 +20,7 @@ from coop.base_models import ActivityNomenclature, TransverseTheme
 
 
 
-class PageApp_Coop_Blog(AbstractPageApp):
+class PageApp_CoopBlog(AbstractPageApp):
     
     title = models.CharField(_(u"title"), max_length=100)
 
@@ -97,7 +97,7 @@ class Category(MPTTModel):
     """
     A blog category.
     """
-    blog = models.ForeignKey(PageApp_Coop_Blog, related_name="categories")
+    blog = models.ForeignKey(PageApp_CoopBlog, related_name="categories")
     name = models.CharField(_('name'), max_length=255)
     slug = models.SlugField(_('slug'), max_length=255)
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children')
@@ -159,7 +159,7 @@ class CoopEntry(models.Model):
         (STATUS_ONLINE, _('Online')),
     )
 
-    blog = models.ForeignKey(PageApp_Coop_Blog, related_name="entries")
+    blog = models.ForeignKey(PageApp_CoopBlog, related_name="entries")
 
     title = models.CharField(_('title'), max_length=255)
     resume = models.TextField(_('body'), null=True, blank=True)

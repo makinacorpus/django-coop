@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 from ionyweb.forms import ModuloModelForm
 from ionyweb.widgets import DatePicker
-from .models import CoopEntry, Category, PageApp_Coop_Blog
+from .models import CoopEntry, Category, PageApp_CoopBlog
 
 from ionyweb.widgets import DateTimePicker, SlugWidget, DatePicker, TinyMCELargeTable
 from coop.base_models import ActivityNomenclature, TransverseTheme, Document 
@@ -18,7 +18,7 @@ from extended_choices import Choices
 class PageApp_BlogForm(ModuloModelForm):
 
     class Meta:
-        model = PageApp_Coop_Blog
+        model = PageApp_CoopBlog
 
 
 class CategoryForm(ModuloModelForm):
@@ -82,7 +82,7 @@ class PageApp_CoopBlogForm(ModuloModelForm):
     tags = forms.CharField(required=False, label=_('Keywords'))
     
     class Meta:
-        model = PageApp_Coop_Blog
+        model = PageApp_CoopBlog
         exclude = ('title', )
 
 class DocumentForm(forms.ModelForm):

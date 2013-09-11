@@ -5,7 +5,7 @@ Administration interface options of ``blog`` application.
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
-from .models import PageApp_Coop_Blog, Category, CoopEntry
+from .models import PageApp_CoopBlog, Category, CoopEntry
 
 class CategoryAdmin(admin.ModelAdmin):
     """
@@ -17,7 +17,7 @@ class CategoryAdmin(admin.ModelAdmin):
     save_on_top = True
     prepopulated_fields = {'slug': ('name',)}
 
-class EntryAdmin(admin.ModelAdmin):
+class CoopEntryAdmin(admin.ModelAdmin):
     """
     Administration interface options of ``CoopEntry`` model.
     """
@@ -33,6 +33,6 @@ class EntryAdmin(admin.ModelAdmin):
     radio_fields = {'status': admin.VERTICAL}
     prepopulated_fields = {'slug': ('title',)}
 
-admin.site.register(PageApp_Coop_Blog)
+admin.site.register(PageApp_CoopBlog)
 admin.site.register(Category, CategoryAdmin)
-admin.site.register(CoopEntry, EntryAdmin)
+admin.site.register(CoopEntry, CoopEntryAdmin)
