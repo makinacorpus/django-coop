@@ -57,7 +57,8 @@ class Migration(SchemaMigration):
         db.send_create_signal('page_coop_blog', ['CoopEntry'])
 
         # Adding M2M table for field transverse_themes on 'CoopEntry'
-        m2m_table_name = db.shorten_name('page_coop_blog_coopentry_transverse_themes')
+        #m2m_table_name = db.shorten_name('page_coop_blog_coopentry_transverse_themes')
+        m2m_table_name = 'page_coop_blog_coopentry_transverse_themes'
         db.create_table(m2m_table_name, (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
             ('coopentry', models.ForeignKey(orm['page_coop_blog.coopentry'], null=False)),
@@ -80,7 +81,8 @@ class Migration(SchemaMigration):
         db.delete_table('page_coop_blog_coopentry')
 
         # Removing M2M table for field transverse_themes on 'CoopEntry'
-        db.delete_table(db.shorten_name('page_coop_blog_coopentry_transverse_themes'))
+        #db.delete_table(db.shorten_name('page_coop_blog_coopentry_transverse_themes'))
+        db.delete_table('page_coop_blog_coopentry_transverse_themes')
 
 
     models = {
