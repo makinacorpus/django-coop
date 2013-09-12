@@ -55,6 +55,12 @@ def filter_data(request, page_app, mode):
 
     center_map = settings.COOP_MAP_DEFAULT_CENTER
     
+    manage_categories = False
+    if hasattr(settings, 'COOP_AGENDA_MANAGE_CATEGORIES'):
+        manage_categories = settings.COOP_AGENDA_MANAGE_CATEGORIES
+    
+    categories = {}
+    
     search_form_template = "page_coop_agenda/search_form_agenda.html"
     
     try:
@@ -62,11 +68,25 @@ def filter_data(request, page_app, mode):
     except:
         search_form = False
     
-    occ = Occurrence.objects.filter(
-                        end_time__gt=datetime.now(),
-                        event__active=True,
-                        event__calendar=agenda,
-                        ).order_by("start_time")
+    if manage_categories:
+        occs_count = 0
+        for cat in EventCategory.objects.all():
+            occ = Occurrence.objects.filter(
+                                end_time__gt=datetime.now(),
+                                event__active=True,
+                                event__calendar=agenda,
+                                event__category=cat
+                                ).order_by("start_time")
+            if occ.exists():
+                categories[cat] = occ
+                occs_count += occ.count()
+    else:
+        occ = Occurrence.objects.filter(
+                    end_time__gt=datetime.now(),
+                    event__active=True,
+                    event__calendar=agenda,
+                    ).order_by("start_time")
+ 
  
     more_criteria = False
     
@@ -74,94 +94,54 @@ def filter_data(request, page_app, mode):
     if search_form:
         if request.method == 'GET': # If the form has been submitted
             form = PageApp_CoopAgendaForm(request.GET)
+            occs_count = 0
+            categories = {}
+            
             if form.is_valid():
 
-                occ = Occurrence.objects.filter(
+                if manage_categories:
+                    for cat in EventCategory.objects.all():
+                        occ = Occurrence.objects.filter(
+                                            event__active=True,
+                                            event__calendar=agenda,
+                                            event__category=cat
+                                            ).order_by("start_time")
+                        occ = filter_occ(occ, form)
+                        if occ.exists():
+                            categories[cat] = occ
+                            occs_count += occ.count()
+                else:
+                    occ = Occurrence.objects.filter(
                                     event__active=True,
                                     event__calendar=agenda,
                                     ).order_by("start_time")
-                if occ.exists() and form.cleaned_data['free_search']:
-                    occ = occ.filter(Q(event__title__contains=form.cleaned_data['free_search']) | Q(event__description__contains=form.cleaned_data['free_search']))
-
-                if occ.exists() and form.cleaned_data['location']:
-                    label = form.cleaned_data['location']
-                    pk = form.cleaned_data['location_id']
-                    area = get_object_or_404(Area, pk=pk)
-                    radius = form.cleaned_data['location_buffer']
-                    distance_degrees = (360 * radius) / (pi * 6378)
-                    zone = area.polygon.buffer(distance_degrees)
-                    # Get the possible location in the buffer...
-                    possible_locations = Location.objects.filter(point__intersects=zone)
-                    # ...and filter occ according to these locations
-                    occ = occ.filter(Q(event__location__in=possible_locations))
-
-                    
-                if occ.exists() and form.cleaned_data['organization']:
-                    occ = occ.filter(Q(event__organization__in=form.cleaned_data['organization']))
-
-                if occ.exists() and form.cleaned_data['type']:
-                    occ = occ.filter(Q(event__event_type__in=form.cleaned_data['type']))
-
-                if occ.exists() and form.cleaned_data['start_date']:
-                    occ = occ.filter(Q(start_time__gt=form.cleaned_data['start_date']))
-
-                if occ.exists() and form.cleaned_data['end_date']:
-                    occ = occ.filter(Q(end_time__lt=form.cleaned_data['end_date']))
-                    
-                if form.cleaned_data['thematic'] or form.cleaned_data['thematic2']:
-                    arg = Q()
-                    if form.cleaned_data['thematic']: 
-                        arg = Q(event__transverse_themes=form.cleaned_data['thematic'])
-                    if form.cleaned_data['thematic2']: 
-                        arg = arg | Q(event__transverse_themes=form.cleaned_data['thematic2'])
-                    occ = occ.filter(arg)
+                    occ = filter_occ(occ, form)
                 
-                    
-                if form.cleaned_data['activity'] and form.cleaned_data['activity2']:
-                    activity = form.cleaned_data['activity']
-                    activity2 = form.cleaned_data['activity2']
-                    
-                    tab_keep = get_list_event_to_keep(occ, activity)
-                    tab_keep2 = get_list_event_to_keep(occ, activity2)
-                    occ = occ.filter(Q(pk__in=tab_keep) | Q(pk__in=tab_keep2) )
-
-                else:
-                    if form.cleaned_data['activity']:
-                        activity = form.cleaned_data['activity']                    
-                        tab_keep = get_list_event_to_keep(occ, activity)
-                        occ = occ.filter(pk__in=tab_keep)
-                    else:
-                        if form.cleaned_data['activity2']:
-                            activity = form.cleaned_data['activity2']                    
-                            tab_keep = get_list_event_to_keep(occ, activity)
-                            occ = occ.filter(pk__in=tab_keep)                    
-
                 if request.GET.get('more_criteria_status'):
                     if request.GET['more_criteria_status'] == 'True':
                         more_criteria = True
-
-                            
         else:
             form = PageApp_CoopAgendaForm(initial={'location_buffer': '10'}) # An empty form
             more_criteria = False
     
-    
-    if mode == 'list':
-        paginator = Paginator(occ, 10)
-        page = request.GET.get('page')
-        try:
-            occ_page = paginator.page(page)
-        except PageNotAnInteger:
-            occ_page = paginator.page(1)
-        except EmptyPage:
-            occ_page = paginator.page(paginator.num_pages)
-        get_params = request.GET.copy()
-        if 'page' in get_params:
-            del get_params['page']      
+    if not manage_categories:
+        if mode == 'list':
+            paginator = Paginator(occ, 10)
+            page = request.GET.get('page')
+            try:
+                occ_page = paginator.page(page)
+            except PageNotAnInteger:
+                occ_page = paginator.page(1)
+            except EmptyPage:
+                occ_page = paginator.page(paginator.num_pages)
+            get_params = request.GET.copy()
+            if 'page' in get_params:
+                del get_params['page']      
+        else:
+            occ_page = occ
+            get_params = request.GET.copy()    
     else:
-        occ_page = occ
-        get_params = request.GET.copy()    
-        
+        occ_page = categories
     
     # Get available locations for autocomplete
     available_locations = dumps([{'label':area.label, 'value':area.pk} for area in Area.objects.all().order_by('label')])
@@ -170,6 +150,65 @@ def filter_data(request, page_app, mode):
     
     return rdict
 
+
+def filter_occ(occ, form):
+    # Filter occurence according to the user choices
+    if occ.exists() and form.cleaned_data['free_search']:
+        occ = occ.filter(Q(event__title__contains=form.cleaned_data['free_search']) | Q(event__description__contains=form.cleaned_data['free_search']))
+
+    if occ.exists() and form.cleaned_data['location']:
+        label = form.cleaned_data['location']
+        pk = form.cleaned_data['location_id']
+        area = get_object_or_404(Area, pk=pk)
+        radius = form.cleaned_data['location_buffer']
+        distance_degrees = (360 * radius) / (pi * 6378)
+        zone = area.polygon.buffer(distance_degrees)
+        # Get the possible location in the buffer...
+        possible_locations = Location.objects.filter(point__intersects=zone)
+        # ...and filter occ according to these locations
+        occ = occ.filter(Q(event__location__in=possible_locations))
+
+        
+    if occ.exists() and form.cleaned_data['organization']:
+        occ = occ.filter(Q(event__organization__in=form.cleaned_data['organization']))
+
+    if occ.exists() and form.cleaned_data['type']:
+        occ = occ.filter(Q(event__event_type__in=form.cleaned_data['type']))
+
+    if occ.exists() and form.cleaned_data['start_date']:
+        occ = occ.filter(Q(start_time__gt=form.cleaned_data['start_date']))
+
+    if occ.exists() and form.cleaned_data['end_date']:
+        occ = occ.filter(Q(end_time__lt=form.cleaned_data['end_date']))
+        
+    if form.cleaned_data['thematic'] or form.cleaned_data['thematic2']:
+        arg = Q()
+        if form.cleaned_data['thematic']: 
+            arg = Q(event__transverse_themes=form.cleaned_data['thematic'])
+        if form.cleaned_data['thematic2']: 
+            arg = arg | Q(event__transverse_themes=form.cleaned_data['thematic2'])
+        occ = occ.filter(arg)
+    
+        
+    if form.cleaned_data['activity'] and form.cleaned_data['activity2']:
+        activity = form.cleaned_data['activity']
+        activity2 = form.cleaned_data['activity2']
+        
+        tab_keep = get_list_event_to_keep(occ, activity)
+        tab_keep2 = get_list_event_to_keep(occ, activity2)
+        occ = occ.filter(Q(pk__in=tab_keep) | Q(pk__in=tab_keep2) )
+
+    else:
+        if form.cleaned_data['activity']:
+            activity = form.cleaned_data['activity']                    
+            tab_keep = get_list_event_to_keep(occ, activity)
+            occ = occ.filter(pk__in=tab_keep)
+        else:
+            if form.cleaned_data['activity2']:
+                activity = form.cleaned_data['activity2']                    
+                tab_keep = get_list_event_to_keep(occ, activity)
+                occ = occ.filter(pk__in=tab_keep)                    
+    return occ
 
     
 def get_list_event_to_keep(occs, activity):    
