@@ -54,10 +54,15 @@
     clear: left;
 }
 
+.plugin_coop_searchglobal .plugin_form {
+    margin-bottom: 20px;
+}
+
 .plugin_coop_searchglobal #id_search_string {
     background: url("../images/search.png") no-repeat scroll 5px 4px transparent;
     padding: 4px 4px 4px 25px;
-    width: 135px;
+    width: 120px;
+    margin-bottom: 0px;
 }
 
 .plugin_coop_searchglobal #search_button {
@@ -80,7 +85,7 @@
     font-size: 13px;
     line-height: 18px;
     margin-bottom: 0;
-    padding: 4px 10px;
+    padding: 4px 0px;
     text-align: center;
     text-decoration: none;
     text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
@@ -90,4 +95,5 @@
 .plugin_coop_searchglobal #search_button input {
     border: none;
     background: none;
+    box-shadow: none;
 }
