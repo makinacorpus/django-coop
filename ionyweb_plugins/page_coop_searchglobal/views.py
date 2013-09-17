@@ -81,24 +81,22 @@ def filter_data(request, page_app, mode):
     if request.method == 'GET':  
         if request.GET['search_string']:
             search_string = request.GET['search_string']
-            
             if search_string:
-                #if 'exchanges' in settings.COOP_SEARCHGLOBAL_THEMES:
-                
                 if 'agenda' in settings.COOP_SEARCHGLOBAL_THEMES:
-                    occ = occ.filter(Q(event__title__icontains=search_string))
-                    
-                #if 'services' in settings.COOP_SEARCHGLOBAL_THEMES:
-                
-                if 'organizations' in settings.COOP_SEARCHGLOBAL_THEMES:
-                    organizations = organizations.filter(Q(title__icontains=search_string))
-                    
-                if 'articles' in settings.COOP_SEARCHGLOBAL_THEMES:
-                    entries = entries.filter(Q(title__icontains=search_string))
-                
-                #if 'projects' in settings.COOP_SEARCHGLOBAL_THEMES:
+                    occ = occ.filter(Q(event__title__icontains=search_string)|Q(event__description__icontains=search_string))
 
+                if 'organizations' in settings.COOP_SEARCHGLOBAL_THEMES:
+                    organizations = organizations.filter(Q(title__icontains=search_string)|Q(description__icontains=search_string)|Q(short_description__icontains=search_string))
+
+                if 'articles' in settings.COOP_SEARCHGLOBAL_THEMES:
+                    entries = entries.filter(Q(title__icontains=search_string)|Q(resume__icontains=search_string)|Q(body__icontains=search_string))
+
+                # TODO : extra searches for PES (services, projects...)
+                #if 'services' in settings.COOP_SEARCHGLOBAL_THEMES:
+                #if 'exchanges' in settings.COOP_SEARCHGLOBAL_THEMES:
+                #if 'projects' in settings.COOP_SEARCHGLOBAL_THEMES:
                 #if 'offers' in settings.COOP_SEARCHGLOBAL_THEMES:
+                
                 
     # Put all objects in a a common tab for pagination
     if exchanges:
