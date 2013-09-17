@@ -15,8 +15,6 @@
             <div class="bloc_title">
                 {% if item.obj.img  %}
                     <div class="logo"><a class="searchglobal_link" href="{{ base_url }}p/{{ item.obj.pk }}"><img src="{{ media_path }}{{ item.obj.img }}" alt="{{ item.obj.title }}"></a></div>
-                {% else %}
-                    <div class="logo logo_pes"></div>
                 {% endif %}
 
                 <div class="resume">
@@ -34,23 +32,15 @@
             <div class="bloc_title">
                 {% if item.obj.event.image != '' %}
                     <div class="logo"><a class="agenda_link" href="{{ agenda_url }}p/{{ item.obj.event.pk }}"><img src="{{ media_path }}{{ item.obj.event.image }}" alt=""></a></div>
-                {% else %}
-                    <div class="logo logo_pes"></div>
                 {% endif %}
 
                 <div class="resume">
-                    {% if item.obj.event.location == None %} {% else %} <span class="location">{{ item.obj.event.location|truncatechars:20 }}</span> {% endif %}
-                    <ul class="date">
-                        <li>
-                            <span class="date_from">{{ item.obj.start_time|date:"j" }} {{ item.obj.start_time|date:"M"|lower }} {{ item.obj.start_time|date:"Y"|lower }}</span>
-                            {% if  item.obj.start_time.date != item.obj.end_time.date %}
-                                <span class="date_to">{% trans "to" %}</span>
-                            <span class="date_from">{{ item.obj.end_time|date:"j" }} {{ item.obj.end_time|date:"M"|lower }} {{ item.obj.end_time|date:"Y"|lower }}</span>
-                            {% endif %}
-                        </li>
-                    </ul>
-
                     <a href="{{ agenda_url }}p/{{ item.obj.event.pk }}"><h3 class="coop_agenda_title resume_title">{{ item.obj.event.title }}</h3></a>
+                    <span class="date_from">{{ item.obj.start_time|date:"j" }} {{ item.obj.start_time|date:"M"|lower }} {{ item.obj.start_time|date:"Y"|lower }}</span>
+                    {% if  item.obj.start_time.date != item.obj.end_time.date %}
+                        <span class="date_to">{% trans "to" %}</span>
+                    <span class="date_from">{{ item.obj.end_time|date:"j" }} {{ item.obj.end_time|date:"M"|lower }} {{ item.obj.end_time|date:"Y"|lower }}</span>
+                    {% endif %}
 
 
                     <div class="description">
@@ -80,26 +70,13 @@
 
             {% if item.obj.logo != '' %}
                 <div class="logo"><a class="member_link" href="{{ organizations_url }}p/{{ item.obj.pk }}"><img src="{{ media_path }}{{ item.obj.logo }}" alt=""></a></div>
-            {% else %}
-                <a href="{{ organizations_url }}p/{{ item.obj.pk }}"><div class="logo logo_pes"></div></a>
             {% endif %}
 
             <div class="resume">
-                {% if item.obj.located == None %}{% else %} 
-                    <span class="location">
-                        {{ item.obj.main_location_label }}
-                    </span> 
+                <a href="{{ organizations_url }}p/{{ item.obj.pk }}"><h3 class="member_title resume_title">{{ item.obj.title }}</h3></a>
+                {% if item.obj.short_description %}
+                    <span class="">{{ item.obj.short_description }}</span>
                 {% endif %}
-
-                {% if direct_link %}
-                    <a href="{{ item.obj.web|safe }}"><h3 class="member_title resume_title">{{ item.obj.title }}</h3></a>
-                {% else %}
-                    <a href="{{ organizations_url }}p/{{ item.obj.pk }}"><h3 class="member_title resume_title">{{ item.obj.title }}</h3></a>
-                {% endif %}
-
-                <div class="member_subtitle">{% if item.obj.activity %} {{ item.obj.activity }} {% endif %}</div>
-
-                <span class="">{{ item.obj.short_description }}</span>
 
             </div>
         </div>
@@ -109,8 +86,6 @@
 
             {% if item.obj.logo != '' %}
                 <div class="logo"><a class="member_link" href="{{ organizations_url }}p/{{ item.obj.pk }}"><img src="{{ media_path }}{{ item.obj.logo }}" alt=""></a></div>
-            {% else %}
-                <a href="{{ organizations_url }}p/{{ item.obj.pk }}"><div class="logo logo_pes"></div></a>
             {% endif %}
 
             <div class="resume">
@@ -136,23 +111,22 @@
     {% if item.type == 'entrie' %}
         <div class="bloc_title coop_searchglobal">
             {% if item.obj.image != '' %}
-                <div class="block_img_off"><img src="{{ media_path }}{{ item.obj.image }}" alt=""></div>
-            {% else %}
-                <div class="block_img"></div>
+                <div class="logo"><img src="{{ media_path }}{{ item.obj.image }}" alt=""></div>
             {% endif %}
-
-            <h3><a href="{{ item.obj.get_absolute_url }}">{{ item.obj.title }}</a></h3>
-            <div class="author articles_link">{{ item.obj.author }}</div>
-            <p class="entry-meta">
-                {{ item.obj.publication_date|date:"d/m/Y @ H:i" }}
-            </p>
-            <div class="entry-body">
-                {{ item.obj.resume|truncatechars:150|safe }}
+            <div class="resume">
+                <h3><a href="{{ item.obj.get_absolute_url }}">{{ item.obj.title }}</a></h3>
+                <div class="author articles_link">{{ item.obj.author }}</div>
+                <p class="entry-meta">
+                    {{ item.obj.publication_date|date:"d/m/Y @ H:i" }}
+                </p>
+                <div class="entry-body">
+                    {{ item.obj.resume|truncatechars:150|safe }}
+                </div>
             </div>
         </div>
     {% endif %}
 
-
+    <hr>
 
 {% endfor %}
 
