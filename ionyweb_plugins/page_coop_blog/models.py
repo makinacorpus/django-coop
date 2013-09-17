@@ -213,11 +213,14 @@ class CoopEntry(models.Model):
     get_status.action_short_description=_(u'Status')
 
     def get_absolute_url(self):
-        return u"%s%s%s" % (self.blog.get_absolute_url(),
+        return u"%s%s/%d" % (self.blog.get_absolute_url(),
                             settings.URL_PAGE_APP_SEP,
-                            reverse('blog_entry', kwargs={
-                                      'year': self.publication_date.strftime('%Y'),
-                                      'month': self.publication_date.strftime('%m'),
-                                      'day': self.publication_date.strftime('%d'),
-                                      'slug': self.slug,
-                            }, urlconf='.urls'))
+                            self.pk)
+        #return u"%s%s%s" % (self.blog.get_absolute_url(),
+                            #settings.URL_PAGE_APP_SEP,
+                            #reverse('blog_entry', kwargs={
+                                      #'year': self.publication_date.strftime('%Y'),
+                                      #'month': self.publication_date.strftime('%m'),
+                                      #'day': self.publication_date.strftime('%d'),
+                                      #'slug': self.slug,
+                            #}, urlconf='.urls'))

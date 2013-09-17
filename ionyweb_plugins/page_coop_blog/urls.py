@@ -16,18 +16,18 @@ urlpatterns = patterns('',
     url(r'^entry_add/$', add_view),
     url(r'^entry_delete/(?P<entry_id>\d+)/$', delete_view),
     url(r'^entry_edit/(?P<entry_id>\d+)/$', add_view),  
-    url(r'^(?P<pk>[\w-]+)/$', detail_view),
+    url(r'^(?P<pk>[\w-]+)/$', detail_view,name='blog_entry',),
 
     
-    url(r'^(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/(?P<slug>[\w-]+)/$',
-        entries_queryset_view_to_app(django.views.generic.date_based.object_detail),
-        dict(
-            month_format='%m',
-            date_field='publication_date',
-            slug_field='slug',
-        ),
-        name='blog_entry',
-    ),
+    #url(r'^(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/(?P<slug>[\w-]+)/$',
+        #entries_queryset_view_to_app(django.views.generic.date_based.object_detail),
+        #dict(
+            #month_format='%m',
+            #date_field='publication_date',
+            #slug_field='slug',
+        #),
+        #name='blog_entry',
+    #),
     url(r'^(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/$',
         entries_queryset_view_to_app(django.views.generic.date_based.archive_day),
         dict(
