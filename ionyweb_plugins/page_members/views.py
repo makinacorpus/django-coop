@@ -364,3 +364,4 @@ def is_obj_project(page_app):
         return False
     if page_app.get_absolute_url() == settings.COOP_MEMBER_PROJECTS_URL:
         return True
+    return False
