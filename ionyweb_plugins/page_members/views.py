@@ -66,7 +66,7 @@ def filter_data(request, page_app, mode):
                 pass
             if criteria == "creation":
                 sort_by = "-created"
-    
+
     if page_app.type != "":
         organizations = Organization.objects.filter(category__label=page_app.type).order_by(sort_by)
     else:
@@ -89,12 +89,12 @@ def filter_data(request, page_app, mode):
     center_map = settings.COOP_MAP_DEFAULT_CENTER
 
     if base_url == settings.COOP_MEMBER_ORGANIZATIONS_URL:
-        organizations = organizations.filter(is_project=False)
+        organizations = organizations.filter(Q(is_project=False)|Q(is_project=None))
         search_form_template = "page_members/search_form_organization.html"
     if base_url == settings.COOP_MEMBER_PROJECTS_URL:
         organizations = organizations.filter(is_project=True)
         search_form_template = "page_members/search_form_project.html"
-    
+        
     more_criteria = False
     zone_json = None
     #if request.method == 'POST': # If the form has been submitted
@@ -125,7 +125,6 @@ def filter_data(request, page_app, mode):
                     possible_locations = Location.objects.filter(point__intersects=zone)
                     # ...and filter organization according to these locations
                     organizations = organizations.filter(Q(located__location__in=possible_locations))
-                
 
             arg = Q()
             if form.cleaned_data['thematic']: 
@@ -171,7 +170,6 @@ def filter_data(request, page_app, mode):
         form = PageApp_MembersForm(initial={'location_buffer': '10'}) # An empty form
         more_criteria = False
 
-    
     if mode == 'list':
         paginator = Paginator(organizations, 10)
         page = request.GET.get('page')
