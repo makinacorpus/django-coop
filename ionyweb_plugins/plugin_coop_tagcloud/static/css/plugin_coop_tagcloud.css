@@ -1,0 +1,99 @@
+.plugin_coop_tagcloud {
+    clear: left;
+}
+
+.plugin_coop_tagcloud .coop_agenda_title {
+    float: left;
+    font-size: 1.3em;
+}
+
+.plugin_coop_tagcloud .desc {
+    float: left;
+    font-size: 0.8em;
+}
+
+.plugin_coop_tagcloud ul.date {
+    list-style: none;
+    margin: 0;
+}
+
+.plugin_coop_tagcloud span.date {
+    background-color: #FEFFF3;
+    border: 1px solid #5D5D5D;
+    box-shadow: 1px 1px 3px #999999;
+    display: inline-block;
+    float: left;
+    height: 42px;
+    left: 0;
+    margin-right: 8px;
+    position: relative;
+    width: 40px;
+}
+
+.plugin_coop_tagcloud span.day {
+    display: block;
+    font: bold 20px/18px Dosis,Lucida,Verdana,sans-serif;
+    height: 20px;
+    padding-top: 4px;
+    text-align: center;
+    text-shadow: 1px 1px 2px #B3B3B3;
+    width: 40px;
+}
+
+.plugin_coop_tagcloud span.month {
+    background-color: #F86437;
+    color: #FFFFFF;
+    display: block;
+    font-size: 12px;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+}
+
+.plugin_coop_tagcloud_footer {
+    clear: left;
+}
+
+.plugin_coop_tagcloud .plugin_form {
+    margin-bottom: 20px;
+}
+
+.plugin_coop_tagcloud #id_search_string {
+    background: url("../images/search.png") no-repeat scroll 5px 4px transparent;
+    padding: 4px 4px 4px 25px;
+    width: 120px;
+    margin-bottom: 0px;
+}
+
+.plugin_coop_tagcloud #search_button {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #F5F5F5;
+    background-image: -moz-linear-gradient(center top , #FFFFFF, #E6E6E6);
+    background-repeat: repeat-x;
+    border-color: #E6E6E6 #E6E6E6 #B3B3B3;
+    border-image: none;
+    border-radius: 4px 4px 4px 4px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+    color: #333333;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 13px;
+    line-height: 18px;
+    margin-bottom: 0;
+    padding: 4px 0px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+    vertical-align: middle;
+}
+
+.plugin_coop_tagcloud #search_button input {
+    border: none;
+    background: none;
+    box-shadow: none;
+}

@@ -1,0 +1,27 @@
+{% load i18n %}
+{% load django_nuages_tag %}
+
+{% compute_tag_cloud computed_tags interest font_size 10 50 lin %}
+{% compute_tag_cloud computed_tags interest opacity 0.7 1 lin %}
+
+<div class="plugin_coop_tagcloud">
+
+    {% for tag in computed_tags %}
+        <span style="font-size: {{ tag.font_size|safe }}px; opacity: {{ tag.opacity|safe }}"><a href="javascript:search_tag('{{ tag.name }}')">{{ tag.name }}</a></span>
+    {% endfor %}
+
+    <form action="{{ search_results_url }}" method="get" class="plugin_form" enctype="multipart/form-data" id="search-form-tag">{% csrf_token %}
+        {{ form.search_string_tag }}
+    </form>
+</div>
+
+
+<script type="text/javascript">
+
+    function search_tag (tag) {
+        var frm = $('#search-form-tag');
+        $('#id_search_string_tag').val(tag);
+        document.forms["search-form-tag"].submit();
+    }
+
+</script>
