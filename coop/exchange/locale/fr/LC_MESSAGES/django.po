@@ -70,19 +70,19 @@ msgstr "Produit, matériel"
 
 #: models.py:43
 msgid "Service"
-msgstr "Un service"
+msgstr "Service"
 
 #: models.py:44
 msgid "Skill"
-msgstr "Une compétence"
+msgstr "Compétence"
 
 #: models.py:45
 msgid "Partnership"
-msgstr "Un partenariat"
+msgstr "Partenariat"
 
 #: models.py:46
 msgid "Question"
-msgstr "Une question, une réflexion"
+msgstr "Question / réflexion"
 
 #: models.py:51
 msgid "label"
