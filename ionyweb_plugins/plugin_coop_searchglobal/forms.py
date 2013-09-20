@@ -7,7 +7,7 @@ from django import forms
 
 class Plugin_CoopSearchGlobalForm(ModuloModelForm):
     
-    search_string = forms.EmailField(label=_('Search string'), required=False)
+    search_string = forms.CharField(label=_('Search string'), required=False)
     
     class Meta:
         model = Plugin_CoopSearchGlobal
