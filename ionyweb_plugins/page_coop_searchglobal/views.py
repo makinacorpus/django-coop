@@ -26,6 +26,11 @@ MEDIAS = (
     CSSMedia('page_coop_searchglobal.css'),
 )
 
+"""
+This page_app works with both 'plugin_coop_searchglobal' AND 'plugin_coop_tagcloud'.
+The two plugins send a GET search_string or search_string_tag for a search in the DB objects
+"""
+
 def index_view(request, page_app):
     rdict = filter_data(request, page_app, "list")
     return render_view('page_coop_searchglobal/index.html',
@@ -77,11 +82,11 @@ def filter_data(request, page_app, mode):
     entries = None
     if 'articles' in settings.COOP_SEARCHGLOBAL_THEMES:
         entries = CoopEntry.objects.filter(status=1).order_by('-modification_date')
-        
+
     if request.method == 'GET':  
-        if request.GET['search_string']:
+        if 'search_string' in request.GET:
             search_string = request.GET['search_string']
-            if search_string:
+            if search_string is not None and search_string != '':
                 if 'agenda' in settings.COOP_SEARCHGLOBAL_THEMES:
                     occ = occ.filter(Q(event__title__icontains=search_string)|Q(event__description__icontains=search_string))
 
@@ -96,8 +101,27 @@ def filter_data(request, page_app, mode):
                 #if 'exchanges' in settings.COOP_SEARCHGLOBAL_THEMES:
                 #if 'projects' in settings.COOP_SEARCHGLOBAL_THEMES:
                 #if 'offers' in settings.COOP_SEARCHGLOBAL_THEMES:
-                
-                
+
+        if 'search_string_tag' in request.GET:
+            search_string_tag = request.GET['search_string_tag']
+            if search_string_tag is not None and search_string_tag != '':
+
+                if 'agenda' in settings.COOP_SEARCHGLOBAL_THEMES:
+                    occ = occ.filter(event__tagged_items__tag__name__in=[search_string_tag])
+                    
+                if 'organizations' in settings.COOP_SEARCHGLOBAL_THEMES:
+                    organizations = organizations.filter(tagged_items__tag__name__in=[search_string_tag])
+                    
+                if 'articles' in settings.COOP_SEARCHGLOBAL_THEMES:
+                    entries = entries.filter(tagged_items__tag__name__in=[search_string_tag])
+
+                # TODO : extra searches for PES (services, projects...)
+                #if 'services' in settings.COOP_SEARCHGLOBAL_THEMES:
+                #if 'exchanges' in settings.COOP_SEARCHGLOBAL_THEMES:
+                #if 'projects' in settings.COOP_SEARCHGLOBAL_THEMES:
+                #if 'offers' in settings.COOP_SEARCHGLOBAL_THEMES:
+    
+    
     # Put all objects in a a common tab for pagination
     if exchanges:
         for e in exchanges :
