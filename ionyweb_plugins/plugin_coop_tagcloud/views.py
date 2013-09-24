@@ -34,7 +34,8 @@ def index_view(request, plugin):
             items = tag.tagged_items()
             for item in items:
                 nb = len(items.get(item))
-                computed_tags.append({'name': tag, 'interest': nb})
+                if nb > 1:
+                    computed_tags.append({'name': tag, 'interest': nb})
             
         except:
             pass
