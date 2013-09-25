@@ -87,14 +87,34 @@ def filter_data(request, page_app, mode):
         if 'search_string' in request.GET:
             search_string = request.GET['search_string']
             if search_string is not None and search_string != '':
+
                 if 'agenda' in settings.COOP_SEARCHGLOBAL_THEMES:
-                    occ = occ.filter(Q(event__title__icontains=search_string)|Q(event__description__icontains=search_string))
+                    occ = occ.filter(Q(event__title__icontains=search_string) \
+                                    |Q(event__description__icontains=search_string) \
+                                    |Q(event__tagged_items__tag__name__in=[search_string]) \
+                                    |Q(event__activity__label__icontains=search_string) \
+                                    |Q(event__transverse_themes__name__icontains=search_string) \
+                                    |Q(event__organization__title__icontains=search_string) \
+                                    |Q(event__location__city__icontains=search_string) \
+                                    ).distinct()
 
                 if 'organizations' in settings.COOP_SEARCHGLOBAL_THEMES:
-                    organizations = organizations.filter(Q(title__icontains=search_string)|Q(description__icontains=search_string)|Q(short_description__icontains=search_string))
-
+                    organizations = organizations.filter(Q(title__icontains=search_string) \
+                                                        |Q(description__icontains=search_string) \
+                                                        |Q(short_description__icontains=search_string) \
+                                                        |Q(tagged_items__tag__name__in=[search_string]) \
+                                                        |Q(offer__activity__label__icontains=search_string) \
+                                                        |Q(transverse_themes__name__icontains=search_string) \
+                                                        ).distinct()
+                
                 if 'articles' in settings.COOP_SEARCHGLOBAL_THEMES:
-                    entries = entries.filter(Q(title__icontains=search_string)|Q(resume__icontains=search_string)|Q(body__icontains=search_string))
+                    entries = entries.filter(Q(title__icontains=search_string) \
+                                            |Q(resume__icontains=search_string) \
+                                            |Q(body__icontains=search_string) \
+                                            |Q(tagged_items__tag__name__in=[search_string]) \
+                                            |Q(activity__label__icontains=search_string) \
+                                            |Q(transverse_themes__name__icontains=search_string) \
+                                            ).distinct()
 
                 # TODO : extra searches for PES (services, projects...)
                 #if 'services' in settings.COOP_SEARCHGLOBAL_THEMES:
@@ -154,6 +174,6 @@ def filter_data(request, page_app, mode):
     if 'page' in get_params:
         del get_params['page']    
     
-    rdict = {'items': items_page, 'base_url': base_url, 'exchanges_url': page_app.exchanges_url, 'organizations_url': page_app.organizations_url, 'projects_url': page_app.projects_url, 'agenda_url': page_app.agenda_url, 'blog_url': page_app.blog_url, 'media_path': settings.MEDIA_URL}
+    rdict = {'items': items_page, 'base_url': base_url, 'exchanges_url': page_app.exchanges_url, 'organizations_url': page_app.organizations_url, 'projects_url': page_app.projects_url, 'agenda_url': page_app.agenda_url, 'blog_url': page_app.blog_url, 'media_path': settings.MEDIA_URL, 'get_params': get_params.urlencode()}
     
     return rdict
