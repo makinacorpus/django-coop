@@ -88,13 +88,13 @@ def filter_data(request, page_app, mode):
 
     center_map = settings.COOP_MAP_DEFAULT_CENTER
 
-    if base_url == settings.COOP_MEMBER_ORGANIZATIONS_URL:
+    if base_url == settings.COOP_MEMBER_ORGANIZATIONS_URL or base_url != settings.COOP_MEMBER_PROJECTS_URL:
         organizations = organizations.filter(Q(is_project=False)|Q(is_project=None))
         search_form_template = "page_members/search_form_organization.html"
     if base_url == settings.COOP_MEMBER_PROJECTS_URL:
         organizations = organizations.filter(is_project=True)
         search_form_template = "page_members/search_form_project.html"
-        
+     
     more_criteria = False
     zone_json = None
     #if request.method == 'POST': # If the form has been submitted
