@@ -89,9 +89,7 @@ def index_view(request, page_app):
         # Private news
         my_groups = request.user.groups.all()
         for g in my_groups:
-            private_entries = CoopEntry.objects.filter(author=request.user,group_private=g).order_by('title')
-            for pe in private_entries:
-                tab_private_entries.append(pe)
+            tab_private_entries = CoopEntry.objects.filter(group_private=g).order_by('title')
         
         # My exchanges
         exchanges = Exchange.objects.all().order_by('title')
