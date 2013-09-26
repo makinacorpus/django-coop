@@ -10,6 +10,7 @@
                     <span class="account-infos">{%trans "Hi" %} {{ request.user.first_name}} {{ request.user.last_name}}</span>
                 {% else %}
                     <span class="account-link">{% trans "Login" %}</span>
+                    <span class="account-infos">{% trans "Please identify" %}</span>
                 {% endif %}
             </div>
         </div>
