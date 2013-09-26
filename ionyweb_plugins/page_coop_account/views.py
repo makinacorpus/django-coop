@@ -51,6 +51,7 @@ def index_view(request, page_app):
     tab_exchanges = []
     tab_events = []
     tab_entries = []
+    tab_private_entries = []
 
     if request.user.is_authenticated():
         render_page = 'page_coop_account/index.html'
@@ -85,6 +86,13 @@ def index_view(request, page_app):
         for e in entries:
             tab_entries.append(e)
         
+        # Private news
+        my_groups = request.user.groups.all()
+        for g in my_groups:
+            private_entries = CoopEntry.objects.filter(author=request.user,group_private=g).order_by('title')
+            for pe in private_entries:
+                tab_private_entries.append(pe)
+        
         # My exchanges
         exchanges = Exchange.objects.all().order_by('title')
         for e in exchanges:
@@ -113,7 +121,7 @@ def index_view(request, page_app):
         render_page = 'page_coop_account/login.html'
     
         
-    rdict = {'object': page_app, 'base_url': base_url, 'org': tab_org, 'projects': tab_projects, 'exchanges': tab_exchanges, 'occs': tab_events, 'entries': tab_entries}
+    rdict = {'object': page_app, 'base_url': base_url, 'org': tab_org, 'projects': tab_projects, 'exchanges': tab_exchanges, 'occs': tab_events, 'entries': tab_entries, 'private_entries': tab_private_entries}
     
     return render_view(render_page,
                        rdict,
