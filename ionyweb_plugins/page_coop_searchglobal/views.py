@@ -78,10 +78,10 @@ def filter_data(request, page_app, mode):
     if 'offers' in settings.COOP_SEARCHGLOBAL_THEMES:
         offers = Offer.objects.filter(provider__active=True).order_by("-modified")
 
-    # List all articles
+    # List all articles (exclude the one attahed to a group, because they are private)
     entries = None
     if 'articles' in settings.COOP_SEARCHGLOBAL_THEMES:
-        entries = CoopEntry.objects.filter(status=1).order_by('-modification_date')
+        entries = CoopEntry.objects.filter(status=1, group_private__isnull=True).order_by('-modification_date')
 
     if request.method == 'GET':  
         if 'search_string' in request.GET:

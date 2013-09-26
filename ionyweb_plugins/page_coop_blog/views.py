@@ -88,7 +88,8 @@ def categories_queryset_view_to_app(view_func):
 def filter_data(request, page_app):
     base_url = u'%s' % (page_app.get_absolute_url())
 
-    entries = CoopEntry.objects.filter(status=1, blog=page_app).order_by('-modification_date')
+    # Do not display entries that have a group associated, those one are privates
+    entries = CoopEntry.objects.filter(status=1, blog=page_app, group_private__isnull=True).order_by('-modification_date')
     more_criteria = False
     
     if request.method == 'GET': # If the form has been submitted        
