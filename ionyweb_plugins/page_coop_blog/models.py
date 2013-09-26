@@ -11,7 +11,7 @@ from django.http import Http404
 from mptt.models import MPTTModel, TreeForeignKey
 from sorl.thumbnail import ImageField
 from django.contrib.contenttypes import generic 
-
+from django.contrib.auth.models import Group
 
 from ionyweb.page.models import AbstractPageApp
 from managers import CategoryOnlineManager, EntryOnlineManager
@@ -189,6 +189,10 @@ class CoopEntry(models.Model):
     objects = models.Manager()
     online_objects = EntryOnlineManager()
 
+    group_private = models.ManyToManyField(Group,
+        verbose_name=_(u'group'), blank=True, null=True)
+
+    
     class Meta:
         verbose_name = _('entry')
         verbose_name_plural = _('entries')
