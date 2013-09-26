@@ -23,27 +23,12 @@ MEDIAS = (
 
 def index_view(request, plugin):
 
-    computed_tags = []
-
-    # Get alls tags...
-    all_tags = Tag.objects.all()
-    
-    # ...and see how they are used in objects, and make a tag cloud
-    for tag in all_tags:
-        try:
-            items = tag.tagged_items()
-            for item in items:
-                nb = len(items.get(item))
-                if nb > 1:
-                    computed_tags.append({'name': tag, 'interest': nb})
-            
-        except:
-            pass
+    is_authent = request.user.is_authenticated()
     
     form = Plugin_CoopAccountForm()
     render_template = 'plugin_coop_account/index.html'
     rdict = {}
-    rdict = {'object': plugin, 'search_results_url': settings.COOP_SEARCHRESULTS_URL, 'form': form, 'computed_tags': computed_tags}
+    rdict = {'object': plugin, 'form': form, 'is_authent': is_authent, 'url_account': plugin.account_url}
     
     return render_view(render_template,
                        rdict,

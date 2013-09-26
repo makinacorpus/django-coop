@@ -2,7 +2,18 @@
 {% load django_nuages_tag %}
 
 <div class="plugin_coop_account">
-    <a href="{{ url_account }}">{% trans "My account" %}</a>
+    <a href="{{ url_account }}">
+        <div class="btn-account">
+            <div class="infos">
+                {% if is_authent %}
+                    <span class="account-link">{% trans "My account" %}</span>
+                    <span class="account-infos">{%trans "Hi" %} {{ request.user.first_name}} {{ request.user.last_name}}</span>
+                {% else %}
+                    <span class="account-link">{% trans "Login" %}</span>
+                {% endif %}
+            </div>
+        </div>
+    </a>
 </div>
 
 
