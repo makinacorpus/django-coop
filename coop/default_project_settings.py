@@ -204,7 +204,7 @@ INSTALLED_APPS = [
     # PuSH
     'django_rq',
     'subhub',
-    'django_push.subscriber',
+    #'django_push.subscriber',
 
     #ionyweb
     'ionyweb',
@@ -226,7 +226,6 @@ INSTALLED_APPS = [
 
     # Apps
     'ionyweb.page_app.page_text',
-    'ionyweb.page_app.page_blog',
     'ionyweb.page_app.page_redirect',
     'ionyweb.page_app.page_agenda',
     'ionyweb.page_app.page_book',
@@ -241,7 +240,6 @@ INSTALLED_APPS = [
     'ionyweb.plugin_app.plugin_video',
     'ionyweb.plugin_app.plugin_map',
     'ionyweb.plugin_app.plugin_links_list',
-    'ionyweb.plugin_app.plugin_blog_entries_list',
     'ionyweb.plugin_app.plugin_contact',
     'ionyweb.plugin_app.plugin_fb_likebox',
     'ionyweb.plugin_app.plugin_breadcrumb',
