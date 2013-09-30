@@ -9,7 +9,8 @@ class Migration(SchemaMigration):
 
     def forwards(self, orm):
         # Adding M2M table for field group_private on 'CoopEntry'
-        m2m_table_name = db.shorten_name('page_coop_blog_coopentry_group_private')
+        #m2m_table_name = db.shorten_name('page_coop_blog_coopentry_group_private')
+        m2m_table_name = 'page_coop_blog_coopentry_group_private'
         db.create_table(m2m_table_name, (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
             ('coopentry', models.ForeignKey(orm['page_coop_blog.coopentry'], null=False)),
@@ -20,7 +21,8 @@ class Migration(SchemaMigration):
 
     def backwards(self, orm):
         # Removing M2M table for field group_private on 'CoopEntry'
-        db.delete_table(db.shorten_name('page_coop_blog_coopentry_group_private'))
+        #db.delete_table(db.shorten_name('page_coop_blog_coopentry_group_private'))
+        db.delete_table('page_coop_blog_coopentry_group_private')
 
 
     models = {
