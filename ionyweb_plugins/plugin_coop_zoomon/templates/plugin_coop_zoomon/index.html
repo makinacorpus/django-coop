@@ -68,7 +68,7 @@
         <div class="bloc_title coop_zoomon">
 
             {% if item.obj.logo != '' %}
-                <div class="logo"><a class="member_link" href="{{ organization_url }}p/{{ item.obj.pk }}"><img src="{{ media_path }}{{ item.obj.logo }}" alt=""></a></div>
+                <div class="logo logo_pes_organization"><a class="member_link" href="{{ organization_url }}p/{{ item.obj.pk }}"><img src="{{ media_path }}{{ item.obj.logo }}" alt=""></a></div>
             {% else %}
                 <a href="{{ organization_url }}p/{{ item.obj.pk }}"><div class="logo logo_pes"></div></a>
             {% endif %}
