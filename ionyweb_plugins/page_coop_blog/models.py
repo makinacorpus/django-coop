@@ -192,6 +192,8 @@ class CoopEntry(models.Model):
     group_private = models.ManyToManyField(Group,
         verbose_name=_(u'group'), blank=True, null=True)
 
+    zoom_on = models.BooleanField(_('zoom on'), blank=True, default=False)
+
     
     class Meta:
         verbose_name = _('entry')

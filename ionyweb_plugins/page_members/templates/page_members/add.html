@@ -195,6 +195,11 @@
                     <div class="help_text" title="{% trans "If not published, the organisation won't be visible on the website. You can access to it by going into your account" %}"></div>
                 </div>
                 
+                <div class="fieldWrapper">
+                    {{ form.zoom_on.errors  }}
+                    <div class="labelWrapper">{{ form.zoom_on.label_tag }} : </div>{{ form.zoom_on }}
+                    <div class="help_text" title="{% trans "If set, the event will be publish in the zoom on page" %}"></div>
+                </div>   
 
             </div>
 
