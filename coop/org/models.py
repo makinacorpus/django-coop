@@ -681,7 +681,7 @@ class BaseOrganization(URIModel):
 
     source_info = models.CharField(_(u'source'), max_length=255, blank=True, null=True)
 
-    zoom_on = models.BooleanField(_('zoom on'), blank=True, default=False)
+    zoom_on = models.BooleanField(_(u'zoom on'), blank=True, default=False)
     
     # Management
     creation = models.DateField(_(u'creation date'), auto_now_add=True)

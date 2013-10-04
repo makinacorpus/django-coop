@@ -113,7 +113,7 @@ class BaseEvent(URIModel):
     
     document_set = generic.GenericRelation('coop_local.Document')
     
-    zoom_on = models.BooleanField(_('zoom on'), blank=True, default=False)
+    zoom_on = models.BooleanField(_(u'zoom on'), blank=True, default=False)
     
     #TODO attached articles
     #TODO attached exchanges

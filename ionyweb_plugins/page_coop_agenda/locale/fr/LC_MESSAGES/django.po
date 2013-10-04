@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-19 10:18+0200\n"
+"POT-Creation-Date: 2013-10-04 17:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -168,19 +168,23 @@ msgstr ""
 "Si non publié, l'évènement ne sera pas visible sur le site. Vous pouvez y "
 "accéder en allant dans Mon Compte."
 
-#: templates/page_coop_agenda/add.html:175
+#: templates/page_coop_agenda/add.html:171
+msgid "If set, the event will be publish in the zoom on page"
+msgstr "Si coché, l'évènement sera publié sur la page Zoom sur"
+
+#: templates/page_coop_agenda/add.html:180
 msgid "Create"
 msgstr "Créer"
 
-#: templates/page_coop_agenda/add.html:179
+#: templates/page_coop_agenda/add.html:184
 msgid "Modify"
 msgstr "Modifier"
 
-#: templates/page_coop_agenda/add.html:180
+#: templates/page_coop_agenda/add.html:185
 msgid "Delete"
 msgstr "Supprimer"
 
-#: templates/page_coop_agenda/add.html:180
+#: templates/page_coop_agenda/add.html:185
 msgid "Are you sure you want to delete this event ?"
 msgstr "Êtes vous sûr de vouloir supprimer cet évènement ?"
 

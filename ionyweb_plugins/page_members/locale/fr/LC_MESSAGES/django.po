@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-26 15:04+0200\n"
+"POT-Creation-Date: 2013-10-04 17:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,7 +28,7 @@ msgstr ""
 msgid "Activity"
 msgstr "Activité"
 
-#: forms.py:42 forms.py:61 templates/page_members/detail.html:29
+#: forms.py:42 forms.py:63 templates/page_members/detail.html:29
 #: templates/page_members/index.html:35
 #: templates/page_members/search_form_organization.html:23
 #: templates/page_members/search_form_project.html:23
@@ -47,63 +47,67 @@ msgstr "Périmètre de recherche"
 msgid "Thematic"
 msgstr "Thématique"
 
-#: forms.py:50 templates/page_members/index.html:23
+#: forms.py:50
+msgid "Category"
+msgstr ""
+
+#: forms.py:52 templates/page_members/index.html:23
 #: templates/page_members/search_form_organization.html:11
 #: templates/page_members/search_form_project.html:11
 msgid "Free search"
 msgstr "Recherche libre"
 
-#: forms.py:60
+#: forms.py:62
 msgid "---"
 msgstr ""
 
-#: forms.py:62
+#: forms.py:64
 msgid "Alpha"
 msgstr "Alphabétique"
 
-#: forms.py:63
+#: forms.py:65
 msgid "Date of creation"
 msgstr "Date de création"
 
-#: forms.py:84
+#: forms.py:86
 msgid "Show on public site"
 msgstr "Publier sur le site"
 
-#: forms.py:107
+#: forms.py:109
 msgid "Target structure"
 msgstr "Structure cible"
 
-#: forms.py:111
+#: forms.py:113
 msgid "Label"
 msgstr "Titre"
 
-#: forms.py:111
+#: forms.py:113
 msgid "Location and building name"
 msgstr "Lieu dit ou nom de bâtiment (ex: Maison peuple et culture)"
 
-#: forms.py:112
+#: forms.py:114
 msgid "Address"
 msgstr "Adresse"
 
-#: forms.py:113
+#: forms.py:115
 msgid "City"
 msgstr "Ville"
 
-#: forms.py:114
+#: forms.py:116
 msgid "Zipcode"
 msgstr "Code postal"
 
-#: forms.py:116
+#: forms.py:118
 msgid "Point"
 msgstr ""
 
-#: forms.py:116
+#: forms.py:118
 msgid "You may point manually the location of the location"
 msgstr ""
 "Géolocalisation à partir de l'adresse, il est possible de pointer "
 "manuellement (bouton crayon) si la géolocalisation a mal fonctionné"
 
-#: forms.py:150
+#: forms.py:152
 msgid ""
 "Presentation sample: Monday 9h-12h  14h-17h / Tuesday  9h-12h  14h-17h / "
 "Wed.  14h-17h"
@@ -203,7 +207,7 @@ msgstr "Si la description ne suffit pas"
 msgid "Crowdfunding link"
 msgstr "Lien crowdfunding"
 
-#: templates/page_members/add.html:151 templates/page_members/add.html:224
+#: templates/page_members/add.html:151 templates/page_members/add.html:231
 msgid "You can choose more than one by pressing the CTRL key"
 msgstr "Plusieurs choix possibles en appuyant sur la touche CTRL"
 
@@ -227,77 +231,85 @@ msgstr ""
 "Si non publiée, la structure ne sera pas visible sur le site. Vous pourrez y "
 "accéder en allant dans la section Mon Compte"
 
-#: templates/page_members/add.html:207
+#: templates/page_members/add.html:201
+msgid "If set, the organization will be publish in the zoom on page"
+msgstr "Si coché, la structure sera publiée sur la page Zoom sur"
+
+#: templates/page_members/add.html:212
 msgid "Documents"
 msgstr "Documents et galerie photos de la structure"
 
-#: templates/page_members/add.html:217
+#: templates/page_members/add.html:222
 msgid "Add More document"
 msgstr "Ajouter un autre document"
 
-#: templates/page_members/add.html:218
+#: templates/page_members/add.html:223
 msgid "Clic on button to add more documents"
 msgstr ""
 "Apparaîtra sur la fiche (document téléchargeables). Cliquez sur le bouton "
 "ajouter pour mettre plusieurs documents"
 
-#: templates/page_members/add.html:228
+#: templates/page_members/add.html:226
+msgid "Guaranties"
+msgstr ""
+
+#: templates/page_members/add.html:235
 msgid "Relationship"
 msgstr "Relations"
 
-#: templates/page_members/add.html:238
+#: templates/page_members/add.html:245
 msgid "Add More relation"
 msgstr "Ajouter une nouvelle relation"
 
-#: templates/page_members/add.html:239
+#: templates/page_members/add.html:246
 msgid "Click the button to add more relations"
 msgstr "Cliquez sur le bouton pour ajouter de nouvelles relations"
 
-#: templates/page_members/add.html:244
+#: templates/page_members/add.html:251
 msgid "Activity detail"
 msgstr "Activités détaillées de la structure: offres de biens et services"
 
-#: templates/page_members/add.html:254
+#: templates/page_members/add.html:261
 msgid "Add More offer"
 msgstr "Ajouter une nouvelle offre"
 
-#: templates/page_members/add.html:266
+#: templates/page_members/add.html:273
 msgid "Complementary informations"
 msgstr "Informations complémentaires"
 
-#: templates/page_members/add.html:291
+#: templates/page_members/add.html:298
 msgid "Engagement"
 msgstr "Membres"
 
-#: templates/page_members/add.html:301
+#: templates/page_members/add.html:308
 msgid "Add More engagement"
 msgstr "Ajouter un nouvel engagement"
 
-#: templates/page_members/add.html:305
+#: templates/page_members/add.html:312
 msgid "References"
 msgstr "Références"
 
-#: templates/page_members/add.html:315
+#: templates/page_members/add.html:322
 msgid "Add More"
 msgstr "Ajouter"
 
-#: templates/page_members/add.html:326
+#: templates/page_members/add.html:333
 msgid "Soon"
 msgstr "A venir"
 
-#: templates/page_members/add.html:339
+#: templates/page_members/add.html:346
 msgid "Create"
 msgstr "Enregistrer"
 
-#: templates/page_members/add.html:343
+#: templates/page_members/add.html:350
 msgid "Modify"
 msgstr "Enregistrer"
 
-#: templates/page_members/add.html:344
+#: templates/page_members/add.html:351
 msgid "Delete"
 msgstr "Supprimer"
 
-#: templates/page_members/add.html:344
+#: templates/page_members/add.html:351
 msgid "Are you sure you want to delete this structure ?"
 msgstr "Êtes vous sûr de vouloir supprimer cette structure ?"
 
@@ -376,7 +388,7 @@ msgstr "Résultats"
 msgid "List"
 msgstr "Liste"
 
-#: templates/page_members/index_carto.html:56
+#: templates/page_members/index_carto.html:79
 msgid "Read more"
 msgstr "En savoir plus"
 

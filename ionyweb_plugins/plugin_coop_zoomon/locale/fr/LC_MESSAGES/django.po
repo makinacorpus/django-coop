@@ -1,0 +1,41 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-10-04 17:16+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+
+#: __init__.py:5
+msgid "zoomon"
+msgstr ""
+
+#: __init__.py:8 __init__.py:9
+msgid "Please edit plugin_coop_zoomon./__init__.py"
+msgstr "Merci d'éditer le plugin"
+
+#: models.py:17
+msgid "Zoom on"
+msgstr ""
+
+#: templates/plugin_coop_zoomon/index.html:25
+#: templates/plugin_coop_zoomon/index.html:59
+#: templates/plugin_coop_zoomon/index.html:89
+msgid "Read more"
+msgstr "En savoir plus"
+
+#: templates/plugin_coop_zoomon/index.html:47
+msgid "to"
+msgstr ""
