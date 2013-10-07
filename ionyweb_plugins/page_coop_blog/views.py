@@ -153,7 +153,7 @@ def detail_view(request, page_app, pk):
 
     # check if this article is accessible for this user
     viewable = False
-    if e.group_private is not None:
+    if e.group_private is not None and not request.user.is_superuser:
         for gp in e.group_private.all():
             if gp in request.user.groups.all():
                 viewable = True
