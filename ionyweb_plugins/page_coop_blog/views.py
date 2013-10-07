@@ -88,8 +88,10 @@ def categories_queryset_view_to_app(view_func):
 def filter_data(request, page_app):
     base_url = u'%s' % (page_app.get_absolute_url())
 
-    # Do not display entries that have a group associated, those one are privates
-    entries = CoopEntry.objects.filter(status=1, blog=page_app, group_private__isnull=True).order_by('-modification_date')
+    # Display entries that have a group associated (those one are privates)
+    # only for users associated to this group
+    #entries = CoopEntry.objects.filter(status=1, blog=page_app, group_private__isnull=True).order_by('-modification_date')
+    entries = CoopEntry.objects.filter(Q(status=1, blog=page_app, group_private__isnull=True)|Q(status=1, blog=page_app, group_private__in=request.user.groups.all)).order_by('-modification_date')
     more_criteria = False
     
     if request.method == 'GET': # If the form has been submitted        
@@ -148,6 +150,16 @@ def get_parent_activity_leve_0(activity):
         
 def detail_view(request, page_app, pk):
     e = get_object_or_404(CoopEntry, pk=pk)
+
+    # check if this article is accessible for this user
+    viewable = False
+    if e.group_private is not None:
+        for gp in e.group_private.all():
+            if gp in request.user.groups.all():
+                viewable = True
+        if viewable == False:
+            return
+        
     base_url = u'%sp/' % (page_app.get_absolute_url())
     imgs = e.document_set.filter(type__name='Galerie')
     docs = e.document_set.exclude(type__name='Galerie')
