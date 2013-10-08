@@ -1,31 +1,25 @@
 # -*- coding: utf-8 -*-
 
 from django.template import RequestContext
-from ionyweb.website.rendering.utils import render_view
-
-from coop_local.models import Location
-
-from django.conf import settings
-
-from django.shortcuts import get_object_or_404
-
-from ionyweb.website.rendering.medias import CSSMedia
-from datetime import datetime
-
-from .forms import PageApp_CoopTerritoryForm, CONTENT_TYPES
-
-from django.db.models import Q
-
-from django.contrib.gis import geos
-from coop_local.models import Location, Area, Document, Exchange, Offer, Occurrence, Calendar, Organization
-from math import pi
-from django.utils.simplejson import dumps
-from ionyweb_plugins.page_coop_blog.models import CoopEntry
-
 from django.contrib.contenttypes.generic import generic_inlineformset_factory
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-
 from django.core.mail import send_mail
+from django.conf import settings
+from django.shortcuts import get_object_or_404
+from django.db.models import Q
+from django.utils.simplejson import dumps
+from django.contrib.gis import geos
+
+from datetime import datetime
+from math import pi
+
+from ionyweb.website.rendering.utils import render_view
+from ionyweb.website.rendering.medias import CSSMedia
+from ionyweb_plugins.page_coop_blog.models import CoopEntry
+
+from coop_local.models import Location, Area, Document, Exchange, Offer, Occurrence, Calendar, Organization, OrganizationCategory
+from coop.base_models import Tag
+from .forms import PageApp_CoopTerritoryForm, CONTENT_TYPES
 
 MEDIAS = (
     CSSMedia('page_coop_territory.css'),
@@ -202,13 +196,12 @@ def filter_data(request, page_app, mode):
                 offers = offers.filter(arg_off)
                 
             if form.cleaned_data['free_search']:
-                exchanges = exchanges.filter(Q(title__contains=form.cleaned_data['free_search']) | Q(description__contains=form.cleaned_data['free_search']))
-                occ = occ.filter(Q(event__title__contains=form.cleaned_data['free_search']) | Q(event__description__contains=form.cleaned_data['free_search']))
+                exchanges = exchanges.filter(Q(title__contains=form.cleaned_data['free_search']) | Q(description__contains=form.cleaned_data['free_search']) | Q(tagged_items__tag__name__in=[form.cleaned_data['free_search']]))
+                occ = occ.filter(Q(event__title__contains=form.cleaned_data['free_search']) | Q(event__description__contains=form.cleaned_data['free_search']) | Q(event__tagged_items__tag__name__in=[form.cleaned_data['free_search']]))
                 offers = offers.filter(Q(title__contains=form.cleaned_data['free_search']) | Q(description__contains=form.cleaned_data['free_search']))
-                organizations = organizations.filter(Q(title__icontains=form.cleaned_data['free_search']) | Q(description__icontains=form.cleaned_data['free_search']))
-                projects = projects.filter(Q(title__icontains=form.cleaned_data['free_search']) | Q(description__icontains=form.cleaned_data['free_search']))
-
-
+                organizations = organizations.filter(Q(title__icontains=form.cleaned_data['free_search']) | Q(description__icontains=form.cleaned_data['free_search']) | Q(tagged_items__tag__name__in=[form.cleaned_data['free_search']]) | Q(category__label=form.cleaned_data['free_search']))
+                projects = projects.filter(Q(title__icontains=form.cleaned_data['free_search']) | Q(description__icontains=form.cleaned_data['free_search']) | Q(tagged_items__tag__name__in=[form.cleaned_data['free_search']]))
+                    
             if form.cleaned_data['statut'] or form.cleaned_data['statut2']:
                 # we clear all except organizations
                 exchanges = None
@@ -236,7 +229,11 @@ def filter_data(request, page_app, mode):
     # Get available locations for autocomplete
     available_locations = dumps([{'label':area.label, 'value':area.pk} for area in Area.objects.all().order_by('label')])
 
-
+    # Get exchange title and tags for free search autocomplete
+    tab_available_data = [{'label':c.label, 'value':c.pk} for c in OrganizationCategory.objects.all().order_by("label")]
+    tab_available_data += [{'label':t.name, 'value':t.pk} for t in Tag.objects.all().order_by('name')]
+    available_data = dumps(tab_available_data)
+   
     # If a filter on content_type has been set, reset
     if reset_exchanges:
         exchanges = None
@@ -278,7 +275,7 @@ def filter_data(request, page_app, mode):
     if 'page' in get_params:
         del get_params['page']    
     
-    rdict = {'items': items_page, 'search_form_template': search_form_template, 'base_url': base_url, 'exchanges_url': page_app.exchanges_url, 'organizations_url': page_app.organizations_url, 'projects_url': page_app.projects_url, 'agenda_url': page_app.agenda_url, 'blog_url': page_app.blog_url, 'form': form, 'more_criteria': more_criteria, 'available_locations': available_locations}
+    rdict = {'items': items_page, 'search_form_template': search_form_template, 'base_url': base_url, 'exchanges_url': page_app.exchanges_url, 'organizations_url': page_app.organizations_url, 'projects_url': page_app.projects_url, 'agenda_url': page_app.agenda_url, 'blog_url': page_app.blog_url, 'form': form, 'more_criteria': more_criteria, 'available_locations': available_locations, 'available_data': available_data}
     
     return rdict
 

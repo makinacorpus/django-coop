@@ -65,7 +65,23 @@
 
         $('#id_date').datepicker({dateFormat: 'yy-mm-dd', constrainInput: false});
 
+        $("#id_free_search").autocomplete({
+            source: function( request, response ) {
+                var matches = $.map( {{ available_data|safe }}, function(tag, i) {
+                    if ( tag.label.toUpperCase().indexOf(request.term.toUpperCase()) === 0 ) {
+                        return tag;
+                    }
+                });
+                response(matches);
+            },
+            select: function(e, ui) {
+                e.preventDefault() // <--- Prevent the value from being inserted.
+                $("#id_free_search_id").val(ui.item.value);
+                $(this).val(ui.item.label);
+            }
         });
+
+    });
 </script>
 
 

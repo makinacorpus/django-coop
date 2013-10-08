@@ -4,6 +4,7 @@ from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
 
 from coop_local.models import Organization, Offer, Document, Reference, Relation, Engagement, Person, Contact, ActivityNomenclature, Location, Area, Evaluation, EvaluationQuestion, EvaluationAnswer, EvaluationQuestionTheme
+from coop.base_models import Tag
 
 from django.conf import settings
 
@@ -103,7 +104,7 @@ def filter_data(request, page_app, mode):
         form = PageApp_MembersForm(request.GET)
         if form.is_valid():
             if form.cleaned_data['free_search']:
-                organizations = organizations.filter(Q(title__icontains=form.cleaned_data['free_search']) | Q(description__icontains=form.cleaned_data['free_search']))
+                organizations = organizations.filter(Q(title__icontains=form.cleaned_data['free_search']) | Q(description__icontains=form.cleaned_data['free_search']) | Q(tagged_items__tag__name__in=[form.cleaned_data['free_search']]))
 
             if form.cleaned_data['location']:
                 label = form.cleaned_data['location']
@@ -189,9 +190,12 @@ def filter_data(request, page_app, mode):
     # Get available locations for autocomplete
     available_locations = dumps([{'label':area.label, 'value':area.pk} for area in Area.objects.all().order_by('label')])
 
-    # Get organization title for free search autocomplete
+    
+    # Get organization title and tags for free search autocomplete
     available_orgs = Organization.objects.all()
-    available_orgs = dumps([{'label':o.title, 'value':o.pk} for o in available_orgs.filter(active=True).order_by("title")])
+    tab_available_orgs = [{'label':o.title, 'value':o.pk} for o in available_orgs.filter(active=True).order_by("title")]
+    tab_available_orgs += [{'label':t.name, 'value':t.pk} for t in Tag.objects.all().order_by('name')]
+    available_orgs = dumps(tab_available_orgs)
 
     rdict = {'object': page_app, 'members': orgs_page, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'direct_link': direct_link, 'search_form': search_form, 'form' : form, 'sort_form': sort_form, 'center': center_map, 'available_locations': available_locations, 'available_orgs': available_orgs, 'search_form_template': search_form_template, 'mode': mode, 'get_params': get_params.urlencode(), 'is_project': is_project, 'more_criteria': more_criteria, 'zone': zone_json}
 

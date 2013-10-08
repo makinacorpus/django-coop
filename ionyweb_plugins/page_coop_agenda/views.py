@@ -1,32 +1,27 @@
 # -*- coding: utf-8 -*-
 
 from django.template import RequestContext
-from ionyweb.website.rendering.utils import render_view
-
-from coop_local.models import Event, EventCategory, Calendar, Occurrence, Document
 from django.conf import settings
-
 from django.shortcuts import get_object_or_404
-
-from ionyweb.website.rendering.medias import CSSMedia
-from datetime import datetime
-from coop.org.models import get_rights
-
-from .forms import PageApp_CoopAgendaForm, PartialEventForm, PartialOccEventForm, DocumentForm, ReplyEventForm
 from django.contrib.contenttypes.generic import generic_inlineformset_factory
 from django.forms.models import inlineformset_factory, formset_factory
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-
 from django.db.models import Q
-
 from django.contrib.gis import geos
 from django.contrib.gis.measure import D
-from coop_local.models import Location, Area
-from coop.base_models import Located
-
 from django.utils.simplejson import dumps
 
+from datetime import datetime
 from math import pi
+
+from ionyweb.website.rendering.utils import render_view
+from ionyweb.website.rendering.medias import CSSMedia
+
+from coop_local.models import Event, EventCategory, Calendar, Occurrence, Document
+from coop.org.models import get_rights
+from coop_local.models import Location, Area
+from coop.base_models import Located, Tag
+from .forms import PageApp_CoopAgendaForm, PartialEventForm, PartialOccEventForm, DocumentForm, ReplyEventForm
 
 MEDIAS = (
     CSSMedia('page_coop_agenda.css'),
@@ -145,8 +140,13 @@ def filter_data(request, page_app, mode):
     
     # Get available locations for autocomplete
     available_locations = dumps([{'label':area.label, 'value':area.pk} for area in Area.objects.all().order_by('label')])
- 
-    rdict = {'media_path': settings.MEDIA_URL,'agenda': agenda, 'occs': occ_page, 'object': page_app, 'base_url': base_url, 'search_form': search_form, 'form': form, 'center': center_map, 'available_locations': available_locations, 'search_form_template': search_form_template, "mode": mode, 'more_criteria' : more_criteria}
+
+    # Get exchange title and tags for free search autocomplete
+    tab_available_data = [{'label':e.title, 'value':e.pk} for e in Event.objects.filter(active=True, calendar=agenda).order_by("title")]
+    tab_available_data += [{'label':t.name, 'value':t.pk} for t in Tag.objects.all().order_by('name')]
+    available_data = dumps(tab_available_data)
+    
+    rdict = {'media_path': settings.MEDIA_URL,'agenda': agenda, 'occs': occ_page, 'object': page_app, 'base_url': base_url, 'search_form': search_form, 'form': form, 'center': center_map, 'available_locations': available_locations, 'available_data': available_data, 'search_form_template': search_form_template, "mode": mode, 'more_criteria' : more_criteria}
     
     return rdict
 
@@ -207,7 +207,11 @@ def filter_occ(occ, form):
             if form.cleaned_data['activity2']:
                 activity = form.cleaned_data['activity2']                    
                 tab_keep = get_list_event_to_keep(occ, activity)
-                occ = occ.filter(pk__in=tab_keep)                    
+                occ = occ.filter(pk__in=tab_keep)
+
+    if form.cleaned_data['free_search']:
+        occ = occ.distinct().filter(Q(event__title__contains=form.cleaned_data['free_search']) | Q(event__tagged_items__tag__name__in=[form.cleaned_data['free_search']]))
+
     return occ
 
     

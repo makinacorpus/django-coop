@@ -8,9 +8,18 @@ from django.utils.safestring import mark_safe
 from django.template import RequestContext
 from django.shortcuts import get_object_or_404
 from django.template.defaultfilters import slugify
-from datetime import datetime, timedelta
 from django.db.models import Q
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.utils.simplejson import dumps
+from django.contrib.contenttypes.generic import generic_inlineformset_factory
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+try:
+    from functools import wraps
+except ImportError:
+    from django.utils.functional import wraps  # Python 2.4 fallback.
+
+from .forms import DocumentForm
+from datetime import datetime, timedelta
 
 from ionyweb.website.rendering import HTMLRendering
 from ionyweb.website.rendering.medias import JSAdminMedia, RSSMedia
@@ -20,13 +29,7 @@ from ionyweb.website.rendering.medias import CSSMedia
 from models import PageApp_CoopBlog, Category, CoopEntry
 from forms import EntryForm, PageApp_CoopBlogForm
 from coop_local.models import Document
-from django.contrib.contenttypes.generic import generic_inlineformset_factory
-from .forms import DocumentForm
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-try:
-    from functools import wraps
-except ImportError:
-    from django.utils.functional import wraps  # Python 2.4 fallback.
+from coop.base_models import Tag
 
 
 ACTIONS_MEDIAS = [
@@ -98,7 +101,7 @@ def filter_data(request, page_app):
         form = PageApp_CoopBlogForm(request.GET)
         if form.is_valid():
             if form.cleaned_data['free_search']:
-                entries = entries.filter(Q(title__contains=form.cleaned_data['free_search']) | Q(description__contains=form.cleaned_data['free_search']))
+                entries = entries.filter(Q(title__contains=form.cleaned_data['free_search']) | Q(description__contains=form.cleaned_data['free_search']) | Q(tagged_items__tag__name__in=[form.cleaned_data['free_search']]))
             
             if form.cleaned_data['thematic']:
                 entries = entries.filter(Q(transverse_themes=form.cleaned_data['thematic']))
@@ -126,8 +129,13 @@ def filter_data(request, page_app):
     get_params = request.GET.copy()
     if 'page' in get_params:
         del get_params['page']    
-    
-    rdict = {'entries': entries_page, 'base_url': base_url, 'form': form, 'media_path': settings.MEDIA_URL}
+
+    # Get entries title and tags for free search autocomplete
+    tab_available_data = [{'label':e.title, 'value':e.pk} for e in CoopEntry.objects.filter(Q(status=1, blog=page_app, group_private__isnull=True)).order_by("title")]
+    tab_available_data += [{'label':t.name, 'value':t.pk} for t in Tag.objects.all().order_by('name')]
+    available_data = dumps(tab_available_data)        
+        
+    rdict = {'entries': entries_page, 'base_url': base_url, 'form': form, 'media_path': settings.MEDIA_URL, 'available_data': available_data}
     
     return rdict
 

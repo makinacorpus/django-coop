@@ -1,34 +1,29 @@
 # -*- coding: utf-8 -*-
 
 from django.template import RequestContext
-from ionyweb.website.rendering.utils import render_view
-
-from coop_local.models import Exchange
-from coop_local.models import Location
-
 from django.conf import settings
-
 from django.shortcuts import get_object_or_404
-
-from ionyweb.website.rendering.medias import CSSMedia
-from datetime import datetime
-
-from .forms import PageApp_CoopExchangeForm, PartialExchangeForm, DocumentForm, ReplyExchangeForm
-
-from django.db.models import Q
-
 from django.contrib.gis import geos
-from coop_local.models import Location, Area, Document
-from coop.org.models import get_rights
-
-from math import pi
+from django.core.mail import send_mail
+from django.utils.simplejson import dumps
+from django.db.models import Q
 from django.utils.simplejson import dumps
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-
 from django.contrib.contenttypes.generic import generic_inlineformset_factory
-from coop.exchange.admin import ExchangeForm
 
-from django.core.mail import send_mail
+from datetime import datetime
+from math import pi
+
+from coop.exchange.admin import ExchangeForm
+from coop_local.models import Exchange
+from coop_local.models import Location
+from coop_local.models import Location, Area, Document
+from coop.org.models import get_rights
+from coop.base_models import Tag
+from .forms import PageApp_CoopExchangeForm, PartialExchangeForm, DocumentForm, ReplyExchangeForm
+
+from ionyweb.website.rendering.utils import render_view
+from ionyweb.website.rendering.medias import CSSMedia
 
 MEDIAS = (
     CSSMedia('page_coop_exchange.css'),
@@ -53,27 +48,19 @@ def carto_view(request, page_app):
 def filter_data(request, page_app, mode):
     base_url = u'%s' % (page_app.get_absolute_url())
 
-    #exchanges = Exchange.objects.filter(active=True).order_by("title")
     exchanges = Exchange.objects.filter(active=True).order_by("-modified")
     exchanges = exchanges.filter(Q(start__lte=datetime.today()) | Q(start__isnull=True) )   
 
     more_criteria = False
     is_exchange = True
     
-    #if base_url == settings.COOP_EXCHANGE_SERVICES_URL:
-        #exchanges = exchanges.filter(organization__isnull=True)
-        #search_form_template = "page_coop_exchange/search_form_service.html"
-        #is_exchange = False
-    #if base_url == settings.COOP_EXCHANGE_EXCHANGES_URL:
-        #exchanges = exchanges.filter(organization__isnull=False)
-        #search_form_template = "page_coop_exchange/search_form_exchange.html"
     search_form_template = "page_coop_exchange/search_form_exchange.html"
     
     if request.method == 'GET': # If the form has been submitted        
         form = PageApp_CoopExchangeForm(request.GET)
         if form.is_valid():
             if form.cleaned_data['free_search']:
-                exchanges = exchanges.filter(Q(title__contains=form.cleaned_data['free_search']) | Q(description__contains=form.cleaned_data['free_search']))
+                exchanges = exchanges.filter(Q(title__contains=form.cleaned_data['free_search']) | Q(description__contains=form.cleaned_data['free_search']) | Q(tagged_items__tag__name__in=[form.cleaned_data['free_search']]))
             
             if form.cleaned_data['type_exchange']:
                 exchanges = exchanges.filter(Q(eway__in=form.cleaned_data['type_exchange']))
@@ -141,6 +128,10 @@ def filter_data(request, page_app, mode):
     # Get available locations for autocomplete
     available_locations = dumps([{'label':area.label, 'value':area.pk} for area in Area.objects.all().order_by('label')])
 
+    # Get exchange title and tags for free search autocomplete
+    tab_available_data = [{'label':e.title, 'value':e.pk} for e in Exchange.objects.filter(Q(active=True)).order_by("-modified")]
+    tab_available_data += [{'label':t.name, 'value':t.pk} for t in Tag.objects.all().order_by('name')]
+    available_data = dumps(tab_available_data)
    
     if mode == 'list':
         paginator = Paginator(exchanges, 10)
@@ -159,7 +150,7 @@ def filter_data(request, page_app, mode):
         get_params = request.GET.copy()    
     
     
-    rdict = {'exchanges': exchanges_page, 'base_url': base_url, 'form': form, 'center': center_map, 'more_criteria': more_criteria, 'available_locations': available_locations, "search_form_template": search_form_template, "mode": mode, 'media_path': settings.MEDIA_URL, 'is_exchange': is_exchange}
+    rdict = {'exchanges': exchanges_page, 'base_url': base_url, 'form': form, 'center': center_map, 'more_criteria': more_criteria, 'available_locations': available_locations, 'available_data': available_data, 'search_form_template': search_form_template, 'mode': mode, 'media_path': settings.MEDIA_URL, 'is_exchange': is_exchange}
     
     return rdict
 
