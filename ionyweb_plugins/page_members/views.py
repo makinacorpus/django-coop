@@ -3,7 +3,7 @@
 from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
 
-from coop_local.models import Organization, Offer, Document, Reference, Relation, Engagement, Person, Contact, ActivityNomenclature, Location, Area
+from coop_local.models import Organization, Offer, Document, Reference, Relation, Engagement, Person, Contact, ActivityNomenclature, Location, Area, Evaluation, EvaluationQuestion, EvaluationAnswer, EvaluationQuestionTheme
 
 from django.conf import settings
 
@@ -226,6 +226,19 @@ def detail_view(request, page_app, pk):
     
     relationship_queryset = Relation.objects.filter(source=member)
     
+    # Evaluation
+    evaluate = []
+    if member.evaluation:
+        for t in EvaluationQuestionTheme.objects.all():
+            # 4 themes
+            # TODO revoir le comptage des points, cr le nombre de questions par theme n'est pas constant
+            points = 0
+            cssclass= t.cssclass
+            for a in member.evaluation.evaluationanswer_set.filter(question__theme=t):
+                if a.answer:
+                    points += a.answer
+            evaluate.append({"theme": t, "points": points/4, "cssclass": cssclass})
+    
     # check if openings
     openings = False
     for l in member.located.all():
@@ -233,7 +246,7 @@ def detail_view(request, page_app, pk):
             openings = True
 
     return render_view('page_members/detail.html',
-                       { 'member':  member, 'imgs': imgs, 'docs': docs, 'media_path': settings.MEDIA_URL , 'base_url': base_url, 'openings': openings, 'relationship_queryset': relationship_queryset, 'is_project': is_project},
+                       { 'member':  member, 'imgs': imgs, 'docs': docs, 'media_path': settings.MEDIA_URL , 'base_url': base_url, 'openings': openings, 'relationship_queryset': relationship_queryset, 'is_project': is_project, 'evaluate': evaluate},
                        MEDIAS,
                        context_instance=RequestContext(request))
                        
@@ -249,25 +262,27 @@ def add_view(request, page_app, member_id=None):
         DocFormSet = generic_inlineformset_factory(Document, form=DocumentForm, extra=1)
         RelationFormSet = inlineformset_factory(Organization, Relation, exclude=['reltype'], fk_name='source', form=CustomRelationForm, extra=1)
         ContactFormSet = generic_inlineformset_factory(Contact, exclude=['active','sites'], extra=1)
-        LocatedFormSet = generic_inlineformset_factory(Located, extra=1, form=CustomLocatedForm)
+        LocatedFormSet = generic_inlineformset_factory(Located, extra=1, form=CustomLocatedForm)        
+        EvaluateFormSet = inlineformset_factory(Evaluation, EvaluationAnswer, exclude=('question',), extra=0, can_delete=False)
         #ReferenceFormSet = inlineformset_factory(Organization, Reference, extra=1)
         #EngagementFormSet = inlineformset_factory(Organization, Engagement,exclude=['active','sites'], extra=1)
         #MembersFormSet = inlineformset_factory(Organization, Person, extra=1)
 
+        evaluation = None
         if member_id:
             # update
             mode = 'update'
             member = get_object_or_404(Organization, pk=member_id)
+            evaluation = member.evaluation
             base_url = u'%sp/member_edit/%s' % (page_app.get_absolute_url(),member_id)
             delete_url = u'%sp/member_delete/%s' % (page_app.get_absolute_url(),member_id)
-
         else :
             # new
             mode = 'add'
             base_url = u'%sp/member_add' % (page_app.get_absolute_url())
             delete_url = ""
             member = Organization()        
-        
+
         if request.method == 'POST': # If the form has been submitted
         
             # TODO: auto fill :
@@ -277,6 +292,9 @@ def add_view(request, page_app, member_id=None):
             #authors
             #validation
             
+            evaluation = Evaluation(pk=request.POST['evaluate-0-evaluation'])
+            member.evaluation = evaluation
+
             form = PartialMemberForm(request.POST, request.FILES, instance = member)
             offerFormset = OfferFormSet(request.POST, request.FILES, prefix='offer', instance=member)            
             docFormset = DocFormSet(request.POST, request.FILES, prefix='doc', instance=member)
@@ -286,10 +304,12 @@ def add_view(request, page_app, member_id=None):
             #membersFormset = MembersFormSet(request.POST, request.FILES, prefix='member', instance=member)
             contactFormset = ContactFormSet(request.POST, request.FILES, prefix='contact', instance=member)
             locatedFormset = LocatedFormSet(request.POST, request.FILES, prefix='located', instance=member)
+            evaluationFormset = EvaluateFormSet(request.POST, prefix='evaluate', instance=member.evaluation)
             
-            if form.is_valid() and docFormset.is_valid() and offerFormset.is_valid() and relationFormset.is_valid() and contactFormset.is_valid() and locatedFormset.is_valid():
+            if form.is_valid() and docFormset.is_valid() and offerFormset.is_valid() and relationFormset.is_valid() and contactFormset.is_valid() and locatedFormset.is_valid() and evaluationFormset.is_valid():
                 member = form.save()
                 member.is_project = is_project
+                member.evaluation = evaluation
                 member.save()
                 docFormset.save()
                 offerFormset.save()
@@ -297,6 +317,7 @@ def add_view(request, page_app, member_id=None):
                 #engagementFormset.save()
                 contactFormset.save()
                 locatedFormset.save()                
+                evaluationFormset.save()
                 
                 base_url = u'%s' % (page_app.get_absolute_url())
                 rdict = {'base_url': base_url, 'member_id': member.pk, 'is_project': is_project, 'mode': mode}
@@ -323,6 +344,16 @@ def add_view(request, page_app, member_id=None):
                 RelationFormSet.extra = 1
                 ContactFormSet.extra = 1
                 LocatedFormSet.extra = 1
+
+            if not member.evaluation:
+                evaluation = Evaluation()
+                evaluation.save()
+                member.evaluation = evaluation
+                if member_id:
+                    member.save()
+
+            if len(evaluation.evaluationanswer_set.all()) == 0:
+                prepare_blank_answers(evaluation)
                 
             form = PartialMemberForm(instance=member) # An empty form
             offerFormset = OfferFormSet(instance=member, prefix='offer')
@@ -330,11 +361,9 @@ def add_view(request, page_app, member_id=None):
             relationFormset = RelationFormSet(instance=member, prefix='rel')
             contactFormset = ContactFormSet(instance=member, prefix='contact')
             locatedFormset = LocatedFormSet(instance=member, prefix='located')
-            #referenceFormset = ReferenceFormSet(instance=member, prefix='ref')
-            #engagementFormset = EngagementFormSet(instance=member, prefix='eng')
-            #membersFormset = MembersFormSet(prefix='member')
+            evaluationFormset = EvaluateFormSet(instance=member.evaluation, prefix='evaluate')
         
-        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'delete_url': delete_url, 'form': form, 'offer_form': offerFormset, 'doc_form': docFormset, 'rel_form': relationFormset,  'contact_form': contactFormset, 'center': center_map, 'located_form': locatedFormset, 'mode': mode, 'is_project' : is_project}
+        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'delete_url': delete_url, 'form': form, 'offer_form': offerFormset, 'doc_form': docFormset, 'rel_form': relationFormset,  'contact_form': contactFormset, 'evaluation_form': evaluationFormset, 'center': center_map, 'located_form': locatedFormset, 'mode': mode, 'is_project' : is_project}
         return render_view('page_members/add.html',
                         rdict,
                         MEDIAS,
@@ -342,7 +371,11 @@ def add_view(request, page_app, member_id=None):
     else:
         return render_view('page_members/forbidden.html')
   
-
+def prepare_blank_answers(evaluation):
+    for question in EvaluationQuestion.objects.all():
+        answer = EvaluationAnswer(evaluation=evaluation, question=question)
+        answer.save()
+        
 def delete_view(request, page_app, member_id):
     # check rights    
     can_edit, can_add = get_rights(request, member_id)

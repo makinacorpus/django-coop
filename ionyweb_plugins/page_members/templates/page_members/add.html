@@ -262,14 +262,7 @@
             </div>
 
 
-
-            
-
-
-
             <!--  TODO: membre à contact préféré            -->
-
-            <!-- TODO plus value solidaire -->
             <h3 class="title_formset">{% trans "Complementary informations" %}</h3>
             <div id="offer" class="fieldWrapper formset">
 
@@ -294,43 +287,27 @@
                 </div>
             </div>
             
-            <!-- Membres             -->
-<!--            <h3 class="title_formset">{% trans "Engagement" %}</h3>
-            <div id="eng" class="fieldWrapper formset">
-                {{ engagement_form.management_form }}
-                {% for d in engagement_form.forms %}
-                    <div class='table_formset table_eng'>
-                        <table class='no_error'>
-                            {{ d.as_table }}
-                        </table>
-                    </div>
-                {% endfor %}
-                <input type="button" value="{% trans 'Add More engagement' %}" id="add_more_eng">
-            </div>-->
-
-            <!--  Standby            -->
-<!--            <h3>{% trans "References" %}</h3>
-            <div id="refs" class="fieldWrapper formset">
-                {{ reference_form.management_form }}
-                {% for d in reference_form.forms %}
-                    <div class='table_formset table_ref'>
-                        <table class='no_error'>
-                            {{ d.as_table }}
-                        </table>
-                    </div>
-                {% endfor %}
-                <input type="button" value="{% trans 'Add More' %}" id="add_more_ref">
-            </div>-->
-
-
-<!--            <div class="fieldWrapper">
-                {{ form.testimony.errors  }}
-                {{ form.testimony.label_tag }} : {{ form.testimony }}
-            </div>-->
-<!--         </div> -->
         </div>
         <div id="tabs-3">
-            <h3>{% trans "Soon" %}</h3>
+            <h3 class="title_formset">{% trans "Solidarity" %}</h3>
+            <div id="solidarity" class="fieldWrapper formset">
+                {{ evaluation_form.management_form }}
+                {% for d in evaluation_form.forms %}
+                    <div class="fieldWrapper question">
+                        {{ d.instance.question }}
+                    </div>
+                    <div class="fieldWrapper answer">
+                        {{ d }}
+                    </div>
+
+<!--                    <div class='table_formset table_contact'>
+                        <table class='no_error'>
+                            <tr><th colspan="2">{{ d.instance.question }}</th></tr>
+                            {{ d.as_table }}
+                        </table>
+                    </div>-->
+                {% endfor %}
+            </div>
         </div>
     </div>
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-04 17:20+0200\n"
+"POT-Creation-Date: 2013-10-08 16:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -273,43 +273,27 @@ msgstr "Activités détaillées de la structure: offres de biens et services"
 msgid "Add More offer"
 msgstr "Ajouter une nouvelle offre"
 
-#: templates/page_members/add.html:273
+#: templates/page_members/add.html:266
 msgid "Complementary informations"
 msgstr "Informations complémentaires"
 
-#: templates/page_members/add.html:298
-msgid "Engagement"
-msgstr "Membres"
+#: templates/page_members/add.html:292
+msgid "Solidarity"
+msgstr ""
 
-#: templates/page_members/add.html:308
-msgid "Add More engagement"
-msgstr "Ajouter un nouvel engagement"
-
-#: templates/page_members/add.html:312
-msgid "References"
-msgstr "Références"
-
-#: templates/page_members/add.html:322
-msgid "Add More"
-msgstr "Ajouter"
-
-#: templates/page_members/add.html:333
-msgid "Soon"
-msgstr "A venir"
-
-#: templates/page_members/add.html:346
+#: templates/page_members/add.html:316
 msgid "Create"
 msgstr "Enregistrer"
 
-#: templates/page_members/add.html:350
+#: templates/page_members/add.html:320
 msgid "Modify"
 msgstr "Enregistrer"
 
-#: templates/page_members/add.html:351
+#: templates/page_members/add.html:321
 msgid "Delete"
 msgstr "Supprimer"
 
-#: templates/page_members/add.html:351
+#: templates/page_members/add.html:321
 msgid "Are you sure you want to delete this structure ?"
 msgstr "Êtes vous sûr de vouloir supprimer cette structure ?"
 
@@ -396,6 +380,21 @@ msgstr "En savoir plus"
 #: templates/page_members/search_form_project.html:17
 msgid "Statut"
 msgstr "Statut"
+
+#~ msgid "Engagement"
+#~ msgstr "Membres"
+
+#~ msgid "Add More engagement"
+#~ msgstr "Ajouter un nouvel engagement"
+
+#~ msgid "References"
+#~ msgstr "Références"
+
+#~ msgid "Add More"
+#~ msgstr "Ajouter"
+
+#~ msgid "Soon"
+#~ msgstr "A venir"
 
 #~ msgid "Products and services"
 #~ msgstr "Produits et services"

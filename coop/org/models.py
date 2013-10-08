@@ -646,6 +646,7 @@ TRANSMISSION_MODES = Choices(
 )
 
 
+
 class BaseOrganization(URIModel):
     title = models.CharField(_(u'title'), max_length=250)
 
