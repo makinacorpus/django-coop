@@ -93,11 +93,11 @@ def filter_data(request, page_app, mode):
             categories = {}
             
             if form.is_valid():
-
                 if manage_categories:
                     for cat in EventCategory.objects.all():
                         occ = Occurrence.objects.filter(
                                             event__active=True,
+                                            end_time__gt=datetime.now(),
                                             event__calendar=agenda,
                                             event__category=cat
                                             ).order_by("start_time")
@@ -108,6 +108,7 @@ def filter_data(request, page_app, mode):
                 else:
                     occ = Occurrence.objects.filter(
                                     event__active=True,
+                                    end_time__gt=datetime.now(),
                                     event__calendar=agenda,
                                     ).order_by("start_time")
                     occ = filter_occ(occ, form)
