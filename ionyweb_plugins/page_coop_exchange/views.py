@@ -250,7 +250,6 @@ def reply_view(request, page_app, exchange_id=None):
                 
                 # Add name, tel, mail to the content
                 response = "%s\n\n%s\n%s\n%s" % (response, name, email, tel)
-                print response
                 try:
                     exchange = Exchange.objects.get(pk=exchange_id)
                 except Area.DoesNotExist:
