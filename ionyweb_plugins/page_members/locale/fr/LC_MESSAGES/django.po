@@ -353,7 +353,7 @@ msgstr "Structure supprimée"
 
 #: templates/page_members/forbidden.html:3
 msgid "You must be logged in to view this page"
-msgstr "Vous devez être connecté pour voir cette page"
+msgstr "Vous devez être connectés pour voir cette page"
 
 #: templates/page_members/index.html:79
 #: templates/page_members/search_form_organization.html:47

@@ -234,7 +234,7 @@ msgstr "Dates"
 
 #: templates/page_coop_agenda/forbidden.html:3
 msgid "You must be logged in to view this page"
-msgstr "Vous devez être connecté pour voir cette page"
+msgstr "Vous devez être connectés pour voir cette page"
 
 #: templates/page_coop_agenda/index.html:91
 #: templates/page_coop_agenda/search_form_agenda.html:73
