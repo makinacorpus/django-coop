@@ -68,8 +68,23 @@ class PageApp_CoopExchangeForm(ModuloModelForm):
 
 class ReplyExchangeForm(forms.Form):
     title = forms.CharField(required=True, label=_('Title'))
+    name = forms.CharField(required=True, label=_('Name'))
     email = forms.EmailField(required=True, label=_('Email'))
+    tel = forms.CharField(required=True, label=_('Telephone'))
     response = forms.CharField(required=True, label=_('Response'), widget=forms.Textarea)
+    
+    def __init__(self, user=None, *args, **kwargs):
+        super(ReplyExchangeForm, self).__init__(*args, **kwargs)
+        
+        person = Person.objects.filter(user=user)
+        if person:
+            org = Organization.objects.filter(members=person[0])
+            self.fields['name'].initial = "%s %s (%s)" % (person[0].first_name, person[0].last_name, org[0].title)
+            self.fields['email'].initial = user.email
+            self.fields['tel'].initial = org[0].pref_phone.content
+        else:
+            self.fields['name'].initial = "%s %s" % (user.first_name, user.last_name)
+            self.fields['email'].initial = user.email
     
         
 class PartialExchangeForm(ExchangeForm):

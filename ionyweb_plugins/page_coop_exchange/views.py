@@ -239,13 +239,18 @@ def reply_view(request, page_app, exchange_id=None):
     if request.user.is_authenticated():
         base_url = u'%sp/exchange_reply/%s' % (page_app.get_absolute_url(),exchange_id)
         if request.method == 'POST': # If the form has been submitted        
-            form = ReplyExchangeForm(request.POST)
+            form = ReplyExchangeForm(request.user,request.POST)
             
             if form.is_valid():
                 title = form.cleaned_data['title']
                 response = form.cleaned_data['response']
                 email = form.cleaned_data['email']
+                tel = form.cleaned_data['tel']
+                name = form.cleaned_data['name']
                 
+                # Add name, tel, mail to the content
+                response = "%s\n\n%s\n%s\n%s" % (response, name, email, tel)
+                print response
                 try:
                     exchange = Exchange.objects.get(pk=exchange_id)
                 except Area.DoesNotExist:
@@ -281,7 +286,7 @@ def reply_view(request, page_app, exchange_id=None):
                             context_instance=RequestContext(request))
                 
         else:
-            form = ReplyExchangeForm() # An empty form
+            form = ReplyExchangeForm(user=request.user) # An empty form
         
         rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form}
         return render_view('page_coop_exchange/reply.html',

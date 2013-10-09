@@ -15,17 +15,27 @@
         <div class="bg_form">
             <div class="fieldWrapper">
                 {{ form.title.errors }}
-                {{ form.title.label_tag }}: {{ form.title }}
+                <div class="labelWrapper">{{ form.title.label_tag }}: </div>{{ form.title }}
             </div>          
 
             <div class="fieldWrapper">
                 {{ form.response.errors }}
-                {{ form.response.label_tag }}: {{ form.response }}
+                <div class="labelWrapper">{{ form.response.label_tag }}: </div>{{ form.response }}
+            </div>   
+
+            <div class="fieldWrapper">
+                {{ form.name.errors }}
+                <div class="labelWrapper">{{ form.name.label_tag }}: </div>{{ form.name }}
             </div>   
 
             <div class="fieldWrapper">
                 {{ form.email.errors }}
-                {{ form.email.label_tag }}: {{ form.email }}
+                <div class="labelWrapper">{{ form.email.label_tag }}: </div>{{ form.email }}
+            </div>   
+
+            <div class="fieldWrapper">
+                {{ form.tel.errors }}
+                <div class="labelWrapper">{{ form.tel.label_tag }}: </div>{{ form.tel }}
             </div>   
 
             {{ form.errors }}
