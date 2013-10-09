@@ -47,7 +47,7 @@ class EventAdminForm(forms.ModelForm):
         #     kwargs['initial'] = initial
         # Initializing form only after you have set initial dict
         super(EventAdminForm, self).__init__(*args, **kwargs)
-        self.fields['calendar'].initial = Calendar.objects.get(id=1)
+        self.fields['calendar'].initial = Calendar.objects.all()[0]
         self.fields['category'].help_text = None
         # self.fields['category'].initial = EventCategory.objects.get(id=1)
         if 'sites' in self.fields:
