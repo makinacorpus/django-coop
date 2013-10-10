@@ -226,7 +226,7 @@ def add_view(request, page_app, entry_id=None):
                                 MEDIAS,
                                 context_instance=RequestContext(request))
         else:
-            form = EntryForm(instance=entry) # An empty form
+            form = EntryForm(instance=entry)
             docFormset = DocFormSet(prefix='doc', instance=entry)
         
         rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'delete_url': delete_url, 'form': form, 'doc_form': docFormset, 'mode': mode}

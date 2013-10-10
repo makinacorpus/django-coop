@@ -54,6 +54,7 @@
             <div class="fieldWrapper">
                 {{ form.resume.errors }}
                 {{ form.resume.label_tag }}: {{ form.resume|safe }}
+                <div class="help_text" title="{% trans '160 carac. max.' %}"></div>
             </div>               
             <div class="fieldWrapper">
                 {{ form.body.errors }}
@@ -97,6 +98,10 @@
             <!-- TODO: site synchro             -->
 
             <!-- TODO: comments             -->
+            <div class="fieldWrapper">
+                {{ form.range_geo.errors }}
+                {{ form.range_geo.label_tag }}: {{ form.range_geo|safe }}
+            </div>   
 
             <div class="fieldWrapper">
                 {{ form.status.errors }}
@@ -130,7 +135,7 @@
     </form>
 </div>
 
-
+./manage.py migrate page_coop_blog
 <script type="text/javascript">
     $(function() {
         $.datepicker.regional['fr'] = {

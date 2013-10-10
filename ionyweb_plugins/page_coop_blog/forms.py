@@ -5,15 +5,15 @@ import floppyforms as forms
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
+from extended_choices import Choices
+
 from ionyweb.forms import ModuloModelForm
 from ionyweb.widgets import DatePicker
 from .models import CoopEntry, Category, PageApp_CoopBlog
 
 from ionyweb.widgets import DateTimePicker, SlugWidget, DatePicker, TinyMCELargeTable
 from coop.base_models import ActivityNomenclature, TransverseTheme, Document 
-
 from coop_local.widgets import CustomCheckboxSelectMultiple
-from extended_choices import Choices
 
 class PageApp_BlogForm(ModuloModelForm):
 
@@ -30,19 +30,8 @@ class CategoryForm(ModuloModelForm):
             'slug': SlugWidget('name'),
         }
 
-class EntryForm(ModuloModelForm):
-    #author = forms.ModelChoiceField(label=_('author'),
-                                    #queryset=User.objects.all(), 
-                                    #empty_label=None)
 
-    #def __init__(self, authors_choices, categories_set, *args, **kwargs):
-        #super(EntryForm, self).__init__(*args, **kwargs)
-        #self.fields['category'].queryset = categories_set
-        #self.fields['author'].choices = authors_choices
-    def __init__(self, *args, **kwargs):
-        super(EntryForm, self).__init__(*args, **kwargs)
-        #self.fields['category'].queryset = categories_set
-        #self.fields['author'].choices = authors_choices
+class EntryForm(ModuloModelForm):
 
     class Meta:
         model = CoopEntry
@@ -56,15 +45,16 @@ class EntryForm(ModuloModelForm):
     def __init__(self, *args, **kwargs):
         super(EntryForm, self).__init__(*args, **kwargs)
         self.fields['resume'].label = _("Resume")
-        
-        
+
+
 EDATE = Choices(
     ('',    '',  _(u'-----')),
     ('3days',    '3',  _(u'Since 3 days')),
     ('week',   '7',  _(u'Since a week')),
     ('month',   '30',  _(u'Since a month')),
 )        
-        
+
+
 class PageApp_CoopBlogForm(ModuloModelForm):
 
     date = forms.ChoiceField(required=False, choices=EDATE)

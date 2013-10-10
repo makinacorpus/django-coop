@@ -12,6 +12,8 @@ from mptt.models import MPTTModel, TreeForeignKey
 from sorl.thumbnail import ImageField
 from django.contrib.contenttypes import generic 
 from django.contrib.auth.models import Group
+from extended_choices import Choices
+from django.core.validators import MaxLengthValidator
 
 from ionyweb.page.models import AbstractPageApp
 from managers import CategoryOnlineManager, EntryOnlineManager
@@ -147,6 +149,14 @@ class Category(MPTTModel):
 
     online_entries = property(_get_online_entries)
 
+    
+RANGE_GEO = Choices(
+    ('LOCAL',          1,  _(u'locale')),
+    ('REGIONAL',    2,  _(u'regional')),
+    ('NATIONAL',    3,  _(u'national')),
+    ('INTERNATIONAL',         4,  _(u'international')),
+)
+
 class CoopEntry(models.Model):
     """
     A blog entry.
@@ -162,7 +172,7 @@ class CoopEntry(models.Model):
     blog = models.ForeignKey(PageApp_CoopBlog, related_name="entries")
 
     title = models.CharField(_('title'), max_length=255)
-    resume = models.TextField(_('body'), null=True, blank=True)
+    resume = models.TextField(_('body'), null=True, blank=True, validators=[MaxLengthValidator(160)])
     image = ImageField(upload_to='file_manager/', null=True, blank=True)
     key_words = models.CharField(_('title'), max_length=255, null=True, blank=True)
     activity = models.ForeignKey(ActivityNomenclature, verbose_name=_(u'activity sector'),
@@ -194,6 +204,8 @@ class CoopEntry(models.Model):
 
     zoom_on = models.BooleanField(_('zoom on'), blank=True, default=False)
 
+    range_geo = models.IntegerField(_('range'), choices=RANGE_GEO, null=True, blank=True)
+    
     
     class Meta:
         verbose_name = _('entry')
