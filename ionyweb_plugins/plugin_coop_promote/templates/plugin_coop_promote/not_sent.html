@@ -5,7 +5,7 @@
 
     {%if request.user.is_authenticated %}
 
-        <p>{% trans 'Invitation has not been sent. Please contact administrator.' %}</p>
+        <p class="highlight_gen">{% trans 'Invitation has not been sent. Please contact administrator.' %}</p>
 
         <form action="" method="get" class="plugin_form" enctype="multipart/form-data">{% csrf_token %}
 
