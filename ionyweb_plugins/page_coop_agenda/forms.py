@@ -7,6 +7,7 @@ from django.contrib.admin import widgets as adminWidgets
 import floppyforms as forms
 
 from ionyweb.forms import ModuloModelForm
+from ionyweb.widgets import DateTimePicker
 
 from .models import PageApp_CoopAgenda
 from coop.agenda.forms import EventForm, MultipleOccurrenceForm, SingleOccurrenceForm
@@ -29,7 +30,7 @@ class PageApp_CoopAgendaForm(ModuloModelForm):
     thematic2 = forms.ModelChoiceField(queryset=TransverseTheme.objects.all(), required=False, label=_('Thematic'))
      
     organization = forms.CharField(required=False, label=_('Organization'))
-    start_date = forms.DateField(required=False, label=_('Start date'), widget=forms.DateTimeInput())
+    start_date = forms.DateField(required=False, label=_('Start date'))
     end_date = forms.DateField(required=False, label=_('End date'))
     type = forms.CharField(required=False, label=_('Type'))
     
@@ -108,7 +109,11 @@ class PartialOccEventForm(SingleOccurrenceForm):
         
         self.fields['start_time'].label = _('Start date')
         self.fields['end_time'].label = _('End date')
+
+        self.fields['start_time'].widget = DateTimePicker()
+        self.fields['end_time'].widget = DateTimePicker()
         
+
 class DocumentForm(forms.ModelForm):
     class Meta:
         model = Document
