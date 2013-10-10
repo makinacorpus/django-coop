@@ -93,8 +93,12 @@ def filter_data(request, page_app):
 
     # Display entries that have a group associated (those one are privates)
     # only for users associated to this group
-    #entries = CoopEntry.objects.filter(status=1, blog=page_app, group_private__isnull=True).order_by('-modification_date')
-    entries = CoopEntry.objects.filter(Q(status=1, blog=page_app, group_private__isnull=True)|Q(status=1, blog=page_app, group_private__in=request.user.groups.all)).order_by('-modification_date')
+    if request.user.is_authenticated():
+        entries = CoopEntry.objects.filter(Q(status=1, blog=page_app, group_private__isnull=True)| \
+                                           Q(status=1, blog=page_app, group_private__in=request.user.groups.all)).order_by('-modification_date')
+    else:
+        entries = CoopEntry.objects.filter(Q(status=1, blog=page_app, group_private__isnull=True)).order_by('-modification_date')
+        
     more_criteria = False
     
     if request.method == 'GET': # If the form has been submitted        
@@ -117,7 +121,7 @@ def filter_data(request, page_app):
     else:
         form = PageApp_CoopBlogForm() # An empty form
         more_criteria = False
-    
+
     paginator = Paginator(entries, 10)
     page = request.GET.get('page')
     try:
