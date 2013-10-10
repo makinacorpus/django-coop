@@ -4,3 +4,10 @@ label {
 	clear: both;
 	width: 120px;
 }
+
+.alert-success {
+    border-radius: 3px;
+    background: #ffefad;
+    padding: 5px;
+    margin: 10px;
+}

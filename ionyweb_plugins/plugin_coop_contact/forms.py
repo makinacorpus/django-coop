@@ -23,7 +23,7 @@ class Plugin_CoopContactForm(IonywebContentForm, forms.Form):
 
     def __init__(self, user=None, *args, **kwargs):
         super(Plugin_CoopContactForm, self).__init__(*args, **kwargs)
-        
+        #print user
         person = Person.objects.filter(user=user)
         if person:
             org = Organization.objects.filter(members=person[0])

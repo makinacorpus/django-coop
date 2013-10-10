@@ -18,11 +18,11 @@ def index_view(request, plugin):
     if request.method == "POST" and not request.is_admin_url:
         # Check if we submit this form.
         if int(request.POST['contactform']) == plugin.pk:
-            contact_form = Plugin_CoopContactForm(request.POST)
+            contact_form = Plugin_CoopContactForm(request.user,request.POST)
             if contact_form.is_valid():
                 contact_form.send(plugin.emails, default_subject=plugin.subject)
                 message = _(u'Message sent')
-                contact_form = Plugin_CoopContactForm()
+                contact_form = Plugin_CoopContactForm(request.user)
             else:
                 message = _(u'The mail could not be sent')
 
