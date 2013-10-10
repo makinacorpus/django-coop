@@ -12,7 +12,7 @@ RENDER_MEDIAS = (
 
 def index_view(request, plugin):
 	
-    contact_form = Plugin_CoopContactForm()
+    contact_form = Plugin_CoopContactForm(request.user)
     message = None
 
     if request.method == "POST" and not request.is_admin_url:

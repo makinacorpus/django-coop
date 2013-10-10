@@ -1,16 +1,19 @@
 # -*- coding: utf-8 -*-
 
-import floppyforms as forms
-from ionyweb.forms import ModuloModelForm
-from .models import PageApp_CoopAgenda
 from django.utils.translation import ugettext, ugettext_lazy as _
-from coop.agenda.forms import EventForm, MultipleOccurrenceForm, SingleOccurrenceForm
+from django.conf import settings
+from django.contrib.admin import widgets as adminWidgets
 
+import floppyforms as forms
+
+from ionyweb.forms import ModuloModelForm
+
+from .models import PageApp_CoopAgenda
+from coop.agenda.forms import EventForm, MultipleOccurrenceForm, SingleOccurrenceForm
 from coop.base_models import ActivityNomenclature, TransverseTheme, Document, Located
 from coop_local.models import Event, Occurrence, Location, Organization
 from coop_local.widgets import CustomClearableFileInput
 from coop_geo.widgets import LocationPointWidgetInline
-from django.conf import settings
 
 class PageApp_CoopAgendaForm(ModuloModelForm):
 
@@ -26,7 +29,7 @@ class PageApp_CoopAgendaForm(ModuloModelForm):
     thematic2 = forms.ModelChoiceField(queryset=TransverseTheme.objects.all(), required=False, label=_('Thematic'))
      
     organization = forms.CharField(required=False, label=_('Organization'))
-    start_date = forms.DateField(required=False, label=_('Start date'))
+    start_date = forms.DateField(required=False, label=_('Start date'), widget=forms.DateTimeInput())
     end_date = forms.DateField(required=False, label=_('End date'))
     type = forms.CharField(required=False, label=_('Type'))
     
