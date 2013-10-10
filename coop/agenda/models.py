@@ -101,7 +101,9 @@ class BaseEvent(URIModel):
     # Linking to local objects
     organization = models.ForeignKey('coop_local.Organization', null=True, blank=True, verbose_name=_('organization'), related_name=_('publisher organization'), on_delete=models.PROTECT)
     organizations = models.ManyToManyField('coop_local.Organization', null=True, blank=True, verbose_name=_('organizations'), related_name=_('other organizations'))
-
+    
+    other_organizations = models.CharField(_(u'other organisations'), null=True, blank=True, max_length=512)
+    
     image = ImageField(upload_to='event_img/', null=True, blank=True)
     
     activity = models.ForeignKey('coop_local.ActivityNomenclature', verbose_name=_(u'activity sector'),

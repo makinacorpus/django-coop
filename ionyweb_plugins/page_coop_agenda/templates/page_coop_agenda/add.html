@@ -52,6 +52,13 @@
             </div>
 
             <div class="fieldWrapper">
+                {{ form.other_organizations.errors }}
+                <div class="labelWrapper"><label>{% trans "Other partners" %}</label> : </div>
+                {{ form.other_organizations }}
+                <div class="help_text" title="{% trans 'Patners not referenced participating without being the organizator' %}"></div>
+            </div>
+
+            <div class="fieldWrapper">
                 {{ form.image.errors }}
                 <div class="labelWrapper">{{ form.image.label_tag }} : </div><div class="help_text" title="{% trans 'This image will be the first visible' %}"></div>
                 <div class="img_form">{{ form.image }}</div>

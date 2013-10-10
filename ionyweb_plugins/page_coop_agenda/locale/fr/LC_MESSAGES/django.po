@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-10 18:29+0200\n"
+"POT-Creation-Date: 2013-10-10 18:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -134,37 +134,47 @@ msgstr ""
 "sans en être organisateur"
 
 #: templates/page_coop_agenda/add.html:56
+msgid "Other partners"
+msgstr "Autres partenaires"
+
+#: templates/page_coop_agenda/add.html:58
+msgid "Patners not referenced participating without being the organizator"
+msgstr ""
+"Financeurs ou organisations et groupe informel non référencés sur le site qui participent à l'événement "
+"sans en être organisateur"
+
+#: templates/page_coop_agenda/add.html:63
 msgid "This image will be the first visible"
 msgstr ""
 "Première image visible depuis le moteur de recherche (par défaut ce sera le "
 "logo de la structure)"
 
-#: templates/page_coop_agenda/add.html:69
+#: templates/page_coop_agenda/add.html:76
 msgid "Set 00 if no hours needed"
 msgstr "Mettez 00 pour l'heure si elle n'est pas utile"
 
-#: templates/page_coop_agenda/add.html:77
+#: templates/page_coop_agenda/add.html:84
 msgid "Occurences"
 msgstr ""
 
-#: templates/page_coop_agenda/add.html:87
-#: templates/page_coop_agenda/add.html:131
+#: templates/page_coop_agenda/add.html:94
+#: templates/page_coop_agenda/add.html:138
 msgid "Add More"
 msgstr "Ajouter"
 
-#: templates/page_coop_agenda/add.html:91
+#: templates/page_coop_agenda/add.html:98
 msgid "Locations"
 msgstr "Lieux"
 
-#: templates/page_coop_agenda/add.html:121
+#: templates/page_coop_agenda/add.html:128
 msgid "Documents"
 msgstr ""
 
-#: templates/page_coop_agenda/add.html:136
+#: templates/page_coop_agenda/add.html:143
 msgid "Clic on button to add more locations"
 msgstr "Cliquer pour ajouter d'autres lieux"
 
-#: templates/page_coop_agenda/add.html:167
+#: templates/page_coop_agenda/add.html:174
 msgid ""
 "If not published, the organisation won't be visible on the website. You can "
 "access to it by going into your account"
@@ -172,23 +182,23 @@ msgstr ""
 "Si non publié, l'évènement ne sera pas visible sur le site. Vous pouvez y "
 "accéder en allant dans Mon Compte."
 
-#: templates/page_coop_agenda/add.html:173
+#: templates/page_coop_agenda/add.html:180
 msgid "If set, the event will be publish in the zoom on page"
 msgstr "Si coché, l'évènement sera publié sur la page Zoom sur"
 
-#: templates/page_coop_agenda/add.html:182
+#: templates/page_coop_agenda/add.html:189
 msgid "Create"
 msgstr "Créer"
 
-#: templates/page_coop_agenda/add.html:186
+#: templates/page_coop_agenda/add.html:193
 msgid "Modify"
 msgstr "Modifier"
 
-#: templates/page_coop_agenda/add.html:187
+#: templates/page_coop_agenda/add.html:194
 msgid "Delete"
 msgstr "Supprimer"
 
-#: templates/page_coop_agenda/add.html:187
+#: templates/page_coop_agenda/add.html:194
 msgid "Are you sure you want to delete this event ?"
 msgstr "Êtes vous sûr de vouloir supprimer cet évènement ?"
 
