@@ -10,7 +10,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template import RequestContext
 from ionyweb.website.rendering.utils import render_view
 
-from coop_local.models import Organization, Event, EventCategory, Calendar, Occurrence, Exchange
+from coop_local.models import Organization, Event, EventCategory, Calendar, Occurrence, Exchange, Person
 from django.conf import settings
 
 from django.shortcuts import get_object_or_404
@@ -52,10 +52,18 @@ def index_view(request, page_app):
     tab_events = []
     tab_entries = []
     tab_private_entries = []
+    logo = None
 
     if request.user.is_authenticated():
         render_page = 'page_coop_account/index.html'
-        
+
+        # Get logo
+        person = Person.objects.filter(user=request.user)
+        if person:
+            org = Organization.objects.filter(members=person[0])
+            if org:
+                logo = org[0].logo
+       
         # My organizations
         organizations = Organization.objects.filter(is_project=False).order_by('title')
         for o in organizations:
@@ -119,7 +127,7 @@ def index_view(request, page_app):
         render_page = 'page_coop_account/login.html'
     
         
-    rdict = {'object': page_app, 'base_url': base_url, 'org': tab_org, 'projects': tab_projects, 'exchanges': tab_exchanges, 'occs': tab_events, 'entries': tab_entries, 'private_entries': tab_private_entries}
+    rdict = {'object': page_app, 'base_url': base_url, 'org': tab_org, 'projects': tab_projects, 'exchanges': tab_exchanges, 'occs': tab_events, 'entries': tab_entries, 'private_entries': tab_private_entries, 'logo': logo, 'media_path': settings.MEDIA_URL}
     
     return render_view(render_page,
                        rdict,

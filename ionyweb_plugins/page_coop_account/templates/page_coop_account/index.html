@@ -8,7 +8,7 @@
 <div id="coop_account">
     <h2 class="title">{% trans "Account" %}</h2>
 
-    <div class="account_disconnect"><a class="account_link" href="{{ base_url }}p/logout">{% trans "Logout" %}</a></div>
+    <div class="account_disconnect"><a class="highlight_gen account_link" href="{{ base_url }}p/logout">{% trans "Logout" %}</a></div>
 
 
     <div id="tabs">
@@ -57,9 +57,12 @@
             </ul>
         </div>
         <div id="tabs-infos">
-            <p>{% trans 'Personnal informations of' %} : <strong>{{ request.user.first_name}} {{ request.user.last_name}}</strong></p>
-            <p>{% trans 'Email' %} : <strong>{{ request.user.email }}</strong></p>
-            <p>{% trans 'Last connection' %} : <strong>{{ request.user.last_login }}</strong></p>
+            <div {% if logo %}class="logo"{% else %}class="logo_default"{% endif %}>{% if logo %}<img src="{{ media_path}}{{ logo }}" alt="logo">{% endif %}</div>
+            <div class="personnal-infos">
+                <p>{% trans 'Personnal informations of' %} : <strong>{{ request.user.first_name}} {{ request.user.last_name}}</strong></p>
+                <p>{% trans 'Email' %} : <strong>{{ request.user.email }}</strong></p>
+                <p>{% trans 'Last connection' %} : <strong>{{ request.user.last_login }}</strong></p>
+            </div>
         </div>
 
     </div>

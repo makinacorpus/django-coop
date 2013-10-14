@@ -58,6 +58,36 @@ h4.coop_account {
 }
 
 
+#tabs-infos .logo,
+#tabs-infos .logo_default {
+    float: left;
+    width: 150px;
+    height: 150px;
+    border: 1px solid #eee;
+    padding: 3px;
+    margin-right: 10px;   
+}
+
+#tabs-infos .logo_default {
+    background: url('../img/default_profile.png') no-repeat center center;
+}
+
+#tabs-infos .logo img {
+    max-width: 150px;
+    max-height: 150px;
+    
+}
+
+#tabs-infos .personnal-infos {
+    
+}
+
+.account_disconnect a.account_link {
+  display: block;
+  width: auto;
+}
+
+
 span.date {
     background-color: #FEFFF3;
     border: 1px solid #5D5D5D;
