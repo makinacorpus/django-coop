@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-08 16:47+0200\n"
+"POT-Creation-Date: 2013-10-14 21:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,101 +18,107 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: forms.py:37
+#: forms.py:38
 msgid "Type"
 msgstr ""
 
-#: forms.py:39 forms.py:40 templates/page_members/index.html:19
+#: forms.py:40 forms.py:41 templates/page_members/index.html:19
 #: templates/page_members/search_form_organization.html:4
 #: templates/page_members/search_form_project.html:4
 msgid "Activity"
 msgstr "Activité"
 
-#: forms.py:42 forms.py:63 templates/page_members/detail.html:29
+#: forms.py:43 forms.py:64 templates/page_members/detail.html:29
 #: templates/page_members/index.html:35
 #: templates/page_members/search_form_organization.html:23
 #: templates/page_members/search_form_project.html:23
 msgid "Location"
 msgstr "Territoire"
 
-#: forms.py:44 templates/page_members/index.html:39
+#: forms.py:45 templates/page_members/index.html:39
 #: templates/page_members/search_form_organization.html:28
 #: templates/page_members/search_form_project.html:28
 msgid "Location buffer"
 msgstr "Périmètre de recherche"
 
-#: forms.py:45 forms.py:46 templates/page_members/index.html:29
+#: forms.py:46 forms.py:47 templates/page_members/index.html:29
 #: templates/page_members/search_form_organization.html:34
 #: templates/page_members/search_form_project.html:34
 msgid "Thematic"
 msgstr "Thématique"
 
-#: forms.py:50
+#: forms.py:51
 msgid "Category"
 msgstr ""
 
-#: forms.py:52 templates/page_members/index.html:23
+#: forms.py:53 templates/page_members/index.html:23
 #: templates/page_members/search_form_organization.html:11
 #: templates/page_members/search_form_project.html:11
 msgid "Free search"
 msgstr "Recherche libre"
 
-#: forms.py:62
+#: forms.py:63
 msgid "---"
 msgstr ""
 
-#: forms.py:64
+#: forms.py:65
 msgid "Alpha"
 msgstr "Alphabétique"
 
-#: forms.py:65
+#: forms.py:66
 msgid "Date of creation"
 msgstr "Date de création"
 
-#: forms.py:86
+#: forms.py:87
 msgid "Show on public site"
 msgstr "Publier sur le site"
 
-#: forms.py:109
+#: forms.py:110
 msgid "Target structure"
 msgstr "Structure cible"
 
-#: forms.py:113
+#: forms.py:114
 msgid "Label"
 msgstr "Titre"
 
-#: forms.py:113
+#: forms.py:114
 msgid "Location and building name"
 msgstr "Lieu dit ou nom de bâtiment (ex: Maison peuple et culture)"
 
-#: forms.py:114
+#: forms.py:115
 msgid "Address"
 msgstr "Adresse"
 
-#: forms.py:115
+#: forms.py:116
 msgid "City"
 msgstr "Ville"
 
-#: forms.py:116
+#: forms.py:117
 msgid "Zipcode"
 msgstr "Code postal"
 
-#: forms.py:118
+#: forms.py:119
 msgid "Point"
 msgstr ""
 
-#: forms.py:118
+#: forms.py:119
 msgid "You may point manually the location of the location"
 msgstr ""
 "Géolocalisation à partir de l'adresse, il est possible de pointer "
 "manuellement (bouton crayon) si la géolocalisation a mal fonctionné"
 
-#: forms.py:152
+#: forms.py:153
 msgid ""
 "Presentation sample: Monday 9h-12h  14h-17h / Tuesday  9h-12h  14h-17h / "
 "Wed.  14h-17h"
 msgstr ""
 "Exemple : Lundu 9h-12h  14h-17h / Mardi  9h-12h  14h-17h / Mercredi  14h-17h"
+
+#: forms.py:193
+#, python-format
+msgid ""
+"Please keep filesize under %(max_size)s. Current filesize %(current_size)s"
+msgstr "Merci d'uploader des fichiers de taille inférieure à %(max_size)s. La taille de votre fichier est %(current_size)s"
 
 #: models.py:11
 msgid "type"
@@ -281,19 +287,19 @@ msgstr "Informations complémentaires"
 msgid "Solidarity"
 msgstr ""
 
-#: templates/page_members/add.html:316
+#: templates/page_members/add.html:323
 msgid "Create"
 msgstr "Enregistrer"
 
-#: templates/page_members/add.html:320
+#: templates/page_members/add.html:327
 msgid "Modify"
 msgstr "Enregistrer"
 
-#: templates/page_members/add.html:321
+#: templates/page_members/add.html:328
 msgid "Delete"
 msgstr "Supprimer"
 
-#: templates/page_members/add.html:321
+#: templates/page_members/add.html:328
 msgid "Are you sure you want to delete this structure ?"
 msgstr "Êtes vous sûr de vouloir supprimer cette structure ?"
 

@@ -2,34 +2,30 @@
 
 
 from django.db import models
-import floppyforms as forms
-from ionyweb.forms import ModuloModelForm
 from django.forms import ModelForm
-from .models import PageApp_Members
 from django.utils.translation import ugettext, ugettext_lazy as _
-from extended_choices import Choices
+from django.db.models.loading import get_model
+from django.contrib.gis.db import models as gismodels
+from django.template.defaultfilters import filesizeformat
+from django.conf import settings
+from django.forms.extras.widgets import SelectDateWidget
 
+from chosen import widgets as chosenwidgets
+from extended_choices import Choices
+import floppyforms as forms
+import models
+
+from ionyweb.forms import ModuloModelForm
 from coop_local.models import Organization, LegalStatus
 from coop.org.admin import OrganizationAdminForm, RelationInline
-
 from coop.base_models import ActivityNomenclature, TransverseTheme, OrganizationCategory
 from coop_local.models import Relation, Location, Document, Offer, Area
 from coop.base_models import Located
 from coop_geo.widgets import LocationPointWidget, ChooseLocationWidget, LocationPointWidgetInline
 from coop_local.widgets import CustomCheckboxSelectMultiple, CustomClearableFileInput, YearWidget
+from .models import PageApp_Members
 
-from django.db.models.loading import get_model
 
-from django.contrib.gis.db import models as gismodels
-
-from chosen import widgets as chosenwidgets
-
-import floppyforms as forms
-import models
-
-from django.conf import settings
-
-from django.forms.extras.widgets import SelectDateWidget
 
 
 class PageApp_MembersForm(ModuloModelForm):
@@ -190,3 +186,11 @@ class DocumentForm(forms.ModelForm):
         widgets = {
             'description': forms.Textarea(attrs={'rows': 3}),
         }
+
+    def clean_attachment(self):
+        content = self.cleaned_data['attachment']
+        if content.size > settings.MAX_UPLOAD_SIZE:
+            raise forms.ValidationError(_('Please keep filesize under %(max_size)s. Current filesize %(current_size)s') % {'max_size':filesizeformat(settings.MAX_UPLOAD_SIZE), 'current_size':filesizeformat(content.size)})
+        return content
+        
+
