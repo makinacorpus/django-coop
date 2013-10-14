@@ -32,7 +32,12 @@ from django.conf import settings
 from django.forms.extras.widgets import SelectDateWidget
 
 
-class PageApp_MembersForm(ModelForm):
+class PageApp_MembersForm(ModuloModelForm):
+
+    class Meta:
+        model = PageApp_Members
+
+class PageApp_MembersSearchForm(ModuloModelForm):
 
     type = forms.CharField(required=False, label=_('Type'))
     
@@ -55,7 +60,7 @@ class PageApp_MembersForm(ModelForm):
     
     class Meta:
         model = PageApp_Members
-
+        
 
 class PageApp_MembersSortForm(forms.Form):
    CRITERIA = (

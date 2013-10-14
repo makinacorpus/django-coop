@@ -12,7 +12,7 @@ from django.shortcuts import get_object_or_404
 
 from ionyweb.website.rendering.medias import CSSMedia, JSMedia
 
-from .forms import PageApp_MembersForm, PartialMemberForm, CustomLocatedForm, DocumentForm, CustomOfferForm, CustomRelationForm, PageApp_MembersSortForm
+from .forms import PageApp_MembersSearchForm, PartialMemberForm, CustomLocatedForm, DocumentForm, CustomOfferForm, CustomRelationForm, PageApp_MembersSortForm
 
 from django.db.models import Q
 from django.forms.models import inlineformset_factory, formset_factory
@@ -98,10 +98,8 @@ def filter_data(request, page_app, mode):
      
     more_criteria = False
     zone_json = None
-    #if request.method == 'POST': # If the form has been submitted
-        #form = PageApp_MembersForm(request.POST)
     if request.method == 'GET': # If the form has been submitted
-        form = PageApp_MembersForm(request.GET)
+        form = PageApp_MembersSearchForm(request.GET)
         if form.is_valid():
             if form.cleaned_data['free_search']:
                 organizations = organizations.filter(Q(title__icontains=form.cleaned_data['free_search']) | Q(description__icontains=form.cleaned_data['free_search']) | Q(tagged_items__tag__name__in=[form.cleaned_data['free_search']]))
@@ -168,7 +166,7 @@ def filter_data(request, page_app, mode):
                     more_criteria = True
             
     else:
-        form = PageApp_MembersForm(initial={'location_buffer': '10'}) # An empty form
+        form = PageApp_MembersSearchForm(initial={'location_buffer': '10'}) # An empty form
         more_criteria = False
 
     if mode == 'list':
