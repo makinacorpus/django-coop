@@ -12,7 +12,7 @@ from django.shortcuts import get_object_or_404
 from ionyweb.website.rendering.medias import CSSMedia
 from datetime import datetime
 
-from .forms import PageApp_CoopServiceForm
+from .forms import PageApp_CoopServiceSearchForm
 
 from django.db.models import Q
 
@@ -61,7 +61,7 @@ def filter_data(request, page_app, mode):
     search_form_template = "page_coop_service/search_form_service.html"
     
     if request.method == 'GET':  
-        form = PageApp_CoopServiceForm(request.GET)
+        form = PageApp_CoopServiceSearchForm(request.GET)
         more_criteria = False
         if form.is_valid():
 
@@ -133,7 +133,7 @@ def filter_data(request, page_app, mode):
                     more_criteria = True
 
     else:
-        form = PageApp_CoopServiceForm({'location_buffer': '10'}) # An empty form
+        form = PageApp_CoopServiceSearchForm({'location_buffer': '10'}) # An empty form
         more_criteria = False
     
     center_map = settings.COOP_MAP_DEFAULT_CENTER

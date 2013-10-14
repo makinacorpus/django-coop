@@ -19,7 +19,7 @@ from ionyweb_plugins.page_coop_blog.models import CoopEntry
 
 from coop_local.models import Location, Area, Document, Exchange, Offer, Occurrence, Calendar, Organization, OrganizationCategory
 from coop.base_models import Tag
-from .forms import PageApp_CoopTerritoryForm, CONTENT_TYPES
+from .forms import PageApp_CoopTerritorySearchForm, CONTENT_TYPES
 
 MEDIAS = (
     CSSMedia('page_coop_territory.css'),
@@ -77,7 +77,7 @@ def filter_data(request, page_app, mode):
     reset_projects = False
         
     if request.method == 'GET':  
-        form = PageApp_CoopTerritoryForm(request.GET)
+        form = PageApp_CoopTerritorySearchForm(request.GET)
         more_criteria = False
         if form.is_valid():
             
@@ -221,7 +221,7 @@ def filter_data(request, page_app, mode):
                     more_criteria = True
                 
     else:
-        form = PageApp_CoopTerritoryForm({'location_buffer': '10'}) # An empty form
+        form = PageApp_CoopTerritorySearchForm({'location_buffer': '10'}) # An empty form
         more_criteria = False
     
     center_map = settings.COOP_MAP_DEFAULT_CENTER

@@ -21,7 +21,7 @@ from coop_local.models import Event, EventCategory, Calendar, Occurrence, Docume
 from coop.org.models import get_rights
 from coop_local.models import Location, Area
 from coop.base_models import Located, Tag
-from .forms import PageApp_CoopAgendaForm, PartialEventForm, PartialOccEventForm, DocumentForm, ReplyEventForm
+from .forms import PageApp_CoopAgendaSearchForm, PartialEventForm, PartialOccEventForm, DocumentForm, ReplyEventForm
 
 MEDIAS = (
     CSSMedia('page_coop_agenda.css'),
@@ -88,7 +88,7 @@ def filter_data(request, page_app, mode):
     form = None
     if search_form:
         if request.method == 'GET': # If the form has been submitted
-            form = PageApp_CoopAgendaForm(request.GET)
+            form = PageApp_CoopAgendaSearchForm(request.GET)
             occs_count = 0
             categories = {}
             
@@ -117,7 +117,7 @@ def filter_data(request, page_app, mode):
                     if request.GET['more_criteria_status'] == 'True':
                         more_criteria = True
         else:
-            form = PageApp_CoopAgendaForm(initial={'location_buffer': '10'}) # An empty form
+            form = PageApp_CoopAgendaSearchForm(initial={'location_buffer': '10'}) # An empty form
             more_criteria = False
     
     if not manage_categories:

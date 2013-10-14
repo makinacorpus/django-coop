@@ -14,6 +14,11 @@ from coop_local.models import LegalStatus, Location, Area, ExchangeMethod
 
 class PageApp_CoopServiceForm(ModuloModelForm):
 
+    class Meta:
+        model = PageApp_CoopService
+   
+class PageApp_CoopServiceSearchForm(ModuloModelForm):
+
     activity = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.filter(parent__isnull=True).order_by('label'),required=False, label=_('Activity'))
     activity2 = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.filter(parent__isnull=True).order_by('label'),required=False, label=_('Activity'))
 

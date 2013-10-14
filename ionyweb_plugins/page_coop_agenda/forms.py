@@ -18,6 +18,12 @@ from coop_geo.widgets import LocationPointWidgetInline
 
 class PageApp_CoopAgendaForm(ModuloModelForm):
 
+    class Meta:
+        model = PageApp_CoopAgenda
+
+
+class PageApp_CoopAgendaSearchForm(ModuloModelForm):
+
     location = forms.CharField(required=False, label=_('Location'))
     location_id = forms.IntegerField(required=False)
     location_buffer = forms.IntegerField(required=False, label=_('Location buffer'))
@@ -37,6 +43,7 @@ class PageApp_CoopAgendaForm(ModuloModelForm):
     class Meta:
         model = PageApp_CoopAgenda
 
+        
 
 class PartialEventForm(EventForm):
     

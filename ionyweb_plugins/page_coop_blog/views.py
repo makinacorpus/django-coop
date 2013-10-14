@@ -27,7 +27,7 @@ from ionyweb.website.rendering.utils import render_view
 from ionyweb.website.rendering.medias import CSSMedia
 
 from models import PageApp_CoopBlog, Category, CoopEntry
-from forms import EntryForm, PageApp_CoopBlogForm
+from forms import EntryForm, PageApp_CoopBlogSearchForm
 from coop_local.models import Document
 from coop.base_models import Tag
 
@@ -102,7 +102,7 @@ def filter_data(request, page_app):
     more_criteria = False
     
     if request.method == 'GET': # If the form has been submitted        
-        form = PageApp_CoopBlogForm(request.GET)
+        form = PageApp_CoopBlogSearchForm(request.GET)
         if form.is_valid():
             if form.cleaned_data['free_search']:
                 entries = entries.filter(Q(title__contains=form.cleaned_data['free_search']) | Q(description__contains=form.cleaned_data['free_search']) | Q(tagged_items__tag__name__in=[form.cleaned_data['free_search']]))
@@ -119,7 +119,7 @@ def filter_data(request, page_app):
                 entries = entries.filter(Q(publication_date__gte=datetime.date(datetime.today() - timedelta(days = int(form.cleaned_data['date'])))))
             
     else:
-        form = PageApp_CoopBlogForm() # An empty form
+        form = PageApp_CoopBlogSearchForm() # An empty form
         more_criteria = False
 
     paginator = Paginator(entries, 10)

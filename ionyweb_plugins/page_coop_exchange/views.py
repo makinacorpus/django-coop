@@ -20,7 +20,7 @@ from coop_local.models import Location
 from coop_local.models import Location, Area, Document
 from coop.org.models import get_rights
 from coop.base_models import Tag
-from .forms import PageApp_CoopExchangeForm, PartialExchangeForm, DocumentForm, ReplyExchangeForm
+from .forms import PageApp_CoopExchangeSearchForm, PartialExchangeForm, DocumentForm, ReplyExchangeForm
 
 from ionyweb.website.rendering.utils import render_view
 from ionyweb.website.rendering.medias import CSSMedia
@@ -57,7 +57,7 @@ def filter_data(request, page_app, mode):
     search_form_template = "page_coop_exchange/search_form_exchange.html"
     
     if request.method == 'GET': # If the form has been submitted        
-        form = PageApp_CoopExchangeForm(request.GET)
+        form = PageApp_CoopExchangeSearchForm(request.GET)
         if form.is_valid():
             if form.cleaned_data['free_search']:
                 exchanges = exchanges.filter(Q(title__contains=form.cleaned_data['free_search']) | Q(description__contains=form.cleaned_data['free_search']) | Q(tagged_items__tag__name__in=[form.cleaned_data['free_search']]))
@@ -120,7 +120,7 @@ def filter_data(request, page_app, mode):
 
                 
     else:
-        form = PageApp_CoopExchangeForm({'location_buffer': '10'}) # An empty form
+        form = PageApp_CoopExchangeSearchForm({'location_buffer': '10'}) # An empty form
         more_criteria = False
     
     center_map = settings.COOP_MAP_DEFAULT_CENTER

@@ -31,8 +31,12 @@ ESKILLS = Choices(
 )
 
 
-
 class PageApp_CoopExchangeForm(ModuloModelForm):
+
+    class Meta:
+        model = PageApp_CoopExchange
+
+class PageApp_CoopExchangeSearchForm(ModuloModelForm):
 
     type_exchange = forms.MultipleChoiceField(required=False, choices=EWAY, widget=CustomCheckboxSelectMultiple())
 

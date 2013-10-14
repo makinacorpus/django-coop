@@ -54,8 +54,13 @@ EDATE = Choices(
     ('month',   '30',  _(u'Since a month')),
 )        
 
-
 class PageApp_CoopBlogForm(ModuloModelForm):
+    
+    class Meta:
+        model = PageApp_CoopBlog
+
+
+class PageApp_CoopBlogSearchForm(ModuloModelForm):
 
     date = forms.ChoiceField(required=False, choices=EDATE)
     
