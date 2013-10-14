@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-19 14:15+0200\n"
+"POT-Creation-Date: 2013-10-14 21:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,32 +54,32 @@ msgstr "Offre d'emploi"
 msgid "Training"
 msgstr "Essai"
 
-#: forms.py:41 forms.py:42 forms.py:99
+#: forms.py:45 forms.py:46 forms.py:118
 #: templates/page_coop_exchange/index.html:39
 #: templates/page_coop_exchange/search_form_exchange.html:25
 #: templates/page_coop_exchange/search_form_service.html:25
 msgid "Activity"
 msgstr "Activité"
 
-#: forms.py:44 templates/page_coop_exchange/index.html:49
+#: forms.py:48 templates/page_coop_exchange/index.html:49
 #: templates/page_coop_exchange/search_form_exchange.html:43
 #: templates/page_coop_exchange/search_form_service.html:43
 msgid "Location"
 msgstr "Lieu"
 
-#: forms.py:45 templates/page_coop_exchange/index.html:53
+#: forms.py:49 templates/page_coop_exchange/index.html:53
 #: templates/page_coop_exchange/search_form_exchange.html:47
 #: templates/page_coop_exchange/search_form_service.html:47
 msgid "Location buffer"
 msgstr "Lieu buffer"
 
-#: forms.py:48 forms.py:49 templates/page_coop_exchange/index.html:43
+#: forms.py:52 forms.py:53 templates/page_coop_exchange/index.html:43
 #: templates/page_coop_exchange/search_form_exchange.html:29
 #: templates/page_coop_exchange/search_form_service.html:29
 msgid "Thematic"
 msgstr "Thématique"
 
-#: forms.py:57 templates/page_coop_exchange/index.html:28
+#: forms.py:61 templates/page_coop_exchange/index.html:28
 #: templates/page_coop_exchange/search_form_exchange.html:33
 #: templates/page_coop_exchange/search_form_exchange.html:37
 #: templates/page_coop_exchange/search_form_service.html:33
@@ -87,81 +87,97 @@ msgstr "Thématique"
 msgid "Free search"
 msgstr "Recherche libre"
 
-#: forms.py:59
+#: forms.py:63
 msgid "Warranty"
 msgstr "Garantie"
 
-#: forms.py:61 forms.py:104
+#: forms.py:65 forms.py:123
 msgid "Organization"
 msgstr "Structure"
 
-#: forms.py:63
+#: forms.py:67
 msgid "Keywords"
 msgstr "Mots clef"
 
-#: forms.py:70
+#: forms.py:74
 msgid "Title"
 msgstr "Titre"
 
-#: forms.py:71
+#: forms.py:75
+msgid "Name"
+msgstr ""
+
+#: forms.py:76
 msgid "Email"
 msgstr ""
 
-#: forms.py:72
-msgid "Response"
-msgstr "Réponse"
-
 #: forms.py:77
-msgid "Label"
+msgid "Telephone"
 msgstr ""
 
 #: forms.py:78
+msgid "Response"
+msgstr "Réponse"
+
+#: forms.py:96
+msgid "Label"
+msgstr ""
+
+#: forms.py:97
 msgid "Address"
 msgstr ""
 
-#: forms.py:79
+#: forms.py:98
 msgid "City"
 msgstr ""
 
-#: forms.py:80
+#: forms.py:99
 msgid "Zipcode"
 msgstr ""
 
-#: forms.py:81
+#: forms.py:100
 msgid "Point"
 msgstr ""
 
-#: forms.py:81
+#: forms.py:100
 msgid "You may point manually the location of the location"
 msgstr ""
 
-#: forms.py:100
+#: forms.py:119
 msgid "Person"
 msgstr ""
 
-#: forms.py:101
+#: forms.py:120
 msgid "Date of publication"
 msgstr "Date de publication"
 
-#: forms.py:106
+#: forms.py:125
 msgid "Image"
 msgstr ""
 
-#: forms.py:107
+#: forms.py:126
 msgid "Tags"
 msgstr ""
 
-#: forms.py:108
+#: forms.py:127
 msgid "Active"
 msgstr "Publiée sur le site"
 
-#: forms.py:109
+#: forms.py:128
 msgid "Email contact"
 msgstr ""
 
-#: forms.py:110
+#: forms.py:129
 msgid "Phone"
 msgstr "Téléphone"
+
+#: forms.py:175
+#, python-format
+msgid ""
+"Please keep filesize under %(max_size)s. Current filesize %(current_size)s"
+msgstr ""
+"Merci d'uploader des fichiers de taille inférieure à %(max_size)s. La taille "
+"de votre fichier est %(current_size)s"
 
 #: models.py:15
 msgid "CoopExchange"
@@ -277,7 +293,7 @@ msgstr "Annonce supprimée"
 msgid "Type"
 msgstr ""
 
-#: templates/page_coop_exchange/forbidden.html:3
+#: templates/page_coop_exchange/forbidden.html:5
 msgid "You must be logged in to view this page"
 msgstr "Vous devez vous connecter pour voir cette page"
 
@@ -328,7 +344,7 @@ msgstr "En savoir plus"
 msgid "Reply to exchange"
 msgstr "Répondre à l'annonce"
 
-#: templates/page_coop_exchange/reply.html:35
+#: templates/page_coop_exchange/reply.html:45
 msgid "Reply"
 msgstr "Répondre"
 

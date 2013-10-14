@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-10 18:36+0200\n"
+"POT-Creation-Date: 2013-10-14 21:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,94 +18,102 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: forms.py:21 templates/page_coop_agenda/index.html:47
+#: forms.py:27 templates/page_coop_agenda/index.html:47
 #: templates/page_coop_agenda/search_form_agenda.html:43
 msgid "Location"
 msgstr "Territoire"
 
-#: forms.py:23 templates/page_coop_agenda/index.html:51
+#: forms.py:29 templates/page_coop_agenda/index.html:51
 #: templates/page_coop_agenda/search_form_agenda.html:48
 msgid "Location buffer"
 msgstr "Périmètre de recherche"
 
-#: forms.py:24 templates/page_coop_agenda/index.html:27
+#: forms.py:30 templates/page_coop_agenda/index.html:27
 #: templates/page_coop_agenda/search_form_agenda.html:32
 msgid "Free search"
 msgstr "Recherche libre"
 
-#: forms.py:26 forms.py:27 forms.py:72
+#: forms.py:32 forms.py:33 forms.py:79
 #: templates/page_coop_agenda/index.html:19
 #: templates/page_coop_agenda/search_form_agenda.html:25
 msgid "Activity"
 msgstr "Activités"
 
-#: forms.py:29 forms.py:30
+#: forms.py:35 forms.py:36
 #: templates/page_coop_agenda/search_form_agenda.html:61
 msgid "Thematic"
 msgstr "Thématique"
 
-#: forms.py:32 templates/page_coop_agenda/detail.html:32
+#: forms.py:38 templates/page_coop_agenda/detail.html:32
 #: templates/page_coop_agenda/index.html:23
 #: templates/page_coop_agenda/search_form_agenda.html:53
 msgid "Organization"
 msgstr "Organisation"
 
-#: forms.py:33 forms.py:110 templates/page_coop_agenda/index.html:37
+#: forms.py:39 forms.py:117 templates/page_coop_agenda/index.html:37
 #: templates/page_coop_agenda/search_form_agenda.html:14
 msgid "Start date"
 msgstr "Date de début"
 
-#: forms.py:34 forms.py:111 templates/page_coop_agenda/index.html:41
+#: forms.py:40 forms.py:118 templates/page_coop_agenda/index.html:41
 #: templates/page_coop_agenda/search_form_agenda.html:18
 msgid "End date"
 msgstr "Date de fin"
 
-#: forms.py:35 templates/page_coop_agenda/index.html:33
+#: forms.py:41 templates/page_coop_agenda/index.html:33
 #: templates/page_coop_agenda/search_form_agenda.html:37
 msgid "Type"
 msgstr ""
 
-#: forms.py:43
+#: forms.py:50
 msgid "Label"
 msgstr ""
 
-#: forms.py:44
+#: forms.py:51
 msgid "Address"
 msgstr "Adresse"
 
-#: forms.py:45
+#: forms.py:52
 msgid "City"
 msgstr "Ville"
 
-#: forms.py:46
+#: forms.py:53
 msgid "Zipcode"
 msgstr "Code postal"
 
-#: forms.py:47
+#: forms.py:54
 msgid "Point"
 msgstr ""
 
-#: forms.py:47
+#: forms.py:54
 msgid "You may point manually the location of the location"
 msgstr "Vous pouvez pointer manuellement le lieu"
 
-#: forms.py:73
+#: forms.py:80
 msgid "Show on public site"
 msgstr "Publier sur le site"
 
-#: forms.py:74 templates/page_coop_agenda/add.html:43
+#: forms.py:81 templates/page_coop_agenda/add.html:43
 msgid "Organizator"
 msgstr "Organisateurs"
 
-#: forms.py:125
+#: forms.py:133
+#, python-format
+msgid ""
+"Please keep filesize under %(max_size)s. Current filesize %(current_size)s"
+msgstr ""
+"Merci d'uploader des fichiers de taille inférieure à %(max_size)s. La taille "
+"de votre fichier est %(current_size)s"
+
+#: forms.py:138
 msgid "Title"
 msgstr "Titre"
 
-#: forms.py:126
+#: forms.py:139
 msgid "Email"
 msgstr ""
 
-#: forms.py:127
+#: forms.py:140
 msgid "Response"
 msgstr "Réponse"
 
@@ -140,8 +148,8 @@ msgstr "Autres partenaires"
 #: templates/page_coop_agenda/add.html:58
 msgid "Patners not referenced participating without being the organizator"
 msgstr ""
-"Financeurs ou organisations et groupe informel non référencés sur le site qui participent à l'événement "
-"sans en être organisateur"
+"Financeurs ou organisations et groupe informel non référencés sur le site "
+"qui participent à l'événement sans en être organisateur"
 
 #: templates/page_coop_agenda/add.html:63
 msgid "This image will be the first visible"

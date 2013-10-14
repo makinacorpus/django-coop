@@ -1,19 +1,21 @@
 # -*- coding: utf-8 -*-
 
 from django.utils.translation import ugettext, ugettext_lazy as _
+from django.template.defaultfilters import filesizeformat
+from django.conf import settings
+from extended_choices import Choices
 import floppyforms as forms
-from ionyweb.forms import ModuloModelForm
-from .models import PageApp_CoopExchange
 
 from coop.exchange.models import ETYPE, EWAY
 from coop.exchange.admin import ExchangeForm
 from coop_local.models import Exchange, Document, Person, Location, ExchangeMethod, Organization
 from coop_local.widgets import CustomCheckboxSelectMultiple, CustomClearableFileInput
 from coop.base_models import ActivityNomenclature, TransverseTheme
-from extended_choices import Choices
 from coop_geo.widgets import LocationPointWidgetInline
-from django.conf import settings
 from ionyweb.widgets import TinyMCELargeTable
+from ionyweb.forms import ModuloModelForm
+from .models import PageApp_CoopExchange
+
 
 EMODE = Choices(
     ('GIFT',    1,  _(u'Gift')),
@@ -168,4 +170,10 @@ class DocumentForm(forms.ModelForm):
         model = Document
         widgets = {
             'description': forms.Textarea(attrs={'rows': 3}),
-        }        
+        }
+    def clean_attachment(self):
+        print "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"
+        content = self.cleaned_data['attachment']
+        if content.size > settings.MAX_UPLOAD_SIZE:
+            raise forms.ValidationError(_('Please keep filesize under %(max_size)s. Current filesize %(current_size)s') % {'max_size':filesizeformat(settings.MAX_UPLOAD_SIZE), 'current_size':filesizeformat(content.size)})
+        return content          

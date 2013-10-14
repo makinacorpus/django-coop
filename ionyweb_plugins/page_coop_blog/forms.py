@@ -1,16 +1,18 @@
 # -*- coding: utf-8 -*-
 
-from datetime import datetime
-import floppyforms as forms
+
+from django.template.defaultfilters import filesizeformat
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
+
+from datetime import datetime
+import floppyforms as forms
 from extended_choices import Choices
 
 from ionyweb.forms import ModuloModelForm
 from ionyweb.widgets import DatePicker
 from .models import CoopEntry, Category, PageApp_CoopBlog
-
 from ionyweb.widgets import DateTimePicker, SlugWidget, DatePicker, TinyMCELargeTable
 from coop.base_models import ActivityNomenclature, TransverseTheme, Document 
 from coop_local.widgets import CustomCheckboxSelectMultiple
@@ -85,4 +87,9 @@ class DocumentForm(forms.ModelForm):
         model = Document
         widgets = {
             'description': forms.Textarea(attrs={'rows': 3}),
-        }   
+        }
+    def clean_attachment(self):
+        content = self.cleaned_data['attachment']
+        if content.size > settings.MAX_UPLOAD_SIZE:
+            raise forms.ValidationError(_('Please keep filesize under %(max_size)s. Current filesize %(current_size)s') % {'max_size':filesizeformat(settings.MAX_UPLOAD_SIZE), 'current_size':filesizeformat(content.size)})
+        return content          

@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 
+
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.conf import settings
 from django.contrib.admin import widgets as adminWidgets
+from django.template.defaultfilters import filesizeformat
 
 import floppyforms as forms
 
 from ionyweb.forms import ModuloModelForm
 from ionyweb.widgets import DateTimePicker
-
 from .models import PageApp_CoopAgenda
 from coop.agenda.forms import EventForm, MultipleOccurrenceForm, SingleOccurrenceForm
 from coop.base_models import ActivityNomenclature, TransverseTheme, Document, Located
@@ -127,7 +128,13 @@ class DocumentForm(forms.ModelForm):
         widgets = {
             'description': forms.Textarea(attrs={'rows': 3}),
         }     
+    def clean_attachment(self):
+        content = self.cleaned_data['attachment']
+        if content.size > settings.MAX_UPLOAD_SIZE:
+            raise forms.ValidationError(_('Please keep filesize under %(max_size)s. Current filesize %(current_size)s') % {'max_size':filesizeformat(settings.MAX_UPLOAD_SIZE), 'current_size':filesizeformat(content.size)})
+        return content        
 
+        
 class ReplyEventForm(forms.Form):
     title = forms.CharField(required=True, label=_('Title'))
     email = forms.EmailField(required=True, label=_('Email'))
