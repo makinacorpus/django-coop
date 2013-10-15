@@ -58,11 +58,6 @@ def filter_data(request, page_app, mode):
                         event__calendar=agenda,
                         ).order_by("start_time")
     
-    # List all services
-    services = None
-    if 'services' in settings.COOP_SEARCHGLOBAL_THEMES:
-        services = Offer.objects.filter(provider__active=True).order_by("title")
-    
     # List all organizations
     organizations = None
     if 'organizations' in settings.COOP_SEARCHGLOBAL_THEMES:
@@ -72,11 +67,6 @@ def filter_data(request, page_app, mode):
     projects = None
     if 'projects' in settings.COOP_SEARCHGLOBAL_THEMES:
         projects = Organization.objects.filter(active=True, is_project=True).order_by("-modified")
-
-    # List all offers
-    offers = None
-    if 'offers' in settings.COOP_SEARCHGLOBAL_THEMES:
-        offers = Offer.objects.filter(provider__active=True).order_by("-modified")
 
     # List all articles (exclude the one attahed to a group, because they are private)
     entries = None
@@ -116,11 +106,17 @@ def filter_data(request, page_app, mode):
                                             |Q(transverse_themes__name__icontains=search_string) \
                                             ).distinct()
 
-                # TODO : extra searches for PES (services, projects...)
-                #if 'services' in settings.COOP_SEARCHGLOBAL_THEMES:
-                #if 'exchanges' in settings.COOP_SEARCHGLOBAL_THEMES:
-                #if 'projects' in settings.COOP_SEARCHGLOBAL_THEMES:
-                #if 'offers' in settings.COOP_SEARCHGLOBAL_THEMES:
+                if 'exchanges' in settings.COOP_SEARCHGLOBAL_THEMES:
+                    exchanges = exchanges.filter(Q(title__icontains=search_string) \
+                                               | Q(description__icontains=search_string) \
+                                               | Q(tagged_items__tag__name__in=[search_string]) \
+                                               ).distinct()
+
+                if 'projects' in settings.COOP_SEARCHGLOBAL_THEMES:
+                    projects = projects.filter(Q(title__icontains=search_string) \
+                                             | Q(description__icontains=search_string) \
+                                             | Q(tagged_items__tag__name__in=[search_string]) \
+                                             ).distinct()
 
         if 'search_string_tag' in request.GET:
             search_string_tag = request.GET['search_string_tag']
@@ -135,12 +131,11 @@ def filter_data(request, page_app, mode):
                 if 'articles' in settings.COOP_SEARCHGLOBAL_THEMES:
                     entries = entries.filter(tagged_items__tag__name__in=[search_string_tag])
 
-                # TODO : extra searches for PES (services, projects...)
-                #if 'services' in settings.COOP_SEARCHGLOBAL_THEMES:
-                #if 'exchanges' in settings.COOP_SEARCHGLOBAL_THEMES:
-                #if 'projects' in settings.COOP_SEARCHGLOBAL_THEMES:
-                #if 'offers' in settings.COOP_SEARCHGLOBAL_THEMES:
-    
+                if 'exchanges' in settings.COOP_SEARCHGLOBAL_THEMES:
+                    exchanges = exchanges.filter(event__tagged_items__tag__name__in=[search_string_tag])
+                    
+                if 'projects' in settings.COOP_SEARCHGLOBAL_THEMES:
+                    projects = projects.filter(tagged_items__tag__name__in=[search_string_tag])
     
     # Put all objects in a a common tab for pagination
     if exchanges:
@@ -149,9 +144,6 @@ def filter_data(request, page_app, mode):
     if occ:
         for o in occ :
             items.append({'type':'occ', 'obj': o})
-    if services:
-        for s in services :
-            items.append({'type':'service', 'obj': s})
     if organizations:
         for o in organizations :
             items.append({'type':'organization', 'obj': o})
@@ -161,7 +153,8 @@ def filter_data(request, page_app, mode):
     if entries:
         for e in entries :
             items.append({'type':'entrie', 'obj': e})
-        
+
+            
     paginator = Paginator(items, 10)
     page = request.GET.get('page')
     try:
