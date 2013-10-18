@@ -54,13 +54,6 @@ def index_view(request, page_app):
     if request.user.is_authenticated():
         render_page = 'page_coop_account/index.html'
         
-        # Get logo
-        #person = Person.objects.filter(user=request.user)
-        #if person:
-            #org = Organization.objects.filter(members=person[0])
-            #if org:
-                #logo = org[0].logo
-
         person = Person.objects.filter(user=request.user)
         if person:
             person = person[0]
@@ -81,7 +74,7 @@ def index_view(request, page_app):
 
         edit_url = u'%sp/pref_edit/%s' % (page_app.get_absolute_url(),user_pref.pk)
 
-        user_pref_matches = get_user_pref_matches(user_pref)
+        user_pref_matches = get_user_pref_matches(user_pref, settings.NOTIFICATION_MY_ACCOUNT_DELTA)
                 
         # My organizations
         organizations = Organization.objects.filter(is_project=False).order_by('title')
@@ -157,7 +150,7 @@ def index_view(request, page_app):
                        MEDIAS,
                        context_instance=RequestContext(request))
 
-def get_user_pref_matches(pref):
+def get_user_pref_matches(pref, delta):
     
     items = []
     exchanges = None
@@ -165,7 +158,7 @@ def get_user_pref_matches(pref):
     organizations = None
     entries = None
 
-    delta_days = datetime.now() - timedelta(days=settings.NOTIFICATION_MY_ACCOUNT_DELTA)
+    delta_days = datetime.now() - timedelta(days=delta)
 
     for tc in pref.type_content.all():
         if tc.name == "exchanges":
