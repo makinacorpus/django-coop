@@ -79,18 +79,22 @@ h4.coop_account {
 }
 
 #tabs-infos .personnal-infos {
-    
+    min-height: 165px;
 }
 
 .account_disconnect a.account_link {
-  display: block;
-  width: auto;
+/*  display: block;
+  width: auto;*/
+    margin-left: 5px;
 }
 
 #coop_account #tabs ul li {
-  line-height: 30px;   
+    line-height: 30px;   
 }
 
+#coop_account h3 {
+    border-bottom: 1px solid #ccc;
+}
 
 span.date {
     background-color: #FEFFF3;

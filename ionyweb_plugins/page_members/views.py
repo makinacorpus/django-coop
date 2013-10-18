@@ -1,31 +1,22 @@
 # -*- coding: utf-8 -*-
 
 from django.template import RequestContext
-from ionyweb.website.rendering.utils import render_view
-
-from coop_local.models import Organization, Offer, Document, Reference, Relation, Engagement, Person, Contact, ActivityNomenclature, Location, Area, Evaluation, EvaluationQuestion, EvaluationAnswer, EvaluationQuestionTheme
-from coop.base_models import Tag
-
 from django.conf import settings
-
 from django.shortcuts import get_object_or_404
-
-from ionyweb.website.rendering.medias import CSSMedia, JSMedia
-
-from .forms import PageApp_MembersSearchForm, PartialMemberForm, CustomLocatedForm, DocumentForm, CustomOfferForm, CustomRelationForm, PageApp_MembersSortForm
-
 from django.db.models import Q
 from django.forms.models import inlineformset_factory, formset_factory
 from django.contrib.contenttypes.generic import generic_inlineformset_factory
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-
 from django.contrib.gis import geos
-from coop.base_models import Located
-from coop.org.models import get_rights
-
 from django.utils.simplejson import dumps
 
 from math import pi
+
+from ionyweb.website.rendering.utils import render_view
+from ionyweb.website.rendering.medias import CSSMedia, JSMedia
+from coop_local.models import Organization, Offer, Document, Reference, Relation, Engagement, Person, Contact, ActivityNomenclature, Location, Area, Evaluation, EvaluationQuestion, EvaluationAnswer, EvaluationQuestionTheme, Located, Tag
+from .forms import PageApp_MembersSearchForm, PartialMemberForm, CustomLocatedForm, DocumentForm, CustomOfferForm, CustomRelationForm, PageApp_MembersSortForm
+from coop.org.models import get_rights
 
 
 MEDIAS = (

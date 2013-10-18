@@ -38,6 +38,48 @@ GENDER = Choices(
     ('W', 'W',  _(u'Mrs')),
 )
 
+class PersonPreferencesContentTypes(models.Model):
+    name = models.CharField(blank=True, max_length=100)
+    label = models.CharField(blank=True, max_length=100)
+
+    class Meta:
+        verbose_name = _(u'Person prefs content types')
+        verbose_name_plural = _(u'Person prefs content types')
+        app_label = 'coop_local'
+
+    def __unicode__(self):
+        return self.label
+
+class BasePersonPreferences(models.Model):
+    
+    activities = models.ManyToManyField('coop_local.ActivityNomenclature',
+        verbose_name=_(u'Pref activities'), blank=True, null=True)
+   
+    transverse_themes = models.ManyToManyField('coop_local.TransverseTheme',
+        verbose_name=_(u'transverse themes'), blank=True, null=True)
+
+    locations = models.ManyToManyField('coop_local.Area',
+        verbose_name=_(u'Pref areas'), blank=True, null=True)
+        
+    locations_buffer = models.IntegerField(_(u'location buffer'), blank=True, null=True)
+    
+    organizations = models.ManyToManyField('coop_local.Organization',
+        verbose_name=_(u'Pref organization'), blank=True, null=True)
+
+    type_content = models.ManyToManyField(PersonPreferencesContentTypes,
+        verbose_name=_(u'Content types'), blank=True, null=True)
+        
+    notification = models.BooleanField(_(u'Receive notifications by email'), default=False, blank=True)
+
+    def __unicode__(self):
+        return u'PersonPreferences #%d' % (self.pk)
+
+    class Meta:
+        abstract = True
+        verbose_name = _(u"PersonPreferences")
+        app_label = 'coop_local'
+
+
 class BasePerson(URIModel):
     user = models.OneToOneField(User, blank=True, null=True, unique=True, verbose_name=_(u'django user'), editable=False)
     username = models.CharField(blank=True, max_length=100, unique=True)
@@ -57,7 +99,8 @@ class BasePerson(URIModel):
 
     structure = models.CharField(blank=True, max_length=100)
 
-
+    prefs = models.ForeignKey('coop_local.PersonPreferences', blank=True, null=True,  verbose_name=_(u'preferences'))
+    
     if 'coop.mailing' in settings.INSTALLED_APPS:
         subs = generic.GenericRelation('coop_local.Subscription')
 

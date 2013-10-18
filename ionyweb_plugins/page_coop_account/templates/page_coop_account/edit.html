@@ -1,0 +1,58 @@
+{% load i18n thumbnail %}
+
+<div id="coop_account">
+    <h2 class="title">{% trans "Preferences" %}</h2>
+
+    <form action="{{ edit_url }}" method="post" class="add_form" enctype="multipart/form-data">{% csrf_token %}
+
+        <div id="preference" class="fieldWrapper formset">
+
+            <div class="fieldWrapper">
+                {{ form.activities.errors  }}
+                <div class="labelWrapper">{{ form.activities.label_tag }} : </div>{{ form.activities }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.transverse_themes.errors  }}
+                <div class="labelWrapper">{{ form.transverse_themes.label_tag }} : </div>{{ form.transverse_themes }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.locations.errors  }}
+                <div class="labelWrapper">{{ form.locations.label_tag }} : </div>{{ form.locations }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.locations_buffer.errors  }}
+                <div class="labelWrapper">{{ form.locations_buffer.label_tag }} : </div>{{ form.locations_buffer }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.organizations.errors  }}
+                <div class="labelWrapper">{{ form.organizations.label_tag }} : </div>{{ form.organizations }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.type_content.errors  }}
+                <div class="labelWrapper">{{ form.type_content.label_tag }} : </div>{{ form.type_content }}
+            </div>
+
+            <div class="fieldWrapper">
+                {{ form.notification.errors  }}
+                <div class="labelWrapper">{{ form.notification.label_tag }} : </div>{{ form.notification }}
+            </div>
+        </div>
+
+        {{ form.errors }}
+
+        <div class="new_block" id="modify_submit">
+            <input type="submit" value="{% trans "Modify" %}" />                
+        </div>
+
+    </form>
+</div>
+
+
+
+
+

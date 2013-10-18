@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-19 10:18+0200\n"
+"POT-Creation-Date: 2013-10-18 14:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,61 +18,102 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: models.py:15
+#: models.py:19
 msgid "CoopAccount"
 msgstr ""
 
-#: templates/page_coop_account/index.html:9
+#: templates/page_coop_account/edit.html:4
+msgid "Preferences"
+msgstr "Préférences"
+
+#: templates/page_coop_account/edit.html:49
+msgid "Modify"
+msgstr "Modifier"
+
+#: templates/page_coop_account/forbidden.html:3
+msgid ""
+"You must be logged in to view this page or maybe your account is not "
+"associated to a member. Please contact an administrator"
+msgstr "Vous devez être connecté pour accéder à cette page, ou peut-être que votre compte n'est pas associé à un membre de la plateforme. Merci de contacter un administrateur."
+
+#: templates/page_coop_account/index.html:10
 msgid "Account"
 msgstr "Mon compte"
 
-#: templates/page_coop_account/index.html:11
+#: templates/page_coop_account/index.html:12
+msgid "Edit preferences"
+msgstr "Editer mes préférences"
+
+#: templates/page_coop_account/index.html:12
 msgid "Logout"
 msgstr "Se déconnecter"
 
-#: templates/page_coop_account/index.html:16
-msgid "My organizations"
-msgstr "Mes structures"
-
-#: templates/page_coop_account/index.html:17
-msgid "My exchanges"
-msgstr "Mes annonces"
-
 #: templates/page_coop_account/index.html:18
-msgid "My articles"
-msgstr "Mes articles"
-
-#: templates/page_coop_account/index.html:19
-msgid "My events"
-msgstr "Mes évènements"
-
-#: templates/page_coop_account/index.html:20
-msgid "My projects"
-msgstr "Mes projets"
-
-#: templates/page_coop_account/index.html:21
 msgid "Personal informations"
 msgstr "Mes infos personnelles"
 
-#: templates/page_coop_account/index.html:27
-#: templates/page_coop_account/index.html:34
-#: templates/page_coop_account/index.html:41
-#: templates/page_coop_account/index.html:48
-#: templates/page_coop_account/index.html:55
+#: templates/page_coop_account/index.html:19
+msgid "My organizations"
+msgstr "Mes structures"
+
+#: templates/page_coop_account/index.html:20
+msgid "My exchanges"
+msgstr "Mes annonces"
+
+#: templates/page_coop_account/index.html:21
+msgid "My articles"
+msgstr "Mes articles"
+
+#: templates/page_coop_account/index.html:22
+msgid "My events"
+msgstr "Mes évènements"
+
+#: templates/page_coop_account/index.html:23
+msgid "My projects"
+msgstr "Mes projets"
+
+#: templates/page_coop_account/index.html:29
+#: templates/page_coop_account/index.html:36
+#: templates/page_coop_account/index.html:43
+#: templates/page_coop_account/index.html:50
+#: templates/page_coop_account/index.html:57
 msgid "Edit"
 msgstr "Editer"
 
-#: templates/page_coop_account/index.html:60
+#: templates/page_coop_account/index.html:64
 msgid "Personnal informations of"
 msgstr "Informations personnelles de"
 
-#: templates/page_coop_account/index.html:61
+#: templates/page_coop_account/index.html:65
 msgid "Email"
 msgstr ""
 
-#: templates/page_coop_account/index.html:62
+#: templates/page_coop_account/index.html:66
 msgid "Last connection"
 msgstr "Dernière connexion"
+
+#: templates/page_coop_account/index.html:70
+msgid "These last days:"
+msgstr "Ces derniers jours:"
+
+#: templates/page_coop_account/index.html:73
+#, fuzzy
+msgid "Articles"
+msgstr "Mes articles"
+
+#: templates/page_coop_account/index.html:80
+#, fuzzy
+msgid "Exchanges"
+msgstr "Mes annonces"
+
+#: templates/page_coop_account/index.html:87
+msgid "Agenda"
+msgstr "Agenda"
+
+#: templates/page_coop_account/index.html:94
+#, fuzzy
+msgid "Organizations"
+msgstr "Structures"
 
 #: templates/page_coop_account/login.html:8
 #: templates/page_coop_account/login.html:17
@@ -86,6 +127,12 @@ msgstr ""
 msgid "Password"
 msgstr "Mot de passe"
 
+#~ msgid "Entry"
+#~ msgstr "Actualité"
+
+#~ msgid "Event"
+#~ msgstr "Evènement"
+
 #~ msgid "Description"
 #~ msgstr "Description"
 
@@ -94,9 +141,6 @@ msgstr "Mot de passe"
 
 #~ msgid "Dates"
 #~ msgstr "Dates"
-
-#~ msgid "Agenda"
-#~ msgstr "Agenda"
 
 #~ msgid "to"
 #~ msgstr "au"

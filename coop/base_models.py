@@ -2,7 +2,7 @@
 
 from django.conf import settings
 from coop.link.models import BaseLinkProperty, BaseLink
-from coop.person.models import BasePerson, BasePersonCategory
+from coop.person.models import BasePerson, BasePersonCategory, BasePersonPreferences
 from coop.exchange.models import BaseExchange, BaseProduct, BaseExchangeMethod
 from coop.org.models import (BaseOrganizationCategory, BaseOrganization,
                              BaseRelation, BaseEngagement, BaseRole, BaseOrgRelationType,
@@ -76,6 +76,8 @@ if 'coop_tag' in settings.INSTALLED_APPS:
 class PersonCategory(BasePersonCategory):
     pass
 
+class PersonPreferences(BasePersonPreferences):
+    pass
 
 class Person(BasePerson):
     pass

@@ -1,35 +1,29 @@
 # -*- coding: utf-8 -*-
 
 from django.utils.http import urlquote
-import csv
 from django.template.loader import get_template
 from django.template import Context
 from django.core.mail import send_mail
 from django.core.mail import EmailMultiAlternatives
-
 from django.template import RequestContext
-from ionyweb.website.rendering.utils import render_view
-
-from coop_local.models import Organization, Event, EventCategory, Calendar, Occurrence, Exchange, Person
 from django.conf import settings
-
 from django.shortcuts import get_object_or_404
-
-from ionyweb.website.rendering.medias import CSSMedia
-from datetime import datetime
-
-from .forms import PageApp_CoopAccountForm
-
 from django.db.models import Q
-
 from django.contrib.gis import geos
 from django.contrib.gis.measure import D
-from coop_local.models import Location
-
 from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import redirect
 
-from coop.org.models import get_rights as get_rights_org
+from math import pi
+import csv
+from datetime import datetime, timedelta
+
+from ionyweb.website.rendering.utils import render_view
+from ionyweb.website.rendering.medias import CSSMedia
 from ionyweb_plugins.page_coop_blog.models import CoopEntry
+from coop_local.models import Organization, Event, EventCategory, Calendar, Occurrence, Exchange, Person, Location, PersonPreferences
+from coop.org.models import get_rights as get_rights_org
+from .forms import PageApp_CoopAccountForm, PageApp_CoopAccountPreferencesForm
 
 MEDIAS = (
     CSSMedia('page_coop_account.css'),
@@ -37,6 +31,7 @@ MEDIAS = (
 
 def index_view(request, page_app):
     base_url = u'%s' % (page_app.get_absolute_url())
+    edit_url = None
     
     if request.method == 'POST': # If the login form has been submitted
         username = request.POST['username']
@@ -53,17 +48,41 @@ def index_view(request, page_app):
     tab_entries = []
     tab_private_entries = []
     logo = None
+    person = None
+    user_pref_matches = None
 
     if request.user.is_authenticated():
         render_page = 'page_coop_account/index.html'
-
+        
         # Get logo
+        #person = Person.objects.filter(user=request.user)
+        #if person:
+            #org = Organization.objects.filter(members=person[0])
+            #if org:
+                #logo = org[0].logo
+
         person = Person.objects.filter(user=request.user)
         if person:
-            org = Organization.objects.filter(members=person[0])
+            person = person[0]
+        else:
+            return render_view('page_coop_account/forbidden.html')
+         
+        try:
+            user_pref = get_object_or_404(PersonPreferences, pk=person.prefs.pk)
+            org = Organization.objects.filter(members=person)
             if org:
                 logo = org[0].logo
-       
+        except:
+            # If preferences do not exist, create them
+            user_pref = PersonPreferences()
+            user_pref.save()
+            person.prefs = user_pref
+            person.save()
+
+        edit_url = u'%sp/pref_edit/%s' % (page_app.get_absolute_url(),user_pref.pk)
+
+        user_pref_matches = get_user_pref_matches(user_pref)
+                
         # My organizations
         organizations = Organization.objects.filter(is_project=False).order_by('title')
         for o in organizations:
@@ -126,13 +145,137 @@ def index_view(request, page_app):
     else:
         render_page = 'page_coop_account/login.html'
     
-        
-    rdict = {'object': page_app, 'base_url': base_url, 'org': tab_org, 'projects': tab_projects, 'exchanges': tab_exchanges, 'occs': tab_events, 'entries': tab_entries, 'private_entries': tab_private_entries, 'logo': logo, 'media_path': settings.MEDIA_URL}
+    exchanges_url = settings.COOP_EXCHANGE_EXCHANGES_URL
+    organizations_url = settings.COOP_MEMBER_ORGANIZATIONS_URL
+    agenda_url = settings.COOP_AGENDA_URL
+    blog_url = settings.COOP_BLOG_URL
+
+    rdict = {'object': page_app, 'base_url': base_url, 'edit_url': edit_url, 'org': tab_org, 'projects': tab_projects, 'exchanges': tab_exchanges, 'occs': tab_events, 'entries': tab_entries, 'private_entries': tab_private_entries, 'logo': logo, 'media_path': settings.MEDIA_URL, 'person': person, 'items': user_pref_matches, 'exchanges_url': exchanges_url, 'organizations_url': organizations_url, 'agenda_url': agenda_url, 'blog_url': blog_url}
     
     return render_view(render_page,
                        rdict,
                        MEDIAS,
                        context_instance=RequestContext(request))
+
+def get_user_pref_matches(pref):
+    
+    items = []
+    exchanges = None
+    events = None
+    organizations = None
+    entries = None
+
+    delta_days = datetime.now() - timedelta(days=settings.NOTIFICATION_MY_ACCOUNT_DELTA)
+
+    for tc in pref.type_content.all():
+        if tc.name == "exchanges":
+            exchanges = Exchange.objects.filter(active=True).order_by("-modified")
+            arg = Q(created__gt=delta_days)
+            arg = arg | Q(modified__gt=delta_days)
+            for activity in pref.activities.all():
+                arg = arg | Q(activity__label__icontains=activity)
+                
+            for theme in pref.transverse_themes.all():
+                arg = arg | Q(transverse_themes__name__icontains=theme)
+                
+            for area in pref.locations.all():
+                possible_locations = get_possible_locations(area, pref.locations_buffer)
+                arg = arg| Q(location__in=possible_locations)
+            
+            for org in pref.organizations.all():
+                arg = arg | Q(organization=org)
+                
+            exchanges = exchanges.filter(arg).distinct()
+
+        if tc.name == "events":
+            agenda = get_object_or_404(Calendar, sites__id=settings.SITE_ID)
+            occs = Occurrence.objects.filter(
+                                end_time__gt=datetime.now(),
+                                event__active=True,
+                                event__calendar=agenda,
+                                ).order_by("start_time")
+            
+            arg = Q(event__created__gt=delta_days) 
+            arg = arg | Q(event__modified__gt=delta_days)
+
+            for activity in pref.activities.all():
+                arg = arg | Q(event__activity__label__icontains=activity)
+                
+            for theme in pref.transverse_themes.all():
+                arg = arg | Q(event__transverse_themes__name__icontains=theme)
+                
+            for area in pref.locations.all():
+                possible_locations = get_possible_locations(area, pref.locations_buffer)
+                arg = arg| Q(event__location__in=possible_locations)
+            
+            for org in pref.organizations.all():
+                arg = arg | Q(event__organization=org)
+            
+            occs = occs.filter(arg).distinct()
+            
+        if tc.name == "organizations":
+            organizations = Organization.objects.filter(active=True, is_project=False).order_by("-modified")
+            
+            arg = Q(created__gt=delta_days)
+            arg = arg | Q(modified__gt=delta_days)
+            
+            for activity in pref.activities.all():
+                arg = arg | Q(offer__activity__label__icontains=activity)
+                
+            for theme in pref.transverse_themes.all():
+                arg = arg | Q(transverse_themes__name__icontains=theme)
+                
+            for area in pref.locations.all():
+                possible_locations = get_possible_locations(area, pref.locations_buffer)
+                arg = arg| Q(located__location__in=possible_locations)
+            
+            for org in pref.organizations.all():
+                arg = arg | Q(pk=org.pk)
+            
+            organizations = organizations.filter(arg).distinct()
+            
+        if tc.name == "entries":
+            entries = CoopEntry.objects.filter(status=1, group_private__isnull=True).order_by('-modification_date')
+            
+            arg = Q(creation_date__gt=delta_days)
+            arg = arg | Q(modification_date__gt=delta_days)
+            
+            for activity in pref.activities.all():
+                arg = arg | Q(activity__label__icontains=activity)
+                
+            for theme in pref.transverse_themes.all():
+                arg = arg | Q(transverse_themes__name__icontains=theme)
+                
+            for org in pref.organizations.all():
+                arg = arg | Q(pk=org.pk)
+            
+            entries = entries.filter(arg).distinct()
+
+    if exchanges:
+        for e in exchanges :
+            items.append({'type':'exchange', 'obj': e})
+    if events:
+        for o in occs :
+            items.append({'type':'occ', 'obj': o})
+    if organizations:
+        for o in organizations :
+            items.append({'type':'organization', 'obj': o})
+    if entries:
+        for e in entries :
+            items.append({'type':'entry', 'obj': e})
+    
+    return items
+
+
+def get_possible_locations(area, radius):
+    if not radius:
+        radius = 0
+    distance_degrees = (360 * radius) / (pi * 6378)
+    zone = area.polygon.buffer(distance_degrees)
+    zone_json = zone.json
+    possible_locations = Location.objects.filter(point__intersects=zone)
+    return possible_locations
+
 
 def logout_view(request, page_app):
     logout(request)
@@ -147,15 +290,52 @@ def logout_view(request, page_app):
 
 
 def detail_view(request, page_app, pk):
-    event = get_object_or_404(Event, pk=pk)
+    person = get_object_or_404(Person, pk=pk)
     base_url = u'%sp/' % (page_app.get_absolute_url())
-    rdict = {'object': page_app, 'e': event, 'media_path': settings.MEDIA_URL, 'base_url': base_url}
+    rdict = {'object': page_app, 'p': person, 'media_path': settings.MEDIA_URL, 'base_url': base_url}
     return render_view('page_coop_account/detail.html',
                        rdict,
                        MEDIAS,
                        context_instance=RequestContext(request))                
 
 
+def editpref_view(request, page_app, user_id=None):
+    
+    if request.user.is_authenticated():
+        person = Person.objects.filter(user=request.user)[0]
+        try:
+            user_pref = get_object_or_404(PersonPreferences, pk=person.prefs.pk)
+        except:
+            # If preferences do not exist, create them
+            user_pref = PersonPreferences()
+            user_pref.save()
+            person.prefs = user_pref
+            person.save()
+
+        base_url = u'%s' % (page_app.get_absolute_url())
+        edit_url = u'%sp/pref_edit/%s' % (page_app.get_absolute_url(),user_pref.pk)
+
+        if request.method == 'POST': # If the form has been submitted
+        
+            form = PageApp_CoopAccountPreferencesForm(request.POST, instance = user_pref)
+            
+            if form.is_valid():
+                user_pref = form.save()
+                
+                rdict = {'base_url': base_url}
+                return redirect(base_url)
+        else:
+            form = PageApp_CoopAccountPreferencesForm(instance = user_pref)
+        
+        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'edit_url': edit_url, 'form': form}
+        return render_view('page_coop_account/edit.html',
+                        rdict,
+                        MEDIAS,
+                        context_instance=RequestContext(request))
+    else:
+        return render_view('page_coop_account/forbidden.html')
+
+                       
 def mailing_view(request, page_app):    
     if request.user.is_superuser:
         dest_file = csv.DictReader(open("/tmp/emails_test.csv", 'rb'), delimiter=';', quotechar='"')        
@@ -200,4 +380,5 @@ def mailing_view(request, page_app):
         return render_view('page_coop_account/mailing_end.html',
                     rdict,
                     MEDIAS,
-                    context_instance=RequestContext(request))                
+                    context_instance=RequestContext(request))      
+
