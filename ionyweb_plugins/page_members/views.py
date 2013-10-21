@@ -238,8 +238,14 @@ def detail_view(request, page_app, pk):
         if l.opening:
             openings = True
 
+    print_css = 0
+    if request.method == 'GET' and 'mode' in request.GET:
+        if request.GET['mode'] == 'print':
+            print_css = 1
+            
+    print print_css
     return render_view('page_members/detail.html',
-                       { 'member':  member, 'imgs': imgs, 'docs': docs, 'media_path': settings.MEDIA_URL , 'base_url': base_url, 'openings': openings, 'relationship_queryset': relationship_queryset, 'is_project': is_project, 'evaluate': evaluate},
+                       { 'member':  member, 'imgs': imgs, 'docs': docs, 'media_path': settings.MEDIA_URL , 'base_url': base_url, 'openings': openings, 'relationship_queryset': relationship_queryset, 'is_project': is_project, 'evaluate': evaluate, 'print_css': print_css},
                        MEDIAS,
                        context_instance=RequestContext(request))
                        
