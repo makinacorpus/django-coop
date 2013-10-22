@@ -14,9 +14,9 @@ MEDIAS = (
 def index_view(request, plugin):
     
     if plugin.type != "":
-        organizations = Organization.objects.filter(category__label=plugin.type)
+        organizations = Organization.objects.filter(category__label=plugin.type).order_by('title')
     else:
-        organizations = Organization.objects.all()
+        organizations = Organization.objects.all().order_by('title')
     
     return render_view('plugin_coop_members_icons/index.html',
                        {'object': plugin, 'members': organizations, 'media_path': settings.MEDIA_URL},
