@@ -57,8 +57,8 @@ def index_view(request, page_app):
         person = Person.objects.filter(user=request.user)
         if person:
             person = person[0]
-        else:
-            return render_view('page_coop_account/forbidden.html')
+        #else:
+            #return render_view('page_coop_account/forbidden.html')
          
         try:
             user_pref = get_object_or_404(PersonPreferences, pk=person.prefs.pk)
@@ -69,12 +69,14 @@ def index_view(request, page_app):
             # If preferences do not exist, create them
             user_pref = PersonPreferences()
             user_pref.save()
-            person.prefs = user_pref
-            person.save()
+            if person:
+                person.prefs = user_pref
+                person.save()
 
-        edit_url = u'%sp/pref_edit/%s' % (page_app.get_absolute_url(),user_pref.pk)
+        if person:
+            edit_url = u'%sp/pref_edit/%s' % (page_app.get_absolute_url(),user_pref.pk)
 
-        user_pref_matches = get_user_pref_matches(user_pref, settings.NOTIFICATION_MY_ACCOUNT_DELTA)
+            user_pref_matches = get_user_pref_matches(user_pref, settings.NOTIFICATION_MY_ACCOUNT_DELTA)
                 
         # My organizations
         organizations = Organization.objects.filter(is_project=False).order_by('title')
