@@ -70,6 +70,8 @@ class BasePersonPreferences(models.Model):
         verbose_name=_(u'Content types'), blank=True, null=True)
         
     notification = models.BooleanField(_(u'Receive notifications by email'), default=False, blank=True)
+    
+    newsletter = models.BooleanField(_(u'Receive newsletter'), default=False, blank=True)
 
     def __unicode__(self):
         return u'PersonPreferences #%d' % (self.pk)

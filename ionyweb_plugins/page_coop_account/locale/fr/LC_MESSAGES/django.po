@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-18 14:39+0200\n"
+"POT-Creation-Date: 2013-10-22 16:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,7 +26,7 @@ msgstr ""
 msgid "Preferences"
 msgstr "Préférences"
 
-#: templates/page_coop_account/edit.html:49
+#: templates/page_coop_account/edit.html:54
 msgid "Modify"
 msgstr "Modifier"
 
@@ -34,7 +34,10 @@ msgstr "Modifier"
 msgid ""
 "You must be logged in to view this page or maybe your account is not "
 "associated to a member. Please contact an administrator"
-msgstr "Vous devez être connecté pour accéder à cette page, ou peut-être que votre compte n'est pas associé à un membre de la plateforme. Merci de contacter un administrateur."
+msgstr ""
+"Vous devez être connecté pour accéder à cette page, ou peut-être que votre "
+"compte n'est pas associé à un membre de la plateforme. Merci de contacter un "
+"administrateur."
 
 #: templates/page_coop_account/index.html:10
 msgid "Account"
@@ -97,12 +100,10 @@ msgid "These last days:"
 msgstr "Ces derniers jours:"
 
 #: templates/page_coop_account/index.html:73
-#, fuzzy
 msgid "Articles"
 msgstr "Mes articles"
 
 #: templates/page_coop_account/index.html:80
-#, fuzzy
 msgid "Exchanges"
 msgstr "Mes annonces"
 
@@ -111,7 +112,6 @@ msgid "Agenda"
 msgstr "Agenda"
 
 #: templates/page_coop_account/index.html:94
-#, fuzzy
 msgid "Organizations"
 msgstr "Structures"
 
