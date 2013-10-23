@@ -322,9 +322,9 @@ class BaseRelation(models.Model):
         app_label = 'coop_local'
 
     def __unicode__(self):
-        return _(u"Relation : %(a)s %(r)s %(b)s") % {'a': self.source.__unicode__(),
-                                                     'r': self.relation_type.__unicode__(),
-                                                     'b': self.target.__unicode__()}
+        return _(u"Relation : %(a)s %(r)s %(b)s") % {'a': unicode(self.source),
+                                                     'r': unicode(self.relation_type),
+                                                     'b': unicode(self.target)}
     '''
     # TODO
     def save(self):
