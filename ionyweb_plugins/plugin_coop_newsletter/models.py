@@ -10,15 +10,15 @@ class Plugin_CoopNewsletter(AbstractPlugin):
     def __unicode__(self):
         return u'Newsletter Form #%d' % (self.pk)
 
-
-    def get_admin_form(self):
-        from forms import Plugin_CoopNewsletterFormAdmin
-        return Plugin_CoopNewsletterFormAdmin
-
     class Meta:
         verbose_name = ugettext(u"Newsletter Form")
-
         
+    class ActionsAdmin:
+        actions_list = (
+            {'title':_(u'Edit guests'),
+             'callback': "admin.plugin_coop_newsletter.edit_guests"},
+            )     
+
 class GuestNewsletter(models.Model):
     first_name = models.CharField(_(u'First name'),
                                        max_length=50,

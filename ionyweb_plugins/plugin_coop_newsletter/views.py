@@ -3,11 +3,13 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.template import RequestContext
 from ionyweb.website.rendering.medias import CSSMedia
+from ionyweb.website.rendering.medias import JSAdminMedia
 from ionyweb.website.rendering.utils import render_view
 from forms import Plugin_CoopNewsletterForm, GuestNewsletterForm
 
 MEDIAS = (
     CSSMedia('plugin_coop_newsletter.css'),
+    JSAdminMedia('plugin_coop_newsletter_actions.js'),
     )
 
 
