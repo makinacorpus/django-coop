@@ -1,0 +1,137 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-10-24 17:44+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+
+#: models.py:18
+msgid "CoopNewsletter"
+msgstr ""
+
+#: models.py:22
+msgid "First name"
+msgstr ""
+
+#: models.py:26
+msgid "Last name"
+msgstr ""
+
+#: models.py:30
+msgid "email"
+msgstr ""
+
+#: views.py:41
+#, fuzzy
+msgid "Inscription saved"
+msgstr "Description"
+
+#: views.py:44
+msgid "There is some errors in your form."
+msgstr ""
+
+#: templates/page_coop_newsletter/index.html:16
+msgid "Save"
+msgstr ""
+
+#~ msgid "Preferences"
+#~ msgstr "Préférences"
+
+#~ msgid "Modify"
+#~ msgstr "Modifier"
+
+#~ msgid ""
+#~ "You must be logged in to view this page or maybe your account is not "
+#~ "associated to a member. Please contact an administrator"
+#~ msgstr ""
+#~ "Vous devez être connecté pour accéder à cette page, ou peut-être que "
+#~ "votre compte n'est pas associé à un membre de la plateforme. Merci de "
+#~ "contacter un administrateur."
+
+#~ msgid "Account"
+#~ msgstr "Mon compte"
+
+#~ msgid "Edit preferences"
+#~ msgstr "Editer mes préférences"
+
+#~ msgid "Logout"
+#~ msgstr "Se déconnecter"
+
+#~ msgid "Personal informations"
+#~ msgstr "Mes infos personnelles"
+
+#~ msgid "My organizations"
+#~ msgstr "Mes structures"
+
+#~ msgid "My exchanges"
+#~ msgstr "Mes annonces"
+
+#~ msgid "My articles"
+#~ msgstr "Mes articles"
+
+#~ msgid "My events"
+#~ msgstr "Mes évènements"
+
+#~ msgid "My projects"
+#~ msgstr "Mes projets"
+
+#~ msgid "Edit"
+#~ msgstr "Editer"
+
+#~ msgid "Personnal informations of"
+#~ msgstr "Informations personnelles de"
+
+#~ msgid "Last connection"
+#~ msgstr "Dernière connexion"
+
+#~ msgid "These last days:"
+#~ msgstr "Ces derniers jours:"
+
+#~ msgid "Articles"
+#~ msgstr "Mes articles"
+
+#~ msgid "Exchanges"
+#~ msgstr "Mes annonces"
+
+#~ msgid "Agenda"
+#~ msgstr "Agenda"
+
+#~ msgid "Organizations"
+#~ msgstr "Structures"
+
+#~ msgid "Password"
+#~ msgstr "Mot de passe"
+
+#~ msgid "Entry"
+#~ msgstr "Actualité"
+
+#~ msgid "Event"
+#~ msgstr "Evènement"
+
+#~ msgid "Place"
+#~ msgstr "Lieu"
+
+#~ msgid "Dates"
+#~ msgstr "Dates"
+
+#~ msgid "to"
+#~ msgstr "au"
+
+#~ msgid "in"
+#~ msgstr "à"
+
+#~ msgid "Person"
+#~ msgstr "Personne"
