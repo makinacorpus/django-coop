@@ -210,7 +210,7 @@ INSTALLED_APPS = [
     'ionyweb',
     'django.contrib.sitemaps',
     'grappelli',
-    'django.contrib.admindocs',
+    #'django.contrib.admindocs',
     'mptt',
     'sekizai',
     'djangorestframework',
