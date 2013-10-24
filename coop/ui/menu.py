@@ -179,6 +179,14 @@ class CustomMenu(Menu):
                 ])
             )
 
+        if is_superuser:
+            self.children.append(
+                items.MenuItem(_('Export'), '#', icon='icon-coop icon-newsletter icon-white', children=[
+                    items.MenuItem(_('Export members'), '/admin/coop_local/organization/export'),
+                    items.MenuItem(_('Export newsletter subscribers'), '/newsletter/p/export'),
+                ])
+            )
+
         try:    
             idx = len(self.children)
             for menu in settings.ADMINTOOLS_CUSTOM_MENUS:

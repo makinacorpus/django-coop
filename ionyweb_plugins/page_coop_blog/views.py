@@ -13,6 +13,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.utils.simplejson import dumps
 from django.contrib.contenttypes.generic import generic_inlineformset_factory
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+
 try:
     from functools import wraps
 except ImportError:

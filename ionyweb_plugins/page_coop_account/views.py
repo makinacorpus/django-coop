@@ -57,22 +57,21 @@ def index_view(request, page_app):
         person = Person.objects.filter(user=request.user)
         if person:
             person = person[0]
-        #else:
-            #return render_view('page_coop_account/forbidden.html')
          
-        try:
-            user_pref = get_object_or_404(PersonPreferences, pk=person.prefs.pk)
-            org = Organization.objects.filter(members=person)
-            if org:
-                logo = org[0].logo
-        except:
-            # If preferences do not exist, create them
-            user_pref = PersonPreferences()
-            user_pref.save()
-            if person:
+            if person.prefs:
+                user_pref = PersonPreferences.objects.get(id=person.prefs.pk)
+            else:
+                # If preferences do not exist, create them
+                user_pref = PersonPreferences()
+                user_pref.save()
                 person.prefs = user_pref
                 person.save()
 
+            org = Organization.objects.filter(members=person)
+            if org:
+                logo = org[0].logo
+
+                
         if person:
             edit_url = u'%sp/pref_edit/%s' % (page_app.get_absolute_url(),user_pref.pk)
 
@@ -298,9 +297,9 @@ def editpref_view(request, page_app, user_id=None):
     
     if request.user.is_authenticated():
         person = Person.objects.filter(user=request.user)[0]
-        try:
-            user_pref = get_object_or_404(PersonPreferences, pk=person.prefs.pk)
-        except:
+        if person.prefs:
+            user_pref = PersonPreferences.objects.get(id=person.prefs.pk)
+        else:
             # If preferences do not exist, create them
             user_pref = PersonPreferences()
             user_pref.save()

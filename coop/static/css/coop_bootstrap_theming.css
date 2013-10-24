@@ -78,6 +78,9 @@ li.bsmenuitem > a > i{
 .icon-white.icon-rdf {
   background-position: -24px 0;
 }
+.icon-white.icon-newsletter {
+  background-position: -24px -24px;
+}
 .icon-rss {
   background-position: 0 -24px;
 }

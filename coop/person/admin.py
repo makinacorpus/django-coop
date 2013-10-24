@@ -4,14 +4,15 @@ from django.conf import settings
 from django import forms
 from coop.org.admin import create_action, ContactInline, OrgInline
 from django.db.models.loading import get_model
-from coop_local.models import Contact
+from coop_local.models import Contact, Person
 from chosen import widgets as chosenwidgets
 from coop.utils.autocomplete_admin import FkAutocompleteAdmin
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
-
-
-
+from django.conf.urls.defaults import patterns, url
+import mailjet
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
 class PersonAdminForm(forms.ModelForm):
     # category = chosenforms.ChosenModelMultipleChoiceField(
@@ -70,4 +71,4 @@ class PersonAdmin(FkAutocompleteAdmin):
     if settings.COOP_USE_SITES:
         fieldsets[0][1]['fields'].insert(0, 'sites')
 
-
+    

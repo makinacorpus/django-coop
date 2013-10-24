@@ -9,12 +9,18 @@ from coop.utils.autocomplete_admin import FkAutocompleteAdmin, InlineAutocomplet
 from coop_local.models import Contact, Person, Location, ActivityNomenclature
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
+from django.core.exceptions import ObjectDoesNotExist
 
 from django.contrib.admin.widgets import AdminURLFieldWidget
 from django.db.models import URLField, ManyToManyField
 from django.utils.safestring import mark_safe
 from sorl.thumbnail.admin import AdminImageMixin
 from tinymce.widgets import AdminTinyMCE
+from tempfile import NamedTemporaryFile
+import tempfile
+from django.core.servers.basehttp import FileWrapper
+from django.http import HttpResponse
+from django.utils.http import http_date
 
 from chosen import widgets as chosenwidgets
 from selectable.forms import AutoCompleteSelectWidget
@@ -31,8 +37,14 @@ from django.conf.urls.defaults import patterns, url
 from django.contrib.admin.templatetags.admin_static import static
 from django.shortcuts import render
 from django.contrib.contenttypes.generic import generic_inlineformset_factory
+import mailjet
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
 from coop.org.document_admin import DocumentInline
+
+from coop_local.models import Organization
+
 
 if "coop.exchange" in settings.INSTALLED_APPS:
     from coop.exchange.admin import ExchangeInline
@@ -397,6 +409,112 @@ class OrganizationAdmin(AdminImageMixin, FkAutocompleteAdmin):
     class Media:
         js = ('/static/js/admin_customize.js',)
 
+        
+    def get_urls(self):
+        urls = super(OrganizationAdmin, self).get_urls()
+        my_urls = patterns('',
+            (r'^export$', self.export),
+        )
+        return my_urls + urls
+
+
+    def export(self, request):
+        # Export organizations in CSV
+        if request.user.is_authenticated() and request.user.is_superuser:
+
+            list_members = []
+            orgs = Organization.objects.all()
+            for o in orgs:
+                for p in o.members.all():
+                    line = "%s,%s,%s,%s" % (p.pref_email.content, o.title, o.acronym, o.get_categories())
+                    list_members.append(line)
+
+            # Create the .csv file
+            output = None
+            export = ""
+            try:
+                with tempfile.TemporaryFile('w', suffix='.wkt') as f:
+                    output = f.name
+
+                    for line  in list_members:
+                        export = "%s%s\n" % (export, line)
+
+                    wrapper = FileWrapper(f)
+                    response = HttpResponse(export, content_type='application/txt')
+                    response['Last-Modified'] = http_date()
+                    response['Content-Length'] = len(export)
+                    response['Content-Disposition'] = 'attachment; filename=export_members.csv'
+            finally:
+                pass
+
+            return response            
+        
+            # Code for mailjet automatic sync :
+            # Not used for the moment
+            
+            #mailjet_api = mailjet.Api(api_key=settings.MAILJET_API_KEY, secret_key=settings.MAILJET_SECRET_KEY)
+            #account_info = mailjet_api.user.infos()
+
+            #contact_list = None
+            #list_id = None
+
+            ##list_members_ok = []
+            #list_members_notok = []
+
+            ## list all Person that have newsletter enable
+            #orgs = Organization.objects.all()
+            #for org in orgs:
+                #for person in org.members.all():
+                    #if person.prefs:
+                        #user_pref = PersonPreferences.objects.get(id=person.prefs.pk)
+                    #else:
+                        ## If preferences do not exist, create them
+                        #user_pref = PersonPreferences()
+                        #user_pref.save()
+                        #person.prefs = user_pref
+                        #person.save()
+                                            
+                    #if user_pref.newsletter == True:
+                        #list_members_ok.append(person)
+                    #else:
+                        #list_members_notok.append(person)
+            
+            # Create mailing lists member
+            #try :
+                #contact_list = mailjet_api.lists.create(
+                    #label=settings.MAILJET_MAILINGLIST_NAME_MEMBERS,
+                    #name=settings.MAILJET_MAILINGLIST_NAME_MEMBERS,
+                    #method='POST'
+                #)
+                #list_id = contact_list['list_id']
+            #except:
+                #for l in mailjet_api.lists.all()['lists']:
+                    #if l['name'] == settings.MAILJET_MAILINGLIST_NAME_MEMBERS:
+                        #list_id = l['id']
+                        #break        
+
+            ## Insert into mailing list member
+            #for person_ok in list_members_ok:
+                #try:
+                    #mailjet_api.lists.addcontact(
+                        #contact = person_ok.pref_email.content,
+                        #id = list_id,
+                        #method = 'POST'
+                    #)
+                #except:
+                    #print "Contact already in list"
+            
+            #for person_ok in list_members_notok:
+                #try:
+                    #mailjet_api.lists.removecontact(
+                        #contact = person_ok.pref_email.content,
+                        #id = list_id,
+                        #method = 'POST'
+                    #)
+                    #print "Contact deleted from mailing list"
+                #except:
+                    #print "Contact not deleted from  mailing list"
+
 
 class ActivityNomenclatureAdmin(MPTTModelAdmin, FkAutocompleteAdmin):
 
@@ -404,3 +522,5 @@ class ActivityNomenclatureAdmin(MPTTModelAdmin, FkAutocompleteAdmin):
     mptt_indent_field = 'label'
     mptt_level_indent = 50
     list_display = ('label', )
+
+    
