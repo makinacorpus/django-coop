@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-24 17:44+0200\n"
+"POT-Creation-Date: 2013-10-25 09:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,28 +24,27 @@ msgstr ""
 
 #: models.py:22
 msgid "First name"
-msgstr ""
+msgstr "Prénom"
 
 #: models.py:26
 msgid "Last name"
-msgstr ""
+msgstr "Nom"
 
 #: models.py:30
 msgid "email"
-msgstr ""
+msgstr "Email"
 
-#: views.py:41
-#, fuzzy
+#: views.py:47
 msgid "Inscription saved"
-msgstr "Description"
+msgstr "Abonnement enregistré"
 
-#: views.py:44
+#: views.py:50
 msgid "There is some errors in your form."
-msgstr ""
+msgstr "Il y a des erreurs de saisie"
 
 #: templates/page_coop_newsletter/index.html:16
 msgid "Save"
-msgstr ""
+msgstr "S'abonner"
 
 #~ msgid "Preferences"
 #~ msgstr "Préférences"
