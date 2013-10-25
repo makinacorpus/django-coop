@@ -166,13 +166,13 @@ def detail_view(request, page_app, pk):
 
     # check if this article is accessible for this user
     viewable = False
-    if e.group_private is not None and not request.user.is_superuser:
+    if e.group_private.exists() and not request.user.is_superuser:
         for gp in e.group_private.all():
             if gp in request.user.groups.all():
                 viewable = True
         if viewable == False:
             return
-        
+    
     base_url = u'%sp/' % (page_app.get_absolute_url())
     imgs = e.document_set.filter(type__name='Galerie')
     docs = e.document_set.exclude(type__name='Galerie')
