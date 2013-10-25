@@ -237,7 +237,13 @@ def detail_view(request, page_app, pk):
     base_url = u'%sp/' % (page_app.get_absolute_url())
     imgs = event.document_set.filter(type__name='Galerie')
     docs = event.document_set.exclude(type__name='Galerie')
-    rdict = {'object': page_app, 'e': event, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'imgs': imgs, 'docs': docs}
+    
+    print_css = 0
+    if request.method == 'GET' and 'mode' in request.GET:
+        if request.GET['mode'] == 'print':
+            print_css = 1
+    
+    rdict = {'object': page_app, 'e': event, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'imgs': imgs, 'docs': docs, 'print_css': print_css}
     return render_view('page_coop_agenda/detail.html',
                        rdict,
                        MEDIAS,

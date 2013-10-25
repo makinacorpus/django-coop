@@ -178,8 +178,13 @@ def detail_view(request, page_app, pk):
     docs = e.document_set.exclude(type__name='Galerie')
     
     more_articles = CoopEntry.objects.filter(author=e.author)
-    
-    rdict = {'object': page_app, 'e': e, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'imgs': imgs, 'docs': docs, 'more_articles': more_articles}
+
+    print_css = 0
+    if request.method == 'GET' and 'mode' in request.GET:
+        if request.GET['mode'] == 'print':
+            print_css = 1    
+            
+    rdict = {'object': page_app, 'e': e, 'media_path': settings.MEDIA_URL, 'base_url': base_url, 'imgs': imgs, 'docs': docs, 'more_articles': more_articles, "print_css": print_css}
     return render_view('page_coop_blog/entry_detail.html',
                        rdict,
                        MEDIAS,
