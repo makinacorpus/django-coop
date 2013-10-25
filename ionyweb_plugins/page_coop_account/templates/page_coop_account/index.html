@@ -9,7 +9,7 @@
 <div id="coop_account">
     <h2 class="title">{% trans "Account" %}</h2>
 
-    <div class="account_disconnect"><a class="highlight_gen account_link" href="{{ edit_url }}">{% trans "Edit preferences" %}</a><a class="highlight_gen account_link" href="{{ base_url }}p/logout">{% trans "Logout" %}</a></div>
+    <div class="account_disconnect">{% if edit_url %}<a class="highlight_gen account_link" href="{{ edit_url }}">{% trans "Edit preferences" %}</a>{% endif %}<a class="highlight_gen account_link" href="{{ base_url }}p/logout">{% trans "Logout" %}</a></div>
 
 
 
