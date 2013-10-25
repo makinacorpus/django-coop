@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coop.ui\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-04 15:22+0200\n"
+"POT-Creation-Date: 2013-10-25 09:48+0200\n"
 "PO-Revision-Date: 2012-09-30 18:58+0100\n"
 "Last-Translator: Dominique Guardiola <dguardiola@quinode.fr>\n"
 "Language-Team: Quinode <contact@quinode.fr>\n"
@@ -30,7 +30,7 @@ msgstr "Dernières nouvelles de Django"
 msgid "CMS"
 msgstr "CMS"
 
-#: menu.py:61 menu.py:62 menu.py:170
+#: menu.py:61 menu.py:62 menu.py:171
 msgid "Tags"
 msgstr "Tags"
 
@@ -47,149 +47,165 @@ msgid "Users"
 msgstr "Comptes utilisateurs"
 
 #: menu.py:69
+msgid "Groups"
+msgstr ""
+
+#: menu.py:70
 msgid "Sites"
 msgstr "Configuration du site"
 
-#: menu.py:77
+#: menu.py:78
 msgid "Network"
 msgstr "Réseau"
 
-#: menu.py:80
+#: menu.py:81
 msgid "Directory"
 msgstr "Annuaire"
 
-#: menu.py:81
+#: menu.py:82
 msgid "Organizations"
 msgstr "Organisations"
 
-#: menu.py:82
+#: menu.py:83
 msgid "Persons"
 msgstr "Personnes"
 
-#: menu.py:83
+#: menu.py:84
 msgid "Organization categories"
 msgstr "Catégories d'organisations"
 
-#: menu.py:84 menu.py:166
+#: menu.py:85 menu.py:167
 msgid "Person categories"
 msgstr "Catégories de personnes"
 
-#: menu.py:85 menu.py:172
+#: menu.py:86 menu.py:173
 msgid "Roles"
 msgstr "Rôles"
 
-#: menu.py:86 menu.py:171
+#: menu.py:87 menu.py:172
 msgid "Activity nomenclature"
 msgstr "Nomenclature d'activité"
 
-#: menu.py:87
+#: menu.py:88
 msgid "Activity nomenclature AVISE"
 msgstr "Nomenclature d'activité AVISE"
 
-#: menu.py:88
+#: menu.py:89
 msgid "Transverse Themes"
 msgstr "Thématiques"
 
-#: menu.py:91 menu.py:92
+#: menu.py:92 menu.py:93
 msgid "Exchanges"
 msgstr "Échanges"
 
-#: menu.py:93
+#: menu.py:94
 msgid "Exchange methods"
 msgstr "Modalités d'échange"
 
-#: menu.py:96
+#: menu.py:97
 msgid "Cartography"
 msgstr "Cartographie"
 
-#: menu.py:97
+#: menu.py:98
 msgid "Locations"
 msgstr "Lieux"
 
-#: menu.py:98
+#: menu.py:99
 msgid "Areas"
 msgstr "Zones"
 
-#: menu.py:99 menu.py:165
+#: menu.py:100 menu.py:166
 msgid "Location categories"
 msgstr "Catégories de lieux"
 
-#: menu.py:103
+#: menu.py:104
 msgid "RDF settings"
 msgstr "Réglages RDF"
 
-#: menu.py:104
+#: menu.py:105
 msgid "URI redirection"
 msgstr "Redirection d'URI"
 
-#: menu.py:118
+#: menu.py:119
 msgid "RSS"
 msgstr "RSS"
 
-#: menu.py:119
+#: menu.py:120
 msgid "RSS items"
 msgstr "Articles à importer"
 
-#: menu.py:120
+#: menu.py:121
 msgid "RSS sources"
 msgstr "Sources d'articles"
 
-#: menu.py:126
+#: menu.py:127
 msgid "Agenda"
 msgstr "Agenda"
 
-#: menu.py:128
+#: menu.py:129
 msgid "Events"
 msgstr "Événements"
 
-#: menu.py:129
+#: menu.py:130
 msgid "Calendar"
 msgstr "Calendrier"
 
-#: menu.py:130
+#: menu.py:131
 msgid "Event categories"
 msgstr "Catégories d'événements"
 
-#: menu.py:141
+#: menu.py:142
 msgid "Newsletters"
 msgstr "Lettres d'information"
 
-#: menu.py:143
+#: menu.py:144
 msgid "MailingLists"
 msgstr "Listes de diffusion"
 
-#: menu.py:154 menu.py:155
+#: menu.py:155 menu.py:156
 msgid "Projects"
 msgstr "Projets"
 
-#: menu.py:156
+#: menu.py:157
 msgid "Projects categories"
 msgstr "Catégories de projets"
 
-#: menu.py:164
+#: menu.py:165
 msgid "Thesaurus"
 msgstr "Thésaurus"
 
-#: menu.py:167
+#: menu.py:168
 msgid "Customer targets"
 msgstr "Cibles client"
 
-#: menu.py:169
+#: menu.py:170
 msgid "Guaranties"
 msgstr "Garanties"
 
-#: menu.py:173
+#: menu.py:174
 msgid "Legal statuses"
 msgstr "Statuts juridiques"
 
-#: menu.py:174
+#: menu.py:175
 msgid "Themes"
 msgstr "Thématiques"
 
-#: menu.py:175
+#: menu.py:176
 msgid "Document types"
 msgstr "Types de document"
 
-#: menu.py:176
+#: menu.py:177
 msgid "ESS categories"
 msgstr "Catégories ESS"
+
+#: menu.py:184
+msgid "Export"
+msgstr ""
+
+#: menu.py:185
+msgid "Export members"
+msgstr "Exporter les organisations"
+
+#: menu.py:186
+msgid "Export newsletter subscribers"
+msgstr "Exporter les abonnés newsletter"
