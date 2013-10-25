@@ -426,7 +426,10 @@ class OrganizationAdmin(AdminImageMixin, FkAutocompleteAdmin):
             orgs = Organization.objects.all()
             for o in orgs:
                 for p in o.members.all():
-                    line = "%s,%s,%s,%s" % (p.pref_email.content, o.title, o.acronym, o.get_categories())
+                    pref_email = ''
+                    if p.pref_email:
+                        pref_email = p.pref_email.content
+                    line = "%s,%s,%s,%s" % (pref_email, o.title, o.acronym, o.get_categories())
                     list_members.append(line)
 
             # Create the .csv file
