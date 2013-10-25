@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-25 09:55+0200\n"
+"POT-Creation-Date: 2013-10-25 14:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,6 +45,14 @@ msgstr "Il y a des erreurs de saisie"
 #: templates/page_coop_newsletter/index.html:16
 msgid "Save"
 msgstr "S'abonner"
+
+#: templates/page_coop_newsletter/nodata.html:6
+msgid "Export"
+msgstr ""
+
+#: templates/page_coop_newsletter/nodata.html:7
+msgid "No data to export"
+msgstr "Aucune donnée à exporter"
 
 #~ msgid "Preferences"
 #~ msgstr "Préférences"

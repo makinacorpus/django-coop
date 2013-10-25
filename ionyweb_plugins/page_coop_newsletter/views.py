@@ -82,7 +82,9 @@ def export(request, page_app):
         finally:
             pass
 
-        return response            
-
-
-                       
+    rdict = {'object': page_app}
+    return render_view('page_coop_newsletter/nodata.html',
+                        rdict,
+                       MEDIAS,
+                       context_instance=RequestContext(request))       
+        
