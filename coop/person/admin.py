@@ -10,7 +10,6 @@ from coop.utils.autocomplete_admin import FkAutocompleteAdmin
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
 from django.conf.urls.defaults import patterns, url
-import mailjet
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 

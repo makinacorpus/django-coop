@@ -177,7 +177,12 @@ def detail_view(request, page_app, pk):
     imgs = e.document_set.filter(type__name='Galerie')
     docs = e.document_set.exclude(type__name='Galerie')
     default_center = settings.COOP_MAP_DEFAULT_CENTER
-    rdict = {'object': page_app, 'e': e, 'media_path': settings.MEDIA_URL,'imgs': imgs, 'docs': docs, 'base_url': base_url, 'media_path': settings.MEDIA_URL, 'default_center': default_center}
+    print_css = 0
+    if request.method == 'GET' and 'mode' in request.GET:
+        if request.GET['mode'] == 'print':
+            print_css = 1    
+    
+    rdict = {'object': page_app, 'e': e, 'media_path': settings.MEDIA_URL,'imgs': imgs, 'docs': docs, 'base_url': base_url, 'media_path': settings.MEDIA_URL, 'default_center': default_center, 'print_css': print_css}
     return render_view('page_coop_exchange/detail.html',
                        rdict,
                        MEDIAS,

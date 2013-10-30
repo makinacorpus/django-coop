@@ -37,7 +37,6 @@ from django.conf.urls.defaults import patterns, url
 from django.contrib.admin.templatetags.admin_static import static
 from django.shortcuts import render
 from django.contrib.contenttypes.generic import generic_inlineformset_factory
-import mailjet
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
