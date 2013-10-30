@@ -196,7 +196,7 @@ msgstr "Types de document"
 
 #: menu.py:177
 msgid "ESS categories"
-msgstr "Catégories ESS"
+msgstr "Catégories"
 
 #: menu.py:184
 msgid "Export"
