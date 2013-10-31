@@ -9,14 +9,12 @@ from coop.utils.autocomplete_admin import FkAutocompleteAdmin, InlineAutocomplet
 from coop_local.models import Contact, Person, Location, ActivityNomenclature
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
-from django.core.exceptions import ObjectDoesNotExist
 
 from django.contrib.admin.widgets import AdminURLFieldWidget
 from django.db.models import URLField, ManyToManyField
 from django.utils.safestring import mark_safe
 from sorl.thumbnail.admin import AdminImageMixin
 from tinymce.widgets import AdminTinyMCE
-from tempfile import NamedTemporaryFile
 import tempfile
 from django.core.servers.basehttp import FileWrapper
 from django.http import HttpResponse
@@ -392,7 +390,8 @@ class OrganizationAdmin(AdminImageMixin, FkAutocompleteAdmin):
     def get_urls(self):
         urls = super(OrganizationAdmin, self).get_urls()
         my_urls = patterns('',
-            url(r'^activity_list/$', self.activity_list_view, name='coop_local_offer_activity_list')
+            url(r'^activity_list/$', self.activity_list_view, name='coop_local_offer_activity_list'),
+            (r'^export$', self.export),
         )
         return my_urls + urls
 
@@ -407,15 +406,6 @@ class OrganizationAdmin(AdminImageMixin, FkAutocompleteAdmin):
 
     class Media:
         js = ('/static/js/admin_customize.js',)
-
-        
-    def get_urls(self):
-        urls = super(OrganizationAdmin, self).get_urls()
-        my_urls = patterns('',
-            (r'^export$', self.export),
-        )
-        return my_urls + urls
-
 
     def export(self, request):
         # Export organizations in CSV
