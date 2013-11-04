@@ -422,14 +422,19 @@ class OrganizationAdmin(AdminImageMixin, FkAutocompleteAdmin):
         if request.user.is_authenticated() and request.user.is_superuser:
 
             list_members = []
-            orgs = Organization.objects.all()
+            orgs = Organization.objects.filter(Q(is_project=False)|Q(is_project=None)).order_by('title')
             for o in orgs:
-                for p in o.members.all():
-                    pref_email = ''
-                    if p.pref_email:
-                        pref_email = p.pref_email.content
-                    line = "%s,%s,%s,%s" % (pref_email, o.title, o.acronym, o.get_categories())
-                    list_members.append(line)
+                pref_email = ''
+                if o.pref_email:
+                    pref_email = o.pref_email.content
+                else:
+                    for p in o.members.all():
+                        
+                        if p.pref_email:
+                            pref_email = p.pref_email.content
+                            break
+                line = "%s,%s,%s,%s" % (pref_email, o.title, o.acronym, o.get_categories())
+                list_members.append(line)
 
             # Create the .csv file
             output = None
