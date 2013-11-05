@@ -93,7 +93,10 @@ def filter_data(request, page_app, mode):
         form = PageApp_MembersSearchForm(request.GET)
         if form.is_valid():
             if form.cleaned_data['free_search']:
-                organizations = organizations.filter(Q(title__icontains=form.cleaned_data['free_search']) | Q(description__icontains=form.cleaned_data['free_search']) | Q(tagged_items__tag__name__in=[form.cleaned_data['free_search']]))
+                organizations = organizations.filter(Q(title__icontains=form.cleaned_data['free_search']) | \
+                                                     Q(description__icontains=form.cleaned_data['free_search']) | \
+                                                     Q(tagged_items__tag__name__in=[form.cleaned_data['free_search']]) | \
+                                                     Q(evaluation__evaluationanswer__experience__icontains=form.cleaned_data['free_search'])).distinct()
 
             if form.cleaned_data['location']:
                 label = form.cleaned_data['location']
@@ -222,7 +225,7 @@ def detail_view(request, page_app, pk):
     # Evaluation
     evaluate = []
     evaluation = []
-    if member.evaluation:
+    if member.evaluation and member.evaluation_status:
         for t in EvaluationQuestionTheme.objects.all():
             # 4 themes
             points = 0

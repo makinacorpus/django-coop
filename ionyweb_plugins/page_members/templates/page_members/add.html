@@ -305,6 +305,12 @@
                     {% endfor %}
                 </div>
             {% endfor %}
+
+            <div class="fieldWrapper">
+                {{ form.evaluation_status.errors  }}
+                <div class="labelWrapper">{{ form.evaluation_status.label_tag }} : </div>{{ form.evaluation_status }}
+            </div>
+
         </div>
     </div>
 

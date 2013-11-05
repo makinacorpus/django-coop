@@ -95,6 +95,7 @@ def filter_data(request, page_app, mode):
                                                         |Q(tagged_items__tag__name__in=[search_string]) \
                                                         |Q(offer__activity__label__icontains=search_string) \
                                                         |Q(transverse_themes__name__icontains=search_string) \
+                                                        |Q(evaluation__evaluationanswer__experience__icontains=search_string) \
                                                         ).distinct()
                 
                 if 'articles' in settings.COOP_SEARCHGLOBAL_THEMES:
