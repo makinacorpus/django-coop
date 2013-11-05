@@ -16,7 +16,7 @@ import floppyforms as forms
 import models
 
 from ionyweb.forms import ModuloModelForm
-from coop_local.models import Organization, LegalStatus
+from coop_local.models import Organization, LegalStatus, EvaluationAnswer
 from coop.org.admin import OrganizationAdminForm, RelationInline
 from coop.base_models import ActivityNomenclature, TransverseTheme, OrganizationCategory
 from coop_local.models import Relation, Location, Document, Offer, Area
@@ -194,3 +194,13 @@ class DocumentForm(forms.ModelForm):
         return content
         
 
+class EvaluationAnswerForm(ModelForm):
+    class Meta:
+        model = EvaluationAnswer
+
+    def __init__(self, *args, **kwargs):
+        super(EvaluationAnswerForm, self).__init__(*args, **kwargs)
+        self.fields['experience'].widget.attrs['rows'] = '3'
+        self.fields['experience'].widget.attrs['cols'] = '60'        
+        
+                

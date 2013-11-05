@@ -15,7 +15,7 @@ from math import pi
 from ionyweb.website.rendering.utils import render_view
 from ionyweb.website.rendering.medias import CSSMedia, JSMedia
 from coop_local.models import Organization, Offer, Document, Reference, Relation, Engagement, Person, Contact, ActivityNomenclature, Location, Area, Evaluation, EvaluationQuestion, EvaluationAnswer, EvaluationQuestionTheme, Located, Tag
-from .forms import PageApp_MembersSearchForm, PartialMemberForm, CustomLocatedForm, DocumentForm, CustomOfferForm, CustomRelationForm, PageApp_MembersSortForm
+from .forms import PageApp_MembersSearchForm, PartialMemberForm, CustomLocatedForm, DocumentForm, CustomOfferForm, CustomRelationForm, PageApp_MembersSortForm, EvaluationAnswerForm
 from coop.org.models import get_rights
 
 
@@ -221,17 +221,24 @@ def detail_view(request, page_app, pk):
     
     # Evaluation
     evaluate = []
+    evaluation = []
     if member.evaluation:
         for t in EvaluationQuestionTheme.objects.all():
             # 4 themes
-            # TODO revoir le comptage des points, cr le nombre de questions par theme n'est pas constant
             points = 0
+            max_points = 0
             cssclass= t.cssclass
             for a in member.evaluation.evaluationanswer_set.filter(question__theme=t):
                 if a.answer:
                     points += a.answer
-            evaluate.append({"theme": t, "points": points/4, "cssclass": cssclass})
-    
+                    if a.answer != 0:
+                        max_points += 4
+            to_max_points = max_points - points
+            evaluate.append({"theme": t, "points": points, "cssclass": cssclass, "to_max_points": to_max_points})
+        
+        for a in member.evaluation.evaluationanswer_set.all():
+            evaluation.append({"question": a.question, "answer": a.get_answer_display(), "answer_index": a.answer,  "theme": a.question.theme, "experience": a.experience, "cssclass": a.question.theme.cssclass})
+        
     # check if openings
     openings = False
     for l in member.located.all():
@@ -244,10 +251,11 @@ def detail_view(request, page_app, pk):
             print_css = 1
 
     return render_view('page_members/detail.html',
-                       { 'member':  member, 'imgs': imgs, 'docs': docs, 'media_path': settings.MEDIA_URL , 'base_url': base_url, 'openings': openings, 'relationship_queryset': relationship_queryset, 'is_project': is_project, 'evaluate': evaluate, 'print_css': print_css},
+                       { 'member':  member, 'imgs': imgs, 'docs': docs, 'media_path': settings.MEDIA_URL , 'base_url': base_url, 'openings': openings, 'relationship_queryset': relationship_queryset, 'is_project': is_project, 'evaluate': evaluate, 'print_css': print_css, 'evaluation': evaluation},
                        MEDIAS,
                        context_instance=RequestContext(request))
-                       
+
+
 def add_view(request, page_app, member_id=None):
     # check rights    
     #can_edit, can_add = get_rights(request,member_id)
@@ -261,7 +269,7 @@ def add_view(request, page_app, member_id=None):
         RelationFormSet = inlineformset_factory(Organization, Relation, exclude=['reltype'], fk_name='source', form=CustomRelationForm, extra=1)
         ContactFormSet = generic_inlineformset_factory(Contact, exclude=['active','sites'], extra=1)
         LocatedFormSet = generic_inlineformset_factory(Located, extra=1, form=CustomLocatedForm)        
-        EvaluateFormSet = inlineformset_factory(Evaluation, EvaluationAnswer, exclude=('question',), extra=0, can_delete=False)
+        EvaluateFormSet = inlineformset_factory(Evaluation, EvaluationAnswer, exclude=('question',), extra=0, can_delete=False, form=EvaluationAnswerForm)
 
         evaluation = None
         if member_id:

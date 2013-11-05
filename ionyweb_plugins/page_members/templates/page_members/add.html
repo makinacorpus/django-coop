@@ -293,34 +293,16 @@
             {% for themes in evaluate_themes %}
                 <div class="evaluate"><h3 class="title_formset {{ themes.cssclass }}">{{ themes }}</h3></div>
                 <div class="evaluate fieldWrapper formset">
-                {% for ev in evaluation_form.forms %}
-                    <div class="question">{{ ev.instance.question }}</div>
-                    {% if ev.instance.question.theme == themes %}
-                        <div class='table_formset table_evaluate'>
-                            <table class='no_error'>
-                                {{ ev.as_table }}
-                            </table>
-                        </div>
-                    {% endif %}
-                {% endfor %}
-
-<!--                    {% for ev in evaluation_form.forms %}
+                    {% for ev in evaluation_form.forms %}
                         {% if ev.instance.question.theme == themes %}
-                            <div class="fieldWrapper question">
-                                {{ ev.instance.question }}
-                            </div>
-                            <div class="fieldWrapper">
-                                {{ ev.answer.errors  }}
-                                <div class="labelWrapper">{{ ev.answer.label_tag }} : </div>{{ ev.answer }}
-
-                            </div>
-                            <div class="fieldWrapper answer">
-                                {{ ev.experience.errors  }}
-                                <div class="labelWrapper">{{ ev.experience.label_tag }} : </div>{{ ev.experience }}
-
+                            <div class="question">{{ ev.instance.question }}</div>
+                            <div class='table_formset table_evaluate'>
+                                <table class='no_error'>
+                                    {{ ev.as_table }}
+                                </table>
                             </div>
                         {% endif %}
-                    {% endfor %}-->
+                    {% endfor %}
                 </div>
             {% endfor %}
         </div>
