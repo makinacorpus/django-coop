@@ -306,6 +306,17 @@
                 </div>
             {% endfor %}
 
+            <div class="evaluate"><h3 class="title_formset">{% trans "Preview" %}</h3></div>
+            <div class="evaluate fieldWrapper formset">
+                <div id="evaluation" class="evaluation_preview">
+                    {% for t in evaluate %}
+                        <div class='title_eval'>{{ t.theme }}</div>
+                        <div class="{{t.cssclass}} stars{{t.points}}"><span class="evaluate_points_nb">{{ t.points }}</span></div>
+                        <div class="{{t.cssclass}} stars{{t.to_max_points}} to_max_points"><span class="evaluate_points_nb">{{ t.to_max_points }}</span></div>
+                    {% endfor %}
+                </div>
+            </div>
+
             <div class="fieldWrapper">
                 {{ form.evaluation_status.errors  }}
                 <div class="labelWrapper">{{ form.evaluation_status.label_tag }} : </div>{{ form.evaluation_status }}

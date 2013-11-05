@@ -365,12 +365,29 @@ def add_view(request, page_app, member_id=None):
             contactFormset = ContactFormSet(instance=member, prefix='contact')
             locatedFormset = LocatedFormSet(instance=member, prefix='located')
             evaluationFormset = EvaluateFormSet(instance=member.evaluation, prefix='evaluate')
+            
+            # Evaluation preview
+            evaluate = []
+            if member.evaluation and member.evaluation_status:
+                for t in EvaluationQuestionTheme.objects.all():
+                    # 4 themes
+                    points = 0
+                    max_points = 0
+                    cssclass= t.cssclass
+                    for a in member.evaluation.evaluationanswer_set.filter(question__theme=t):
+                        if a.answer:
+                            points += a.answer
+                            if a.answer != 0:
+                                max_points += 4
+                    to_max_points = max_points - points
+                    evaluate.append({"theme": t, "points": points, "cssclass": cssclass, "to_max_points": to_max_points})
+            
         
         evaluate_themes = []
         for t in EvaluationQuestionTheme.objects.all().order_by('id'):
             evaluate_themes.append(t)
             
-        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'delete_url': delete_url, 'form': form, 'offer_form': offerFormset, 'doc_form': docFormset, 'rel_form': relationFormset,  'contact_form': contactFormset, 'evaluation_form': evaluationFormset, 'center': center_map, 'located_form': locatedFormset, 'mode': mode, 'is_project' : is_project, 'evaluate_themes': evaluate_themes}
+        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'delete_url': delete_url, 'form': form, 'offer_form': offerFormset, 'doc_form': docFormset, 'rel_form': relationFormset,  'contact_form': contactFormset, 'evaluation_form': evaluationFormset, 'center': center_map, 'located_form': locatedFormset, 'mode': mode, 'is_project' : is_project, 'evaluate_themes': evaluate_themes, 'evaluate': evaluate}
         return render_view('page_members/add.html',
                         rdict,
                         MEDIAS,
