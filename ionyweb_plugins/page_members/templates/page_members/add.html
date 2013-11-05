@@ -36,7 +36,7 @@
         {% endif %}
     {% endif %}
 
-    <form action="{{ base_url }}" method="post" class="add_form" enctype="multipart/form-data">{% csrf_token %}
+    <form id="edit_form" action="{{ base_url }}" method="post" class="add_form" enctype="multipart/form-data">{% csrf_token %}
 
     <div id="tabs">
         <ul>
@@ -344,6 +344,26 @@
 
 
 <script type="text/javascript">
+    $('#edit_form').submit(function()
+    {
+        res = true;
+        if($('#id_evaluation_status')) {
+            if ($('#id_evaluation_status').is(':checked')){
+                // check that all questions has been answered. If not, do not validate the form
+                // Rq, if evaluation is not published, then all question may be not all answered
+                $("select[id^='id_evaluate']").each(function( index ) {
+                    if($( this ).val() == '') {
+                        alert("{% trans 'You must answer all the questions.' %}");
+                        res = false
+                        return res;
+                    }
+                });
+            }
+        }
+        return res;
+
+    });
+
     $(function() {
 
         $.datepicker.regional['fr'] = {
@@ -404,34 +424,6 @@
         $( "#tabs" ).tabs();
 
         $(".help_text").tooltip();
-        
-
-//         $("#id_tags").autoSuggest(data);
-//         $("#id_tags").autoSuggest("http://mysite.com/path/to/script", {minChars: 2, matchCase: true});
-
-
-//         tags_as_string = $('#id_tags').val();
-//         $("#id_tags__tagautosuggest").autoSuggest("/list/", {
-//             asHtmlID: "id_tags__tagautosuggest",
-//             startText: "Entrez vos tags ici",
-//             emptyText: "Aucun résultat",
-//             limitText: "Vous ne pouvez pas faire plus de sélection",
-//             preFill: tags_as_string,
-//             queryParam: 'q',
-//             retrieveLimit: 20,
-//             minChars: 1,
-//             neverSubmit: true
-//         });
-// 
-//         $('#id_tags').parents().find('form').submit(function (){
-//             tags_as_string = $("#as-values-id_tags__tagautosuggest").val();
-//             $("#id_tags__tagautosuggest").remove();
-//             $("#id_tags").val(tags_as_string);
-//         });
-
-
-        // Sample: Move the paragraph from #myDiv1 to #myDiv2
-        //$('#myDiv2').append( $('#myDiv1>p') );
 
     });
 

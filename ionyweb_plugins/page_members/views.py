@@ -368,7 +368,7 @@ def add_view(request, page_app, member_id=None):
             
             # Evaluation preview
             evaluate = []
-            if member.evaluation and member.evaluation_status:
+            if member.evaluation:
                 for t in EvaluationQuestionTheme.objects.all():
                     # 4 themes
                     points = 0
