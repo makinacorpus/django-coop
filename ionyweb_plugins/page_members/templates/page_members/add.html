@@ -289,45 +289,56 @@
             
         </div>
         <div id="tabs-3">
-            <h3 class="title_formset">{% trans "Solidarity" %}</h3>
-            <div id="solidarity" class="fieldWrapper formset">
-                {{ evaluation_form.management_form }}
-                {% for d in evaluation_form.forms %}
-                    <div class="fieldWrapper question">
-                        {{ d.instance.question }}
-                    </div>
-                    <div class="fieldWrapper answer">
-                        {{ d }}
-                    </div>
-
-<!--                    <div class='table_formset table_contact'>
-                        <table class='no_error'>
-                            <tr><th colspan="2">{{ d.instance.question }}</th></tr>
-                            {{ d.as_table }}
-                        </table>
-                    </div>-->
+            {{ evaluation_form.management_form }}
+            {% for themes in evaluate_themes %}
+                <div class="evaluate"><h3 class="title_formset {{ themes.cssclass }}">{{ themes }}</h3></div>
+                <div class="evaluate fieldWrapper formset">
+                {% for ev in evaluation_form.forms %}
+                    <div class="question">{{ ev.instance.question }}</div>
+                    {% if ev.instance.question.theme == themes %}
+                        <div class='table_formset table_evaluate'>
+                            <table class='no_error'>
+                                {{ ev.as_table }}
+                            </table>
+                        </div>
+                    {% endif %}
                 {% endfor %}
-            </div>
+
+<!--                    {% for ev in evaluation_form.forms %}
+                        {% if ev.instance.question.theme == themes %}
+                            <div class="fieldWrapper question">
+                                {{ ev.instance.question }}
+                            </div>
+                            <div class="fieldWrapper">
+                                {{ ev.answer.errors  }}
+                                <div class="labelWrapper">{{ ev.answer.label_tag }} : </div>{{ ev.answer }}
+
+                            </div>
+                            <div class="fieldWrapper answer">
+                                {{ ev.experience.errors  }}
+                                <div class="labelWrapper">{{ ev.experience.label_tag }} : </div>{{ ev.experience }}
+
+                            </div>
+                        {% endif %}
+                    {% endfor %}-->
+                </div>
+            {% endfor %}
         </div>
     </div>
 
 
-
-                          
-        {{ form.errors }}
-
-
+    {{ form.errors }}
         
-        {% if mode = 'add' %}
-            <div class="new_block" id="new_submit">
-                <input type="submit" value="{% trans "Create" %}" />                
-            </div>
-        {% else %}
-            <div class="new_block" id="modify_submit">
-                <input type="submit" value="{% trans "Modify" %}" />                
-                <input type="button" value="{% trans "Delete" %}" onclick="delete_object('{% trans 'Are you sure you want to delete this structure ?' %}', '{{ delete_url }}')" />                
-            </div>
-        {% endif %}          
+    {% if mode = 'add' %}
+        <div class="new_block" id="new_submit">
+            <input type="submit" value="{% trans "Create" %}" />                
+        </div>
+    {% else %}
+        <div class="new_block" id="modify_submit">
+            <input type="submit" value="{% trans "Modify" %}" />                
+            <input type="button" value="{% trans "Delete" %}" onclick="delete_object('{% trans 'Are you sure you want to delete this structure ?' %}', '{{ delete_url }}')" />                
+        </div>
+    {% endif %}          
 
     </form>
 </div>

@@ -262,9 +262,6 @@ def add_view(request, page_app, member_id=None):
         ContactFormSet = generic_inlineformset_factory(Contact, exclude=['active','sites'], extra=1)
         LocatedFormSet = generic_inlineformset_factory(Located, extra=1, form=CustomLocatedForm)        
         EvaluateFormSet = inlineformset_factory(Evaluation, EvaluationAnswer, exclude=('question',), extra=0, can_delete=False)
-        #ReferenceFormSet = inlineformset_factory(Organization, Reference, extra=1)
-        #EngagementFormSet = inlineformset_factory(Organization, Engagement,exclude=['active','sites'], extra=1)
-        #MembersFormSet = inlineformset_factory(Organization, Person, extra=1)
 
         evaluation = None
         if member_id:
@@ -296,15 +293,13 @@ def add_view(request, page_app, member_id=None):
             form = PartialMemberForm(request.POST, request.FILES, instance = member)
             offerFormset = OfferFormSet(request.POST, request.FILES, prefix='offer', instance=member)            
             docFormset = DocFormSet(request.POST, request.FILES, prefix='doc', instance=member)
-            #referenceFormset = ReferenceFormSet(prefix='ref', instance=member)    
             relationFormset = RelationFormSet(request.POST, request.FILES, prefix='rel', instance=member)    
-            #engagementFormset = EngagementFormSet(request.POST, request.FILES, prefix='eng', instance=member)
-            #membersFormset = MembersFormSet(request.POST, request.FILES, prefix='member', instance=member)
             contactFormset = ContactFormSet(request.POST, request.FILES, prefix='contact', instance=member)
             locatedFormset = LocatedFormSet(request.POST, request.FILES, prefix='located', instance=member)
             evaluationFormset = EvaluateFormSet(request.POST, prefix='evaluate', instance=member.evaluation)
             
-            if form.is_valid() and docFormset.is_valid() and offerFormset.is_valid() and relationFormset.is_valid() and contactFormset.is_valid() and locatedFormset.is_valid() and evaluationFormset.is_valid():
+            if form.is_valid() and docFormset.is_valid() and offerFormset.is_valid() and relationFormset.is_valid() \
+                               and contactFormset.is_valid() and locatedFormset.is_valid() and evaluationFormset.is_valid():
                 member = form.save()
                 member.is_project = is_project
                 member.evaluation = evaluation
@@ -312,7 +307,6 @@ def add_view(request, page_app, member_id=None):
                 docFormset.save()
                 offerFormset.save()
                 relationFormset.save()
-                #engagementFormset.save()
                 contactFormset.save()
                 locatedFormset.save()                
                 evaluationFormset.save()
@@ -361,7 +355,11 @@ def add_view(request, page_app, member_id=None):
             locatedFormset = LocatedFormSet(instance=member, prefix='located')
             evaluationFormset = EvaluateFormSet(instance=member.evaluation, prefix='evaluate')
         
-        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'delete_url': delete_url, 'form': form, 'offer_form': offerFormset, 'doc_form': docFormset, 'rel_form': relationFormset,  'contact_form': contactFormset, 'evaluation_form': evaluationFormset, 'center': center_map, 'located_form': locatedFormset, 'mode': mode, 'is_project' : is_project}
+        evaluate_themes = []
+        for t in EvaluationQuestionTheme.objects.all().order_by('id'):
+            evaluate_themes.append(t)
+            
+        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'delete_url': delete_url, 'form': form, 'offer_form': offerFormset, 'doc_form': docFormset, 'rel_form': relationFormset,  'contact_form': contactFormset, 'evaluation_form': evaluationFormset, 'center': center_map, 'located_form': locatedFormset, 'mode': mode, 'is_project' : is_project, 'evaluate_themes': evaluate_themes}
         return render_view('page_members/add.html',
                         rdict,
                         MEDIAS,
