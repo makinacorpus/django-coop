@@ -140,17 +140,11 @@
                     </div>
                 {% endif %}
 
-                <!--<div class="fieldWrapper">
-                    {{ form.activity.errors  }}
-                    {{ form.activity.label_tag }} : {{ form.activity }}
-                </div>-->
-
                 <div class="fieldWrapper">
                     {{ form.transverse_themes.errors  }}
                     <div class="labelWrapper">{{ form.transverse_themes.label_tag }} :</div>{{ form.transverse_themes }}
                     <div class="help_text" title="{% trans 'You can choose more than one by pressing the CTRL key' %}"></div>
                 </div>
-
 
                 <div class="fieldWrapper">
                     {{ form.logo.errors  }}
@@ -167,9 +161,7 @@
                     {{ form.source_info.errors  }}
                     <div class="labelWrapper">{{ form.source_info.label_tag }} : </div>{{ form.source_info }}
                 </div>
-
             </div>
-
 
 
             <h3 class="title_formset">{% trans "Preferences" %}</h3>
@@ -200,12 +192,8 @@
                     <div class="labelWrapper">{{ form.zoom_on.label_tag }} : </div>{{ form.zoom_on }}
                     <div class="help_text" title="{% trans 'If set, the organization will be publish in the zoom on page' %}"></div>
                 </div>   
-
             </div>
-
-
         </div>
-
 
         <div id="tabs-2">
             <!-- Doc associés -->
@@ -246,7 +234,6 @@
                 <div class="help_text" title="{% trans 'Click the button to add more relations' %}"></div>
             </div>
 
-
             <!--  liste produits et services            -->
             <h3 class="title_formset">{% trans "Activity detail" %}</h3>
             <div id="offer" class="fieldWrapper formset">
@@ -261,8 +248,6 @@
                 <input type="button" value="{% trans 'Add More offer' %}" id="add_more_offer">
             </div>
 
-
-            <!--  TODO: membre à contact préféré            -->
             <h3 class="title_formset">{% trans "Complementary informations" %}</h3>
             <div id="offer" class="fieldWrapper formset">
 
@@ -358,13 +343,62 @@
                         return res;
                     }
                 });
+                // Check also if experience field has been filed if choice 4 is chosen
+                $("select[id^='id_evaluate']").each(function( index ) {
+                    if($( this ).val() == '4') {
+                        select_id = $(this).attr('id');
+                        experience_id = "#" + select_id.replace("answer", "experience");
+                        if($(experience_id).val() == '') {
+                            alert("{% trans 'You must fill the experience field where answer specialist has been chosen.' %}");
+                            res = false
+                        }
+                        return res;
+                    }
+                });
+
+
             }
         }
         return res;
-
     });
 
+    function apply_evaluation_state(select, experience_id, label_id) {
+        if($( select ).val() == '0' || $( select ).val() == '') {
+            // Hide experience field
+            $(experience_id).addClass("detail_form_hide");
+            $(label_id).addClass("detail_form_hide");
+        }
+        else {
+            $(experience_id).removeClass("detail_form_hide");
+            $(label_id).removeClass("detail_form_hide");
+        }
+    }
+
     $(function() {
+        // handle display of experience field, according to the choice
+        $("select[id^='id_evaluate']").each(function( index ) {
+            // initial state
+            select_id = $(this).attr('id');
+            experience_id = "#" + select_id.replace("answer", "experience");
+            label_id = "label[for='" + select_id.replace("answer", "experience") + "']"
+            apply_evaluation_state(this, experience_id, label_id);
+
+            $(this).change(function() {
+                select_id = $(this).attr('id');
+                experience_id = "#" + select_id.replace("answer", "experience");
+                label_id = "label[for='" + select_id.replace("answer", "experience") + "']"
+                apply_evaluation_state(this, experience_id, label_id);
+//                 if($( this ).val() == '0' || $( this ).val() == '') {
+//                     // Hide experience field
+//                     $(experience_id).addClass("detail_form_hide");
+//                     $(label_id).addClass("detail_form_hide");
+//                 }
+//                 else {
+//                     $(experience_id).removeClass("detail_form_hide");
+//                     $(label_id).removeClass("detail_form_hide");
+//                 }
+            });
+        });
 
         $.datepicker.regional['fr'] = {
             closeText: 'Fermer',

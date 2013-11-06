@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-05 21:43+0100\n"
+"POT-Creation-Date: 2013-11-06 10:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -215,11 +215,11 @@ msgstr "Si la description ne suffit pas"
 msgid "Crowdfunding link"
 msgstr "Lien crowdfunding"
 
-#: templates/page_members/add.html:151 templates/page_members/add.html:231
+#: templates/page_members/add.html:146 templates/page_members/add.html:219
 msgid "You can choose more than one by pressing the CTRL key"
 msgstr "Plusieurs choix possibles en appuyant sur la touche CTRL"
 
-#: templates/page_members/add.html:163
+#: templates/page_members/add.html:157
 msgid "Give more visibility to your data and makes research easier"
 msgstr ""
 "Permet de faciliter les recherches et faire apparaître votre structure parmi "
@@ -227,11 +227,11 @@ msgstr ""
 "liste de mots clés : jardins partagé, lien social, éducation à "
 "l’environnement, auto-production)"
 
-#: templates/page_members/add.html:175
+#: templates/page_members/add.html:167
 msgid "Preferences"
 msgstr "Préférences"
 
-#: templates/page_members/add.html:195
+#: templates/page_members/add.html:187
 msgid ""
 "If not published, the organisation won't be visible on the website. You can "
 "access to it by going into your account"
@@ -239,75 +239,80 @@ msgstr ""
 "Si non publiée, la structure ne sera pas visible sur le site. Vous pourrez y "
 "accéder en allant dans la section Mon Compte"
 
-#: templates/page_members/add.html:201
+#: templates/page_members/add.html:193
 msgid "If set, the organization will be publish in the zoom on page"
 msgstr "Si coché, la structure sera publiée sur la page Zoom sur"
 
-#: templates/page_members/add.html:212
+#: templates/page_members/add.html:200
 msgid "Documents"
 msgstr "Documents et galerie photos de la structure"
 
-#: templates/page_members/add.html:222
+#: templates/page_members/add.html:210
 msgid "Add More document"
 msgstr "Ajouter un autre document"
 
-#: templates/page_members/add.html:223
+#: templates/page_members/add.html:211
 msgid "Clic on button to add more documents"
 msgstr ""
 "Apparaîtra sur la fiche (document téléchargeables). Cliquez sur le bouton "
 "ajouter pour mettre plusieurs documents"
 
-#: templates/page_members/add.html:226
+#: templates/page_members/add.html:214
 msgid "Guaranties"
 msgstr ""
 
-#: templates/page_members/add.html:235
+#: templates/page_members/add.html:223
 msgid "Relationship"
 msgstr "Relations"
 
-#: templates/page_members/add.html:245
+#: templates/page_members/add.html:233
 msgid "Add More relation"
 msgstr "Ajouter une nouvelle relation"
 
-#: templates/page_members/add.html:246
+#: templates/page_members/add.html:234
 msgid "Click the button to add more relations"
 msgstr "Cliquez sur le bouton pour ajouter de nouvelles relations"
 
-#: templates/page_members/add.html:251
+#: templates/page_members/add.html:238
 msgid "Activity detail"
 msgstr "Activités détaillées de la structure: offres de biens et services"
 
-#: templates/page_members/add.html:261
+#: templates/page_members/add.html:248
 msgid "Add More offer"
 msgstr "Ajouter une nouvelle offre"
 
-#: templates/page_members/add.html:266
+#: templates/page_members/add.html:251
 msgid "Complementary informations"
 msgstr "Informations complémentaires"
 
-#: templates/page_members/add.html:309
+#: templates/page_members/add.html:294
 msgid "Preview"
 msgstr ""
 
-#: templates/page_members/add.html:333
+#: templates/page_members/add.html:318
 msgid "Create"
 msgstr "Enregistrer"
 
-#: templates/page_members/add.html:337
+#: templates/page_members/add.html:322
 msgid "Modify"
 msgstr "Enregistrer"
 
-#: templates/page_members/add.html:338
+#: templates/page_members/add.html:323
 msgid "Delete"
 msgstr "Supprimer"
 
-#: templates/page_members/add.html:338
+#: templates/page_members/add.html:323
 msgid "Are you sure you want to delete this structure ?"
 msgstr "Êtes vous sûr de vouloir supprimer cette structure ?"
 
-#: templates/page_members/add.html:356
+#: templates/page_members/add.html:341
 msgid "You must answer all the questions."
 msgstr "Merci de répondre à chaque question"
+
+#: templates/page_members/add.html:352
+msgid ""
+"You must fill the experience field where answer specialist has been chosen."
+msgstr "Vous devez saisir des expériences quand vous avez répondu spécialiste à une question. Merci."
 
 #: templates/page_members/add_success.html:8
 msgid "Project added"
