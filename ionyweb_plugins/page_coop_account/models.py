@@ -130,33 +130,3 @@ class AccountRegistrationView(FormView):
         else:
             return super(AccountRegistrationView, self).dispatch(request, *args, **kwargs)
 
-
-class AccountActivationView(TemplateView):
-        template_name='page_coop_account/activation_complete.html'
-
-        def get(self, request, backend, success_url=None, extra_context=None, **kwargs):
-            #messages.success(self.request, 'Activation complete, please login below')
-
-            return activate(self.request, backend, template_name=self.template_name, success_url='/', extra_context=None, **kwargs)
-
-"""
-class AccountActivationView(RedirectView):
-    
-    #url = lazy_reverse('core:core-welcome')
-    
-    def get(self, request, activation_key=None, *args, **kwargs):
-        activated = RegistrationProfile.objects.activate_user(activation_key)
-        
-        if activated:
-            # TODO create a Person as well
-            print "iiiiiiiiii"
-            pass
-        else:
-            # TODO
-            pass
-            #messages.error(request, 
-                           #_(u'Hej, nismo našli tvoj nalog! ' 
-                             #u'Provjeri još jednom link za aktiviraje naloga.'))
-        
-        return super(AccountActivationView, self).get(request, *args, **kwargs)
-"""

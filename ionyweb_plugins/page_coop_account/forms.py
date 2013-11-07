@@ -25,11 +25,3 @@ class PageApp_CoopAccountPreferencesForm(ModuloModelForm):
         
     class Meta:
         model = PersonPreferences
-        
-        
-#class PageApp_CoopAccountRegistrationForm():
-    #username = forms.CharField(max_length=100)
-    #email = forms.CharField()
-    #password1 = forms.EmailField()
-    #pawwsord2 = forms.BooleanField(required=False)
-    
