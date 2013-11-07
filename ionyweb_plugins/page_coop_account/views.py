@@ -27,7 +27,7 @@ from ionyweb_plugins.page_coop_blog.models import CoopEntry
 from coop_local.models import Organization, Event, EventCategory, Calendar, Occurrence, Exchange, Person, Location, PersonPreferences
 from coop.org.models import get_rights as get_rights_org
 from .forms import PageApp_CoopAccountForm, PageApp_CoopAccountPreferencesForm
-from .models import AccountRegistrationView, AccountActivationView
+from .models import AccountRegistrationView
 
 MEDIAS = (
     CSSMedia('page_coop_account.css'),

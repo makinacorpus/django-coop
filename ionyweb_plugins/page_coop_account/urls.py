@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.conf.urls import patterns, url
-from .views import index_view, detail_view, logout_view, mailing_view, editpref_view, register_view, activate_view
-from .models import AccountActivationView
+from .views import index_view, detail_view, logout_view, mailing_view, editpref_view, register_view
 
 urlpatterns = patterns('',
                        url(r'^$', index_view),
