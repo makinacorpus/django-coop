@@ -64,6 +64,10 @@
     width: 120px;
     margin-bottom: 0px;
     margin-top: 0px;
+    border-left: none;
+    border-right: none;
+    border-radius: none;
+    box-shadow: none;
 }
 
 .plugin_coop_searchglobal #search_button {
