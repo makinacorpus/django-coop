@@ -60,9 +60,10 @@
 
 .plugin_coop_searchglobal #id_search_string {
     background: url("../images/search.png") no-repeat scroll 5px 4px transparent;
-    padding: 4px 4px 4px 25px;
+    padding: 4px 4px 2px 25px;
     width: 120px;
     margin-bottom: 0px;
+    margin-top: 0px;
 }
 
 .plugin_coop_searchglobal #search_button {
