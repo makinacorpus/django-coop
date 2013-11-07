@@ -68,6 +68,7 @@
     border-right: none;
     border-radius: none;
     box-shadow: none;
+    border-radius: 0;
 }
 
 .plugin_coop_searchglobal #search_button {
