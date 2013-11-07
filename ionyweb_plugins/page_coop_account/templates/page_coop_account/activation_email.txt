@@ -1,0 +1,11 @@
+
+Vous venez de vous inscrire sur la plateforme d'échanges solidaires en Auvergne et nous vous en remercions.
+Vous devez à présent valider votre compte en cliquant sur ce lien :
+
+
+http://{{ site }}/accounts/activate/{{ activation_key }}
+
+
+Vous disposez de {{ expiration_days }} jours. Au delà, votre compte sera supprimé.
+
+Merci.

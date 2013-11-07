@@ -1,0 +1,9 @@
+{% load i18n %}
+
+<form id="registration_form" action="" method="post" class="" enctype="multipart/form-data">{% csrf_token %}
+<table>
+    {{ form.as_table }}
+</table>
+
+<input type="submit" value="{% trans "Create" %}" />
+</form>

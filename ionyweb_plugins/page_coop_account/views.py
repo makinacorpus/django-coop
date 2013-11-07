@@ -13,6 +13,9 @@ from django.contrib.gis import geos
 from django.contrib.gis.measure import D
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
+from django.http import HttpResponseRedirect
+
+from registration.forms import RegistrationForm
 
 from math import pi
 import csv
@@ -24,6 +27,7 @@ from ionyweb_plugins.page_coop_blog.models import CoopEntry
 from coop_local.models import Organization, Event, EventCategory, Calendar, Occurrence, Exchange, Person, Location, PersonPreferences
 from coop.org.models import get_rights as get_rights_org
 from .forms import PageApp_CoopAccountForm, PageApp_CoopAccountPreferencesForm
+from .models import AccountRegistrationView, AccountActivationView
 
 MEDIAS = (
     CSSMedia('page_coop_account.css'),
@@ -376,3 +380,96 @@ def mailing_view(request, page_app):
                     MEDIAS,
                     context_instance=RequestContext(request))      
 
+
+def register_view(request, page_app):
+    
+    base_url = u'%s' % (page_app.get_absolute_url())
+
+    if request.method == 'POST': # If the form has been submitted
+    
+        form = RegistrationForm(request.POST)
+        
+        if form.is_valid():
+            AccountRegistrationView.register_user(request, **form.cleaned_data)
+            return render_view('page_coop_account/registration_complete.html')
+    else:
+        form = RegistrationForm()
+    
+    rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form}
+    return render_view('page_coop_account/registration_form.html',
+                    rdict,
+                    MEDIAS,
+                    context_instance=RequestContext(request))
+
+
+def activate_view(request, page_app, activation_key):
+
+    AccountActivationView.activate(request, activation_key);
+
+    rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url}
+    return render_view('page_coop_account/activation_complete.html',
+                    rdict,
+                    MEDIAS,
+                    context_instance=RequestContext(request))
+
+def activate(request, backend,
+         template_name='registration/activate.html',
+         success_url=None, extra_context=None, **kwargs):
+
+    backend = get_backend(backend)
+    account = backend.activate(request, **kwargs)
+
+    if account:
+        if success_url is None:
+            to, args, kwargs = backend.post_activation_redirect(request, account)
+            return redirect(to, *args, **kwargs)
+        else:
+            return redirect(success_url)
+
+    if extra_context is None:
+        extra_context = {}
+    context = RequestContext(request)
+    for key, value in extra_context.items():
+        context[key] = callable(value) and value() or value
+
+    return render_to_response(template_name,
+                              kwargs,
+                              context_instance=context)
+                    
+                    
+                    
+                    
+                    
+"""
+def make_ionyweb_view(view, **kwargs):
+    def ionyweb_view(request, page_app, **kwargs2):
+        kwargs.update(kwargs2)
+        response = view(request, **kwargs)
+        if isinstance(response, HttpResponseRedirect):
+            return response
+        response.render()
+        return render_view('content.html', {'content': response.content}, (),
+            context_instance=RequestContext(request))
+    return ionyweb_view
+"""
+    
+
+#activate_view = make_ionyweb_view(AccountActivationView.get,
+    #template_name='page_coop_account/registration_form.html',
+    #username='aaaaa',
+    #email='sbe@makina-corpus.com',
+    #password1='aaa')
+    ##email_template_name='page_coop_account/password_reset_email.html',
+    ##post_reset_redirect='/mon-compte/p/password_reset_done/',
+    ##from_email=Plugin_Contact.objects.all()[0].email)
+
+#password_reset_done_view = make_ionyweb_view(password_reset_done,
+    #template_name='page_account/password_reset_done.html')
+
+#password_reset_confirm_view = make_ionyweb_view(password_reset_confirm,
+    #template_name='page_account/password_reset_confirm.html',
+    #post_reset_redirect='/mon-compte/p/password_reset_complete/')
+
+#password_reset_complete_view = make_ionyweb_view(password_reset_complete,
+    #template_name='page_account/password_reset_complete.html')    
+    
