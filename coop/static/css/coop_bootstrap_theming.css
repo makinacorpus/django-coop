@@ -884,3 +884,20 @@ div.controls > a.activity-lookup {
 #activity-tree > li li {
     margin-left: 30px;
 }
+
+/* Moderation */
+table.moderation {
+    width: 90%;
+}
+table.moderation th,
+table.moderation td {
+    border: 1px solid #ccc;
+}
+
+table.moderation th {
+    background: #eee;
+}
+
+table.moderation td {
+    width: 20%;
+}

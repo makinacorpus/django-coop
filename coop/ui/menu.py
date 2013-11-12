@@ -186,6 +186,15 @@ class CustomMenu(Menu):
                     items.MenuItem(_('Export newsletter subscribers'), '/newsletter/p/export'),
                 ])
             )
+            
+            
+        if is_superuser:
+            self.children.append(
+                items.MenuItem(_('Moderation'), '#', icon='icon-cog icon-white', children=[
+                    items.MenuItem(_('Objects waiting'), '/admin/objects_to_validate'),
+                ])
+            )
+            
 
         try:    
             idx = len(self.children)

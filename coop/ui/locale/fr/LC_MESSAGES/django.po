@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coop.ui\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-25 09:48+0200\n"
+"POT-Creation-Date: 2013-11-12 11:17+0100\n"
 "PO-Revision-Date: 2012-09-30 18:58+0100\n"
 "Last-Translator: Dominique Guardiola <dguardiola@quinode.fr>\n"
 "Language-Team: Quinode <contact@quinode.fr>\n"
@@ -209,3 +209,11 @@ msgstr "Exporter les organisations"
 #: menu.py:186
 msgid "Export newsletter subscribers"
 msgstr "Exporter les abonnés newsletter"
+
+#: menu.py:193
+msgid "Moderation"
+msgstr "Modération"
+
+#: menu.py:194
+msgid "Objects waiting"
+msgstr "Fiches en attente"
