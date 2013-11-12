@@ -117,28 +117,14 @@ def index_view(request, page_app):
             tab_private_entries = CoopEntry.objects.filter(group_private=g).order_by('title')
         
         # My exchanges
-        exchanges = Exchange.objects.all().order_by('title')
+        exchanges = Exchange.objects.filter(person=person).order_by('title')
         for e in exchanges:
-            if request.user.is_superuser:
-                can_edit = True
-                can_add = True
-            else:
-                if e.organization:
-                    can_edit, can_add = get_rights_org(request, e.organization.pk)
-            if can_edit:
-                tab_exchanges.append(e)
-        
+            tab_exchanges.append(e)
+
         # My events
-        occs = Occurrence.objects.all().order_by('start_time')
+        occs = Occurrence.objects.filter(event__person=person).order_by('start_time')
         for o in occs:
-            if request.user.is_superuser:
-                can_edit = True
-                can_add = True
-            else:
-                if o.event.organization:
-                    can_edit, can_add = get_rights_org(request, o.event.organization.pk)
-            if can_edit:
-                tab_events.append(o)
+            tab_events.append(o)
 
     else:
         render_page = 'page_coop_account/login.html'
