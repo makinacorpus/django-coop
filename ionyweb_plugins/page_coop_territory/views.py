@@ -68,7 +68,7 @@ def filter_data(request, page_app, mode):
     projects = Organization.objects.filter(active=True, status='V', is_project=True).order_by("-modified")
 
     # List all offers
-    offers = Offer.objects.filter(provider__active=True).order_by("-modified")
+    offers = Offer.objects.filter(provider__active=True)
     
     search_form_template = "page_coop_territory/search_form_territory.html"
     reset_exchanges = False
