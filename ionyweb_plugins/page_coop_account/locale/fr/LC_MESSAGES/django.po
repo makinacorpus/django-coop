@@ -20,11 +20,11 @@ msgstr ""
 
 #: forms.py:35
 msgid "firstname"
-msgstr ""
+msgstr "Prénom"
 
 #: forms.py:36
 msgid "lastname"
-msgstr ""
+msgstr "Nom"
 
 #: models.py:33
 msgid "CoopAccount"
