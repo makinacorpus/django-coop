@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-07 15:30+0100\n"
+"POT-Creation-Date: 2013-11-12 15:32+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
+
+#: forms.py:35
+msgid "firstname"
+msgstr ""
+
+#: forms.py:36
+msgid "lastname"
+msgstr ""
 
 #: models.py:33
 msgid "CoopAccount"
@@ -127,6 +135,14 @@ msgstr ""
 msgid "Password"
 msgstr "Mot de passe"
 
+#: templates/page_coop_account/login.html:22
+msgid "No account ?"
+msgstr "Pas de compte ?"
+
+#: templates/page_coop_account/login.html:22
+msgid "Create one"
+msgstr "Créez en un"
+
 #: templates/page_coop_account/registration_complete.html:3
 msgid "Registration complete"
 msgstr "Inscription terminée"
@@ -135,7 +151,9 @@ msgstr "Inscription terminée"
 msgid ""
 "Your registration is complete. You will receive a mail to validate the "
 "process. Thank you."
-msgstr "Votre inscription est terminée. Vous allez recevoir un email pour valider votre compte. Merci."
+msgstr ""
+"Votre inscription est terminée. Vous allez recevoir un email pour valider "
+"votre compte. Merci."
 
 #: templates/page_coop_account/registration_form.html:8
 msgid "Create"
