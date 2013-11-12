@@ -47,7 +47,7 @@ def filter_data(request, page_app, mode):
     # List all exchanges
     exchanges = None
     if 'exchanges' in settings.COOP_SEARCHGLOBAL_THEMES:
-        exchanges = Exchange.objects.filter(active=True).order_by("-modified")
+        exchanges = Exchange.objects.filter(active=True, status='V').order_by("-modified")
     
     # List all events
     if 'agenda' in settings.COOP_SEARCHGLOBAL_THEMES:
@@ -56,22 +56,23 @@ def filter_data(request, page_app, mode):
                         end_time__gt=datetime.now(),
                         event__active=True,
                         event__calendar=agenda,
+                        event__status='V'
                         ).order_by("start_time")
     
     # List all organizations
     organizations = None
     if 'organizations' in settings.COOP_SEARCHGLOBAL_THEMES:
-        organizations = Organization.objects.filter(active=True, is_project=False).order_by("-modified")
+        organizations = Organization.objects.filter(active=True, is_project=False, status='V').order_by("-modified")
     
     # List all projects
     projects = None
     if 'projects' in settings.COOP_SEARCHGLOBAL_THEMES:
-        projects = Organization.objects.filter(active=True, is_project=True).order_by("-modified")
+        projects = Organization.objects.filter(active=True, is_project=True, status='V').order_by("-modified")
 
     # List all articles (exclude the one attahed to a group, because they are private)
     entries = None
     if 'articles' in settings.COOP_SEARCHGLOBAL_THEMES:
-        entries = CoopEntry.objects.filter(status=1, group_private__isnull=True).order_by('-modification_date')
+        entries = CoopEntry.objects.filter(status=1, group_private__isnull=True, status_moderation='V').order_by('-modification_date')
 
     if request.method == 'GET':  
         if 'search_string' in request.GET:

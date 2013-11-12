@@ -13,6 +13,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.utils.simplejson import dumps
 from django.contrib.contenttypes.generic import generic_inlineformset_factory
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.contrib.sites.models import Site
 
 try:
     from functools import wraps
@@ -31,7 +32,7 @@ from models import PageApp_CoopBlog, Category, CoopEntry
 from forms import EntryForm, PageApp_CoopBlogSearchForm
 from coop_local.models import Document
 from coop.base_models import Tag
-
+from coop_local.utils import notify_object_creation, user_linked_to_organization
 
 ACTIONS_MEDIAS = [
     #JSAdminMedia('page_coop_blog_actions.js'),
@@ -100,6 +101,8 @@ def filter_data(request, page_app):
     else:
         entries = CoopEntry.objects.filter(Q(status=1, blog=page_app, group_private__isnull=True)).order_by('-modification_date')
         
+    entries = entries.filter(status_moderation='V')
+    
     more_criteria = False
     
     if request.method == 'GET': # If the form has been submitted        
@@ -192,8 +195,22 @@ def detail_view(request, page_app, pk):
     
     
 def add_view(request, page_app, entry_id=None):
+    
+    if Site._meta.installed:
+        site = Site.objects.get_current()
+    else:
+        site = RequestSite(request)
+    
     if request.user.is_authenticated():
         DocFormSet = generic_inlineformset_factory(Document, form=DocumentForm, extra=1)
+        
+        status = 'P'
+        if user_linked_to_organization(request.user):
+            status = 'V'
+        status_display = False
+        if request.user.is_superuser:
+            status = 'V'
+            status_display = True
         
         if entry_id:
             # update
@@ -203,6 +220,7 @@ def add_view(request, page_app, entry_id=None):
             delete_url = u'%sp/entry_delete/%s' % (page_app.get_absolute_url(),entry_id)
             #if entry.owner != request.user and not Right.objects.has_right(request.user, entry, WRITE):
                 #raise Http404
+            status = entry.status_moderation
         else :
             # new
             mode = 'add'
@@ -219,11 +237,20 @@ def add_view(request, page_app, entry_id=None):
                 if not entry_id:
                     entry.slug = slugify(entry.title)
                 
-                
                 entry.blog = page_app # default blog
                 entry.author = request.user
                 entry = form.save()
                 docFormset.save()
+                
+                if not request.user.is_superuser :
+                    entry.status_moderation = status
+                
+                entry.save()
+                
+                # notify the admin
+                if mode == "add" and not user_linked_to_organization(request.user):
+                    url = 'http://%s%sp/%s' % (site, settings.COOP_BLOG_URL, entry.pk)
+                    notify_object_creation(url)
                 
                 base_url = u'%s' % (page_app.get_absolute_url())
                 rdict = {'base_url': base_url, 'mode': mode, 'entry_id' : entry.pk}
@@ -235,7 +262,7 @@ def add_view(request, page_app, entry_id=None):
             form = EntryForm(instance=entry)
             docFormset = DocFormSet(prefix='doc', instance=entry)
         
-        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'delete_url': delete_url, 'form': form, 'doc_form': docFormset, 'mode': mode}
+        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'delete_url': delete_url, 'form': form, 'doc_form': docFormset, 'mode': mode, 'status_display': status_display}
         return render_view('page_coop_blog/add.html',
                         rdict,
                         MEDIAS,

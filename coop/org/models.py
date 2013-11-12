@@ -636,6 +636,7 @@ ORGANIZATION_STATUSES = Choices(
     ('VALIDATED', 'V', _(u'Validated')),
     ('TRANSMITTED', 'T', _(u'Transmitted for validation')),
     ('INCOMPLETE', 'I', _(u'Incomplete')),
+    ('BLOCKED', 'B', _(u'Blocked')),
 )
 
 

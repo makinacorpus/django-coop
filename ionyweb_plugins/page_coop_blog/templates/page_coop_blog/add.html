@@ -114,6 +114,12 @@
                 <div class="help_text" title="{% trans "If set, the entry will be publish in the zoom on page" %}"></div>
             </div>   
 
+            {% if status_display %}
+            <div class="fieldWrapper">
+                {{ form.status_moderation.errors  }}
+                <div class="labelWrapper">{{ form.status_moderation.label_tag }} : </div>{{ form.status_moderation }}
+            </div>   
+            {% endif %}
 
 
             {{ form.errors }}

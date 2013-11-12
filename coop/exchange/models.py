@@ -83,6 +83,13 @@ class BaseExchangeMethod(models.Model):  # this model will be initialized with a
         app_label = 'coop_local'
 
 
+EXCHANGE_STATUSES = Choices(
+    ('PROPOSED', 'P', _(u'Proposed')),
+    ('VALIDATED', 'V', _(u'Validated')),
+    ('TRANSMITTED', 'T', _(u'Transmitted for validation')),
+    ('INCOMPLETE', 'I', _(u'Incomplete')),
+    ('BLOCKED', 'B', _(u'Blocked')),
+)
 
 class BaseExchange(URIModel):
     title = models.CharField(_('title'), max_length=250)
@@ -124,6 +131,8 @@ class BaseExchange(URIModel):
     contact = models.EmailField(_(u'contact'), null=True, blank=True)
     phone = models.CharField(_(u'phone'), max_length=50, null=True, blank=True)
         
+    status = models.CharField(_(u'status'), max_length=1, choices=EXCHANGE_STATUSES.CHOICES, blank=True)
+
     if "coop.agenda" in settings.INSTALLED_APPS:
         dated = generic.GenericRelation('coop_local.Dated')
 

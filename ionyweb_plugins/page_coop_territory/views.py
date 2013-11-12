@@ -47,7 +47,7 @@ def filter_data(request, page_app, mode):
     items = []
     
     # List all exchanges
-    exchanges = Exchange.objects.filter(active=True).order_by("-modified")
+    exchanges = Exchange.objects.filter(active=True, status='V').order_by("-modified")
     
     # List all events
     agenda = get_object_or_404(Calendar, sites__id=settings.SITE_ID)
@@ -55,16 +55,17 @@ def filter_data(request, page_app, mode):
                         end_time__gt=datetime.now(),
                         event__active=True,
                         event__calendar=agenda,
+                        event__status='V'
                         ).order_by("start_time")
     
     # List all services
-    services = Offer.objects.filter(provider__active=True).order_by("title")
+    services = None
     
     # List all organizations
-    organizations = Organization.objects.filter(active=True, is_project=False).order_by("-modified")
+    organizations = Organization.objects.filter(active=True, status='V', is_project=False).order_by("-modified")
     
     # List all projects
-    projects = Organization.objects.filter(active=True, is_project=True).order_by("-modified")
+    projects = Organization.objects.filter(active=True, status='V', is_project=True).order_by("-modified")
 
     # List all offers
     offers = Offer.objects.filter(provider__active=True).order_by("-modified")

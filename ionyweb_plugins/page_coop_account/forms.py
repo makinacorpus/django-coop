@@ -4,10 +4,14 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 import floppyforms as forms
 from extended_choices import Choices
 
+from registration.forms import RegistrationForm
+
 from ionyweb.forms import ModuloModelForm
 from .models import PageApp_CoopAccount
 from coop_local.models import PersonPreferences, ActivityNomenclature, Organization, Area
 from coop_local.widgets import CustomCheckboxSelectMultiple
+
+
 
 class PageApp_CoopAccountForm(ModuloModelForm):
     
@@ -25,3 +29,12 @@ class PageApp_CoopAccountPreferencesForm(ModuloModelForm):
         
     class Meta:
         model = PersonPreferences
+
+class PageApp_CoopRegistrationForm(RegistrationForm):
+
+    firstname = forms.CharField(label=_('firstname'),max_length=100)
+    lastname = forms.CharField(label=_('lastname'),max_length=100)
+
+
+        
+        

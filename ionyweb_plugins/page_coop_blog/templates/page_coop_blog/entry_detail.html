@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load rights_entry %}
 
 {% block extra_head %}
     <link rel="stylesheet" href="{{ STATIC_URL }}admintools_bootstrap/css/custom-theme/jquery-ui-1.8.16.custom.css" />
@@ -159,7 +160,7 @@
 
 
 
-    {% if request.user.is_superuser %}
+    {% if request.user.is_superuser or entry|tag_rights_entry:request %}
         <span class="edit edit_inline"><a class="" href="{{ base_url }}entry_edit/{{ e.pk }}">{% trans "Edit" %}</a></span>
     {% endif %}
 

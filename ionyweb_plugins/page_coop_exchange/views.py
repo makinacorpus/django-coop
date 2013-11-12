@@ -10,17 +10,17 @@ from django.db.models import Q
 from django.utils.simplejson import dumps
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib.contenttypes.generic import generic_inlineformset_factory
+from django.contrib.sites.models import Site
 
 from datetime import datetime
 from math import pi
 
 from coop.exchange.admin import ExchangeForm
-from coop_local.models import Exchange
-from coop_local.models import Location
-from coop_local.models import Location, Area, Document
+from coop_local.models import Exchange, Location, Area, Document, Person
 from coop.org.models import get_rights
 from coop.base_models import Tag
 from .forms import PageApp_CoopExchangeSearchForm, PartialExchangeForm, DocumentForm, ReplyExchangeForm
+from coop_local.utils import notify_object_creation, user_linked_to_organization
 
 from ionyweb.website.rendering.utils import render_view
 from ionyweb.website.rendering.medias import CSSMedia
@@ -48,7 +48,7 @@ def carto_view(request, page_app):
 def filter_data(request, page_app, mode):
     base_url = u'%s' % (page_app.get_absolute_url())
 
-    exchanges = Exchange.objects.filter(active=True).order_by("-modified")
+    exchanges = Exchange.objects.filter(active=True, status='V').order_by("-modified")
     exchanges = exchanges.filter(Q(start__lte=datetime.today()) | Q(start__isnull=True) )   
 
     more_criteria = False
@@ -190,18 +190,32 @@ def detail_view(request, page_app, pk):
 
 
 def add_view(request, page_app, exchange_id=None):
+
+    if Site._meta.installed:
+        site = Site.objects.get_current()
+    else:
+        site = RequestSite(request)
+    
     if request.user.is_authenticated():
         #base_url = u'%sp/exchange_add' % (page_app.get_absolute_url())
         center_map = settings.COOP_MAP_DEFAULT_CENTER
         DocFormSet = generic_inlineformset_factory(Document, form=DocumentForm, extra=1)
 
+        status = 'P'
+        if user_linked_to_organization(request.user):
+            status = 'V'
+        status_display = False
+        if request.user.is_superuser:
+            status = 'V'
+            status_display = True
+        
         if exchange_id:
             # update
             mode = 'update'
             exchange = get_object_or_404(Exchange, pk=exchange_id)
             base_url = u'%sp/exchange_edit/%s' % (page_app.get_absolute_url(),exchange_id)
             delete_url = u'%sp/exchange_delete/%s' % (page_app.get_absolute_url(),exchange_id)
-
+            status = exchange.status
         else :
             # new
             mode = 'add'
@@ -212,6 +226,13 @@ def add_view(request, page_app, exchange_id=None):
         
         if request.method == 'POST': # If the form has been submitted        
             #exchange = Exchange()
+            person = Person.objects.filter(user=request.user)
+            if person:
+                person = person[0]
+                if mode == 'add':
+                    # automatic association of the user to this exchange
+                    exchange.person = person
+            
             form = PartialExchangeForm(request.POST, request.FILES, instance = exchange)
             docFormset = DocFormSet(request.POST, request.FILES, prefix='doc', instance=exchange)
             
@@ -220,6 +241,15 @@ def add_view(request, page_app, exchange_id=None):
                 form.save_m2m()
                 docFormset.save()
                 
+                if not request.user.is_superuser :
+                    exchange.status = status
+                    
+                exchange.save()
+                
+                # notify the admin
+                if mode == "add" and not user_linked_to_organization(request.user):
+                    url = 'http://%s%sp/%s' % (site, settings.COOP_EXCHANGE_EXCHANGES_URL, exchange.pk)
+                    notify_object_creation(url)
                 
                 base_url = u'%s' % (page_app.get_absolute_url())
                 rdict = {'base_url': base_url, 'exchange_id': exchange.id}
@@ -231,7 +261,7 @@ def add_view(request, page_app, exchange_id=None):
             form = PartialExchangeForm(instance=exchange) # An empty form
             docFormset = DocFormSet(instance=exchange, prefix='doc')
         
-        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'delete_url': delete_url, 'form': form, 'doc_form': docFormset, 'center': center_map, 'mode': mode}
+        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'delete_url': delete_url, 'form': form, 'doc_form': docFormset, 'center': center_map, 'mode': mode,  'status_display': status_display}
         return render_view('page_coop_exchange/add.html',
                         rdict,
                         MEDIAS,

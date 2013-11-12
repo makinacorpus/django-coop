@@ -103,7 +103,7 @@ class PartialExchangeForm(ExchangeForm):
         
     class Meta:
         model = Exchange
-        exclude = ('products', 'sites', )
+        exclude = ('products', 'sites', 'person')
         widgets = {
                 'img' : CustomClearableFileInput(),
               }
@@ -112,16 +112,16 @@ class PartialExchangeForm(ExchangeForm):
     def __init__(self, *args, **kwargs):
         super(PartialExchangeForm, self).__init__(*args, **kwargs)
         self.fields['activity'] = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.order_by('path'))
-        self.fields['person'] = forms.ModelChoiceField(queryset=Person.objects.order_by('first_name'))
+        #self.fields['person'] = forms.ModelChoiceField(queryset=Person.objects.order_by('first_name'))
         
         self.fields['description'].widget.attrs['rows'] = '15'
         self.fields['description'].widget.attrs['cols'] = '55' 
         
         self.fields['activity'].label = _("Activity")
-        self.fields['person'].label = _("Person")
+        #self.fields['person'].label = _("Person")
         self.fields['start'].label = _("Date of publication")
         
-        self.fields['organization'] = forms.ModelChoiceField(queryset=Organization.objects.filter(active=True, is_project=False).order_by('title'))
+        self.fields['organization'] = forms.ModelChoiceField(queryset=Organization.objects.filter(active=True, status='V', is_project=False).order_by('title'))
         self.fields['organization'].label = _("Organization")
         
         self.fields['img'].label = _("Image")
@@ -172,7 +172,6 @@ class DocumentForm(forms.ModelForm):
             'description': forms.Textarea(attrs={'rows': 3}),
         }
     def clean_attachment(self):
-        print "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"
         content = self.cleaned_data['attachment']
         if content.size > settings.MAX_UPLOAD_SIZE:
             raise forms.ValidationError(_('Please keep filesize under %(max_size)s. Current filesize %(current_size)s') % {'max_size':filesizeformat(settings.MAX_UPLOAD_SIZE), 'current_size':filesizeformat(content.size)})

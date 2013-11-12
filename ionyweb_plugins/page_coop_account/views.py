@@ -26,7 +26,7 @@ from ionyweb.website.rendering.medias import CSSMedia
 from ionyweb_plugins.page_coop_blog.models import CoopEntry
 from coop_local.models import Organization, Event, EventCategory, Calendar, Occurrence, Exchange, Person, Location, PersonPreferences
 from coop.org.models import get_rights as get_rights_org
-from .forms import PageApp_CoopAccountForm, PageApp_CoopAccountPreferencesForm
+from .forms import PageApp_CoopAccountForm, PageApp_CoopAccountPreferencesForm, PageApp_CoopRegistrationForm
 from .models import AccountRegistrationView
 
 MEDIAS = (
@@ -387,13 +387,28 @@ def register_view(request, page_app):
 
     if request.method == 'POST': # If the form has been submitted
     
-        form = RegistrationForm(request.POST)
+        form = PageApp_CoopRegistrationForm(request.POST)
         
         if form.is_valid():
-            AccountRegistrationView.register_user(request, **form.cleaned_data)
+            user = AccountRegistrationView.register_user(request, **form.cleaned_data)
+            
+            firstname = form.cleaned_data['firstname']
+            lastname = form.cleaned_data['lastname']
+            username = form.cleaned_data['username']
+            email = form.cleaned_data['email']
+            
+            # create a Person associated to this account
+            person = Person()
+            person.username = username
+            person.first_name = firstname
+            person.last_name = lastname
+            person.user_id = user.id
+            person.email = email
+            person.save()
+            
             return render_view('page_coop_account/registration_complete.html')
     else:
-        form = RegistrationForm()
+        form = PageApp_CoopRegistrationForm()
     
     rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'form': form}
     return render_view('page_coop_account/registration_form.html',

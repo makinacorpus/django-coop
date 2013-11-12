@@ -9,6 +9,7 @@ from django.contrib.contenttypes.generic import generic_inlineformset_factory
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib.gis import geos
 from django.utils.simplejson import dumps
+from django.contrib.sites.models import Site
 
 from math import pi
 
@@ -17,6 +18,7 @@ from ionyweb.website.rendering.medias import CSSMedia, JSMedia
 from coop_local.models import Organization, Offer, Document, Reference, Relation, Engagement, Person, Contact, ActivityNomenclature, Location, Area, Evaluation, EvaluationQuestion, EvaluationAnswer, EvaluationQuestionTheme, Located, Tag
 from .forms import PageApp_MembersSearchForm, PartialMemberForm, CustomLocatedForm, DocumentForm, CustomOfferForm, CustomRelationForm, PageApp_MembersSortForm, EvaluationAnswerForm
 from coop.org.models import get_rights
+from coop_local.utils import notify_object_creation
 
 
 MEDIAS = (
@@ -65,7 +67,7 @@ def filter_data(request, page_app, mode):
         organizations = Organization.objects.all().order_by(sort_by)
 
     # show only published objects
-    organizations = organizations.filter(active=True)
+    organizations = organizations.filter(active=True, status='V')
         
     base_url = u'%s' % (page_app.get_absolute_url())
     
@@ -264,8 +266,20 @@ def add_view(request, page_app, member_id=None):
     #can_edit, can_add = get_rights(request,member_id)
 
     is_project = is_obj_project(page_app)
+    if Site._meta.installed:
+        site = Site.objects.get_current()
+    else:
+        site = RequestSite(request)
+    
     
     if request.user.is_authenticated():
+
+        status = 'P'
+        status_display = False
+        if request.user.is_superuser:
+            status = 'V'
+            status_display = True
+        
         center_map = settings.COOP_MAP_DEFAULT_CENTER
         OfferFormSet = inlineformset_factory(Organization, Offer, exclude=['technical_means', 'workforce', 'practical_modalities'], form=CustomOfferForm, extra=1)
         DocFormSet = generic_inlineformset_factory(Document, form=DocumentForm, extra=1)
@@ -273,7 +287,7 @@ def add_view(request, page_app, member_id=None):
         ContactFormSet = generic_inlineformset_factory(Contact, exclude=['active','sites'], extra=1)
         LocatedFormSet = generic_inlineformset_factory(Located, extra=1, form=CustomLocatedForm)        
         EvaluateFormSet = inlineformset_factory(Evaluation, EvaluationAnswer, exclude=('question',), extra=0, can_delete=False, form=EvaluationAnswerForm)
-
+        
         evaluation = None
         if member_id:
             # update
@@ -282,13 +296,14 @@ def add_view(request, page_app, member_id=None):
             evaluation = member.evaluation
             base_url = u'%sp/member_edit/%s' % (page_app.get_absolute_url(),member_id)
             delete_url = u'%sp/member_delete/%s' % (page_app.get_absolute_url(),member_id)
+            status = member.status
         else :
             # new
             mode = 'add'
             base_url = u'%sp/member_add' % (page_app.get_absolute_url())
             delete_url = ""
             member = Organization()        
-
+            
         if request.method == 'POST': # If the form has been submitted
         
             # TODO: auto fill :
@@ -314,6 +329,22 @@ def add_view(request, page_app, member_id=None):
                 member = form.save()
                 member.is_project = is_project
                 member.evaluation = evaluation
+                if not request.user.is_superuser :
+                    member.status = status
+                
+                
+                person = Person.objects.filter(user=request.user)
+                if person:
+                    person = person[0]
+                
+                    if mode == 'add':
+                        # automatic association of the user to this organization
+                        engagement = Engagement()
+                        engagement.person = person
+                        engagement.organization = member
+                        engagement.org_admin = True
+                        engagement.save()   
+                    
                 member.save()
                 docFormset.save()
                 offerFormset.save()
@@ -321,6 +352,11 @@ def add_view(request, page_app, member_id=None):
                 contactFormset.save()
                 locatedFormset.save()                
                 evaluationFormset.save()
+                
+                # notify the admin
+                if mode == "add":
+                    url = 'http://%s%sp/%s' % (site, settings.COOP_MEMBER_ORGANIZATIONS_URL, member.pk)
+                    notify_object_creation(url)
                 
                 base_url = u'%s' % (page_app.get_absolute_url())
                 rdict = {'base_url': base_url, 'member_id': member.pk, 'is_project': is_project, 'mode': mode}
@@ -387,7 +423,7 @@ def add_view(request, page_app, member_id=None):
         for t in EvaluationQuestionTheme.objects.all().order_by('id'):
             evaluate_themes.append(t)
             
-        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'delete_url': delete_url, 'form': form, 'offer_form': offerFormset, 'doc_form': docFormset, 'rel_form': relationFormset,  'contact_form': contactFormset, 'evaluation_form': evaluationFormset, 'center': center_map, 'located_form': locatedFormset, 'mode': mode, 'is_project' : is_project, 'evaluate_themes': evaluate_themes, 'evaluate': evaluate}
+        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'delete_url': delete_url, 'form': form, 'offer_form': offerFormset, 'doc_form': docFormset, 'rel_form': relationFormset,  'contact_form': contactFormset, 'evaluation_form': evaluationFormset, 'center': center_map, 'located_form': locatedFormset, 'mode': mode, 'is_project' : is_project, 'evaluate_themes': evaluate_themes, 'evaluate': evaluate, 'status_display': status_display}
         return render_view('page_members/add.html',
                         rdict,
                         MEDIAS,

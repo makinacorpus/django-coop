@@ -157,6 +157,15 @@ RANGE_GEO = Choices(
     ('INTERNATIONAL',         4,  _(u'international')),
 )
 
+ENTRY_STATUSES = Choices(
+    ('PROPOSED', 'P', _(u'Proposed')),
+    ('VALIDATED', 'V', _(u'Validated')),
+    ('TRANSMITTED', 'T', _(u'Transmitted for validation')),
+    ('INCOMPLETE', 'I', _(u'Incomplete')),
+    ('BLOCKED', 'B', _(u'Blocked')),
+)
+
+
 class CoopEntry(models.Model):
     """
     A blog entry.
@@ -206,6 +215,7 @@ class CoopEntry(models.Model):
 
     range_geo = models.IntegerField(_('range'), choices=RANGE_GEO, null=True, blank=True)
     
+    status_moderation = models.CharField(_(u'status'), max_length=1, choices=ENTRY_STATUSES.CHOICES, blank=True)
     
     class Meta:
         verbose_name = _('entry')

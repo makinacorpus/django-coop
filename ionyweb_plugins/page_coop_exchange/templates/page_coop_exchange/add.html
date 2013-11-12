@@ -123,10 +123,10 @@
 
 <!-- TODO: adresse preferee, code postal, ville -->
 
-            <div class="fieldWrapper">
+            <!--<div class="fieldWrapper">
                 {{ form.person.errors }}
                 <div class="labelWrapper">{{ form.person.label_tag }} : </div>{{ form.person }}
-            </div>        
+            </div>        -->
 
 
 <!-- TODO tel prefere-->
@@ -176,6 +176,15 @@
                 {{ form.active.errors }}
                 <div class="labelWrapper">{{ form.active.label_tag }} : </div>{{ form.active }}
             </div>   
+
+
+            {% if status_display %}
+            <div class="fieldWrapper">
+                {{ form.status.errors  }}
+                <div class="labelWrapper">{{ form.status.label_tag }} : </div>{{ form.status }}
+            </div>   
+            {% endif %}
+
 
 <!-- TODO plus value solidaire -->
 

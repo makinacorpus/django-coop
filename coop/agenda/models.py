@@ -16,6 +16,7 @@ import rdflib
 from django.template.defaultfilters import date as _date
 from datetime import datetime
 from sorl.thumbnail import ImageField
+from extended_choices import Choices
 
 class BaseCalendar(URIModel):
     title = models.CharField(_('title'), blank=True, max_length=250)
@@ -84,7 +85,14 @@ class BaseEventCategory(models.Model):
 
     def events(self):
         return self.event_set.all()
-        
+
+EVENT_STATUSES = Choices(
+    ('PROPOSED', 'P', _(u'Proposed')),
+    ('VALIDATED', 'V', _(u'Validated')),
+    ('TRANSMITTED', 'T', _(u'Transmitted for validation')),
+    ('INCOMPLETE', 'I', _(u'Incomplete')),
+    ('BLOCKED', 'B', _(u'Blocked')),
+)
 
 class BaseEvent(URIModel):
     """
@@ -116,6 +124,8 @@ class BaseEvent(URIModel):
     document_set = generic.GenericRelation('coop_local.Document')
     
     zoom_on = models.BooleanField(_(u'zoom on'), blank=True, default=False)
+
+    status = models.CharField(_(u'status'), max_length=1, choices=EVENT_STATUSES.CHOICES, blank=True)
     
     #TODO attached articles
     #TODO attached exchanges

@@ -180,6 +180,14 @@
                 <div class="help_text" title="{% trans "If set, the event will be publish in the zoom on page" %}"></div>
             </div>   
 
+            {% if status_display %}
+            <div class="fieldWrapper">
+                {{ form.status.errors  }}
+                <div class="labelWrapper">{{ form.status.label_tag }} : </div>{{ form.status }}
+            </div>   
+            {% endif %}
+
+
             {{ form.errors }}
             {{ occ_form.errors }}
 

@@ -161,6 +161,7 @@
                     {{ form.source_info.errors  }}
                     <div class="labelWrapper">{{ form.source_info.label_tag }} : </div>{{ form.source_info }}
                 </div>
+
             </div>
 
 
@@ -192,6 +193,14 @@
                     <div class="labelWrapper">{{ form.zoom_on.label_tag }} : </div>{{ form.zoom_on }}
                     <div class="help_text" title="{% trans 'If set, the organization will be publish in the zoom on page' %}"></div>
                 </div>   
+
+                {% if status_display %}
+                <div class="fieldWrapper">
+                    {{ form.status.errors  }}
+                    <div class="labelWrapper">{{ form.status.label_tag }} : </div>{{ form.status }}
+                </div>   
+                {% endif %}
+
             </div>
         </div>
 

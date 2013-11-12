@@ -66,6 +66,8 @@ class AccountRegistrationView(FormView):
         user = cls.create_unique_user(username, email, password)
         
         cls.user_registered(user, request)
+        
+        return user
     
     @classmethod        
     def user_registered(cls, user, request):

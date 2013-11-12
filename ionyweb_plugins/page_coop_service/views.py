@@ -53,10 +53,10 @@ def filter_data(request, page_app, mode):
     items = []
     
     # List all exchanges linked to a structure
-    exchanges = Exchange.objects.filter(active=True, organization__isnull=False).order_by("-modified")
+    exchanges = Exchange.objects.filter(active=True, status='V', organization__isnull=False).order_by("-modified")
 
     # List all offer and services proposed by structures
-    offers = Offer.objects.filter(provider__active=True).exclude(title__exact='').order_by('-provider__modified','title')
+    offers = Offer.objects.filter(provider__active=True, provider__status='V').exclude(title__exact='').order_by('-provider__modified','title')
 
     search_form_template = "page_coop_service/search_form_service.html"
     

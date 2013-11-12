@@ -10,6 +10,7 @@ from django.db.models import Q
 from django.contrib.gis import geos
 from django.contrib.gis.measure import D
 from django.utils.simplejson import dumps
+from django.contrib.sites.models import Site
 
 from datetime import datetime
 from math import pi
@@ -17,11 +18,12 @@ from math import pi
 from ionyweb.website.rendering.utils import render_view
 from ionyweb.website.rendering.medias import CSSMedia
 
-from coop_local.models import Event, EventCategory, Calendar, Occurrence, Document
+from coop_local.models import Event, EventCategory, Calendar, Occurrence, Document, Person
 from coop.org.models import get_rights
 from coop_local.models import Location, Area
 from coop.base_models import Located, Tag
 from .forms import PageApp_CoopAgendaSearchForm, PartialEventForm, PartialOccEventForm, DocumentForm, ReplyEventForm
+from coop_local.utils import notify_object_creation, user_linked_to_organization
 
 MEDIAS = (
     CSSMedia('page_coop_agenda.css'),
@@ -70,7 +72,8 @@ def filter_data(request, page_app, mode):
                                 end_time__gt=datetime.now(),
                                 event__active=True,
                                 event__calendar=agenda,
-                                event__category=cat
+                                event__category=cat,
+                                event__status='V'
                                 ).order_by("start_time")
             if occ.exists():
                 categories[cat] = occ
@@ -80,6 +83,7 @@ def filter_data(request, page_app, mode):
                     end_time__gt=datetime.now(),
                     event__active=True,
                     event__calendar=agenda,
+                    event__status='V'
                     ).order_by("start_time")
  
  
@@ -99,7 +103,8 @@ def filter_data(request, page_app, mode):
                                             event__active=True,
                                             end_time__gt=datetime.now(),
                                             event__calendar=agenda,
-                                            event__category=cat
+                                            event__category=cat,
+                                            event__status='V'
                                             ).order_by("start_time")
                         occ = filter_occ(occ, form)
                         if occ.exists():
@@ -110,6 +115,7 @@ def filter_data(request, page_app, mode):
                                     event__active=True,
                                     end_time__gt=datetime.now(),
                                     event__calendar=agenda,
+                                    event__status='V'
                                     ).order_by("start_time")
                     occ = filter_occ(occ, form)
                 
@@ -254,11 +260,22 @@ def add_view(request, page_app, event_id=None):
     event_form_class = PartialEventForm
     occ_form_class = PartialOccEventForm
     agenda = get_object_or_404(Calendar, sites__id=settings.SITE_ID)                
+    if Site._meta.installed:
+        site = Site.objects.get_current()
+    else:
+        site = RequestSite(request)
     
     if request.user.is_authenticated():
         center_map = settings.COOP_MAP_DEFAULT_CENTER
         DocFormSet = generic_inlineformset_factory(Document, form=DocumentForm, extra=1)
-        #OccFormSet = inlineformset_factory(Event, Occurrence, form=PartialOccEventForm, extra=1)
+        
+        status = 'P'
+        if user_linked_to_organization(request.user):
+            status = 'V'
+        status_display = False
+        if request.user.is_superuser:
+            status = 'V'
+            status_display = True
 
         if event_id:
             # update
@@ -267,6 +284,7 @@ def add_view(request, page_app, event_id=None):
             occ = get_object_or_404(Occurrence, event__pk = event_id)
             base_url = u'%sp/event_edit/%s' % (page_app.get_absolute_url(),event_id)
             delete_url = u'%sp/event_delete/%s' % (page_app.get_absolute_url(),event_id)
+            status = event.status
         else :
             # new
             mode = 'add'
@@ -276,12 +294,18 @@ def add_view(request, page_app, event_id=None):
             occ = Occurrence(event=event)
 
         if request.method == 'POST':
-            
-            event_form = event_form_class(request.POST, request.FILES, instance = event)
+            person = Person.objects.filter(user=request.user)
+            if person:
+                person = person[0]
+                if mode == 'add':
+                    # automatic association of the user to this event
+                    event.person = person
+
+            event_form = event_form_class(request.POST, request.FILES, instance=event)
             docFormset = DocFormSet(request.POST, request.FILES, prefix='doc', instance=event)
             occ_form = occ_form_class(request.POST, instance = occ)
             #occFormset = OccFormSet(request.POST, request.FILES, prefix='occ', instance=event)
-            
+
             if event_form.is_valid() and occ_form.is_valid() and docFormset.is_valid():
                 event = event_form.save()
                 event_form.save_m2m()
@@ -289,7 +313,17 @@ def add_view(request, page_app, event_id=None):
                 occ.event_id = event.pk
                 occ = occ_form.save(event)
                 
-                                
+                if not request.user.is_superuser :
+                    event.status = status
+                if person and mode == 'add':
+                    event.person = person
+                event.save()
+                
+                # notify the admin
+                if mode == "add" and not user_linked_to_organization(request.user):
+                    url = 'http://%s%sp/%s' % (site, settings.COOP_AGENDA_URL, event.pk)
+                    notify_object_creation(url)
+
                 base_url = u'%s' % (page_app.get_absolute_url())
                 rdict = {'base_url': base_url, 'event_id': occ.event_id}
                 return render_view('page_coop_agenda/add_success.html',
@@ -303,7 +337,7 @@ def add_view(request, page_app, event_id=None):
             docFormset = DocFormSet(prefix='doc', instance=event)
             #occFormset = OccFormSet(prefix='occ', instance=event)
         
-        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'delete_url': delete_url, 'form': event_form, 'doc_form': docFormset, 'occ_form': occ_form, 'center': center_map, 'mode': mode}
+        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'delete_url': delete_url, 'form': event_form, 'doc_form': docFormset, 'occ_form': occ_form, 'center': center_map, 'mode': mode, 'status_display': status_display}
         return render_view('page_coop_agenda/add.html',
                         rdict,
                         MEDIAS,

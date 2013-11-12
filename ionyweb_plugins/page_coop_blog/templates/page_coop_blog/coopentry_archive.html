@@ -1,5 +1,5 @@
 {% load i18n %}
-
+{% load rights_entry %}
 
 <script type="text/javascript">
     // We need to set a new class to content element, in order do properly display the form and the other elements
@@ -111,7 +111,7 @@
                 {{ entry.resume|truncatechars:150|safe }}
             </div>
             <span class="readmore"><a class="articles_link" href="{{ base_url }}p/{{ entry.pk }}">{% trans "Read more" %}</a></span>
-            {% if request.user.is_superuser %}
+            {% if request.user.is_superuser or entry|tag_rights_entry:request %}
                 <span class="edit"><a class="" href="{{ base_url }}p/entry_edit/{{ entry.pk }}">{% trans "Edit" %}</a></span>
             {% endif %}
         </div>
