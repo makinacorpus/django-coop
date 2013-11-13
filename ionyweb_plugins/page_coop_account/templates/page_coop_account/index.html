@@ -26,35 +26,35 @@
         <div id="tabs-organizations">
             <ul>
             {% for o in org %}
-                <li><a class="highlight_gen account_link" href="/annuaire/p/member_edit/{{ o.pk }}">{% trans 'Edit' %}</a> - <a href="/annuaire/p/{{ o.pk }}">{{ o.title }}</a></li>
+                <li><a class="highlight_gen account_link" href="{{ organizations_url }}p/member_edit/{{ o.pk }}">{% trans 'Edit' %}</a> - <a href="{{ organizations_url }}p/{{ o.pk }}">{{ o.title }}</a></li>
             {% endfor %}
             </ul>
         </div>
         <div id="tabs-exchanges">
             <ul>
             {% for e in exchanges %}
-                <li><a class="highlight_gen account_link" href="/annonces/p/exchange_edit/{{ e.pk }}">{% trans 'Edit' %}</a> - <a href="/annonces/p/{{ e.pk }}">{{ e.title }}</a></li>
+                <li><a class="highlight_gen account_link" href="{{ exchanges_url }}p/exchange_edit/{{ e.pk }}">{% trans 'Edit' %}</a> - <a href="{{ exchanges_url }}p/{{ e.pk }}">{{ e.title }}</a></li>
             {% endfor %}
             </ul>
         </div>
         <div id="tabs-articles">
             <ul>
             {% for e in entries %}
-                <li><a class="highlight_gen account_link" href="/actualites/p/entry_edit/{{ e.pk }}">{% trans 'Edit' %}</a> - <a href="/actualites/p/{{ e.pk }}">{{ e.title }}</a></li>
+                <li><a class="highlight_gen account_link" href="{{ blog_url }}p/entry_edit/{{ e.pk }}">{% trans 'Edit' %}</a> - <a href="{{ blog_url }}p/{{ e.pk }}">{{ e.title }}</a></li>
             {% endfor %}
             </ul>
         </div>
         <div id="tabs-events">
             <ul>
             {% for o in occs %}
-                <li><a class="highlight_gen account_link" href="/agenda/p/event_edit/{{ o.pk }}">{% trans 'Edit' %}</a> - <a href="/agenda/p/{{ o.pk }}">{{ o.title }}</a></li>
+                <li><a class="highlight_gen account_link" href="{{ agenda_url }}p/event_edit/{{ o.pk }}">{% trans 'Edit' %}</a> - <a href="{{ agenda_url }}p/{{ o.pk }}">{{ o.title }}</a></li>
             {% endfor %}
             </ul>
         </div>
         <div id="tabs-projects">
             <ul>
             {% for p in projects %}
-                <li><a class="highlight_gen account_link" href="/projects/p/member_edit/{{ p.pk }}">{% trans 'Edit' %}</a> - <a href="/projects/p/{{ p.pk }}">{{ p.title }}</a></li>
+                <li><a class="highlight_gen account_link" href="{{ projects_url }}p/member_edit/{{ p.pk }}">{% trans 'Edit' %}</a> - <a href="{{ projects_url }}p/{{ p.pk }}">{{ p.title }}</a></li>
             {% endfor %}
             </ul>
         </div>

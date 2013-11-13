@@ -133,8 +133,9 @@ def index_view(request, page_app):
     organizations_url = settings.COOP_MEMBER_ORGANIZATIONS_URL
     agenda_url = settings.COOP_AGENDA_URL
     blog_url = settings.COOP_BLOG_URL
+    projects_url = settings.COOP_MEMBER_PROJECTS_URL
 
-    rdict = {'object': page_app, 'base_url': base_url, 'edit_url': edit_url, 'org': tab_org, 'projects': tab_projects, 'exchanges': tab_exchanges, 'occs': tab_events, 'entries': tab_entries, 'private_entries': tab_private_entries, 'logo': logo, 'media_path': settings.MEDIA_URL, 'person': person, 'items': user_pref_matches, 'exchanges_url': exchanges_url, 'organizations_url': organizations_url, 'agenda_url': agenda_url, 'blog_url': blog_url}
+    rdict = {'object': page_app, 'base_url': base_url, 'edit_url': edit_url, 'org': tab_org, 'projects': tab_projects, 'exchanges': tab_exchanges, 'occs': tab_events, 'entries': tab_entries, 'private_entries': tab_private_entries, 'logo': logo, 'media_path': settings.MEDIA_URL, 'person': person, 'items': user_pref_matches, 'exchanges_url': exchanges_url, 'organizations_url': organizations_url, 'agenda_url': agenda_url, 'blog_url': blog_url, 'projects_url': projects_url}
     
     return render_view(render_page,
                        rdict,
