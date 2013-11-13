@@ -10,6 +10,7 @@ from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from django.contrib.gis import geos
+from django.contrib import messages
 from django.contrib.gis.measure import D
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
@@ -17,7 +18,7 @@ from django.utils.translation import ugettext_lazy as _
 from tempfile import NamedTemporaryFile
 import tempfile
 from django.core.servers.basehttp import FileWrapper
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.utils.http import http_date
 
 import csv
@@ -71,6 +72,7 @@ def export(request, page_app):
             with tempfile.TemporaryFile('w', suffix='.wkt') as f:
                 output = f.name
 
+                export = "%s,%s,%s\n" % ('first_name', 'last_name', 'email')
                 for line  in list_subscribers:
                     export = "%s%s\n" % (export, line)
 
@@ -82,9 +84,7 @@ def export(request, page_app):
         finally:
             pass
 
-    rdict = {'object': page_app}
-    return render_view('page_coop_newsletter/nodata.html',
-                        rdict,
-                       MEDIAS,
-                       context_instance=RequestContext(request))       
+    messages.info(request,_(u"No data to export"))
+    admin_url = "/admin/"
+    return HttpResponseRedirect(admin_url)
         

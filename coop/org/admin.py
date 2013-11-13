@@ -433,6 +433,7 @@ class OrganizationAdmin(AdminImageMixin, FkAutocompleteAdmin):
                 with tempfile.TemporaryFile('w', suffix='.wkt') as f:
                     output = f.name
 
+                    export = "%s,%s,%s,%s\n" % ('email', 'title', 'acronym', 'category')
                     for line  in list_members:
                         export = "%s%s\n" % (export, line)
 
