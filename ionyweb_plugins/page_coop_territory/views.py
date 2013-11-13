@@ -276,7 +276,7 @@ def filter_data(request, page_app, mode):
     if 'page' in get_params:
         del get_params['page']    
     
-    rdict = {'items': items_page, 'search_form_template': search_form_template, 'base_url': base_url, 'exchanges_url': page_app.exchanges_url, 'organizations_url': page_app.organizations_url, 'projects_url': page_app.projects_url, 'agenda_url': page_app.agenda_url, 'blog_url': page_app.blog_url, 'form': form, 'more_criteria': more_criteria, 'available_locations': available_locations, 'available_data': available_data}
+    rdict = {'items': items_page, 'search_form_template': search_form_template, 'base_url': base_url, 'exchanges_url': page_app.exchanges_url, 'organizations_url': page_app.organizations_url, 'projects_url': page_app.projects_url, 'agenda_url': page_app.agenda_url, 'blog_url': page_app.blog_url, 'form': form, 'more_criteria': more_criteria, 'available_locations': available_locations, 'available_data': available_data, 'media_path': settings.MEDIA_URL}
     
     return rdict
 
