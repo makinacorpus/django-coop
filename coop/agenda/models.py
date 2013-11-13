@@ -93,7 +93,7 @@ class BaseEvent(URIModel):
     title = models.CharField(_('title'), max_length=120)
     description = models.TextField(_(u'description'), blank=True)
     slug = exfields.AutoSlugField(populate_from='title')
-    category = models.ManyToManyField('coop_local.EventCategory', verbose_name=_('event type'))  
+    category = models.ManyToManyField('coop_local.EventCategory', verbose_name=_('event type'), blank=True)
     # to be deleted one day...use category instead
     event_type = models.ForeignKey('coop_local.EventCategory', verbose_name=_('event type'), related_name='event_type', editable=False, null=True, on_delete=models.PROTECT)  
     calendar = models.ForeignKey('coop_local.Calendar', verbose_name=_('calendar'), on_delete=models.PROTECT)
