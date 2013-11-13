@@ -23,10 +23,10 @@
 {% for item in items %}
 
     {% if item.type == 'exchange' %}
-        <div class="coop_territory">
+        <div class="coop_exchange">
             <div class="bloc_title">
                 {% if item.obj.img  %}
-                    <div class="logo"><a class="territory_link" href="{{ base_url }}p/{{ item.obj.pk }}"><img src="{{ media_path }}{{ item.obj.img }}" alt="{{ item.obj.title }}"></a></div>
+                    <div class="logo"><a class="exchange_link" href="{{ base_url }}p/{{ item.obj.pk }}"><img src="{{ media_path }}{{ item.obj.img }}" alt="{{ item.obj.title }}"></a></div>
                 {% else %}
                     <div class="logo logo_pes"></div>
                 {% endif %}
@@ -36,14 +36,14 @@
                     <div class="exchange_type">{% trans "Type" %} : {{ item.obj.get_eway_display }}</div>
                     <a href="{{ exchanges_url }}p/{{ item.obj.pk }}"><h3 class="exchange_title resume_title">{{ item.obj.title }}</h3></a>
                     <div class="exchange_desc">{{ item.obj.description|safe|truncatechars:150 }}</div>
-                    <span class="readmore"><a class="territory_link" href="{{ exchanges_url }}p/{{ item.obj.pk }}">{% trans "Read more" %}</a></span>
+                    <span class="readmore"><a class="exchange_link" href="{{ exchanges_url }}p/{{ item.obj.pk }}">{% trans "Read more" %}</a></span>
                 </div>
             </div>
         </div>
     {% endif %}
 
     {% if item.type == 'occ' %}
-        <div class="coop_agenda coop_territory">
+        <div class="coop_agenda">
             <div class="bloc_title">
                 {% if item.obj.event.image != '' %}
                     <div class="logo"><a class="agenda_link" href="{{ base_url }}p/{{ item.obj.event.pk }}"><img src="{{ media_path }}{{ item.obj.event.image }}" alt=""></a></div>
@@ -96,12 +96,12 @@
             {% if item.obj.logo != '' %}
                 <div class="logo"><a class="member_link" href="{{ base_url }}p/{{ item.obj.pk }}"><img src="{{ media_path }}{{ item.obj.logo }}" alt=""></a></div>
             {% else %}
-                <a href="{{ base_url }}p/{{ item.obj.pk }}"><div class="logo logo_pes"></div></a>
+                <a href="{{ base_url }}p/{{ item.obj.pk }}"><div class="logo logo_pes_organization"></div></a>
             {% endif %}
 
             <div class="resume">
                 {% if item.obj.located == None %}{% else %} 
-                    <span class="location_member">
+                    <span class="location location_member">
                         {{ item.obj.main_location_label }}
                     </span> 
                 {% endif %}
@@ -124,14 +124,14 @@
         <div class="bloc_title coop_territory">
 
             {% if item.obj.logo != '' %}
-                <div class="logo"><a class="member_link" href="{{ base_url }}p/{{ item.obj.pk }}"><img src="{{ media_path }}{{ item.obj.logo }}" alt=""></a></div>
+                <div class="logo"><a class="projects_link" href="{{ base_url }}p/{{ item.obj.pk }}"><img src="{{ media_path }}{{ item.obj.logo }}" alt=""></a></div>
             {% else %}
-                <a href="{{ base_url }}p/{{ item.obj.pk }}"><div class="logo logo_pes"></div></a>
+                <a href="{{ base_url }}p/{{ item.obj.pk }}"><div class="logo logo_pes logo_pes_project"></div></a>
             {% endif %}
 
             <div class="resume">
                 {% if item.obj.located == None %}{% else %} 
-                    <span class="location">
+                    <span class="location location_project">
                         {{ item.obj.main_location_label }}
                     </span> 
                 {% endif %}
@@ -146,7 +146,7 @@
 
                 <span class="">{{ item.obj.short_description }}</span>
 
-                <span class="readmore"><a class="member_link" href="{{ base_url }}p/{{ item.obj.pk }}">{% trans "Read more" %}</a></span>
+                <span class="readmore"><a class="projects_link" href="{{ base_url }}p/{{ item.obj.pk }}">{% trans "Read more" %}</a></span>
             </div>
         </div>
     {% endif %}
