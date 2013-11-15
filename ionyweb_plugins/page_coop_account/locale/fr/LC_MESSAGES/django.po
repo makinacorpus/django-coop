@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-12 15:32+0100\n"
+"POT-Creation-Date: 2013-11-15 11:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: forms.py:35
+#: forms.py:30
+msgid "Activities"
+msgstr "Activités"
+
+#: forms.py:31 templates/page_coop_account/index.html:94
+msgid "Organizations"
+msgstr "Structures"
+
+#: forms.py:32
+msgid "Locations"
+msgstr "Lieux"
+
+#: forms.py:39
 msgid "firstname"
 msgstr "Prénom"
 
-#: forms.py:36
+#: forms.py:40
 msgid "lastname"
 msgstr "Nom"
 
@@ -30,11 +42,19 @@ msgstr "Nom"
 msgid "CoopAccount"
 msgstr ""
 
-#: templates/page_coop_account/edit.html:4
+#: templates/page_coop_account/edit.html:9
 msgid "Preferences"
 msgstr "Préférences"
 
+#: templates/page_coop_account/edit.html:48
+msgid "Check for receiving notifications about your preference every weeks"
+msgstr "Cochez si vous souhaitez recevoir chaque semaine des notifications par mail"
+
 #: templates/page_coop_account/edit.html:54
+msgid "Check to receive newsletters from the plateforme"
+msgstr "Cochez si vous souhaiter recevoir les newsletters du site PES"
+
+#: templates/page_coop_account/edit.html:61
 msgid "Modify"
 msgstr "Modifier"
 
@@ -118,10 +138,6 @@ msgstr "Mes annonces"
 #: templates/page_coop_account/index.html:87
 msgid "Agenda"
 msgstr "Agenda"
-
-#: templates/page_coop_account/index.html:94
-msgid "Organizations"
-msgstr "Structures"
 
 #: templates/page_coop_account/login.html:8
 #: templates/page_coop_account/login.html:17

@@ -27,6 +27,10 @@ class PageApp_CoopAccountPreferencesForm(ModuloModelForm):
         self.fields['organizations'] = forms.ModelMultipleChoiceField(queryset=Organization.objects.order_by('title'), required=False)
         self.fields['locations'] = forms.ModelMultipleChoiceField(queryset=Area.objects.order_by('label'), required=False)
         
+        self.fields['activities'].label = _('Activities')
+        self.fields['organizations'].label = _('Organizations')
+        self.fields['locations'].label = _('Locations')
+        
     class Meta:
         model = PersonPreferences
 

@@ -1,5 +1,10 @@
 {% load i18n thumbnail %}
 
+<!-- For tooltips -->
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery-ui-1.9.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.ui.tooltip.js"></script>
+
+
 <div id="coop_account">
     <h2 class="title">{% trans "Preferences" %}</h2>
 
@@ -40,11 +45,13 @@
             <div class="fieldWrapper">
                 {{ form.notification.errors  }}
                 <div class="labelWrapper">{{ form.notification.label_tag }} : </div>{{ form.notification }}
+                <div class="help_text" title="{% trans 'Check for receiving notifications about your preference every weeks' %}"></div>
             </div>
 
             <div class="fieldWrapper">
                 {{ form.newsletter.errors }}
                 <div class="labelWrapper">{{ form.newsletter.label_tag }} : </div>{{ form.newsletter }}
+                <div class="help_text" title="{% trans 'Check to receive newsletters from the plateforme' %}"></div>
             </div>
         </div>
 
@@ -58,6 +65,13 @@
 </div>
 
 
+
+<script type="text/javascript">
+    $(function() {
+        $(".help_text").tooltip();
+
+    });
+</script>
 
 
 
