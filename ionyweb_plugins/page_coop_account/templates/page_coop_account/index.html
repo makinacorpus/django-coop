@@ -67,7 +67,7 @@
             </div>
             
             <div class="preferences">
-                <h2 class="title">{% trans "These last days:" %}</h3>
+                <h2 class="title">{% blocktrans with amount=delta_days %}These last $ {{ amount }} days{% endblocktrans %}</h2>
                 
                 <ul>
                     <h3>{% trans "Articles" %}</h3>
