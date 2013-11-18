@@ -588,7 +588,7 @@ msgstr "Chiffre d'affaire annuel"
 
 #: models.py:654
 msgid "workforce"
-msgstr "effectif total (ETP)"
+msgstr "Effectif total (ETP)"
 
 #: models.py:663
 msgid "relations"
