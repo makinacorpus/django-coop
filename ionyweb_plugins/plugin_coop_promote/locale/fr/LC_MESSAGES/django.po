@@ -50,7 +50,7 @@ msgstr "Invitation de la plateforme PES Auvergne"
 #: templates/plugin_coop_promote/not_sent.html:3
 #: templates/plugin_coop_promote/sent.html:3
 msgid "Promote"
-msgstr "Invitez"
+msgstr "Inviter"
 
 #: templates/plugin_coop_promote/index.html:18
 #: templates/plugin_coop_promote/not_sent.html:20
