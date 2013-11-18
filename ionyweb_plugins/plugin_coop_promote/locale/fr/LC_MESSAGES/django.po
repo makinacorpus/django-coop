@@ -62,7 +62,7 @@ msgstr "Inviter"
 #: templates/plugin_coop_promote/not_sent.html:25
 #: templates/plugin_coop_promote/sent.html:27
 msgid "Connect to send invitation"
-msgstr "Connectez vous pour envoyer une invitation"
+msgstr "Connectez-vous pour envoyer une invitation"
 
 #: templates/plugin_coop_promote/not_sent.html:8
 msgid "Invitation has not been sent. Please contact administrator."
