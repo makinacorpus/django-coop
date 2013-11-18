@@ -163,7 +163,7 @@ msgstr "Pas de compte ?"
 
 #: templates/page_coop_account/login.html:27
 msgid "Create one"
-msgstr "Créez en un"
+msgstr "Créer un compte"
 
 #: templates/page_coop_account/registration_complete.html:3
 msgid "Registration complete"
