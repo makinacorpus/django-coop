@@ -357,15 +357,16 @@
                     if($( this ).val() == '4') {
                         select_id = $(this).attr('id');
                         experience_id = "#" + select_id.replace("answer", "experience");
+                        experience_id_alone = select_id.replace("answer", "experience");
                         if($(experience_id).val() == '') {
                             alert("{% trans 'You must fill the experience field where answer specialist has been chosen.' %}");
+                            var el = document.getElementById(experience_id_alone);
+                            el.scrollIntoView(false);
                             res = false
                         }
                         return res;
                     }
                 });
-
-
             }
         }
         return res;
@@ -397,15 +398,6 @@
                 experience_id = "#" + select_id.replace("answer", "experience");
                 label_id = "label[for='" + select_id.replace("answer", "experience") + "']"
                 apply_evaluation_state(this, experience_id, label_id);
-//                 if($( this ).val() == '0' || $( this ).val() == '') {
-//                     // Hide experience field
-//                     $(experience_id).addClass("detail_form_hide");
-//                     $(label_id).addClass("detail_form_hide");
-//                 }
-//                 else {
-//                     $(experience_id).removeClass("detail_form_hide");
-//                     $(label_id).removeClass("detail_form_hide");
-//                 }
             });
         });
 
