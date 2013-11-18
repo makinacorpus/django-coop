@@ -109,7 +109,7 @@ class PartialExchangeForm(ExchangeForm):
               }
         
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, user, *args, **kwargs):
         super(PartialExchangeForm, self).__init__(*args, **kwargs)
         self.fields['activity'] = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.order_by('path'))
         #self.fields['person'] = forms.ModelChoiceField(queryset=Person.objects.order_by('first_name'))
@@ -120,8 +120,17 @@ class PartialExchangeForm(ExchangeForm):
         self.fields['activity'].label = _("Activity")
         #self.fields['person'].label = _("Person")
         self.fields['start'].label = _("Date of publication")
+
+        if user.is_superuser :
+            self.fields['organization'] = forms.ModelChoiceField(queryset=Organization.objects.filter(active=True, status='V', is_project=False).order_by('title'))    
+        else:
+            person = Person.objects.filter(user=user)
+            if person:
+                person = person[0]
+
+            self.fields['organization'] = forms.ModelChoiceField(queryset=Organization.objects.filter(active=True, status='V', is_project=False,members=person).order_by('title'))    
         
-        self.fields['organization'] = forms.ModelChoiceField(queryset=Organization.objects.filter(active=True, status='V', is_project=False).order_by('title'))
+        
         self.fields['organization'].label = _("Organization")
         
         self.fields['img'].label = _("Image")

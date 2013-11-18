@@ -233,7 +233,7 @@ def add_view(request, page_app, exchange_id=None):
                     # automatic association of the user to this exchange
                     exchange.person = person
             
-            form = PartialExchangeForm(request.POST, request.FILES, instance = exchange)
+            form = PartialExchangeForm(request.POST, request.FILES, instance = exchange, user=request.user)
             docFormset = DocFormSet(request.POST, request.FILES, prefix='doc', instance=exchange)
             
             if form.is_valid() and docFormset.is_valid():
@@ -258,7 +258,7 @@ def add_view(request, page_app, exchange_id=None):
                                 MEDIAS,
                                 context_instance=RequestContext(request))
         else:
-            form = PartialExchangeForm(instance=exchange) # An empty form
+            form = PartialExchangeForm(instance=exchange, user=request.user) # An empty form
             docFormset = DocFormSet(instance=exchange, prefix='doc')
         
         rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'delete_url': delete_url, 'form': form, 'doc_form': docFormset, 'center': center_map, 'mode': mode,  'status_display': status_display}
