@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-15 12:14+0100\n"
+"POT-Creation-Date: 2013-11-18 10:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Activities"
 msgstr "Activités"
 
-#: forms.py:31 templates/page_coop_account/index.html:96
+#: forms.py:31 templates/page_coop_account/index.html:94
 msgid "Organizations"
 msgstr "Structures"
 
@@ -125,31 +125,24 @@ msgid "Last connection"
 msgstr "Dernière connexion"
 
 #: templates/page_coop_account/index.html:70
-msgid "These last days:"
-msgstr "Ces derniers jours:"
-
-#: templates/page_coop_account/index.html:71
-msgid "These last '%(delta_days)s' days"
-msgstr "Ces derniers '%(delta_days)s' jours:"
-
-#: templates/page_coop_account/index.html:72
+#, python-format
 msgid "These last $ %(amount)s days"
 msgstr "Ces derniers %(amount)s jours:"
 
-#: templates/page_coop_account/index.html:75
+#: templates/page_coop_account/index.html:73
 msgid "Articles"
 msgstr "Mes articles"
 
-#: templates/page_coop_account/index.html:82
+#: templates/page_coop_account/index.html:80
 msgid "Exchanges"
 msgstr "Mes annonces"
 
-#: templates/page_coop_account/index.html:89
+#: templates/page_coop_account/index.html:87
 msgid "Agenda"
 msgstr "Agenda"
 
 #: templates/page_coop_account/login.html:8
-#: templates/page_coop_account/login.html:17
+#: templates/page_coop_account/login.html:21
 #: templates/page_coop_account/post_exchange.html:8
 #: templates/page_coop_account/post_exchange.html:17
 msgid "Login"
@@ -160,11 +153,15 @@ msgstr ""
 msgid "Password"
 msgstr "Mot de passe"
 
-#: templates/page_coop_account/login.html:22
+#: templates/page_coop_account/login.html:17
+msgid "Please enter a valid login/password"
+msgstr "Merci d'entrer un login et mot de passe valides"
+
+#: templates/page_coop_account/login.html:27
 msgid "No account ?"
 msgstr "Pas de compte ?"
 
-#: templates/page_coop_account/login.html:22
+#: templates/page_coop_account/login.html:27
 msgid "Create one"
 msgstr "Créez en un"
 
@@ -183,6 +180,12 @@ msgstr ""
 #: templates/page_coop_account/registration_form.html:8
 msgid "Create"
 msgstr "Créer"
+
+#~ msgid "These last days:"
+#~ msgstr "Ces derniers jours:"
+
+#~ msgid "These last '%(delta_days)s' days"
+#~ msgstr "Ces derniers '%(delta_days)s' jours:"
 
 #~ msgid "Entry"
 #~ msgstr "Actualité"

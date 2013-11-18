@@ -13,11 +13,16 @@
                     <input type="password" id="password" name="password">
                 </div>
 
+                {% if logged_failed %}
+                    <div class="errorlist">{% trans "Please enter a valid login/password" %}</div>
+                {% endif %}
+
                 <div class="new_block" id="new_submit">
                     <input type="submit" value="{% trans "Login" %}" />                
                 </div>
         </form>
     </div>
+
 
     <p>{% trans "No account ?" %} <a href="/mon-compte/p/register">{% trans "Create one" %}</a></p>
 </div>

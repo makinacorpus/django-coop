@@ -36,6 +36,7 @@ MEDIAS = (
 def index_view(request, page_app):
     base_url = u'%s' % (page_app.get_absolute_url())
     edit_url = None
+    logged_failed = False
     
     if request.method == 'POST': # If the login form has been submitted
         username = request.POST['username']
@@ -54,6 +55,7 @@ def index_view(request, page_app):
     logo = None
     person = None
     user_pref_matches = None
+
 
     if request.user.is_authenticated():
         render_page = 'page_coop_account/index.html'
@@ -127,6 +129,8 @@ def index_view(request, page_app):
             tab_events.append(o)
 
     else:
+        if request.method == 'POST': # If the login form has been submitted
+            logged_failed = True
         render_page = 'page_coop_account/login.html'
     
     exchanges_url = settings.COOP_EXCHANGE_EXCHANGES_URL
@@ -135,7 +139,7 @@ def index_view(request, page_app):
     blog_url = settings.COOP_BLOG_URL
     projects_url = settings.COOP_MEMBER_PROJECTS_URL
 
-    rdict = {'object': page_app, 'base_url': base_url, 'edit_url': edit_url, 'org': tab_org, 'projects': tab_projects, 'exchanges': tab_exchanges, 'occs': tab_events, 'entries': tab_entries, 'private_entries': tab_private_entries, 'logo': logo, 'media_path': settings.MEDIA_URL, 'person': person, 'items': user_pref_matches, 'exchanges_url': exchanges_url, 'organizations_url': organizations_url, 'agenda_url': agenda_url, 'blog_url': blog_url, 'projects_url': projects_url, 'delta_days': settings.NOTIFICATION_MY_ACCOUNT_DELTA}
+    rdict = {'object': page_app, 'base_url': base_url, 'edit_url': edit_url, 'org': tab_org, 'projects': tab_projects, 'exchanges': tab_exchanges, 'occs': tab_events, 'entries': tab_entries, 'private_entries': tab_private_entries, 'logo': logo, 'media_path': settings.MEDIA_URL, 'person': person, 'items': user_pref_matches, 'exchanges_url': exchanges_url, 'organizations_url': organizations_url, 'agenda_url': agenda_url, 'blog_url': blog_url, 'projects_url': projects_url, 'delta_days': settings.NOTIFICATION_MY_ACCOUNT_DELTA, 'logged_failed': logged_failed}
     
     return render_view(render_page,
                        rdict,
