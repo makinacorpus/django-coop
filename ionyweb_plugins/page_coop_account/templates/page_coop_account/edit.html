@@ -15,16 +15,19 @@
             <div class="fieldWrapper">
                 {{ form.activities.errors  }}
                 <div class="labelWrapper">{{ form.activities.label_tag }} : </div>{{ form.activities }}
+                <div class="help_text" title="{% trans 'You can choose more than one by pressing the CTRL key' %}"></div>
             </div>
 
             <div class="fieldWrapper">
                 {{ form.transverse_themes.errors  }}
                 <div class="labelWrapper">{{ form.transverse_themes.label_tag }} : </div>{{ form.transverse_themes }}
+                <div class="help_text" title="{% trans 'You can choose more than one by pressing the CTRL key' %}"></div>
             </div>
 
             <div class="fieldWrapper">
                 {{ form.locations.errors  }}
                 <div class="labelWrapper">{{ form.locations.label_tag }} : </div>{{ form.locations }}
+                <div class="help_text" title="{% trans 'You can choose more than one by pressing the CTRL key' %}"></div>
             </div>
 
             <div class="fieldWrapper">
@@ -35,11 +38,13 @@
             <div class="fieldWrapper">
                 {{ form.organizations.errors  }}
                 <div class="labelWrapper">{{ form.organizations.label_tag }} : </div>{{ form.organizations }}
+                <div class="help_text" title="{% trans 'You can choose more than one by pressing the CTRL key' %}"></div>
             </div>
 
             <div class="fieldWrapper">
                 {{ form.type_content.errors  }}
                 <div class="labelWrapper">{{ form.type_content.label_tag }} : </div>{{ form.type_content }}
+                <div class="help_text" title="{% trans 'You can choose more than one by pressing the CTRL key' %}"></div>
             </div>
 
             <div class="fieldWrapper">
