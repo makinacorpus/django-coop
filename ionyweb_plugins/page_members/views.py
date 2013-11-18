@@ -312,6 +312,7 @@ def add_view(request, page_app, member_id=None):
             #transmission_date
             #authors
             #validation
+            evaluate = []
             
             evaluation = Evaluation(pk=request.POST['evaluate-0-evaluation'])
             member.evaluation = evaluation
