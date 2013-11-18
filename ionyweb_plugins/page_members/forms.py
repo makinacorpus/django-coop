@@ -70,6 +70,7 @@ class PageApp_MembersSortForm(forms.Form):
 
    
 class PartialMemberForm(OrganizationAdminForm):
+    
     class Meta:
         model = Organization
         exclude = ('members', 'secteur_fse', 'sites', 'relations', 'statut', )
@@ -87,6 +88,8 @@ class PartialMemberForm(OrganizationAdminForm):
         self.fields['active'].label = _('Show on public site')
 
         self.fields['birth'].widget = YearWidget(years=[y for y in range(1900,2050)])
+        
+        self.fields['category'].queryset = OrganizationCategory.objects.all().order_by('label')
         
         
         
