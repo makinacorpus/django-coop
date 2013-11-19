@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.template import RequestContext
+from django.http import HttpResponse
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.contrib.gis import geos
@@ -14,9 +15,10 @@ from django.contrib.sites.models import Site
 
 from datetime import datetime
 from math import pi
+import json
 
 from coop.exchange.admin import ExchangeForm
-from coop_local.models import Exchange, Location, Area, Document, Person
+from coop_local.models import Exchange, Location, Area, Document, Person, Organization
 from coop.org.models import get_rights
 from coop.base_models import Tag
 from .forms import PageApp_CoopExchangeSearchForm, PartialExchangeForm, DocumentForm, ReplyExchangeForm
@@ -233,7 +235,7 @@ def add_view(request, page_app, exchange_id=None):
                     # automatic association of the user to this exchange
                     exchange.person = person
             
-            form = PartialExchangeForm(request.POST, request.FILES, instance = exchange, user=request.user)
+            form = PartialExchangeForm(request.user, request.POST, request.FILES, instance = exchange)
             docFormset = DocFormSet(request.POST, request.FILES, prefix='doc', instance=exchange)
             
             if form.is_valid() and docFormset.is_valid():
@@ -258,10 +260,11 @@ def add_view(request, page_app, exchange_id=None):
                                 MEDIAS,
                                 context_instance=RequestContext(request))
         else:
-            form = PartialExchangeForm(instance=exchange, user=request.user) # An empty form
+            form = PartialExchangeForm(request.user, instance=exchange) # An empty form
             docFormset = DocFormSet(instance=exchange, prefix='doc')
         
-        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'delete_url': delete_url, 'form': form, 'doc_form': docFormset, 'center': center_map, 'mode': mode,  'status_display': status_display}
+        app_root_url = u'%s' % (page_app.get_absolute_url())
+        rdict = {'media_path': settings.MEDIA_URL, 'base_url': base_url, 'app_root_url': app_root_url, 'delete_url': delete_url, 'form': form, 'doc_form': docFormset, 'center': center_map, 'mode': mode,  'status_display': status_display}
         return render_view('page_coop_exchange/add.html',
                         rdict,
                         MEDIAS,
@@ -344,4 +347,19 @@ def delete_view(request, page_app, exchange_id):
                         context_instance=RequestContext(request))
     else:
         return render_view('page_coop_exchange/forbidden.html')
-        
+
+
+def get_org_infos(request, page_app, org_id):
+    org = Organization.objects.filter(pk=org_id)
+    if org:
+        org = org[0]
+        response_data = {}
+        if org.pref_email:
+            response_data['email'] = org.pref_email.content
+        elif org.email:
+            response_data['email'] = org.email
+            
+        if org.pref_phone:
+            response_data['phone'] = org.pref_phone.content
+        return HttpResponse(json.dumps(response_data), content_type="application/json")
+

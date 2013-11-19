@@ -84,12 +84,7 @@
                 <div class="labelWrapper">{{ form.methods.label_tag }} : </div><div id="methods">{{ form.methods }}</div>
             </div>   
 
-<!--            <div class="fieldWrapper">
-                {{ form.location.errors }}
-                <div class="labelWrapper">{{ form.location.label_tag }} : </div>{{ form.location }}
-            </div>  --> 
-
-            <h3 class="title_formset">{% trans "Locations" %}</h3>
+            <h3 class="title_formset">{% trans "Locations (if different from organization address" %}</h3>
             <div id="location" class="fieldWrapper formset">
                 <div id="label" class="fieldWrapper">
                     {{ form.label.errors }}
@@ -113,26 +108,10 @@
                 </div>
             </div>
 
-
-<!-- TODO: email de reponse a l annonce -->
-
             <div class="fieldWrapper">
                 {{ form.description.errors }}
                 <div class="labelWrapper">{{ form.description.label_tag }} : </div>{{ form.description }}
             </div>   
-
-<!-- TODO: adresse preferee, code postal, ville -->
-
-            <!--<div class="fieldWrapper">
-                {{ form.person.errors }}
-                <div class="labelWrapper">{{ form.person.label_tag }} : </div>{{ form.person }}
-            </div>        -->
-
-
-<!-- TODO tel prefere-->
-<!-- TODO email prefere-->
-<!-- TODO site web -->
-<!-- TODO site associe -->
 
             <!-- Doc associés -->
             <h3 class="title_formset">{% trans "Documents" %}</h3>
@@ -150,8 +129,6 @@
             </div>
 
 
-<!-- TODO evenements lies a cette annonce -->
-            
             <div class="fieldWrapper">
                 {{ form.activity.errors }}
                 <div class="labelWrapper">{{ form.activity.label_tag }} : </div>{{ form.activity }}
@@ -184,9 +161,6 @@
                 <div class="labelWrapper">{{ form.status.label_tag }} : </div>{{ form.status }}
             </div>   
             {% endif %}
-
-
-<!-- TODO plus value solidaire -->
 
             {{ form.errors }}
         </div>
@@ -238,6 +212,22 @@
         });
 
         $(document).tooltip();
+
+
+        $('#id_organization').change(function() {
+            id_org = $(this).val();
+            // call ajax ftn to get tel, email, adresse
+            $.ajax({
+                url: "{{ app_root_url }}p/get_org_infos/" + id_org,
+                context: document.body
+            }).done(function(data) {
+                if(data) {
+                    $("#id_contact").val(data.email);
+                    $("#id_phone").val(data.phone);
+                }
+            });            
+        });
+
 
     });
 </script>
