@@ -87,7 +87,8 @@ class ReplyExchangeForm(forms.Form):
             org = Organization.objects.filter(members=person[0])
             self.fields['name'].initial = "%s %s (%s)" % (person[0].first_name, person[0].last_name, org[0].title)
             self.fields['email'].initial = user.email
-            self.fields['tel'].initial = org[0].pref_phone.content
+            if org[0].pref_phone:
+                self.fields['tel'].initial = org[0].pref_phone.content
         else:
             self.fields['name'].initial = "%s %s" % (user.first_name, user.last_name)
             self.fields['email'].initial = user.email
