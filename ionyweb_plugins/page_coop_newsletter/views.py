@@ -70,6 +70,7 @@ def export(request, page_app):
         export = ""
         try:
             with tempfile.TemporaryFile('w', suffix='.wkt') as f:
+                
                 output = f.name
 
                 export = "%s,%s,%s\n" % ('first_name', 'last_name', 'email')
@@ -81,6 +82,7 @@ def export(request, page_app):
                 response['Last-Modified'] = http_date()
                 response['Content-Length'] = len(export)
                 response['Content-Disposition'] = 'attachment; filename=export_suscribers.csv'
+                return response
         finally:
             pass
 
