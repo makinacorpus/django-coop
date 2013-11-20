@@ -82,7 +82,7 @@ msgstr "Se déconnecter"
 
 #: templates/page_coop_account/index.html:18
 msgid "Personal informations"
-msgstr "Mes infos personnelles"
+msgstr "Infos personnelles"
 
 #: templates/page_coop_account/index.html:19
 msgid "My organizations"
