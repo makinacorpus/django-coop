@@ -152,6 +152,25 @@ class PartialExchangeForm(ExchangeForm):
             self.fields['zipcode'].initial = location.zipcode
             self.fields['point'].initial = location.point
 
+
+    def clean(self):
+        cleaned_data = super(PartialExchangeForm, self).clean()
+        phone = cleaned_data.get("phone")
+        email = cleaned_data.get("contact")
+
+        if phone == '' and email == '':
+            msg = _("You must at least fill phone or email")
+            self._errors["phone"] = self.error_class([msg])
+            self._errors["contact"] = self.error_class([msg])
+
+            # These fields are no longer valid. Remove them from the
+            # cleaned data.
+            del cleaned_data["phone"]
+            del cleaned_data["contact"]
+            
+        return cleaned_data
+
+
     def save(self, commit=True):
         exchange = super(PartialExchangeForm, self).save(commit=False)
         
