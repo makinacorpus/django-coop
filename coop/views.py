@@ -317,7 +317,6 @@ def geojson_amap(request):
 
 if 'haystack' in settings.INSTALLED_APPS:
     from haystack.views import SearchView
-    from coop_local.models import Article
 
     class ModelSearchView(SearchView):
         def __name__(self):
@@ -338,17 +337,6 @@ if 'haystack' in settings.INSTALLED_APPS:
                 else:
                     extra['org'] = results.models(Organization).__dict__['query'].get_results()
 
-                if('coop.exchange' in settings.INSTALLED_APPS):
-                    if results.models(Exchange).count() == 0:
-                        extra['exchange'] = search.models(Exchange).__dict__['query'].get_results()
-                    else:
-                        extra['exchange'] = results.models(Exchange).__dict__['query'].get_results()
-
-                if results.models(Article).count() == 0:
-                    extra['article'] = search.models(Article).__dict__['query'].get_results()
-                else:
-                    extra['article'] = results.models(Article).__dict__['query'].get_results()
-
                 if('coop.agenda' in settings.INSTALLED_APPS):
                     if results.models(Event).count() == 0:
                         extra['event'] = search.models(Event).__dict__['query'].get_results()
@@ -361,17 +349,6 @@ if 'haystack' in settings.INSTALLED_APPS:
                     extra['org'] = search.models(Organization)
                 else:
                     extra['org'] = results.models(Organization)
-
-                if('coop.exchange' in settings.INSTALLED_APPS):
-                    if results.models(Exchange).count() == 0:
-                        extra['exchange'] = search.models(Exchange)
-                    else:
-                        extra['exchange'] = results.models(Exchange)
-
-                if results.models(Article).count() == 0:
-                    extra['article'] = search.models(Article)
-                else:
-                    extra['article'] = results.models(Article)
 
                 if('coop.agenda' in settings.INSTALLED_APPS):
                     if results.models(Event).count() == 0:

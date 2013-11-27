@@ -5,7 +5,7 @@ from django.conf import settings
 if 'haystack' in settings.INSTALLED_APPS:
     import logging
     from haystack import indexes
-    from coop_local.models import Organization, Exchange, Article, Event
+    from coop_local.models import Organization, Event
     from django.contrib.sites.models import Site
 
     log = logging.getLogger('coop')
@@ -29,7 +29,10 @@ if 'haystack' in settings.INSTALLED_APPS:
             return [u"%s" % site.domain for site in obj.sites.all()]
 
         def prepare_tags(self, obj):
-            return [u"%s" % tag.name for tag in obj.tags.all()]
+            if hasattr(obj, 'tags'):
+                return [u"%s" % tag.name for tag in obj.tags.all()]
+            else:
+                return ""
 
         def prepare(self, obj):
             log.debug("prepare id=%s %s" % (obj.id, obj))
@@ -37,6 +40,7 @@ if 'haystack' in settings.INSTALLED_APPS:
 
             prepared_data['text'] = prepared_data['text'] + ' ' + \
             ' '.join(prepared_data['tags']) 
+            #log.debug("prepare text=%s" % prepared_data['text'])
             return prepared_data
 
 
@@ -53,29 +57,6 @@ if 'haystack' in settings.INSTALLED_APPS:
 
         def get_model(self):
             return Organization
-
-
-    class ExchangeIndex(CoopIndex):
-        product = indexes.MultiValueField(boost=1.2, faceted=True)
-
-        def prepare_product(self, obj):
-            return [u"%s" % prod.title for prod in obj.products.all()]
-
-        def prepare(self, obj):
-            # print "prepare %s" % obj
-            prepared_data = super(CoopIndex, self).prepare(obj)
-            prepared_data['text'] = prepared_data['text'] + ' ' + \
-            ' '.join(prepared_data['product']) 
-            return prepared_data
-
-        def get_model(self):
-            return Exchange
-
-
-    class ArticleIndex(CoopIndex):
-
-        def get_model(self):
-            return Article
 
 
     class EventIndex(CoopIndex):
