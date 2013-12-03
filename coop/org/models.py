@@ -645,12 +645,11 @@ class BaseOrganization(URIModel):
     def save(self, *args, **kwargs):
         # Set default values for preferred email, phone and postal address
         if self.pref_phone == None:
-            phone_categories = [1, 2]
-            fixes = self.contacts.filter(category__in=phone_categories)
+            fixes = self.contacts.filter(contact_medium__label__in=(u'Téléphone', u'Mobile'))
             if fixes.count() == 1:
                 self.pref_phone = fixes[0]
         if self.pref_email == None:
-            orgmails = self.contacts.filter(category=8)
+            orgmails = self.contacts.filter(contact_medium__label=u'Courriel')
             if orgmails.count() > 0:
                 self.pref_email = orgmails[0]
         if 'coop_geo' in settings.INSTALLED_APPS:
