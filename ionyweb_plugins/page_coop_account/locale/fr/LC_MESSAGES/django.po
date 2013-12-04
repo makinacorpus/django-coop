@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-18 10:51+0100\n"
+"POT-Creation-Date: 2013-12-04 10:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,16 +46,24 @@ msgstr ""
 msgid "Preferences"
 msgstr "Préférences"
 
-#: templates/page_coop_account/edit.html:48
+#: templates/page_coop_account/edit.html:18
+#: templates/page_coop_account/edit.html:24
+#: templates/page_coop_account/edit.html:30
+#: templates/page_coop_account/edit.html:41
+#: templates/page_coop_account/edit.html:47
+msgid "You can choose more than one by pressing the CTRL key"
+msgstr ""
+
+#: templates/page_coop_account/edit.html:53
 msgid "Check for receiving notifications about your preference every weeks"
 msgstr ""
 "Cochez si vous souhaitez recevoir chaque semaine des notifications par mail"
 
-#: templates/page_coop_account/edit.html:54
+#: templates/page_coop_account/edit.html:59
 msgid "Check to receive newsletters from the plateforme"
 msgstr "Cochez si vous souhaiter recevoir les newsletters du site PES"
 
-#: templates/page_coop_account/edit.html:61
+#: templates/page_coop_account/edit.html:66
 msgid "Modify"
 msgstr "Modifier"
 
@@ -158,12 +166,113 @@ msgid "Please enter a valid login/password"
 msgstr "Merci d'entrer un login et mot de passe valides"
 
 #: templates/page_coop_account/login.html:27
-msgid "No account ?"
-msgstr "Pas de compte ?"
-
-#: templates/page_coop_account/login.html:27
 msgid "Create one"
 msgstr "Créer un compte"
+
+#: templates/page_coop_account/login.html:29
+msgid "Lost your password ?"
+msgstr "Vous avez perdu votre mot de passe ?"
+
+#: templates/page_coop_account/login.html:29
+msgid "Get a new one"
+msgstr "Obtenez en un nouveau"
+
+#: templates/page_coop_account/password_reset_complete.html:5
+msgid "Password reset complete"
+msgstr "Réinitialisation du mot de passe terminée"
+
+#: templates/page_coop_account/password_reset_complete.html:8
+msgid "Your password has been set. You may go ahead and log in now."
+msgstr "Votre mot de passe a été enregistré. Vous pouvez vous connecter."
+
+#: templates/page_coop_account/password_reset_complete.html:10
+msgid "Log in"
+msgstr "Se connecter"
+
+#: templates/page_coop_account/password_reset_confirm.html:7
+msgid "Enter new password"
+msgstr "Entrez le nouveau mot de passe"
+
+#: templates/page_coop_account/password_reset_confirm.html:17
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+msgstr "Merci de taper votre mot de passe 2 fois"
+
+#: templates/page_coop_account/password_reset_confirm.html:23
+msgid "New password:"
+msgstr "Mot de passe:"
+
+#: templates/page_coop_account/password_reset_confirm.html:36
+msgid "Confirm password:"
+msgstr "Confimer le mot de passe:"
+
+#: templates/page_coop_account/password_reset_confirm.html:50
+msgid "Change my password"
+msgstr "Changer mon mot de passe"
+
+#: templates/page_coop_account/password_reset_confirm.html:62
+msgid "Password reset unsuccessful"
+msgstr "Changement du mot de passe échoué"
+
+#: templates/page_coop_account/password_reset_confirm.html:65
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used. Please request a new password reset."
+msgstr ""
+
+#: templates/page_coop_account/password_reset_done.html:5
+msgid "Password reset successful"
+msgstr ""
+
+#: templates/page_coop_account/password_reset_done.html:8
+msgid ""
+"We've e-mailed you instructions for setting your password to the e-mail "
+"address you submitted. You should be receiving it shortly."
+msgstr ""
+
+#: templates/page_coop_account/password_reset_email.html:2
+#, python-format
+msgid ""
+"You're receiving this e-mail because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr ""
+
+#: templates/page_coop_account/password_reset_email.html:4
+msgid "Please go to the following page and choose a new password:"
+msgstr ""
+
+#: templates/page_coop_account/password_reset_email.html:8
+msgid "Your username, in case you've forgotten:"
+msgstr ""
+
+#: templates/page_coop_account/password_reset_email.html:10
+msgid "Thanks for using our site!"
+msgstr ""
+
+#: templates/page_coop_account/password_reset_email.html:12
+#, python-format
+msgid "The %(site_name)s team"
+msgstr ""
+
+#: templates/page_coop_account/password_reset_form.html:5
+#, fuzzy
+msgid "Password reset"
+msgstr "Mot de passe"
+
+#: templates/page_coop_account/password_reset_form.html:15
+msgid ""
+"Forgotten your password? Enter your e-mail address below, and we'll e-mail "
+"instructions for setting a new one."
+msgstr ""
+
+#: templates/page_coop_account/password_reset_form.html:21
+msgid "E-mail address:"
+msgstr ""
+
+#: templates/page_coop_account/password_reset_form.html:30
+msgid "Reset my password"
+msgstr ""
 
 #: templates/page_coop_account/registration_complete.html:3
 msgid "Registration complete"
@@ -180,6 +289,9 @@ msgstr ""
 #: templates/page_coop_account/registration_form.html:8
 msgid "Create"
 msgstr "Créer"
+
+#~ msgid "No account ?"
+#~ msgstr "Pas de compte ?"
 
 #~ msgid "These last days:"
 #~ msgstr "Ces derniers jours:"

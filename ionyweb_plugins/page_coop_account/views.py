@@ -14,6 +14,8 @@ from django.contrib.gis.measure import D
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
+from django.contrib.auth.views import (password_reset, password_reset_done, password_reset_confirm, password_reset_complete)
+
 
 from registration.forms import RegistrationForm
 
@@ -406,4 +408,30 @@ def register_view(request, page_app):
                     rdict,
                     MEDIAS,
                     context_instance=RequestContext(request))
+
+def make_ionyweb_view(view, **kwargs):
+    def ionyweb_view(request, page_app, **kwargs2):
+        kwargs.update(kwargs2)
+        response = view(request, **kwargs)
+        if isinstance(response, HttpResponseRedirect):
+            return response
+        response.render()
+        return render_view('content.html', {'content': response.content}, (),
+            context_instance=RequestContext(request))
+    return ionyweb_view
+
+password_reset_view = make_ionyweb_view(password_reset,
+    template_name='page_coop_account/password_reset_form.html',
+    email_template_name='page_coop_account/password_reset_email.html',
+    post_reset_redirect='/mon-compte/p/password_reset_done/')
+
+password_reset_done_view = make_ionyweb_view(password_reset_done,
+    template_name='page_coop_account/password_reset_done.html')
+
+password_reset_confirm_view = make_ionyweb_view(password_reset_confirm,
+    template_name='page_coop_account/password_reset_confirm.html',
+    post_reset_redirect='/mon-compte/p/password_reset_complete/')
+
+password_reset_complete_view = make_ionyweb_view(password_reset_complete,
+    template_name='page_coop_account/password_reset_complete.html')
 
