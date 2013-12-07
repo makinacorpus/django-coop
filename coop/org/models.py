@@ -339,6 +339,7 @@ class BaseEngagement(URIModel):
     role_detail = models.CharField(_(u'detailed role'), blank=True, max_length=100)
     org_admin = models.BooleanField(_(u'has editor rights'), default=True)
     engagement_display = models.PositiveSmallIntegerField(_(u'Display'), choices=DISPLAY.CHOICES, default=DISPLAY.PUBLIC)
+    contacts = generic.GenericRelation('coop_local.Contact')
 
     remote_person_uri = models.URLField(_(u'remote person URI'), blank=True, null=True, max_length=255, editable=False)
     remote_person_label = models.CharField(_(u'remote person label'),
