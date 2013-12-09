@@ -35,7 +35,7 @@ if 'haystack' in settings.INSTALLED_APPS:
                 return ""
 
         def prepare(self, obj):
-            log.debug("prepare id=%s %s" % (obj.id, obj))
+            #log.debug("prepare id=%s %s" % (obj.id, obj))
             prepared_data = super(CoopIndex, self).prepare(obj)
 
             prepared_data['text'] = prepared_data['text'] + ' ' + \
