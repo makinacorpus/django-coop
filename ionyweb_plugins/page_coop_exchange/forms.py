@@ -122,14 +122,16 @@ class PartialExchangeForm(ExchangeForm):
         #self.fields['person'].label = _("Person")
         self.fields['start'].label = _("Date of publication")
 
+        self.fields['organization'].required = False
+        
         if user.is_superuser :
-            self.fields['organization'] = forms.ModelChoiceField(queryset=Organization.objects.filter(active=True, status='V', is_project=False).order_by('title'))    
+            self.fields['organization'] = forms.ModelChoiceField(queryset=Organization.objects.filter(active=True, status='V', is_project=False).order_by('title'),  required=False)    
         else:
             person = Person.objects.filter(user=user)
             if person:
                 person = person[0]
 
-            self.fields['organization'] = forms.ModelChoiceField(queryset=Organization.objects.filter(active=True, status='V', is_project=False,members=person).order_by('title'))    
+            self.fields['organization'] = forms.ModelChoiceField(queryset=Organization.objects.filter(active=True, status='V', is_project=False,members=person).order_by('title'), required=False)    
         
         
         self.fields['organization'].label = _("Organization")
