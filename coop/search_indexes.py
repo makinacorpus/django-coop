@@ -1,5 +1,6 @@
 # -*- coding:utf-8 -*-
 from django.conf import settings
+from django.template import loader, Context
 
 
 if 'haystack' in settings.INSTALLED_APPS:
@@ -16,12 +17,19 @@ if 'haystack' in settings.INSTALLED_APPS:
         Indexes = indexes.SearchIndex
 
 
+    def prepare_template(obj):
+        template_names = ['search/indexes/%s/%s_rendered.txt' % (obj._meta.app_label, obj._meta.module_name)]
+        t = loader.select_template(template_names)
+        return t.render(Context({'object': obj, 'region_slug': settings.REGION_SLUG}))
+
+
     # The main class
     class CoopIndex(Indexes):
         text = indexes.CharField(document=True, use_template=True)
         tags = indexes.MultiValueField(boost=1.2, faceted=True)
         # modified = indexes.DateField(model_attr='modified', faceted=True)
         rendered = indexes.CharField(use_template=True, indexed=False)
+        rendered.prepare_template = prepare_template
         sites = indexes.MultiValueField()
 
 
@@ -42,7 +50,6 @@ if 'haystack' in settings.INSTALLED_APPS:
             ' '.join(prepared_data['tags']) 
             #log.debug("prepare text=%s" % prepared_data['text'])
             return prepared_data
-
 
     # Used in multisites cases. The point is if a model doesn't have a 'sites' fields
     # thus add all sites in the sites field
