@@ -16,6 +16,7 @@ from .models import CoopEntry, Category, PageApp_CoopBlog
 from ionyweb.widgets import DateTimePicker, SlugWidget, DatePicker, TinyMCELargeTable
 from coop.base_models import ActivityNomenclature, TransverseTheme, Document 
 from coop_local.widgets import CustomCheckboxSelectMultiple
+from coop_tag.widgets import TagAutoSuggest
 
 class PageApp_BlogForm(ModuloModelForm):
 
@@ -47,7 +48,7 @@ class EntryForm(ModuloModelForm):
     def __init__(self, *args, **kwargs):
         super(EntryForm, self).__init__(*args, **kwargs)
         self.fields['resume'].label = _("Resume")
-
+        
 
 EDATE = Choices(
     ('',    '',  _(u'-----')),
@@ -82,6 +83,7 @@ class PageApp_CoopBlogSearchForm(ModuloModelForm):
         model = PageApp_CoopBlog
         exclude = ('title', )
 
+
 class DocumentForm(forms.ModelForm):
     class Meta:
         model = Document
@@ -92,4 +94,5 @@ class DocumentForm(forms.ModelForm):
         content = self.cleaned_data['attachment']
         if content.size > settings.MAX_UPLOAD_SIZE:
             raise forms.ValidationError(_('Please keep filesize under %(max_size)s. Current filesize %(current_size)s') % {'max_size':filesizeformat(settings.MAX_UPLOAD_SIZE), 'current_size':filesizeformat(content.size)})
-        return content          
+        return content
+        
