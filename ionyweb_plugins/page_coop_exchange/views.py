@@ -189,7 +189,7 @@ def detail_view(request, page_app, pk):
         point = e.location.point
     else:
         # then take first address of the organization
-        if e.organization.located:
+        if e.organization:
             for l in e.organization.located.all():
                 if l.location.point:
                     point = l.location.point
