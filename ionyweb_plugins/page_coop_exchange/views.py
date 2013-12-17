@@ -189,9 +189,10 @@ def detail_view(request, page_app, pk):
         point = e.location.point
     else:
         # then take first address of the organization
-        for l in e.organization.located.all():
-            if l.location.point:
-                point = l.location.point
+        if e.organization.located:
+            for l in e.organization.located.all():
+                if l.location.point:
+                    point = l.location.point
     
     rdict = {'object': page_app, 'e': e, 'media_path': settings.MEDIA_URL,'imgs': imgs, 'docs': docs, 'base_url': base_url, 'media_path': settings.MEDIA_URL, 'default_center': default_center, 'point': point, 'print_css': print_css}
     return render_view('page_coop_exchange/detail.html',
