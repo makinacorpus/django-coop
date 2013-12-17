@@ -97,9 +97,9 @@ def filter_data(request, page_app):
     # only for users associated to this group
     if request.user.is_authenticated():
         entries = CoopEntry.objects.filter(Q(status=1, blog=page_app, group_private__isnull=True)| \
-                                           Q(status=1, blog=page_app, group_private__in=request.user.groups.all)).order_by('-modification_date')
+                                           Q(status=1, blog=page_app, group_private__in=request.user.groups.all)).order_by('-publication_date')
     else:
-        entries = CoopEntry.objects.filter(Q(status=1, blog=page_app, group_private__isnull=True)).order_by('-modification_date')
+        entries = CoopEntry.objects.filter(Q(status=1, blog=page_app, group_private__isnull=True)).order_by('-publication_date')
         
     entries = entries.filter(status_moderation='V')
     
