@@ -412,16 +412,17 @@ TINYMCE_COMPRESSOR = True
 TINYMCE_SPELLCHECKER = True
 TINYMCE_FILEBROWSER = False
 TINYMCE_DEFAULT_CONFIG = {
-    'plugins': "table,spellchecker,filemanager,paste,searchreplace,inlinepopups",
+    'plugins': "table,spellchecker,paste,searchreplace,inlinepopups",
     'theme': "advanced",
     'theme_advanced_buttons1' : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,formatselect,fontsizeselect,|,forecolor,backcolor,|,bullist,numlist,|,outdent,indent,|,sub,sup,|,charmap,emotions,separator,forecolor,backcolor",
-    'theme_advanced_buttons2' : "pastetext,pasteword,selectall,|,undo,redo,|,link,unlink,anchor,image,filemanager,code,|,tablecontrols,|,fullscreen",
+    'theme_advanced_buttons2' : "pastetext,pasteword,selectall,|,undo,redo,|,link,unlink,anchor,image,code,|,tablecontrols,|,fullscreen",
     'theme_advanced_buttons3' : "",
     'relative_urls': False,
     'theme_advanced_resizing': True,
     'theme_advanced_statusbar_location': 'bottom',
     'theme_advanced_resize_horizontal': False,
     'theme_advanced_path': False,
+    'file_browser_callback': 'mce_filebrowser',
 }
 
 
