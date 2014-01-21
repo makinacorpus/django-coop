@@ -62,7 +62,7 @@ class EventAdmin(NoLookupsFkAutocompleteAdmin):
     search_fields = ('title', 'description')
     related_search_fields = {'person': ('last_name', 'first_name',
                                         'email', 'structure', 'username'),
-                            'organization': ('title', 'acronym', 'subtitle', 'description'),
+                            'organization': ('title', 'acronym',  'description'),
                             'location': ('label', 'adr1', 'adr2', 'zipcode', 'city'),
     }
     fieldsets = [['Description', {'fields': ['title', 'description',
