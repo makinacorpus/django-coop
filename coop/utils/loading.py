@@ -68,6 +68,6 @@ def load_models(base_models, local_models, main_module):
 
     #log.debug('Vanilla coop models installed : %s' % ', '.join([x[0] for x in custmodel_list]))
 
-    log.debug('*** VANILLA COOP MODELS : %s' % ', '.join(apps['base']))
-    log.debug('*** CUSTOMIZED COOP MODELS : %s' % ', '.join(apps['local']))
-    log.debug('*** ADDITIONAL MODELS : %s' % ', '.join(apps['other']))
+    #log.debug('*** VANILLA COOP MODELS : %s' % ', '.join(apps['base']))
+    #log.debug('*** CUSTOMIZED COOP MODELS : %s' % ', '.join(apps['local']))
+    #log.debug('*** ADDITIONAL MODELS : %s' % ', '.join(apps['other']))
