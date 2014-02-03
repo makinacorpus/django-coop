@@ -21,7 +21,8 @@ from urlparse import urlsplit
 import simplejson
 from django.contrib.gis.db import models as geomodels
 from mptt.models import MPTTModel, TreeForeignKey
-
+from django.core.validators import MinValueValidator
+from datetime import date
 
 class BaseActivityNomenclatureAvise(models.Model):
 
@@ -494,7 +495,8 @@ class BaseOrganization(URIModel):
         located = generic.GenericRelation('coop_local.Located')  # , related_name='located_org')
         framed = generic.GenericRelation('coop_geo.AreaLink')  # , related_name='framed_org')
 
-    birth = models.DateField(_(u'creation date'), null=True, blank=True)
+    birth = models.DateField(_(u'creation date'), null=True, blank=True,
+                             validators=[MinValueValidator(date(1900, 1, 1))])
     email = models.EmailField(_(u'global email'), blank=True, null=True)
     email_sha1 = models.CharField(_(u'email checksum'),
             max_length=250, blank=True, null=True)  # TODO : do this in Postgre
