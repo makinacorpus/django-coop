@@ -13,7 +13,6 @@ from django.conf import settings
 from coop.models import URIModel
 from sorl.thumbnail import ImageField
 from sorl.thumbnail import default
-import rdflib
 import coop
 from django.contrib.sites.models import Site
 import logging
@@ -81,12 +80,6 @@ class BaseTransverseTheme(models.Model):
 class BaseRoleCategory(models.Model):
     label = models.CharField(_(u'label'), max_length=60)
     slug = exfields.AutoSlugField(populate_from=('label'), overwrite=True)
-    uri = models.CharField(_(u'URI'), blank=True, max_length=250)
-
-    def save(self, *args, **kwargs):
-        self.save_base()
-        self.uri = u'http://thess.economie-solidaire.fr/id/role/%s/' % self.slug
-        super(BaseRoleCategory, self).save(*args, **kwargs)
 
     class Meta:
         abstract = True
@@ -115,46 +108,11 @@ class BaseRole(URIModel):
         #ordering = ['label']
         app_label = 'coop_local'
 
-    @property
-    def uri_id(self):
-        return self.slug
-
-    def uri_registry(self):
-        return u'label'
-
     def __unicode__(self):
         return unicode(self.label)
 
     def get_absolute_url(self):
         return reverse('role_detail', args=[self.slug])
-
-    # rdf stuff
-    rdf_type = settings.NS.org.Role
-    base_mapping = [
-        ('single_mapping', (settings.NS.dct.created, 'created'), 'single_reverse'),
-        ('single_mapping', (settings.NS.dct.modified, 'modified'), 'single_reverse'),
-        ('single_mapping', (settings.NS.skos.prefLabel, 'label'), 'single_reverse'),
-
-        # quand RoleCategory sera un URIModels on aura tout simpleùent
-        #('single_mapping', (settings.NS.skos.broader, 'category'), 'single_reverse'),
-
-        ('category_mapping', (settings.NS.skos.broader, 'category'), 'category_mapping_reverse'),
-    ]
-
-    def category_mapping(self, rdfPred, djF, lang=None):
-        value = getattr(self, djF)
-        if value == None:
-            return []
-        else:
-            return [(rdflib.term.URIRef(self.uri), rdfPred, rdflib.term.URIRef(value.uri))]
-
-    def category_mapping_reverse(self, g, rdfPred, djF, lang=None):
-        values = list(g.objects(rdflib.term.URIRef(self), rdfPred))
-        if values == []:
-            setattr(self, djF, None)
-        elif len(values) == 1:
-            value = values[0]
-            setattr(self, djF, models.get_model('coop_base', 'rolecategory').object.get(uri=value))
 
 
 # will apply to contact numbers and other things
@@ -181,7 +139,6 @@ COMM_MEANS = Choices(
 
 class BaseContactMedium(models.Model):  # this model will be initialized with a fixture
     label = models.CharField(_(u'label'), max_length=250)
-    uri = models.CharField(_(u'URI'), blank=True, max_length=250)
 
     def __unicode__(self):
         return self.label
@@ -243,44 +200,10 @@ class BaseContact(URIModel):
         super(BaseContact, self).save(*args, **kwargs)
 
 
-
-    # RDF stuff
-    def isOpenData(self):
-        return self.display == DISPLAY.PUBLIC
-
-    rdf_type = settings.NS.ess.ContactMedium
-
-    base_mapping = [
-        ('single_mapping', (settings.NS.dct.created, 'created'), 'single_reverse'),
-        ('single_mapping', (settings.NS.dct.modified, 'modified'), 'single_reverse'),
-        ('single_mapping', (settings.NS.rdf.value, 'content'), 'single_reverse'),
-        ('single_mapping', (settings.NS.rdfs.comment, 'details'), 'single_reverse'),
-
-        ('medium_mapping', (settings.NS.rdf.type, 'contact_medium'), 'medium_mapping_reverse'),
-    ]
-
-
-    def medium_mapping(self, rdfPred, djF, lang=None):
-        medium = getattr(self, djF)
-        rdfSubject = rdflib.URIRef(self.uri)
-        return [(rdfSubject, rdfPred, rdflib.URIRef(medium.uri))]
-
-
-    def medium_mapping_reverse(self, g, rdfPred, djF, lang=None):
-        values = list(g.objects(rdflib.term.URIRef(self.uri), rdfPred))        
-        values.remove(self.rdf_type)
-        m = models.get_model('coop_local', 'contactmedium')
-        if len(values) == 1:
-            value = values[0]
-            medium = m.objects.get(uri=str(value))
-            setattr(self, djF, medium)
-
-
 # TODO : use django-multilingual-ng to translate the label field in multiple languages
 
 class BaseOrgRelationType(models.Model):  # this model will be initialized with a fixture
     label = models.CharField(_(u'label'), max_length=250)
-    uri = models.CharField(_(u'URI'), blank=True, max_length=250)
     key_name = models.CharField(_(u'key name'), max_length=250, blank=True)
     org_to_org = models.BooleanField(_('available for org-to-org relations'), default=True)
     org_to_project = models.BooleanField(_('available for org-to-project relations'), default=True)
@@ -342,20 +265,6 @@ class BaseEngagement(URIModel):
     engagement_display = models.PositiveSmallIntegerField(_(u'Display'), choices=DISPLAY.CHOICES, default=DISPLAY.PUBLIC)
     contacts = generic.GenericRelation('coop_local.Contact')
 
-    remote_person_uri = models.URLField(_(u'remote person URI'), blank=True, null=True, max_length=255, editable=False)
-    remote_person_label = models.CharField(_(u'remote person label'),
-                                                max_length=250, blank=True, null=True,
-                                                help_text=_(u'fill this only if the person record is not available locally'))
-
-    remote_role_uri = models.URLField(_(u'URI'), blank=True, null=True, max_length=250)
-    remote_role_label = models.CharField(blank=True, null=True, max_length=100)
-
-    remote_organization_uri = models.URLField(_(u'remote organization URI'), blank=True, null=True, max_length=255, editable=False)
-    remote_organization_label = models.CharField(_(u'remote organization label'),
-                                                max_length=250, blank=True, null=True,
-                                                help_text=_(u'fill this only if the organization record is not available locally'))
-
-
     class Meta:
         abstract = True
         verbose_name = _('Engagement')
@@ -378,29 +287,6 @@ class BaseEngagement(URIModel):
 
     def label(self):
         return self.__unicode__()
-
-    # RDF stufs
-    def isOpenData(self):
-        return self.engagement_display == DISPLAY.PUBLIC
-
-    rdf_type = settings.NS.org.Membership
-    base_mapping = [
-        ('single_mapping', (settings.NS.dct.created, 'created'), 'single_reverse'),
-        ('single_mapping', (settings.NS.dct.modified, 'modified'), 'single_reverse'),
-        ('single_mapping', (settings.NS.org.member, 'person'), 'single_reverse'),
-
-        ('local_or_remote_mapping', (settings.NS.org.organization, 'organization'), 'local_or_remote_reverse'),
-        ('local_or_remote_mapping', (settings.NS.org.role, 'role'), 'local_or_remote_reverse'),
-
-        ('label_mapping', (settings.NS.rdfs.label, 'id', 'fr'), 'label_mapping_reverse'),
-
-    ]
-
-    def label_mapping(self, rdfPred, djF, lang):
-        return [(rdflib.term.URIRef(self.uri), rdfPred, rdflib.term.Literal(u'Engagement n°%s' % self.id, lang))]
-
-    def label_mapping_reverse(self, g, rdfPred, djF, lang=None):
-        pass
 
 
 class BaseOrganizationCategory(models.Model):
@@ -541,6 +427,7 @@ class BaseOrganization(URIModel):
 
     if "coop_geo" in settings.INSTALLED_APPS:
 
+        objects = models.Manager()
         geom_manager = geomodels.GeoManager()
 
         def has_location(self):
@@ -634,9 +521,6 @@ class BaseOrganization(URIModel):
             relations[reltype].append(rel.source)
         return relations
 
-    # def local_uri(self):
-    #     return ('http://dev.credis.org:8000/org/' + self.slug + '/')
-
     def main_location(self):
         if self.located.all().exists():
             return self.located.all()[0].location
@@ -691,180 +575,3 @@ class BaseOrganization(URIModel):
 
     def can_edit_organization(self, user):
         return self._can_modify_organization(user)
-
-    rdf_type = settings.NS.org.Organization
-
-    def isOpenData(self):
-        return self.active
-
-    base_mapping = [
-        ('single_mapping', (settings.NS.dct.created, 'birth'), 'single_reverse'),
-        ('single_mapping', (settings.NS.dct.modified, 'modified'), 'single_reverse'),
-        ('single_mapping', (settings.NS.legal.legalName, 'title'), 'single_reverse'),
-        ('single_mapping', (settings.NS.ov.prefAcronym, 'acronym'), 'single_reverse'),
-        ('single_mapping', (settings.NS.rdfs.comment, 'subtitle'), 'single_reverse'),
-        ('single_mapping', (settings.NS.dct.description, 'description'), 'single_reverse'),
-        ('single_mapping', (settings.NS.foaf.mbox_sha1sum, 'email_sha1'), 'single_reverse'),
-        ('single_mapping', (settings.NS.foaf.homepage, 'web'), 'single_reverse'),
-        ('single_mapping', (settings.NS.foaf.birthday, 'birth'), 'single_reverse'),
-        ('single_mapping', (settings.NS.vcard.tel, 'pref_phone'), 'single_reverse'),
-        ('single_mapping', (settings.NS.vcard.mail, 'pref_email'), 'single_reverse'),
-        ('single_mapping', (settings.NS.legal.registeredAddress, 'pref_address'), 'single_reverse'),
-        ('single_mapping', (settings.NS.skos.note, 'notes'), 'single_reverse'),
-
-        ('multi_mapping', (settings.NS.dct.subject, 'tags'), 'multi_reverse'), 
-        # FIXME : Organization objects need to have a primary key value before you can access their tags.
-
-        ('multi_mapping', (settings.NS.ess.hasContactMedium, 'contacts'), 'multi_reverse'),
-        # FIXME : 'Contact' instance expected
-
-        ('multi_mapping', (settings.NS.org.hasMember, 'members'), 'none_reverse'),
-        # FIXME : 'Organization' instance needs to have a primary key value before a many-to-many relationship can be used.
-
-
-        ('logo_mapping', (settings.NS.foaf.logo, 'logo'), 'logo_mapping_reverse'),
-        ('prefLabel_mapping', (settings.NS.rdfs.label, 'pref_label'), 'prefLabel_mapping_reverse'),
-    
-        ('location_mapping', (settings.NS.locn.location, 'located'), 'location_mapping_reverse'),
-        # FIXME : Located matching query does not exist.
-
-        ('location_mapping', (settings.NS.ess.actionArea, 'framed'), 'location_mapping_reverse'),
-        ('exchange_mapping', (settings.NS.gr.offers, settings.NS.gr.seeks), 'exchange_mapping_reverse'),
-        ('engagement_mapping', (settings.NS.org.organization, 'engagement_set'), 'engagement_mapping_reverse'),
-
-    ]
-
-
-    # We to add in the graph the coresponding Engagement
-    def engagement_mapping(self, rdfPred, djF):
-        res = []
-        for e in getattr(self, djF).all():
-            res.append((rdflib.term.URIRef(e.uri), rdfPred, rdflib.term.URIRef(self.uri)))
-        return res
-
-    def engagement_mapping_reverse(self, g, rdfPred, djF):
-        pass
-
-    def location_mapping(self, rdfPred, djF):
-        values = map(lambda x: x.location, getattr(self, djF).all())
-        return self.multi_mapping_base(values, rdfPred)
-
-    def location_mapping_reverse(self, g, rdfPred, djField, lang=None):
-        rdf_values = set(g.objects(rdflib.term.URIRef(self.uri), rdfPred))
-        # Values contient des instances de Location. 
-        # Il faut remonter soit a des Located soit a des AreaLink
-        values = map(coop.models.StaticURIModel.toDjango, rdf_values)
-        if djField == 'located':
-            m = models.get_model('coop_geo', 'located')
-            try:
-                values = set(map(lambda x: m.objects.get(object_id=self.id, location=x), values))
-            except m.DoesNotExist:
-                values = set([])
-        elif djField == 'framed':
-            m = models.get_model('coop_geo', 'arealink')
-            try:
-                values = set(map(lambda x: m.objects.get(object_id=self.id, location=x), values))
-            except m.DoesNotExist:
-                values = set([])
-        manager = getattr(self, djField)
-        old_values = set(manager.all())
-        remove = old_values.difference(values)
-        add = values.difference(old_values)
-        for v in remove:
-            manager.remove(v)
-        for v in add:
-            manager.add(v)
-
-    def logo_mapping(self, rdfPred, djF):
-        logo = getattr(self, djF)
-        if logo == None:
-            return []
-        else:
-            try:
-                rdfSubject = rdflib.term.URIRef(self.uri)
-                rdfValue = rdflib.term.URIRef('http://' + str(Site.objects.get_current().domain) + logo.url)
-                return [(rdfSubject, rdfPred, rdfValue)]
-            except ValueError:
-                return []
-
-    # TODO : télécharger le logo dans un dossier /tmp et le passer à sorl.thumbnail pour traitement
-    def logo_mapping_reverse(self, g, rdfPred, djF):
-        value = list(g.objects(rdflib.term.URIRef(self.uri), rdfPred))
-        if len(value) == 1:
-            value = value[0].toPython()
-            scheme, host, path, query, fragment = urlsplit(value)
-            sp = path.split('/')
-            setattr(self, djF, "%s:%s" % (sp[len(sp) - 2], sp[len(sp) - 1]))
-        else:
-            pass
-
-    def prefLabel_mapping(self, rdfPred, djF, lang=None):
-        label = self.label()
-        if label == None:
-            return []
-        else:
-            subject_args = {}
-            if lang:
-                subject_args['lang'] = lang
-            rdfValue = rdflib.term.Literal(unicode(label), **subject_args)
-            return[(rdflib.term.URIRef(self.uri), rdfPred, rdfValue)]
-
-    def prefLabel_mapping_reverse(self, g, rdfPred, djF, lang=None):
-        value = list(g.objects(rdflib.term.URIRef(self.uri), rdfPred))
-        title = list(g.objects(rdflib.term.URIRef(self.uri), settings.NS.legal.legalName))
-        if value == title:
-            setattr(self, 'pref_label', PREFLABEL.TITLE)
-        else:
-            setattr(self, 'pref_label', PREFLABEL.ACRO)
-
-    def exchange_mapping(self, rdfOffer, rdfSeek, lang=None):
-        from coop.exchange.models import EWAY
-        values = models.get_model('coop_local', 'exchange').objects.filter(organization=self)
-        rdfSubject = rdflib.term.URIRef(self.uri)
-        result = []
-        for value in values:
-            if value.eway == EWAY.OFFER:
-                result.append((rdfSubject, rdfOffer, rdflib.term.URIRef(value.uri)))
-            else:
-                result.append((rdfSubject, rdfSeek, rdflib.term.URIRef(value.uri)))
-        return result
-
-    def exchange_mapping_reverse(self, g, rdfOffer, rdfSeek, lang=None):
-        from coop.exchange.models import EWAY
-        values = list(g.objects(rdflib.term.URIRef(self.uri), rdfOffer))
-        exchangeModel = models.get_model('coop_local', 'exchange')
-        for value in values:
-            exists = exchangeModel.objects.filter(uri=str(value)).exists()
-            if exists:
-                ex = exchangeModel.objects.get(uri=str(value))
-                ex.eway = EWAY.OFFER
-                ex.organization = self
-                ex.save()
-        values = list(g.objects(rdflib.term.URIRef(self.uri), rdfSeek))
-        for value in values:
-            exists = exchangeModel.objects.filter(uri=str(value)).exists()
-            if exists:
-                ex = exchangeModel.objects.get(uri=str(value))
-                ex.eway = EWAY.NEED
-                ex.organization = self
-                ex.save()
-
-
-# TODO : use django-multilingual-ng to translate the label field in multiple languages
-# Copied from OrgrelationType, goal is to use the same properties, as Project are Collaborations, a RDF subclass of project
-
-# class BaseCollaborationType(models.Model):  # this model will be initialized with a fixture
-#     label = models.CharField(_(u'label'), max_length=250)
-#     uri = models.CharField(_(u'URI'), blank=True, max_length=250)
-
-#     def __unicode__(self):
-#         return self.label
-
-#     class Meta:
-#         verbose_name = _(u'Collaboration type')
-#         verbose_name_plural = _(u'Collaboration types')
-#         app_label = 'coop_local'
-
-
-
-

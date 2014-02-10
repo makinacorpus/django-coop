@@ -38,10 +38,6 @@ django-tinymce
 hg+https://bitbucket.org/ubernostrum/django-profiles
 django-push
 geohash
-rdflib
-git+git://github.com/RDFLib/rdfextras.git
-git+git://github.com/RDFLib/rdflib-jsonld.git
-git+git://github.com/RDFLib/rdflib-sparqlstore.git
 git+git://github.com/toastdriven/django-haystack.git
 
 # webid deps

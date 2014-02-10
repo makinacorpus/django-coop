@@ -1,3 +1,0 @@
-{% include "d2r/prefix.ttl"%}
-
-{% include mapping_template %}

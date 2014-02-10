@@ -10,7 +10,6 @@ from coop.models import URIModel
 from coop.utils.fields import MultiSelectField
 from django.contrib.contenttypes import generic
 import datetime
-import rdflib
 
 # if "coop_geo" in settings.INSTALLED_APPS:
 #     from coop_local.models import Area, Location
@@ -23,9 +22,6 @@ class BaseProduct(URIModel):
     organization = models.ForeignKey('coop_local.Organization', blank=True, null=True,
                                         verbose_name='publisher', related_name='products')
 
-    remote_organization_uri = models.URLField(_(u'publisher URI'), blank=True, max_length=200, editable=False)
-    remote_organization_label = models.CharField(_('organization'), blank=True, max_length=250)
-
     def __unicode__(self):
         return self.title + u' (' + self.organization.__unicode__() + u')'
 
@@ -35,18 +31,6 @@ class BaseProduct(URIModel):
         verbose_name = _(u'Product')
         verbose_name_plural = _(u'Products')
         app_label = 'coop_local'
-
-    # RDF stuff
-    rdf_type = settings.NS.schema.Product
-    base_mapping = [
-            ('single_mapping', (settings.NS.dct.created, 'created'), 'single_reverse'),
-            ('single_mapping', (settings.NS.dct.modified, 'modified'), 'single_reverse'),
-            ('single_mapping', (settings.NS.schema.name, 'title'), 'single_reverse'),
-            ('single_mapping', (settings.NS.schema.description, 'description'), 'single_reverse'),
- 
-            ('local_or_remote_mapping', (settings.NS.schema.manufacturer, 'organization'), 'local_or_remote_reverse'),
-    ]
-
 
 
 EWAY = Choices(
@@ -65,7 +49,6 @@ ETYPE = Choices(
 
 class BaseExchangeMethod(models.Model):  # this model will be initialized with a fixture
     label = models.CharField(_(u'label'), max_length=250)
-    uri = models.CharField(_(u'URI'), blank=True, max_length=250)
     etypes = MultiSelectField(_(u'applicable to'), max_length=250, null=True, blank=True, choices=ETYPE.CHOICES)
 
     def applications(self):
@@ -98,16 +81,6 @@ class BaseExchange(URIModel):
     expiration = models.DateField(_(u'expiration'), blank=True, null=True)
     slug = exfields.AutoSlugField(populate_from='title', overwrite=True)
     products = models.ManyToManyField('coop_local.Product', verbose_name=_(u'linked products'))
-
-    # Linking to remote objects
-    remote_person_uri = models.URLField(_(u'remote person URI'), blank=True, max_length=255, editable=False)
-    remote_person_label = models.CharField(_(u'remote person label'),
-                                                max_length=250, blank=True, null=True,
-                                                help_text=_(u'fill this only if the person record is not available locally'))
-    remote_organization_uri = models.URLField(_(u'remote organization URI'), blank=True, max_length=255, editable=False)
-    remote_organization_label = models.CharField(_(u'remote organization label'),
-                                                max_length=250, blank=True, null=True,
-                                                help_text=_(u'fill this only if the organization record is not available locally'))
 
     methods = models.ManyToManyField('coop_local.ExchangeMethod', verbose_name=_(u'exchange methods'))
     activity = models.ForeignKey('coop_local.ActivityNomenclature', verbose_name=_(u'activity sector'),
@@ -148,69 +121,7 @@ class BaseExchange(URIModel):
         verbose_name_plural = _(u'Exchanges')
         app_label = 'coop_local'
 
-    # title field needs a special handling. checkDirectMap does not work
-    # because two rdf property use the coop_local_organization.title field
-    # Thus we have to decide which one to use
-    def updateField_title(self, dbfieldname, graph):
-            title = list(graph.objects(rdflib.term.URIRef(self.uri), settings.NS.rdfs.label))
-            if len(title) == 1:
-                self.title = title[0]
-                print "For id %s update the field %s" % (self.id, dbfieldname)
-            else:
-                print "    The field %s cannot be updated." % dbfieldname
-
-    # RDF stuff
-    rdf_type = [settings.NS.ess.Exchange, settings.NS.gr.Offering]
-
-    base_mapping = [
-            ('single_mapping', (settings.NS.dct.created, 'created'), 'single_reverse'),
-            ('single_mapping', (settings.NS.dct.modified, 'modified'), 'single_reverse'),
-            ('single_mapping', (settings.NS.rdfs.label, 'title'), 'single_reverse'),
-            ('single_mapping', (settings.NS.dct.title, 'title'), 'single_reverse'),
-            ('single_mapping', (settings.NS.dct.description, 'description'), 'single_reverse'),
-            ('single_mapping', (settings.NS.rdfs.label, 'title'), 'single_reverse'),
-            ('single_mapping', (settings.NS.gr.availabilityEnd, 'expiration'), 'single_reverse'),
-
-            ('etype_mapping', (settings.NS.ov.category, 'etype'), 'etype_reverse_mapping'),
-
-            ('single_mapping', (settings.NS.gr.eligibleRegions, 'area'), 'single_reverse'),
-            ('single_mapping', (settings.NS.locn.location, 'location'), 'single_reverse'),
-
-            ('local_or_remote_mapping', (settings.NS.dct.creator, 'person'), 'local_or_remote_reverse'),
-            ('local_or_remote_mapping', (settings.NS.dct.publisher, 'organization'), 'local_or_remote_reverse'),
-
-
-            ('multi_mapping', (settings.NS.dct.subject, 'tags'), 'multi_reverse'),
-            ('multi_mapping', (settings.NS.ess.hasMethod, 'methods'), 'multi_reverse'),
-
-            ('permanent_mapping', (settings.NS.gr.availabilityEnd, 'permanent'), 'permanent_mapping_reverse')
-
-        ]
-
     _infinity_date = datetime.datetime(year=2050, month=12, day=31)
-
-    def permanent_mapping(self, rdfPred, djF, lang=None):
-        if getattr(self, djF):
-            return [(rdflib.term.URIRef(self.uri), rdfPred, rdflib.term.Literal(self._infinity_date))]
-        else:
-            return [(rdflib.term.URIRef(self.uri), rdfPred, rdflib.term.Literal(self.expiration))]
-
-    def etype_mapping(self, rdfPred, djF, lang=None):
-        return [(rdflib.term.URIRef(self.uri), rdfPred, rdflib.term.Literal(ETYPE.CHOICES_DICT[self.etype]))]
-
-    def etype_reverse_mapping(self, g, rdfPred, djF, lang=None):
-        value = list(g.objects(rdflib.term.URIRef(self.uri), rdfPred))
-        setattr(self, djF, ETYPE.REVERTED_CHOICES_DICT[value])
-
-    def permanent_mapping_reverse(self, g, rdfPred, djF, lang=None):
-        value = list(g.objects(rdflib.term.URIRef(self.uri), rdfPred))
-        if len(value) == 1:
-            if value[0].toPython() == self._infinity_date:
-                setattr(self, djF, True)
-                setattr(self, 'expiration', None)
-            else:
-                setattr(self, djF, False)
-                setattr(self, 'expiration', value[0].toPython())
 
 
 class BaseTransaction(models.Model):

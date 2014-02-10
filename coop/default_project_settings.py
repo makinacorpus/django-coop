@@ -189,22 +189,15 @@ INSTALLED_APPS = [
 
     # 'feincms',  # for their MPTT tree editor, not synced
     'coop',  # override feincms tree editor template
-    'coop.link',
     'coop.prefs',
     'coop.org',
     'coop.person',
     'coop.ui',
-    'coop.rdf',
 
     'coop_geo',
 
     # Keep after coop
     'mptt',
-
-    # PuSH
-    'django_rq',
-    'subhub',
-    #'django_push.subscriber',
 
     #ionyweb
     'ionyweb',
@@ -281,39 +274,6 @@ COOP_GEO_EPSG_PROJECTION = 4326  # WGS84
 
 COOP_GEO_BOUNDING_BOX = []
 COOP_GEO_REGION = LANGUAGE_CODE[:2]
-
-
-
-#
-# WebID Options
-#
-
-WEBIDAUTH_USE_COOKIE = True
-
-# The following lines set the local user creation callback.
-# All the info from the remote profile is accessible from
-# the request.webidinfo object (see documentation).
-
-
-def createusercb(req):
-    from coop.webid.utils import build_coop_user
-    return build_coop_user(req)
-
-WEBIDAUTH_CREATE_USER_CALLBACK = createusercb
-
-WEBIDPROVIDER_SKIP_PROFILE_INIT = True
-
-# Uncomment the following lines if you want to specify
-# a custom callback for the assigment of the WebIDUris.
-# If this callback is not specified, provider will look for
-# a webidprovider-webid_uri urlpattern and will try to
-# reverse it passing the webiduser instance.
-
-#def webidcb(webiduser):
-#    "avoids circular import"
-#    from coop.webid.utils import custom_webid_uri
-#    return custom_webid_uri(webiduser)
-#WEBIDPROVIDER_WEBIDURI_CALLBACK = webidcb
 
 
 LOGGING = {

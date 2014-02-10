@@ -11,8 +11,6 @@ from django.conf import settings
 
 # -- Loading base models
 
-register(LinkProperty)
-register(Link)
 register(Role)
 register(PersonCategory)
 register(Person, PersonAdmin)

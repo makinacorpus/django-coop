@@ -55,11 +55,6 @@ django-positions
 django-push
 mimeparse
 geohash
-rdflib
-git+git://github.com/RDFLib/rdfextras.git
-git+git://github.com/RDFLib/rdflib-jsonld.git
-git+git://github.com/RDFLib/rdflib-sparqlstore.git
-git+git://github.com/credis/subhub.git
 django-appconf
 
 # webid deps : not ready

@@ -173,21 +173,16 @@ jQuery(document).ready(function($) {
           log(model + ' : switching to AutocompleteFkey Input')
           $("#lookup_" + model ).show();
           $("#remote_lookup_" + model).val('').hide();
-          $("#id_remote_" + model + "_label").val('').hide();
-          $("#id_remote_" + model + "_uri").val('');
       }else if(method == 'pes'){
           log(model + ' : switching to PES autocomplete input')
           $("#lookup_" + model ).val('').hide();
           $("#id_" + model).val('');
           $("#remote_lookup_" + model).show();
-          $("#id_remote_" + model + "_label").hide();
       }else if(method == 'txt'){
           log(model + ' : switching to free text input')
           $("#lookup_" + model ).val('').hide();
           $("#id_" + model).val('');
           $("#remote_lookup_" + model).val('').hide();
-          $("#id_remote_" + model + "_label").show();
-          $("#id_remote_" + model + "_uri").val('');
       }
     }
 
@@ -212,9 +207,6 @@ jQuery(document).ready(function($) {
         // masquer la ligne d'ou on a extrait le champ label
         remlabel_row.hide();
 
-        // masquer la ligne du champ URI
-        $("#id_remote_" + model + "_uri").parent().parent().hide()
-
         fkey_row.children('.controls').children('input[type=text]').width(365)
 
         $("select#" + model + "_input_method").width(180).bind('change', function(){
@@ -227,16 +219,6 @@ jQuery(document).ready(function($) {
             log('I have a Fkey for ' + model)
             $("select#" + model + "_input_method").val('key')
             switch_input(model, 'key')
-        }else if( $("#id_remote_" + model + "_uri").val() != '' && $("#id_remote_" + model + "_label").val() != ''){
-            log(' I have a remote URI for '+model+' and a remote label too')
-            // remettre l'ancienne valeur juste pour affichage utilisateur
-            $("#remote_lookup_" + model).val( $("#id_remote_" + model + "_label").val() )
-            $("select#" + model + "_input_method").val('pes')
-            switch_input(model, 'pes')
-        }else if( $("#id_remote_" + model + "_uri").val() == '' && $("#id_remote_" + model + "_label").val() != ''){
-            log('I have only a remote label for '+ model)
-            $("select#" + model + "_input_method").val('txt')
-            switch_input(model, 'txt')
         }else{
             log('I have no previous data for '+ model)
             $("select#" + model + "_input_method").val('key')

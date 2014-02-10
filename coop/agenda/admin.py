@@ -67,9 +67,7 @@ class EventAdmin(NoLookupsFkAutocompleteAdmin):
     }
     fieldsets = [['Description', {'fields': ['title', 'description',
         'category', ('calendar', 'active'),
-        'organization', 'remote_organization_label', 'remote_organization_uri',
-        'person', 'remote_person_label', 'remote_person_uri',
-        'location', 'remote_location_label', 'remote_location_uri',
+        'organization', 'person', 'location',
       ]}],
     ]
 

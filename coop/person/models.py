@@ -11,7 +11,6 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from coop.models import URIModel
-import rdflib
 from extended_choices import Choices
 
 # if "coop_geo" in settings.INSTALLED_APPS:
@@ -130,56 +129,3 @@ class BasePerson(URIModel):
                 self.pref_email = emails[0]
 
         super(BasePerson, self).save(*args, **kwargs)
-
-
-    # RDF stuf
-    rdf_type = settings.NS.person.Person
-    base_mapping = [
-        ('single_mapping', (settings.NS.dct.created, 'created'), 'single_reverse'),
-        ('single_mapping', (settings.NS.dct.modified, 'modified'), 'single_reverse'),
-        ('single_mapping', (settings.NS.foaf.familyName, 'last_name'), 'single_reverse'),
-        ('single_mapping', (settings.NS.foaf.givenName, 'first_name'), 'single_reverse'),
-        #('single_mapping', (settings.NS.foaf.mbox_sha1sum, 'email_sha1'), 'single_reverse'),
-        ('single_mapping', (settings.NS.skos.note, 'notes'), 'single_reverse'),
- 
-        ('multi_mapping', (settings.NS.dct.subject, 'tags'), 'multi_reverse'),
-        # TODO Person objects need to have a primary key value before you can access their tags.
-
-        ('multi_mapping', (settings.NS.ess.hasContactMedium, 'contact'), 'multi_reverse'),
-
-        ('name_mapping', (settings.NS.foaf.name, 'username'), 'name_mapping_reverse'),
-        ('name_mapping', (settings.NS.rdfs.label, 'username'), 'name_mapping_reverse'),
-        ('location_mapping', (settings.NS.locn.location, 'location'), 'location_mapping_reverse'),
-        ('engagement_mapping', (settings.NS.org.member, 'engagements'), 'engagement_mapping_reverse'),
-
-    ]
-
-
-    # We to add in the graph the coresponding Engagement
-    def engagement_mapping(self, rdfPred, djF):
-        res = []
-        for e in getattr(self, djF).all():
-            res.append((rdflib.URIRef(e.uri), rdfPred, rdflib.URIRef(self.uri)))
-        return res
-
-    def engagement_mapping_reverse(self, g, rdfPred, djF):
-        pass
-
-
-    def name_mapping(self, rdfPred, djF, lang=None):
-        if (self.first_name == "" or self.first_name == None) and self.last_name == "":
-            return [(rdflib.term.URIRef(self.uri), rdfPred, rdflib.term.Literal(self.username, lang))]
-        else:
-            return [(rdflib.term.URIRef(self.uri), rdfPred, rdflib.term.Literal(u"%s %s" % (self.first_name, self.last_name), lang))]
-
-    def name_mapping_reverse(self, g, rdfP, djF, lang=None):
-        pass
-
-    def location_mapping(self, rdfPred, djF, lang=None):
-        if hasattr(self, 'location_display') and self.location_display == DISPLAY.PUBLIC:
-            if self.location:
-                return[(rdflib.term.URIRef(self.uri), rdfPred, rdflib.term.URIRef(self.location.uri))]
-        return []
-
-    def location_mapping_reverse(self, g, rdfP, djF, lang=None):
-        pass

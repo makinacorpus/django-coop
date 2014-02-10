@@ -64,11 +64,6 @@ class CustomMenu(Menu):
                         # create my map !
                         ]),
 
-                    items.MenuItem(_(u'RDF settings'), '#', icon='icon-coop icon-rdf', children=[
-                        items.MenuItem(_(u'URI redirection'), '/admin/uriredirect/'),
-                        # webid
-                        ]),
-
 
                 ]
             ),

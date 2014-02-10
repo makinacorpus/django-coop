@@ -30,11 +30,6 @@ if 'haystack' in settings.INSTALLED_APPS:
         # modified = indexes.DateField(model_attr='modified', faceted=True)
         rendered = indexes.CharField(use_template=True, indexed=False)
         rendered.prepare_template = prepare_template
-        sites = indexes.MultiValueField()
-
-
-        def prepare_sites(self, obj):
-            return [u"%s" % site.domain for site in obj.sites.all()]
 
         def prepare_tags(self, obj):
             if hasattr(obj, 'tags'):
@@ -50,13 +45,6 @@ if 'haystack' in settings.INSTALLED_APPS:
             ' '.join(prepared_data['tags']) 
             #log.debug("prepare text=%s" % prepared_data['text'])
             return prepared_data
-
-    # Used in multisites cases. The point is if a model doesn't have a 'sites' fields
-    # thus add all sites in the sites field
-    class CoopIndexWithoutSite(CoopIndex):
-
-        def prepare_sites(self, obj):
-            return [u"%s" % site.domain for site in Site.objects.all()]
 
 
 

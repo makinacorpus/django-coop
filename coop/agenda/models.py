@@ -12,7 +12,6 @@ from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from django.conf import settings
-import rdflib
 from django.template.defaultfilters import date as _date
 from datetime import datetime
 
@@ -33,32 +32,6 @@ class BaseCalendar(URIModel):
 
     def get_absolute_url(self):
         return reverse('agenda-default', args=[self.slug])
-
-    rdf_type = settings.NS.vcal.Vcalendar
-    base_mapping = [
-        ('single_mapping', (settings.NS.dct.modified, 'modified'), 'single_reverse'),
-        ('single_mapping', (settings.NS.dct.created, 'created'), 'single_reverse'),
-        ('single_mapping', (settings.NS.dct.title, 'title'), 'single_reverse'),
-        ('single_mapping', (settings.NS.dct.description, 'description'), 'single_reverse'),
-
-        ('component_mapping', (settings.NS.vcal.component, ''), 'component_mapping_reverse'),
-
-    ]
-
-    def component_mapping(self, rdfPred, djF, lang=None):
-        events = models.get_model('coop_local', 'event').objects.filter(calendar=self)
-        res = []
-        for e in events:
-            res.append((rdflib.URIRef(self.uri), rdfPred, rdflib.URIRef(e.uri)))
-        return res
-
-    def component_mapping_reverse(self, g, rdfPred, rdfEnd, lang=None):
-        values = list(g.objects(rdflib.term.URIRef(self.uri), rdfPred))
-        m = models.get_model('coop_local', 'event')
-        for v in values:
-            event, created = m.objects.get_or_create(uri=str(v))
-            event.calendar = self
-            event.save()
 
 
 class BaseEventCategory(models.Model):
@@ -106,20 +79,6 @@ class BaseEvent(URIModel):
     if "coop_geo" in settings.INSTALLED_APPS:
         # it a rather redundant with feild pref_address ... 
         location = models.ForeignKey('coop_local.Location', null=True, blank=True, verbose_name=_('location'), on_delete=models.PROTECT)
-        remote_location_uri = models.URLField(_('remote location URI'), blank=True, max_length=255)
-        remote_location_label = models.CharField(_(u'remote location label'),
-                                                max_length=250, blank=True, null=True,
-                                                help_text=_(u'fill this only if the location record is not available locally'))
-
-    # Linking to remote objects
-    remote_person_uri = models.URLField(_('remote person URI'), blank=True, max_length=255)
-    remote_person_label = models.CharField(_(u'remote person label'),
-                                                max_length=250, blank=True, null=True,
-                                                help_text=_(u'fill this only if the person record is not available locally'))
-    remote_organization_uri = models.URLField(_('remote organization URI'), blank=True, max_length=255)
-    remote_organization_label = models.CharField(_(u'remote organization label'),
-                                                max_length=250, blank=True, null=True,
-                                                help_text=_(u'fill this only if the organization record is not available locally'))
 
     class Meta:
         verbose_name = _('event')
@@ -244,122 +203,6 @@ class BaseEvent(URIModel):
         Convenience method wrapping ``Occurrence.objects.daily_occurrences``.
         """
         return get_model('coop_local', 'Occurrence').objects.daily_occurrences(dt=dt, event=self)
-
-
-    # RDF stuffs
-    # Attention il faut tenir compte des occurences.... ca complique un peu
-
-
-    rdf_type = settings.NS.vcal.Vevent
-    base_mapping = [
-        ('single_mapping', (settings.NS.dct.created, 'created'), 'single_reverse'),
-        ('single_mapping', (settings.NS.dct.modified, 'modified'), 'single_reverse'),
-        ('single_mapping', (settings.NS.vcal.summary, 'title'), 'single_reverse'),
-        ('single_mapping', (settings.NS.vcal.description, 'description'), 'single_reverse'),
- 
-        ('local_or_remote_mapping', (settings.NS.vcal.contact, 'person'), 'local_or_remote_reverse'),
-        ('local_or_remote_mapping', (settings.NS.vcal.organizer, 'organization'), 'local_or_remote_reverse'),
-        ('local_or_remote_mapping', (settings.NS.locn.location, 'location'), 'local_or_remote_reverse'),
-
-        ('multi_mapping', (settings.NS.dct.subject, 'tags'), 'multi_reverse'),
-        ('multi_mapping', (settings.NS.vcal.attendee, 'organizations'), 'multi_reverse'),
-
-        ('article_mapping', (settings.NS.dct.relation, 'linked_articles'), 'article_mapping_reverse'),
-        ('category_mapping', (settings.NS.vcal.categories, 'category'), 'category_mapping_reverse'),
-        ('occurence_mapping', (settings.NS.vcal.dtstart, settings.NS.vcal.dtend), 'occurence_mapping_reverse'),
-    ]
-
-
-    def article_mapping(self, rdfPred, djF, datatype=None, lang=None):
-        if getattr(self, djF) == None:
-            return [] 
-        else:
-            values = getattr(self, djF)
-            return self.multi_mapping_base(values, rdfPred, datatype, lang)
-
-
-    def article_mapping_reverse(self, g, rdfPred, djField, lang=None):
-        articles = list(g.objects(rdflib.term.URIRef(self.uri), rdfPred))
-        model_article = models.get_model('coop_local', 'article')
-        model_dated = models.get_model('coop_local', 'dated')
-
-        for a in articles:
-            ar = model_article.get_or_create_from_rdf(uri=str(a))
-            new_dated = model_dated(content_object=ar, event=self)
-            new_dated.save()
-
-
-    def category_mapping(self, rdfPred, djF, lang=None):
-        value = getattr(self, djF).label
-        return [(rdflib.term.URIRef(self.uri), rdfPred, rdflib.term.Literal(value))]
-
-    def category_mapping_reverse(self, g, rdfPred, djField, lang=None):
-        values = list(g.objects(rdflib.term.URIRef(self.uri), rdfPred))
-        m = models.get_model('coop_local', 'eventcategory')
-        if len(values) == 1:
-            value = values[0]
-            try:
-                djValue = m.objects.get(label=value)
-                setattr(self, djField, djValue)
-            except m.DoesNotExist:
-                pass
-
-    def occurence_mapping(self, rdfStart, rdfEnd, lang=None):
-        m = models.get_model('coop_local', 'occurrence')
-        occurrences = m.objects.filter(event=self)
-        if len(occurrences) == 1:  # ouf rien à faire
-            occurrence = occurrences[0]
-            return [(rdflib.term.URIRef(self.uri), rdfStart, rdflib.term.Literal(occurrence.start_time)),
-                    (rdflib.term.URIRef(self.uri), rdfEnd, rdflib.term.Literal(occurrence.end_time))]
-        elif len(occurrences) == 0:
-            return []
-        else:  # On gère les occurrences à minima et en trichant un peu on modifie l'uri stockée
-            i = 0
-            res = []
-            for occurrence in occurrences:
-                i += 1
-                uri = self.uri + '#%s' % i
-                res.append((rdflib.term.URIRef(uri), settings.NS.rdf.type, self.rdf_type))
-                res.append((rdflib.term.URIRef(uri), settings.NS.dct.modified, self.modified))
-                res.append((rdflib.term.URIRef(uri), rdfStart, rdflib.term.Literal(occurrence.start_time)))
-                res.append((rdflib.term.URIRef(uri), rdfEnd, rdflib.term.Literal(occurrence.end_time)))
-            return res  # en attendant meiux
-
-    def occurence_mapping_reverse(self, g, rdfStart, rdfEnd, lang=None):
-        start = list(g.objects(rdflib.term.URIRef(self.uri), rdfStart))
-        m = models.get_model('coop_local', 'occurrence')
-
-        if len(start) == 1:
-            end = list(g.objects(rdflib.term.URIRef(self.uri), rdfEnd))
-            duration = list(g.objects(rdflib.term.URIRef(self.uri), settings.NS.vcal.duration))
-            start = start[0].toPython()
-            if len(end) == 1:
-                occur, created = m.objects.get_or_create(start_time=start, end_time=end[0].toPython(), event=self)
-            elif len(duration) == 1:
-                end = start + duration[0].toPython()
-                occur, created = m.objects.get_or_create(start_time=start, end_time=end, event=self)
-        elif len(start) == 0:
-            # Il faut chercher les uri de la forme self.uri#i avec i = 1,2,3,....
-            i = 0
-            again = True
-            while again:
-                i += 1
-                uri = self.uri + "#%s" % i
-                start = list(g.objects(rdflib.term.URIRef(uri), rdfStart))
-                again = not start == []
-                if len(start) == 1:
-                    end = list(g.objects(rdflib.term.URIRef(uri), rdfEnd))
-                    duration = list(g.objects(rdflib.term.URIRef(uri), settings.NS.vcal.duration))
-                    start = start[0].toPython()
-                    if len(end) == 1:
-                        occur, created = m.objects.get_or_create(start_time=start, end_time=end[0].toPython(), event=self)
-                    elif len(duration) == 1:
-                        end = start + duration[0].toPython()
-                        occur, created = m.objects.get_or_create(start_time=start, end_time=end, event=self)
-                else:
-                    pass
-        else:
-            pass
 
 
 class BaseDated(models.Model):

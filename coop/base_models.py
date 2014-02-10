@@ -1,7 +1,6 @@
 # -*- coding:utf-8 -*-
 
 from django.conf import settings
-from coop.link.models import BaseLinkProperty, BaseLink
 from coop.person.models import BasePerson, BasePersonCategory
 from coop.exchange.models import BaseExchange, BaseProduct, BaseExchangeMethod
 from coop.org.models import (BaseOrganizationCategory, BaseOrganization,
@@ -13,7 +12,6 @@ from coop.prefs.models import BaseSitePrefs
 from coop_geo.models import Location as BaseLocation
 from coop_geo.models import Located as BaseLocated
 from coop_geo.models import Area as BaseArea
-from coop.rdf.models import DeletedURI as BaseDeletedURI
 
 
 # ---- geo
@@ -29,11 +27,6 @@ class Area(BaseArea):
     pass
 
 
-# ---- DeletedUri
-class DeletedURI(BaseDeletedURI):
-    pass
-
-
 
 if 'coop_tag' in settings.INSTALLED_APPS:
     from coop.tag.models import CoopTag, CoopTaggedItem
@@ -45,17 +38,6 @@ if 'coop_tag' in settings.INSTALLED_APPS:
 
     class TaggedItem(CoopTaggedItem):
         pass
-
-
-# ---- person
-
-
-class LinkProperty(BaseLinkProperty):
-    pass
-
-
-class Link(BaseLink):
-    pass
 
 
 # ---- person

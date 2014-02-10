@@ -3,7 +3,6 @@
 from django.conf.urls.defaults import patterns, include, url
 from django.views.generic.base import TemplateView, RedirectView
 from django.conf import settings
-from coop.feeds import UpdateFeed
 from django.contrib.sites.models import Site
 
 
@@ -16,8 +15,6 @@ urlpatterns = patterns('',
 
     url(r'^$', 'coop.views.home', name="home"),
 
-    url(r'^rdf/', include('coop.rdf.urls')),
-
     url(r'^org/', include('coop.org.urls')),
     url(r'^geojson/(?P<what>[\w-]+)/(?P<criteria>[\w-]+)/$', 'coop.views.geojson_objects'),
 
@@ -26,17 +23,8 @@ urlpatterns = patterns('',
     # a revoir
     (r'^profil/', include('coop.person.urls')),
 
-    url(r'^feed/(?P<model>[\w-]+)/$', UpdateFeed()),
-    url(r'^hub/', include('subhub.urls')),
-    url(r'^subscriber/', include('django_push.subscriber.urls')),  # Callback
-
     url(r'^robots\.txt$', TextPlainView.as_view(template_name='robots.txt')),
     url(r'^favicon\.ico$', RedirectView.as_view(url='/static/img/favicon.ico')),
-
-    # TODO:move in rdf application, and don't forget to update the EntrySite value
-    url(r'^rdfdump/(?P<model>[\w-]+).(?P<format>[\w-]+)$', 'coop.rdf.views.rdfdump'),
-
-    # url(r'^d2r/(?P<mode>[\w-]+)/mapping.ttl$', 'coop.views.d2r_mapping'),
 
     url(r'^communes/$', 'coop.views.communes'),
     url(r'^geojson/(?P<model>[\w-]+)', 'coop.views.geojson'),
