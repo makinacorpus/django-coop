@@ -76,7 +76,7 @@ class PartialEventForm(EventForm):
             self.fields['zipcode'].initial = location.zipcode
             self.fields['point'].initial = location.point
         
-        self.fields['activity'] = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.order_by('path'))
+        self.fields['activity'] = forms.ModelChoiceField(queryset=ActivityNomenclature.objects.order_by('path'), required=False)
         self.fields['activity'].label = _('Activity')
         self.fields['active'].label = _('Show on public site')
         self.fields['organization'].label = _('Organizator')

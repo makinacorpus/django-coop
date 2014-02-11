@@ -57,8 +57,8 @@ class EventAdminForm(forms.ModelForm):
 class EventAdmin(NoLookupsFkAutocompleteAdmin):
     change_form_template = 'admintools_bootstrap/tabbed_change_form.html'
     form = EventAdminForm
-    list_display = ('title', 'description', 'active')
-    list_filter = ('category', 'active')
+    list_display = ('title', 'time_str', 'description', 'active')
+    list_filter = ('status', 'category', 'active')
     search_fields = ('title', 'description')
     related_search_fields = {'person': ('last_name', 'first_name',
                                         'email', 'structure', 'username'),
@@ -72,6 +72,7 @@ class EventAdmin(NoLookupsFkAutocompleteAdmin):
         'location', 'remote_location_label', 'remote_location_uri', 'status'
       ]}],
     ]
+    ordering = ('-occurrence__start_time', )
 
     if "coop_tag" in settings.INSTALLED_APPS:
         fieldsets[0][1]['fields'].insert(2, 'tags')
@@ -81,6 +82,16 @@ class EventAdmin(NoLookupsFkAutocompleteAdmin):
 
     inlines = [OccurrenceInline]
 
+    def time_str(self, obj):
+        try:
+            occurrence = obj.occurrence_set.order_by('start_time')[0]
+        except IndexError:
+            return ''
+        return occurrence.start_time.strftime('%d/%m/%Y')
+    time_str.short_description = 'Date'
+    time_str.allow_tags = True
+    time_str.admin_order_field = 'occurrence__start_time'    
+    
 admin.site.register(Event, EventAdmin)
 admin.site.register(EventCategory, EventCategoryAdmin)
 admin.site.register(Calendar)
