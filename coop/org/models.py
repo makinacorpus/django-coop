@@ -279,9 +279,8 @@ class BaseEngagement(URIModel):
                         'org': self.organization.__unicode__()
                         }
         else:
-            return '%(person)s, %(role)s @ %(org)s' % {
+            return '%(person)s @ %(org)s' % {
                         'person': self.person.__unicode__(),
-                        'role': self.remote_role_label if self.remote_role_label else '',
                         'org': self.organization.__unicode__()
                         }
 
