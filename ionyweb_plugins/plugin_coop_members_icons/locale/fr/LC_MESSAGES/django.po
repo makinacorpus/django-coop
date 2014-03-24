@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-24 11:35+0100\n"
+"POT-Creation-Date: 2014-03-24 11:41+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,9 +18,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: __init__.py:5
+#: __init__.py:5 templates/plugin_coop_members_icons/index.html:3
 msgid "Members icons"
-msgstr "Logos des adhérents"
+msgstr "Membres"
 
 #: __init__.py:8 __init__.py:9
 msgid "List all the members icons"
@@ -34,6 +34,5 @@ msgstr ""
 msgid "CoopMembersIcons"
 msgstr ""
 
-#: templates/plugin_coop_members_icons/index.html:3
-msgid "Members"
-msgstr "Membres"
+#~ msgid "Members"
+#~ msgstr "Membres"

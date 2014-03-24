@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<h6>{% trans "Members" %}</h6>
+<h6>{% trans "Members icons" %}</h6>
 {% for m in members %}
     <div class="member_logo">
         <a href="{{ m.web|safe }}"><img src="{{ media_path}}{{ m.logo }}" alt="{{ m.title }}"></a>
