@@ -23,7 +23,7 @@
             </div>
 
             <p class="desc">
-            {{ o.event.description|truncatechars:100 }}
+            {{ o.event.description|safe|truncatechars:100 }}
             </p>
 
         </div>
