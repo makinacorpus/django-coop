@@ -346,7 +346,10 @@ def reply_view(request, page_app, exchange_id=None):
 
 def delete_view(request, page_app, exchange_id):
     # check rights    
-    can_edit, can_add = get_rights(request, Exchange.objects.get(pk=exchange_id).organization.pk)
+    if request.user.is_superuser:
+        can_edit = True
+    else:
+        can_edit, can_add = get_rights(request, Exchange.objects.get(pk=exchange_id).organization.pk)
     if can_edit :
         u = Exchange.objects.get(pk=exchange_id).delete()
         base_url = u'%s' % (page_app.get_absolute_url())
