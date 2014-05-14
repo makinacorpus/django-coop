@@ -102,8 +102,9 @@
                 <div class="block_img"></div>
             {% endif %}
 
-            <h3><a href="{{ base_url }}p/{{ entry.pk }}">{{ entry.title }}</a></h3>
             <div class="author articles_link">{{ entry.author }}</div>
+            <h3><a href="{{ base_url }}p/{{ entry.pk }}">{{ entry.title }}</a></h3>
+            
             <p class="entry-meta">
                 {{ entry.publication_date|date:"d/m/Y @ H:i" }}
             </p>
