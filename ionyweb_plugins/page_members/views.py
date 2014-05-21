@@ -220,6 +220,7 @@ def detail_view(request, page_app, pk):
     imgs = member.document_set.filter(type__name='Galerie')
     docs = member.document_set.exclude(type__name='Galerie')
     
+    pref_email = ''
     members = member.members.all()
     if members:
         if members[0].pref_email:
