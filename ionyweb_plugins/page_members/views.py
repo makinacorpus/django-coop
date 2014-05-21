@@ -220,6 +220,11 @@ def detail_view(request, page_app, pk):
     imgs = member.document_set.filter(type__name='Galerie')
     docs = member.document_set.exclude(type__name='Galerie')
     
+    members = member.members.all()
+    if members:
+        if members[0].pref_email:
+            pref_email = members[0].pref_email.content
+    
     is_project = is_obj_project(page_app)
     
     relationship_queryset = Relation.objects.filter(source=member)
@@ -256,7 +261,7 @@ def detail_view(request, page_app, pk):
             print_css = 1
 
     return render_view('page_members/detail.html',
-                       { 'member':  member, 'imgs': imgs, 'docs': docs, 'media_path': settings.MEDIA_URL , 'base_url': base_url, 'openings': openings, 'relationship_queryset': relationship_queryset, 'is_project': is_project, 'evaluate': evaluate, 'print_css': print_css, 'evaluation': evaluation},
+                       { 'member':  member, 'imgs': imgs, 'docs': docs, 'media_path': settings.MEDIA_URL , 'base_url': base_url, 'openings': openings, 'relationship_queryset': relationship_queryset, 'is_project': is_project, 'evaluate': evaluate, 'print_css': print_css, 'evaluation': evaluation, 'pref_email': pref_email},
                        MEDIAS,
                        context_instance=RequestContext(request))
 
