@@ -47,7 +47,7 @@
         <div id="tabs-events">
             <ul>
             {% for o in occs %}
-                <li><a class="highlight_gen account_link" href="{{ agenda_url }}p/event_edit/{{ o.pk }}">{% trans 'Edit' %}</a> - <a href="{{ agenda_url }}p/{{ o.pk }}">{{ o.title }}</a></li>
+                <li><a class="highlight_gen account_link" href="{{ agenda_url }}p/event_edit/{{ o.event.pk }}">{% trans 'Edit' %}</a> - <a href="{{ agenda_url }}p/{{ o.event.pk }}">{{ o.title }}</a></li>
             {% endfor %}
             </ul>
         </div>
