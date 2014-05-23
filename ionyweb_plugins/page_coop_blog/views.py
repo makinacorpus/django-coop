@@ -109,7 +109,7 @@ def filter_data(request, page_app):
         form = PageApp_CoopBlogSearchForm(request.GET)
         if form.is_valid():
             if form.cleaned_data['free_search']:
-                entries = entries.filter(Q(title__contains=form.cleaned_data['free_search']) | Q(description__contains=form.cleaned_data['free_search']) | Q(tagged_items__tag__name__in=[form.cleaned_data['free_search']]))
+                entries = entries.filter(Q(title__contains=form.cleaned_data['free_search']) | Q(resume__contains=form.cleaned_data['free_search']) | Q(tagged_items__tag__name__in=[form.cleaned_data['free_search']]))
             
             if form.cleaned_data['thematic']:
                 entries = entries.filter(Q(transverse_themes=form.cleaned_data['thematic']))
