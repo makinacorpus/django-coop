@@ -403,8 +403,18 @@ def reply_view(request, page_app, event_id=None):
 
 
 def delete_view(request, page_app, event_id):
-    # check rights    
+    # check rights
     can_edit, can_add = get_rights(request, Event.objects.get(pk=event_id).organization.pk)
+
+    if not can_edit :
+        # Check if the current user is the owner
+        person = Person.objects.filter(user=request.user)
+        if person:
+            person = person[0]
+            event = Event.objects.get(pk=event_id)
+            if event.person == person:
+                can_edit = True
+    
     if can_edit :
         u = Event.objects.get(pk=event_id).delete()
         base_url = u'%s' % (page_app.get_absolute_url())

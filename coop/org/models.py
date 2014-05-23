@@ -1100,12 +1100,11 @@ def get_rights(request, member_id=None):
                 pes_user = models.get_model('coop_local', 'person').objects.filter(user=request.user)
             except:
                 pes_user = None
-   
+            
             if pes_user :
                 if member_id:
                     try:
                         engagement = models.get_model('coop_local', 'engagement').objects.filter(person=pes_user, organization_id=member_id)
-                        print engagement
                     except:
                         engagement = None
                 else:
