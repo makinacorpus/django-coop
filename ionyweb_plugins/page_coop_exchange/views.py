@@ -356,7 +356,17 @@ def delete_view(request, page_app, exchange_id):
     if request.user.is_superuser:
         can_edit = True
     else:
-        can_edit, can_add = get_rights(request, Exchange.objects.get(pk=exchange_id).organization.pk)
+        # Check if the current user is the owner
+        person = Person.objects.filter(user=request.user)
+        if person:
+            person = person[0]
+            exchange = Exchange.objects.get(pk=exchange_id)
+            if exchange.person == person:
+                can_edit = True
+        
+        if not can_edit:
+            can_edit, can_add = get_rights(request, Exchange.objects.get(pk=exchange_id).organization.pk)
+
     if can_edit :
         u = Exchange.objects.get(pk=exchange_id).delete()
         base_url = u'%s' % (page_app.get_absolute_url())
