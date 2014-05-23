@@ -68,7 +68,7 @@ def filter_data(request, page_app, mode):
     projects = Organization.objects.filter(active=True, status='V', is_project=True).order_by("-modified")
 
     # List all offers
-    offers = Offer.objects.filter(provider__active=True)
+    #offers = Offer.objects.filter(provider__active=True)
     
     search_form_template = "page_coop_territory/search_form_territory.html"
     reset_exchanges = False
@@ -105,6 +105,8 @@ def filter_data(request, page_app, mode):
                 pk = form.cleaned_data['location_id']
                 area = get_object_or_404(Area, pk=pk)
                 radius = form.cleaned_data['location_buffer']
+                if radius == None:
+                    radius = 1
                 distance_degrees = (360 * radius) / (pi * 6378)
                 zone = area.polygon.buffer(distance_degrees)
                 ### Get the possible location in the buffer...
@@ -112,7 +114,7 @@ def filter_data(request, page_app, mode):
                 ## ...and filter according to these locations
                 exchanges = exchanges.filter(Q(location__in=possible_locations))
                 occ = occ.filter(Q(event__location__in=possible_locations))
-                offers = offers.filter(Q(provider__location__in=possible_locations))
+                #offers = offers.filter(Q(provider__location__in=possible_locations))
                 organizations = organizations.filter(Q(located__location__in=possible_locations))
                 projects = projects.filter(Q(located__location__in=possible_locations))
 
@@ -134,9 +136,9 @@ def filter_data(request, page_app, mode):
                 tab_keep2 = get_list_exch_to_keep(exchanges, activity2)
                 exchanges = exchanges.filter(Q(pk__in=tab_keep) | Q(pk__in=tab_keep2) )
                 
-                tab_keep = get_list_off_to_keep(offers, activity)
-                tab_keep2 = get_list_off_to_keep(offers, activity2)
-                offers = offers.filter(Q(pk__in=tab_keep) | Q(pk__in=tab_keep2) )
+                #tab_keep = get_list_off_to_keep(offers, activity)
+                #tab_keep2 = get_list_off_to_keep(offers, activity2)
+                #offers = offers.filter(Q(pk__in=tab_keep) | Q(pk__in=tab_keep2) )
                 
                 tab_keep = get_list_org_to_keep(projects, activity)
                 tab_keep2 = get_list_org_to_keep(projects, activity2)
@@ -154,8 +156,8 @@ def filter_data(request, page_app, mode):
                     tab_keep = get_list_exch_to_keep(exchanges, activity)
                     exchanges = exchanges.filter(pk__in=tab_keep)
                     
-                    tab_keep = get_list_off_to_keep(offers, activity)
-                    offers = offers.filter(Q(pk__in=tab_keep))
+                    #tab_keep = get_list_off_to_keep(offers, activity)
+                    #offers = offers.filter(Q(pk__in=tab_keep))
 
                     tab_keep = get_list_org_to_keep(projects, activity)
                     projects = projects.filter(pk__in=tab_keep)
@@ -171,8 +173,8 @@ def filter_data(request, page_app, mode):
                         tab_keep = get_list_exch_to_keep(exchanges, activity)
                         exchanges = exchanges.filter(pk__in=tab_keep)                        
                             
-                        tab_keep = get_list_off_to_keep(offers, activity)
-                        offers = offers.filter(Q(pk__in=tab_keep))                        
+                        #tab_keep = get_list_off_to_keep(offers, activity)
+                        #offers = offers.filter(Q(pk__in=tab_keep))                        
                         
                         tab_keep = get_list_org_to_keep(projects, activity)
                         projects = projects.filter(pk__in=tab_keep)                
@@ -194,12 +196,12 @@ def filter_data(request, page_app, mode):
                 organizations = organizations.filter(arg)
                 projects = projects.filter(arg)
                 occ = occ.filter(arg)
-                offers = offers.filter(arg_off)
+                #offers = offers.filter(arg_off)
                 
             if form.cleaned_data['free_search']:
                 exchanges = exchanges.filter(Q(title__contains=form.cleaned_data['free_search']) | Q(description__contains=form.cleaned_data['free_search']) | Q(tagged_items__tag__name__in=[form.cleaned_data['free_search']]))
                 occ = occ.filter(Q(event__title__contains=form.cleaned_data['free_search']) | Q(event__description__contains=form.cleaned_data['free_search']) | Q(event__tagged_items__tag__name__in=[form.cleaned_data['free_search']]))
-                offers = offers.filter(Q(title__contains=form.cleaned_data['free_search']) | Q(description__contains=form.cleaned_data['free_search']))
+                #offers = offers.filter(Q(title__contains=form.cleaned_data['free_search']) | Q(description__contains=form.cleaned_data['free_search']))
                 organizations = organizations.filter(Q(title__icontains=form.cleaned_data['free_search']) | Q(description__icontains=form.cleaned_data['free_search']) | Q(tagged_items__tag__name__in=[form.cleaned_data['free_search']]) | Q(category__label=form.cleaned_data['free_search']))
                 projects = projects.filter(Q(title__icontains=form.cleaned_data['free_search']) | Q(description__icontains=form.cleaned_data['free_search']) | Q(tagged_items__tag__name__in=[form.cleaned_data['free_search']]))
                     
