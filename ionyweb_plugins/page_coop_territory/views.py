@@ -103,20 +103,26 @@ def filter_data(request, page_app, mode):
             if form.cleaned_data['location']:
                 label = form.cleaned_data['location']
                 pk = form.cleaned_data['location_id']
-                area = get_object_or_404(Area, pk=pk)
-                radius = form.cleaned_data['location_buffer']
-                if radius == None:
-                    radius = 1
-                distance_degrees = (360 * radius) / (pi * 6378)
-                zone = area.polygon.buffer(distance_degrees)
-                ### Get the possible location in the buffer...
-                possible_locations = Location.objects.filter(point__intersects=zone)
-                ## ...and filter according to these locations
-                exchanges = exchanges.filter(Q(location__in=possible_locations))
-                occ = occ.filter(Q(event__location__in=possible_locations))
-                #offers = offers.filter(Q(provider__location__in=possible_locations))
-                organizations = organizations.filter(Q(located__location__in=possible_locations))
-                projects = projects.filter(Q(located__location__in=possible_locations))
+                try:
+                    area = Area.objects.get(pk=pk)
+                except Area.DoesNotExist:
+                    area = None
+    
+                if area :
+                    radius = form.cleaned_data['location_buffer']
+                    if not radius:
+                        radius = 0
+                
+                    distance_degrees = (360 * radius) / (pi * 6378)
+                    zone = area.polygon.buffer(distance_degrees)
+                    ### Get the possible location in the buffer...
+                    possible_locations = Location.objects.filter(point__intersects=zone)
+                    ## ...and filter according to these locations
+                    exchanges = exchanges.filter(Q(location__in=possible_locations))
+                    occ = occ.filter(Q(event__location__in=possible_locations))
+                    #offers = offers.filter(Q(provider__location__in=possible_locations))
+                    organizations = organizations.filter(Q(located__location__in=possible_locations))
+                    projects = projects.filter(Q(located__location__in=possible_locations))
 
             # Activity is more complicated to filter due to the fact that search field porpopose only first level activities
             # So we have to recursively get the parents activity of each objects to see if it is concerned

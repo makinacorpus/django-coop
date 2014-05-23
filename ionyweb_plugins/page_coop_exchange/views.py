@@ -101,14 +101,21 @@ def filter_data(request, page_app, mode):
             if form.cleaned_data['location']:
                 label = form.cleaned_data['location']
                 pk = form.cleaned_data['location_id']
-                area = get_object_or_404(Area, pk=pk)
-                radius = form.cleaned_data['location_buffer']
-                distance_degrees = (360 * radius) / (pi * 6378)
-                zone = area.polygon.buffer(distance_degrees)
-                 # Get the possible location in the buffer...
-                possible_locations = Location.objects.filter(point__intersects=zone)
-                # ...and filter organization according to these locations
-                exchanges = exchanges.filter(Q(location__in=possible_locations))
+                try:
+                    area = Area.objects.get(pk=pk)
+                except Area.DoesNotExist:
+                    area = None
+    
+                if area :
+                    radius = form.cleaned_data['location_buffer']
+                    if not radius:
+                        radius = 0                
+                    distance_degrees = (360 * radius) / (pi * 6378)
+                    zone = area.polygon.buffer(distance_degrees)
+                    # Get the possible location in the buffer...
+                    possible_locations = Location.objects.filter(point__intersects=zone)
+                    # ...and filter organization according to these locations
+                    exchanges = exchanges.filter(Q(location__in=possible_locations))
             
             if form.cleaned_data['method']:
                 exchanges = exchanges.filter(Q(methods__in=form.cleaned_data['method']))

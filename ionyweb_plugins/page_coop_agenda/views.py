@@ -166,14 +166,21 @@ def filter_occ(occ, form):
     if occ.exists() and form.cleaned_data['location']:
         label = form.cleaned_data['location']
         pk = form.cleaned_data['location_id']
-        area = get_object_or_404(Area, pk=pk)
-        radius = form.cleaned_data['location_buffer']
-        distance_degrees = (360 * radius) / (pi * 6378)
-        zone = area.polygon.buffer(distance_degrees)
-        # Get the possible location in the buffer...
-        possible_locations = Location.objects.filter(point__intersects=zone)
-        # ...and filter occ according to these locations
-        occ = occ.filter(Q(event__location__in=possible_locations))
+        try:
+            area = Area.objects.get(pk=pk)
+        except Area.DoesNotExist:
+            area = None
+
+        if area :
+            radius = form.cleaned_data['location_buffer']
+            if not radius:
+                radius = 0        
+            distance_degrees = (360 * radius) / (pi * 6378)
+            zone = area.polygon.buffer(distance_degrees)
+            # Get the possible location in the buffer...
+            possible_locations = Location.objects.filter(point__intersects=zone)
+            # ...and filter occ according to these locations
+            occ = occ.filter(Q(event__location__in=possible_locations))
 
         
     if occ.exists() and form.cleaned_data['organization']:

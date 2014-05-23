@@ -17,7 +17,7 @@ from .forms import PageApp_CoopServiceSearchForm
 from django.db.models import Q
 
 from django.contrib.gis import geos
-from coop_local.models import Organization, Offer, Exchange
+from coop_local.models import Organization, Offer, Exchange, Area
 from math import pi
 from django.utils.simplejson import dumps
 
@@ -96,15 +96,22 @@ def filter_data(request, page_app, mode):
             if form.cleaned_data['location']:
                 label = form.cleaned_data['location']
                 pk = form.cleaned_data['location_id']
-                area = get_object_or_404(Area, pk=pk)
-                radius = form.cleaned_data['location_buffer']
-                distance_degrees = (360 * radius) / (pi * 6378)
-                zone = area.polygon.buffer(distance_degrees)
-                ## Get the possible location in the buffer...
-                possible_locations = Location.objects.filter(point__intersects=zone)
-                # ...and filter organization according to these locations
-                exchanges = exchanges.filter(Q(location__in=possible_locations))
-                offers = offers.filter(Q(provider__location__in=possible_locations))
+                try:
+                    area = Area.objects.get(pk=pk)
+                except Area.DoesNotExist:
+                    area = None
+    
+                if area :
+                    radius = form.cleaned_data['location_buffer']
+                    if not radius:
+                        radius = 0                
+                    distance_degrees = (360 * radius) / (pi * 6378)
+                    zone = area.polygon.buffer(distance_degrees)
+                    ## Get the possible location in the buffer...
+                    possible_locations = Location.objects.filter(point__intersects=zone)
+                    # ...and filter organization according to these locations
+                    exchanges = exchanges.filter(Q(location__in=possible_locations))
+                    offers = offers.filter(Q(provider__location__in=possible_locations))
                 
             if form.cleaned_data['thematic'] or form.cleaned_data['thematic2']:
                 arg = Q()
