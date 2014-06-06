@@ -33,13 +33,14 @@
 
     <script type="text/javascript">
 
-        var cloudmadeUrl = 'http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png',
-            cloudmadeAttribution = 'Map data &copy; 2011 OpenStreetMap contributors, Imagery &copy; 2011 CloudMade',
-            cloudmade = new L.TileLayer(cloudmadeUrl, {maxZoom: 18, attribution: cloudmadeAttribution});
-
+        var mcTileUrl = 'http://{s}.livembtiles.makina-corpus.net/makina/osmlight-france/{z}/{x}/{y}.png',
+            mcTileAttribution = '&copy; Contributeurs <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a> - Makina Corpus',
+            mcTile = new L.TileLayer(mcTileUrl, {maxZoom: 14, attribution: mcTileAttribution});
+            
+            
         var centre = new L.LatLng({{ center.y }}, {{ center.x }});
         var map = new L.Map('leaflet_map');
-        map.setView(centre, 8).addLayer(cloudmade);
+        map.setView(centre, 8).addLayer(mcTile);
 
         // Add markers         
         var tab_markers = new Array();
