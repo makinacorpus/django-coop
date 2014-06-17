@@ -216,5 +216,9 @@ class ActivityNomenclatureAdmin(MPTTModelAdmin, FkAutocompleteAdmin):
     related_search_fields = {'avise': ('label',), 'parent': ('path',)}
     mptt_indent_field = 'label'
     mptt_level_indent = 50
-    list_display = ('label', )
-    search_fields = ('label', )
+    list_display = ('void', 'path', )
+    search_fields = ('path', )
+
+    def void(self, object):
+        return ""
+    void.short_description = ""

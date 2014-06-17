@@ -62,6 +62,9 @@ class BaseActivityNomenclature(MPTTModel):
         ordering = ['tree_id', 'lft'] # needed for TreeEditor
         app_label = 'coop_local'
 
+    class MPTTMeta:
+        order_insertion_by = ['label']
+
 class BaseTransverseTheme(models.Model):
 
     name = models.CharField(_(u'name'), blank=True, max_length=100)
