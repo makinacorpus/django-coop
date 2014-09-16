@@ -21,12 +21,12 @@ class EventCategoryAdmin(admin.ModelAdmin):
     list_display = ('label',)
 
 
-class OccurrenceInline(admin.StackedInline):
+class OccurrenceInline(admin.TabularInline):
     #form = SingleOccurrenceForm
     verbose_name = _(u'Date')
     verbose_name_plural = _(u'Dates')
     model = Occurrence
-    extra = 1
+    extra = 5
 
 
 class EventAdminForm(forms.ModelForm):
